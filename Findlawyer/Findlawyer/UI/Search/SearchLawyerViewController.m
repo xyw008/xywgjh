@@ -654,7 +654,13 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
      self.seletedlawyer = [self.listContend objectAtIndex:indexPath.row];
+    
+    DetailLawyerViewController *detailLawyerVC = [[DetailLawyerViewController alloc] init];
+    detailLawyerVC.lawyer = _seletedlawyer;
+    [self pushViewController:detailLawyerVC];
+    /*
     [self performSegueWithIdentifier:@"SearchtoLawyerDetail" sender:self];
+     */
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
