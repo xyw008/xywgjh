@@ -40,7 +40,6 @@
 	NSUInteger pageSize;
 	NSUInteger totalItemCount;
     
-    BOOL _isSearchStatus;
     BOOL _isShowMapView;
 }
 
@@ -49,8 +48,10 @@
 @property (assign, atomic) BOOL isLocationBasedSearch;
 @property (assign, atomic) BOOL isHaveResult;
 
+@property (nonatomic,strong) NSMutableArray *allLawyerEntityArray;
 @property (nonatomic,strong) NSMutableArray *searchResults;
-@property (nonatomic,strong) NSMutableArray * listContend;
+@property (nonatomic,strong) NSMutableArray * listContend;          // 当前展示的数据(有可能是全部也有可能是搜索出得结果)
+
 @property (strong,nonatomic) LBSLawyer * seletedlawyer;
 
 @end
@@ -93,6 +94,7 @@
     self.searchBar.delegate = self;
     [self.view addSubview:_searchBar];
     
+    self.allLawyerEntityArray = [NSMutableArray array];
     self.searchResults =[[NSMutableArray alloc]init];
     self.listContend  = [[NSMutableArray alloc]init];
     
@@ -119,7 +121,7 @@
     [self.view addSubview:self.mapView];
     
    
-    [self loadmoreData];
+    [self loadmoreDataIsSearStatus:NO];
     // [self loadLocalData];
   
 }
@@ -150,6 +152,7 @@
         BMKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
         [self.mapView setRegion:adjustedRegion animated:YES];
       //  [self.mapView setCenterCoordinate:coor];
+        
         NSArray * array = [NSArray arrayWithArray:[self.mapView annotations]];
         if (array.count >0)
         {
@@ -433,7 +436,7 @@
 // 搜索加载数据
 #pragma mark - DataModle
 
-- (void)loadmoreData
+- (void)loadmoreDataIsSearStatus:(BOOL)isSearch
 {
     // [iToast make:@"搜索中..." duration:1000000];
     [UIView showHUDWithTitle:@"搜索中..." onView:self.view tag:HUDTage];
@@ -446,7 +449,7 @@
         {
               //得到地理坐标后，进行百度LBS云搜索
             [[LBSSharedData sharedData] setCurrentCoordinate2D:location.coordinate];
-            [weakSelf loadDataWithLocation:location.coordinate radius:200000];
+            [weakSelf loadDataWithLocation:location.coordinate radius:200000 IsSearStatus:isSearch];
         }
         else
         {
@@ -465,7 +468,7 @@
 
 
  // 用地理坐标进行百度LBS云搜索
-- (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius
+- (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius IsSearStatus:(BOOL)isSearch
 {
     __weak  SearchLawyerViewController * weakSelf = self;
     [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:searchLawyer searchKye:self.searchKey index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
@@ -475,11 +478,24 @@
             
             // 将得到的数据初始化律师这个数据
             LBSLawyer *lawyer = [[LBSLawyer alloc]initWithDataModel:dataModel];
+            /*
             [weakSelf.listContend addObject:lawyer];// 将取到的数据放在数组里
+             */
+            if (!isSearch)
+            {
+                [weakSelf.allLawyerEntityArray addObject:lawyer];
+            }
+            else
+            {
+                [weakSelf.searchResults addObject:lawyer];
+            }
         }
 		else
 		{
             self.navigationItem.rightBarButtonItem.enabled = YES;
+            
+            weakSelf.listContend = !isSearch ? weakSelf.allLawyerEntityArray : weakSelf.searchResults;
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 // 排序
                 [weakSelf.listContend sortUsingComparator:^NSComparisonResult(LBSLawyer *obj1, LBSLawyer *obj2) {
@@ -514,6 +530,7 @@
     }];
 }
 
+/*
 // 以城市为单位进行搜索
 - (void)loadLocalData
 {
@@ -587,10 +604,8 @@
     //	}];
 	//currentIndex++;
 	//[[LBSSharedData sharedData] setCurrentIndex:currentIndex];
-    
-    
 }
-
+*/
 
 
 #pragma mark - UITableViewDatasource And UITableViewDelegate
@@ -601,13 +616,10 @@
     return 1;
 }
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     return self.listContend.count;
 }
-
 
 // 用自定义cell 显示每个律师数据
 - (void)configureLawyerCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -621,6 +633,7 @@
     lycell.lbSpecialArea.text = lawyer.specialArea;
     [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -686,27 +699,34 @@
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
-    self.searchBar.showsCancelButton = NO;
+    [self.searchBar setShowsCancelButton:NO animated:YES];;
     [self.searchBar resignFirstResponder];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
 {
+    searchBar.text = nil;
     [self.bgSearchView removeFromSuperview];
     [self.searchBar resignFirstResponder];
+    
+    self.listContend = _allLawyerEntityArray;
+    [_tableView reloadData]; // 从新加载列表
+    [self showMapnode];      // 从新加载地图
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    [self.searchResults removeAllObjects];
+    if (!_mapView.hidden)
+    {
+        [self sceneChange:nil];
+    }
+    
     [self.bgSearchView removeFromSuperview];
     [self.searchBar resignFirstResponder];
     self.searchKey = searchBar.text;
     
-    if (self.listContend.count >0)
-    {
-        [self.listContend removeAllObjects];
-    }
-    [self loadmoreData];
+    [self loadmoreDataIsSearStatus:YES];
 }
 
 #pragma mark -
