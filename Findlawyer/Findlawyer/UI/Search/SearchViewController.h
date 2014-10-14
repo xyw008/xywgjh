@@ -7,8 +7,9 @@
 //
 
 #import "BaseTableViewController.h"
+#import "BaseViewController.h"
 
-@interface SearchViewController : BaseTableViewController
+@interface SearchViewController : BaseViewController
 
 
 
