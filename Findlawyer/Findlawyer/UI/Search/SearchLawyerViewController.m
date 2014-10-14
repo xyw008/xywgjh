@@ -28,6 +28,7 @@
 #import <MessageUI/MessageUI.h>
 #import "ACETelPrompt.h"
 #import "Network.h"
+#import "BMKLawyerPaoPaoView.h"
 
 #define HUDTage 999
 
@@ -38,6 +39,9 @@
   	NSUInteger currentIndex;
 	NSUInteger pageSize;
 	NSUInteger totalItemCount;
+    
+    BOOL _isSearchStatus;
+    BOOL _isShowMapView;
 }
 
 @property (assign, atomic) BOOL loading;
@@ -57,7 +61,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
+        _isShowMapView = YES;
     }
     return self;
 }
@@ -72,17 +77,22 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem.title = @"列表";
+    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"列表" action:@selector(sceneChange:)];
     
     currentIndex = 0;
     pageSize = 30;
     
     self.title = self.strTitle;
-    self.searchBar.placeholder = @"请输入你要找的律师";    if (self.searchKey.length >0) {
+    
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.viewBoundsWidth, 44)];
+    self.searchBar.placeholder = @"请输入你要找的律师";
+    if (self.searchKey.length >0) {
         self.searchBar.text = self.searchKey;
     }
     
     self.searchBar.delegate = self;
+    [self.view addSubview:_searchBar];
+    
     self.searchResults =[[NSMutableArray alloc]init];
     self.listContend  = [[NSMutableArray alloc]init];
     
@@ -132,7 +142,6 @@
 // 设置地图中心位置，加载地图标注
 - (void) showMapnode
 {
-    
     if (self.listContend.count >0) {
         
         LBSLawyer *lawyer = [self.listContend objectAtIndex:0];
@@ -179,23 +188,27 @@
 }
 
 // 列表和地图模式切换
-- (IBAction)sceneChange:(id)sender {
-    
-    
-    if ([self.navigationItem.rightBarButtonItem.title isEqualToString:@"列表"]) {
-        
+- (void)sceneChange:(id)sender
+{
+    _isShowMapView = !_isShowMapView;
+
+    if (!_isShowMapView)
+    {
         self.mapView.hidden = YES;
         self.tableView.hidden = NO;
-        self.navigationItem.rightBarButtonItem.title = @"地图";
+        
+        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"地图" action:@selector(sceneChange:)];
     }
     else
     {
-        if (self.tableView) {
+        if (self.tableView)
+        {
             self.tableView.hidden = YES;
             self.mapView.hidden = NO;
+            
             [self showMapnode];
         }
-        self.navigationItem.rightBarButtonItem.title = @"列表";
+        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"列表" action:@selector(sceneChange:)];
     }
 }
 
@@ -333,6 +346,13 @@
     }
 }
 
+- (UIImage *)getMapAnnotationPointImageWithIndex:(NSInteger)index
+{
+    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",index]];
+    
+    return image;
+}
+
 #pragma mark - Message compose view controller delegate
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
@@ -360,7 +380,7 @@
     if ([annotation isKindOfClass:[LBSLawyerLocationAnnotation class]])
     {
         LBSLawyerLocationAnnotation *theAnnotation = (LBSLawyerLocationAnnotation *)annotation;
-        DLog("space is %f",theAnnotation.lawyer.distance);
+//        DLog("space is %f - %@",theAnnotation.lawyer.distance, theAnnotation.lawyer.lawfirmName);
         
         // 生成重用标示identifier
         NSString *AnnotationViewID = @"renameMark";
@@ -370,14 +390,24 @@
         
         if (newAnnotationView == nil)
         {
-            newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
+            newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:theAnnotation reuseIdentifier:AnnotationViewID];
         }
         
+        newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawyer] + 1];
+        
+        // paopao视图
+        BMKLawyerPaoPaoView *paopaoView = [BMKLawyerPaoPaoView loadFromNib];
+        
+        // 加载paopao视图的数据
+        [paopaoView loadViewData:theAnnotation.lawyer];
+        newAnnotationView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
+        
+        /*
         // 设置颜色
         ((BMKPinAnnotationView*)newAnnotationView).pinColor = BMKPinAnnotationColorPurple;
         // 从天上掉下效果
         ((BMKPinAnnotationView*)newAnnotationView).animatesDrop = NO;
-        ((BMKPinAnnotationView*)newAnnotationView).animatesDrop = YES;// 设置该标注点动画显示
+         */
         
         return newAnnotationView;
     }
@@ -441,6 +471,8 @@
     [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:searchLawyer searchKye:self.searchKey index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
         if (dataModel)
 		{
+            DLog(@"searchkey = %@  index = %d page = %d",self.searchKey,currentIndex,pageSize);
+            
             // 将得到的数据初始化律师这个数据
             LBSLawyer *lawyer = [[LBSLawyer alloc]initWithDataModel:dataModel];
             [weakSelf.listContend addObject:lawyer];// 将取到的数据放在数组里
@@ -458,6 +490,7 @@
 				totalItemCount = request.availableItemCount;
 				NSLog(@"total:%d, loaded:%d", totalItemCount, [weakSelf.listContend count]);
 				NSUInteger curCnt = [weakSelf.listContend count];
+                
 				if (curCnt >= totalItemCount)
 					_noMoreResultsAvail = YES;
 				if (request.error)
@@ -665,17 +698,16 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    
     [self.bgSearchView removeFromSuperview];
     [self.searchBar resignFirstResponder];
     self.searchKey = searchBar.text;
     
-    if (self.listContend.count >0) {
+    if (self.listContend.count >0)
+    {
         [self.listContend removeAllObjects];
     }
     [self loadmoreData];
 }
-
 
 #pragma mark -
 
@@ -710,8 +742,6 @@
      }
 
  }
-
-
 
 @end
 

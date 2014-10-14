@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>58DDDD74-508C-4D3B-BB6B-AB04CFC1964C</string>
+	<string>913E7D61-84EC-4503-830D-5B78ABEF2171</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Find lawyer</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -34,7 +34,7 @@
 		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++4580</key>
 		<string>../../../Findlawyer/Class/Nimbus/src/overview/resources/NimbusOverviewer.bundle/</string>
 		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++9572</key>
-		<string>../../..Findlawyer/Class/IQKeyBoardManager/IQKeyboardManager.bundle</string>
+		<string>../../..Findlawyer/Class/IQKeyBoardManager/IQKeyboardManager.bundle/</string>
 	</dict>
 	<key>IDESourceControlProjectRepositoryRootDictionary</key>
 	<dict>
@@ -61,7 +61,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>1AF7752217A9D9410BE5F13786533F31F062C653</string>
 			<key>IDESourceControlWCCName</key>
-			<string>findlawyer</string>
+			<string>Findlawyer</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

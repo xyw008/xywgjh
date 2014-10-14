@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 Kevin. All rights reserved.
 //
 
-#import "FLBaseViewController.h"
+#import "BaseViewController.h"
 
-@interface DetailLocationViewController : FLBaseViewController<BMKMapViewDelegate>
+@interface DetailLocationViewController : BaseViewController<BMKMapViewDelegate>
 
 @property (nonatomic,strong) BMKMapView * mapView;
 @property (nonatomic,strong) id  LBSLocation;// 地理标注信息

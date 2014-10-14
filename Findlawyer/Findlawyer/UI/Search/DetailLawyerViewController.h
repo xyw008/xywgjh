@@ -6,11 +6,11 @@
 //  Copyright (c) 2014年 Kevin. All rights reserved.
 //
 
-#import "FLBaseViewController.h"
+#import "BaseViewController.h"
 #import "ToolView.h"
 @class LBSLawyer;
 
-@interface DetailLawyerViewController : FLBaseViewController <UITableViewDataSource,UITableViewDelegate,ToolViewDelegate>
+@interface DetailLawyerViewController : BaseViewController <UITableViewDataSource,UITableViewDelegate,ToolViewDelegate>
 
 
 @property (nonatomic, strong)UIScrollView *myScrollView;// 用来添加各种界面后可以滚动

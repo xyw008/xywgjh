@@ -6,18 +6,17 @@
 //  Copyright (c) 2014年 Kevin. All rights reserved.
 //
 
-#import "FLBaseViewController.h"
+#import "BaseViewController.h"
 
-@interface SearchLawyerViewController : FLBaseViewController<UITableViewDataSource,UITableViewDelegate,BMKMapViewDelegate,UISearchBarDelegate>
+@interface SearchLawyerViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,BMKMapViewDelegate,UISearchBarDelegate>
 
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic)  UISearchBar *searchBar;
 @property (nonatomic,strong) BMKMapView * mapView;
 @property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,strong) NSString * strTitle;//VC titile
 @property (nonatomic,strong) NSString * searchKey; //搜索关键字
 @property (nonatomic,strong) UIView *bgSearchView;
 
-- (IBAction)sceneChange:(id)sender;
-
+- (void)sceneChange:(id)sender;
 
 @end

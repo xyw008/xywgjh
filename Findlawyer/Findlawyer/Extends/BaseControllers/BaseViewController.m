@@ -35,7 +35,7 @@
 {
     [super viewDidLoad];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:HEXCOLOR(0X037AFF) size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
     
     if (IOS7)
     {
@@ -71,7 +71,7 @@
     [self setPageLocalizableText];
     
     // 返回Btn
-    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"Return_btn_3.png"] highlightedImg:[UIImage imageNamed:@"Return_btn_4.png"] action:@selector(backViewController)];
+    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navBack"] highlightedImg:nil action:@selector(backViewController)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -223,6 +223,18 @@
     }
 }
 
+- (void)configureBarbuttonItemByPosition:(BarbuttonItemPosition)position barButtonTitle:(NSString *)title action:(SEL)action
+{
+    if (BarbuttonItemPosition_Left == position)
+    {
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 50, 40) tag:8888 normalImg:nil highlightedImg:nil title:title target:self action:action];
+    }
+    else
+    {
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 50, 40) tag:8888 normalImg:nil highlightedImg:nil title:title target:self action:action];
+    }
+}
+
 #pragma mark - 设置基本属性
 
 - (void)setPageLocalizableText
@@ -278,6 +290,82 @@
             
         }];
     }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)initialize
+{
+    // Do any additional setup in subClass.
+}
+
+- (void)setLeftBarbuttonTitle:(NSString *)titile
+{
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:titile
+                                                                   style:UIBarButtonItemStyleBordered
+                                                                  target:self
+                                                                  action:@selector(backToPrevious)];
+    self.navigationItem.leftBarButtonItem = backButton;
+}
+
+- (void)backToPrevious
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)showNodataIndicatorWithText:(NSString *)text image:(UIImage *)image
+{
+    [self hideNodataIndicator];
+    
+    if (text)
+    {
+        self.nodataLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 21)];
+        self.nodataLabel.backgroundColor = [UIColor clearColor];
+        self.nodataLabel.textColor = [UIColor grayColor];
+        self.nodataLabel.text = text;
+        self.nodataLabel.textAlignment = NSTextAlignmentCenter;
+        self.nodataLabel.font = [UIFont systemFontOfSize:15.0];
+        [self.view addSubview:self.nodataLabel];
+        
+        [self.nodataLabel sizeToFit];
+        CGRect frame = self.nodataLabel.frame;
+        frame.origin = CGPointMake((self.view.frame.size.width - frame.size.width)/2.0, (self.view.frame.size.height - frame.size.height)/2.0);
+        self.nodataLabel.frame = frame;
+    }
+    
+    if (image)
+    {
+        self.nodataIcon = [[UIImageView alloc] initWithImage:image];
+        [self.view addSubview:self.nodataIcon];
+        
+        [self.nodataIcon sizeToFit];
+        CGFloat offset = (text ? 21 : 0);
+        CGRect frame = self.nodataIcon.frame;
+        frame.origin = CGPointMake((self.view.frame.size.width - frame.size.width)/2.0, (self.view.frame.size.height - frame.size.height)/2.0 - offset);
+        self.nodataIcon.frame = frame;
+    }
+}
+
+- (void)hideNodataIndicator
+{
+    if (self.nodataLabel)
+    {
+        [self.nodataLabel removeFromSuperview];
+        self.nodataLabel = nil;
+    }
+    
+    if (self.nodataIcon)
+    {
+        [self.nodataIcon removeFromSuperview];
+        self.nodataIcon = nil;
+    }
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end

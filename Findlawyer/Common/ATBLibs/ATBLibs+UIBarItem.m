@@ -124,7 +124,7 @@ static NSDictionary* dictFromString(NSString* string)
 
 + (UIBarButtonItem *)barButtonItemWithFrame:(CGRect)frame tag:(int)tag normalImg:(UIImage *)normalImg highlightedImg:(UIImage *)highlightedImg title:(NSString *)title target:(id)target action:(SEL)action
 {
-    return [self barButtonItemWithFrame:frame tag:tag normalImg:normalImg highlightedImg:highlightedImg title:title titleFont:[UIFont boldSystemFontOfSize:15] titleColor:[UIColor whiteColor] target:target action:action];
+    return [self barButtonItemWithFrame:frame tag:tag normalImg:normalImg highlightedImg:highlightedImg title:title titleFont:[UIFont boldSystemFontOfSize:16] titleColor:[UIColor whiteColor] target:target action:action];
 }
 
 + (UIBarButtonItem *)barButtonItemWithFrame:(CGRect)frame tag:(int)tag normalImg:(UIImage *)normalImg highlightedImg:(UIImage *)highlightedImg title:(NSString *)title titleFont:(UIFont *)titleFont titleColor:(UIColor *)titleColor target:(id)target action:(SEL)action
