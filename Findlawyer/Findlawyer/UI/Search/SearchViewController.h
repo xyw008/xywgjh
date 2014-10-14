@@ -7,9 +7,9 @@
 //
 
 #import "BaseTableViewController.h"
-#import "FLBaseViewController.h"
+#import "BaseViewController.h"
 
-@interface SearchViewController : FLBaseViewController
+@interface SearchViewController : BaseViewController
 
 
 
