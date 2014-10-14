@@ -298,6 +298,7 @@
 		51F64BF7196FE91000BBD314 /* NSString+TimeFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64BF6196FE91000BBD314 /* NSString+TimeFormat.m */; };
 		51F64BFA196FE91D00BBD314 /* UIView+ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64BF9196FE91D00BBD314 /* UIView+ProgressHUD.m */; };
 		51F64C08196FEA6600BBD314 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B3E3991119ECCC4C0033F10B /* SearchSortView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E3991019ECCC4C0033F10B /* SearchSortView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -892,6 +893,8 @@
 		51F64BF9196FE91D00BBD314 /* UIView+ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ProgressHUD.m"; sourceTree = "<group>"; };
 		51F64C06196FEA6600BBD314 /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
 		51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
+		B3E3990F19ECCC4C0033F10B /* SearchSortView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSortView.h; sourceTree = "<group>"; };
+		B3E3991019ECCC4C0033F10B /* SearchSortView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSortView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1507,9 +1510,9 @@
 		510A416A196938E500C95DB3 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				51D4318D19C44F7600B6F48B /* ChooseTable.xib */,
 				51D4319119C4530C00B6F48B /* ChooseTable.h */,
 				51D4319219C4530C00B6F48B /* ChooseTable.m */,
+				51D4318D19C44F7600B6F48B /* ChooseTable.xib */,
 				510A416F1969393500C95DB3 /* SearchViewController.h */,
 				510A41701969393500C95DB3 /* SearchViewController.m */,
 				517C24D919D6987400331AE4 /* SearchDeatalViewController.h */,
@@ -1745,6 +1748,7 @@
 				51BEE0B8196922D700566AFF /* Common */,
 				51BEE0B9196922E400566AFF /* Network */,
 				51BEE0BA196922EC00566AFF /* Resource */,
+				B3E3990E19ECCBEA0033F10B /* View */,
 				51BEE0BB196922F400566AFF /* VC */,
 				514D4236196B9532003A0D45 /* ThirdlibsOrSDKS */,
 				51BEE08419690AC000566AFF /* Supporting Files */,
@@ -1990,6 +1994,15 @@
 			path = "NSDate-Utilities";
 			sourceTree = "<group>";
 		};
+		B3E3990E19ECCBEA0033F10B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B3E3990F19ECCC4C0033F10B /* SearchSortView.h */,
+				B3E3991019ECCC4C0033F10B /* SearchSortView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2188,6 +2201,7 @@
 				43B184EB19ECB91100B7B1F6 /* UIApplication+SSToolkitAdditions.m in Sources */,
 				43B184EE19ECB91100B7B1F6 /* UIDevice+SSToolkitAdditions.m in Sources */,
 				43B1842E19ECB74E00B7B1F6 /* FUIAlertView.m in Sources */,
+				B3E3991119ECCC4C0033F10B /* SearchSortView.m in Sources */,
 				51F64BD8196F907F00BBD314 /* Network.m in Sources */,
 				519A219319A700D800248A21 /* AFURLConnectionOperation.m in Sources */,
 				43B184F019ECB91100B7B1F6 /* UIScreen+SSToolkitAdditions.m in Sources */,
