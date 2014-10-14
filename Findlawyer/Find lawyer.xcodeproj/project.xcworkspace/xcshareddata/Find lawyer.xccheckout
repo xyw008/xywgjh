@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>58DDDD74-508C-4D3B-BB6B-AB04CFC1964C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Find lawyer</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1AF7752217A9D9410BE5F13786533F31F062C653</key>
+		<string>https://github.com/xyw008/xywgjh.git</string>
+		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++9572</key>
+		<string>svn://192.168.0.100/o2o_ios/trunk/o2o/Class/IQKeyBoardManager/IQKeyboardManager.bundle</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Findlawyer/Find lawyer.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1AF7752217A9D9410BE5F13786533F31F062C653</key>
+		<string>../../..</string>
+		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++9572</key>
+		<string>../../..Findlawyer/Class/IQKeyBoardManager/IQKeyboardManager.bundle</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++9572</key>
+		<string>svn://192.168.0.100/o2o_ios</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/xyw008/xywgjh.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1AF7752217A9D9410BE5F13786533F31F062C653</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1AF7752217A9D9410BE5F13786533F31F062C653</string>
+			<key>IDESourceControlWCCName</key>
+			<string>findlawyer</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>43ad27df-ac1c-4d72-822e-fa1f3520b629++9572</string>
+			<key>IDESourceControlWCCName</key>
+			<string>IQKeyboardManager.bundle</string>
+		</dict>
+	</array>
+</dict>
+</plist>
