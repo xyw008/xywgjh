@@ -20,16 +20,14 @@
 		1E34A1B619B7821E0035CDE6 /* defualtLawfirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E34A1B319B7821E0035CDE6 /* defualtLawfirm@2x.png */; };
 		1E979A3719B66EDA00A0F7BF /* DetailLawyerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E979A3619B66EDA00A0F7BF /* DetailLawyerHeaderView.m */; };
 		1E979A3919B66F2100A0F7BF /* DetailLawyerHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E979A3819B66F2100A0F7BF /* DetailLawyerHeaderView.xib */; };
-<<<<<<< HEAD
 		2306A42B19ED786E00D6F55F /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2306A42A19ED786E00D6F55F /* SearchView.m */; };
-=======
+
 		2B2A339219ED6A0B00DAE712 /* callHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338C19ED6A0B00DAE712 /* callHighlight@2x.png */; };
 		2B2A339319ED6A0B00DAE712 /* callNomal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338D19ED6A0B00DAE712 /* callNomal@2x.png */; };
 		2B2A339419ED6A0B00DAE712 /* consultHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338E19ED6A0B00DAE712 /* consultHighlight@2x.png */; };
 		2B2A339519ED6A0B00DAE712 /* consultNomal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338F19ED6A0B00DAE712 /* consultNomal@2x.png */; };
 		2B2A339619ED6A0B00DAE712 /* messageHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A339019ED6A0B00DAE712 /* messageHighlight@2x.png */; };
 		2B2A339719ED6A0B00DAE712 /* messageNomal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A339119ED6A0B00DAE712 /* messageNomal@2x.png */; };
->>>>>>> 55a073c34d8b121ba1bc245ef31cce5d2a6592e6
 		43B1842519ECB74E00B7B1F6 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B1839D19ECB74E00B7B1F6 /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43B1842619ECB74E00B7B1F6 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B183A019ECB74E00B7B1F6 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43B1842719ECB74E00B7B1F6 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B183A219ECB74E00B7B1F6 /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -369,17 +367,15 @@
 		1E979A3519B66EDA00A0F7BF /* DetailLawyerHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailLawyerHeaderView.h; sourceTree = "<group>"; };
 		1E979A3619B66EDA00A0F7BF /* DetailLawyerHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailLawyerHeaderView.m; sourceTree = "<group>"; };
 		1E979A3819B66F2100A0F7BF /* DetailLawyerHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailLawyerHeaderView.xib; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		2306A42919ED786E00D6F55F /* SearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchView.h; sourceTree = "<group>"; };
 		2306A42A19ED786E00D6F55F /* SearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
-=======
 		2B2A338C19ED6A0B00DAE712 /* callHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callHighlight@2x.png"; sourceTree = "<group>"; };
 		2B2A338D19ED6A0B00DAE712 /* callNomal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callNomal@2x.png"; sourceTree = "<group>"; };
 		2B2A338E19ED6A0B00DAE712 /* consultHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "consultHighlight@2x.png"; sourceTree = "<group>"; };
 		2B2A338F19ED6A0B00DAE712 /* consultNomal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "consultNomal@2x.png"; sourceTree = "<group>"; };
 		2B2A339019ED6A0B00DAE712 /* messageHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messageHighlight@2x.png"; sourceTree = "<group>"; };
 		2B2A339119ED6A0B00DAE712 /* messageNomal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messageNomal@2x.png"; sourceTree = "<group>"; };
->>>>>>> 55a073c34d8b121ba1bc245ef31cce5d2a6592e6
+
 		43B1839C19ECB74E00B7B1F6 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		43B1839D19ECB74E00B7B1F6 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		43B1839E19ECB74E00B7B1F6 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
