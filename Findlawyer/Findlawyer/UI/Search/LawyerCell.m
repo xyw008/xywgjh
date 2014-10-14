@@ -9,17 +9,33 @@
 #import "LawyerCell.h"
 #import "QSignalManager.h"
 
+@interface LawyerCell ()
+
+@property (weak, nonatomic) IBOutlet FUIButton *consultBtn;
+@property (weak, nonatomic) IBOutlet FUIButton *callBtn;
+@property (weak, nonatomic) IBOutlet FUIButton *messageBtn;
+
+@end
+
 @implementation LawyerCell
 
 - (void)awakeFromNib
 {
-    // Initialization code
+    for (UIView *btn in self.contentView.subviews)
+    {
+        if ([btn isKindOfClass:[FUIButton class]])
+        {
+            FUIButton *theBtn = (FUIButton *)btn;
+            theBtn.buttonColor = HEXCOLOR(0xEAE6E2);
+            theBtn.highlightedColor = HEXCOLOR(0x3FA6AC);
+        }
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

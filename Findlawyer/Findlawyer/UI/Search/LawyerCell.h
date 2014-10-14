@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlatUIKit.h"
 
 @interface LawyerCell : UITableViewCell
 
