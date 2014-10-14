@@ -1,0 +1,323 @@
+//
+//  InfoViewController.m
+//  Findlawyer
+//
+//  Created by macmini01 on 14-7-6.
+//  Copyright (c) 2014年 Kevin. All rights reserved.
+//
+
+#import "InfoViewController.h"
+#import "CityListViewController.h"
+#import "QSignalManager.h"
+#import "FileManager.h"
+#import <QuartzCore/QuartzCore.h>
+#import "AppDelegate.h"
+#import "SearchDeatalViewController.h"
+#import "SearchLawyerViewController.h"
+
+
+
+
+@interface InfoViewController ()
+{
+    UIView * rigitemTitleView;
+}
+@property (nonatomic,strong)UIButton  *btnCity ;
+
+@end
+
+@implementation InfoViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)initialize
+{
+    [super initialize];
+    [self addSignalObserver];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+  //   self.navigationController.navigationBar.translucent = YES;
+    
+    UIImageView *imgview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 7, 50, 30)];
+    imgview.image = [UIImage imageNamed:@"logo"];
+    self.navigationItem.titleView = imgview;
+    NSString * currentcity = [FileManager currentCity];
+
+    if (currentcity.length == 0) {
+        [self customNavigationRightBtnViewByTitle:@"深圳"];
+    }
+    else{
+        
+        [self customNavigationRightBtnViewByTitle:currentcity];
+
+    }
+
+    [self customTitleView];
+    self.tableView.tableHeaderView = self.titileview;
+
+    [self.tableView reloadData];
+
+}
+- (void)receiveSignal:(QSignal *)signal
+{
+    if ([signal.name isEqualToString:ChangeCitySignal]) {
+      //  NSDictionary * userinfo = signal.userInfo;
+      //  NSString  *city = [userinfo objectForKey:@"city"];
+        NSString  *city = [FileManager currentCity];
+        [self customNavigationRightBtnViewByTitle:city];
+    }
+}
+
+- (void)customNavigationRightBtnViewByTitle:(NSString *)titile
+{
+    if (rigitemTitleView) {
+        
+        rigitemTitleView = nil;
+       self.navigationItem.rightBarButtonItem = nil;
+    }
+    // add title label
+    UILabel *title_label = [[UILabel alloc] initWithFrame:CGRectZero];
+    title_label.text = titile;
+    title_label.textColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1];
+    title_label.backgroundColor = [UIColor clearColor];
+    title_label.font = [UIFont boldSystemFontOfSize:16.0];
+    [title_label sizeToFit];
+    // limit width
+    CGRect titleLabelFrame = title_label.frame;
+    titleLabelFrame.size.width = MIN(titleLabelFrame.size.width, 160);
+    title_label.frame = titleLabelFrame;
+    UIImageView *img_view = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btnChangecity"]];
+    [img_view sizeToFit];
+    
+//    img_view.transform = CGAffineTransformMakeRotation(1.57);
+//    
+    CGRect img_frame = img_view.frame;
+    img_frame.origin.x = CGRectGetMaxX(titleLabelFrame) + 5;
+    img_frame.origin.y = (titleLabelFrame.size.height - img_frame.size.height) / 2.0;
+    img_view.frame = img_frame;
+    
+    // add title view
+    rigitemTitleView = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                  0,
+                                                                  title_label.frame.size.width + img_view.frame.size.width,
+                                                                  MAX(title_label.frame.size.height, img_view.frame.size.height))];
+    [rigitemTitleView addSubview:title_label];
+    [rigitemTitleView addSubview:img_view];
+    
+    // add tap gesture
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedRightButtonView:)];
+    [rigitemTitleView addGestureRecognizer:tapGesture];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rigitemTitleView];
+}
+
+- (void)customTitleView
+{
+    self.titileview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 10+60 *2 +20*2+5+90+10)];
+    
+    CGRect frame;
+    CGRect lframe;
+    
+    NSString *texts[] = {@"周边律所",@"附近律师", @"我要咨询", @"待定1", @"待定2", @"待定3"};
+    
+    NSString *images[] = {@"btn_icon1", @"btn_icon2", @"btn_icon3", @"btn_icon4", @"btn_icon5", @"btn_icon5"};
+    
+    NSString *cimages[] = {@"btn_icon1", @"btn_icon2", @"btn_icon3", @"btn_icon4", @"btn_icon5", @"btn_icon5"};
+    
+    int index = 0;
+    frame.origin = CGPointMake(35, 10);
+    frame.size = CGSizeMake(60, 60);
+    
+    for ( int i = 0; i < 1; i++ ) {
+        for ( int j = 0; j < 3; j++ ) {
+            
+            UIImage *image = [UIImage imageNamed:images[index]];
+           // frame.size = image.size;
+            UIButton *button = [[UIButton alloc] initWithFrame:frame];
+            [button setImage:image forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:cimages[index]] forState:UIControlStateHighlighted];
+            [self.titileview addSubview:button];
+            button.tag = index++;
+            [button addTarget:self action:@selector(clicked:) forControlEvents:UIControlEventTouchUpInside];
+            
+            lframe = frame;
+            lframe.origin.x -= 15;
+            lframe.origin.y += frame.size.height + 2;
+            lframe.size.height = 16;
+            lframe.size.width += 30;
+            UILabel *label = [[UILabel alloc] initWithFrame:lframe];
+            label.text = texts[index-1];
+            label.font = [UIFont systemFontOfSize:13.0];
+            label.backgroundColor = [UIColor clearColor];
+            label.textColor = [UIColor blackColor];
+            label.textAlignment = NSTextAlignmentCenter;
+            [self.titileview addSubview:label];
+            frame.origin.x += 60 +35;
+        }
+        frame.origin.x = 35;
+        frame.origin.y += 60+20 ;
+    }
+ 
+    UIView *bgAD = [[UIView alloc]initWithFrame:CGRectMake(0,10+ 60 *2  +20*2+5 , self.view.frame.size.width , 90)];
+    bgAD.backgroundColor = [UIColor groupTableViewBackgroundColor];
+//    bgAD.layer.cornerRadius =8;
+//
+//    bgAD.layer.masksToBounds = YES;
+//    bgAD.layer.borderColor = [[UIColor brownColor]CGColor];
+//    bgAD.layer.borderWidth = 3;
+//    bgAD.layer.borderColor = [[UIColor colorWithRed:0.52 green:0.09 blue:0.07 alpha:1] CGColor];
+//    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(100, 15, 90, 20)];
+//    lable.textAlignment = NSTextAlignmentCenter;
+//    lable.backgroundColor = [UIColor clearColor];
+//    lable.font = [UIFont boldSystemFontOfSize:18];
+//    lable.text = @"广告页";
+//    [bgAD addSubview:lable];
+    
+    [self.titileview addSubview:bgAD];
+    
+    UIImageView *imgAD =[[UIImageView alloc]initWithFrame:CGRectMake(10, 5 , self.view.frame.size.width-10*2, 80)];
+    imgAD.image = [UIImage imageNamed:@"lawfirmSmal"];
+    imgAD.layer.masksToBounds = YES;
+   // imgAD.layer.borderWidth = 3;
+    imgAD.layer.cornerRadius = 5;
+    imgAD.layer.borderColor = [[UIColor groupTableViewBackgroundColor]CGColor];
+    [bgAD addSubview:imgAD];
+   
+    
+    
+  //  return self.titileview;SearchDetailTableView
+}
+
+- (void)clicked:(UIButton *)sender
+{
+    if (sender.tag == 0)
+    {
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+        SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
+        vc.searchKey = @"";
+        vc.strTitle = @"周边律所";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (sender.tag == 1)
+    {
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+        SearchLawyerViewController *vc = (SearchLawyerViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawyer"];
+        vc.strTitle = @"附近律师";
+        vc.searchKey = @"";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+
+    else if (sender.tag == 2)
+    {
+        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [appdelegate chooseMaintabIndex:2 andType:sender.tag];
+    }
+
+}
+
+- (void)pressedRightButtonView:(id)sender
+{
+//    CityListViewController * cityListVC = [[CityListViewController alloc]init];
+//    [self.navigationController pushViewController:cityListVC animated:YES];
+    [self performSegueWithIdentifier:@"TocityLIst" sender:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+
+}
+
+
+#pragma mark -UITableViewDelegate UITabevieDataSource
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row ==0) {
+        return 60;
+    }
+    return 35;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the nu mber of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+
+    // Return the number of rows in the section.
+    return 6;
+}
+
+
+ - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+     UITableViewCell *cell = nil;
+     if (indexPath.row == 0) {
+          cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+         
+     }
+     else{
+         cell = [tableView dequeueReusableCellWithIdentifier:@"sigleCell"];
+         if (!cell){
+              cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sigleCell"];
+          }
+         cell.textLabel.text = @"关于ios8等若干问题的重大讨论";
+         cell.textLabel.font = [UIFont systemFontOfSize:15];
+         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+     }
+   
+ 
+ // Configure the cell...
+    return cell;
+ }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self performSegueWithIdentifier:@"toInfoDetail" sender:self];
+}
+
+
+#pragma mark -
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    [self removeSignalObserver];
+}
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end
