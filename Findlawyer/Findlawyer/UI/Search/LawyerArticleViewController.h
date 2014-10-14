@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 Kevin. All rights reserved.
 //
 
-#import "FLBaseViewController.h"
+#import "BaseViewController.h"
 
-@interface LawyerArticleViewController : FLBaseViewController
+@interface LawyerArticleViewController : BaseViewController
 
 @property (nonatomic)NSInteger * articleID;
 @property (nonatomic,strong)NSDictionary * dicArticle;

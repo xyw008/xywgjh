@@ -202,8 +202,9 @@
 {
     if (sender.tag == 0)
     {
-        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-        SearchLawyerViewController *vc = (SearchLawyerViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawyer"];
+//        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+//        SearchLawyerViewController *vc = (SearchLawyerViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawyer"];
+        SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
         vc.strTitle = @"附近律师";
         vc.searchKey = @"";
         [self.navigationController pushViewController:vc animated:YES];

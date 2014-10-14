@@ -7,10 +7,10 @@
 
 // 此VC用来搜索律所，对应的LBS律所的那个表
 
-#import "FLBaseViewController.h"
+#import "BaseViewController.h"
 
 
-@interface SearchDeatalViewController : FLBaseViewController<UITableViewDataSource,UITableViewDelegate,BMKMapViewDelegate,UISearchBarDelegate>
+@interface SearchDeatalViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,BMKMapViewDelegate,UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic,strong) BMKMapView * mapView;
