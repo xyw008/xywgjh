@@ -329,6 +329,9 @@
 		51F64BFA196FE91D00BBD314 /* UIView+ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64BF9196FE91D00BBD314 /* UIView+ProgressHUD.m */; };
 		51F64C08196FEA6600BBD314 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B3E3991119ECCC4C0033F10B /* SearchSortView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E3991019ECCC4C0033F10B /* SearchSortView.m */; };
+		B3E3991619ED121F0033F10B /* Search_topBar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E3991419ED121F0033F10B /* Search_topBar_bg.png */; };
+		B3E3991819ED29390033F10B /* Search_top_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E3991719ED29390033F10B /* Search_top_arrow@2x.png */; };
+		B3E39B2219ED3D060033F10B /* NITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E39B2119ED3D060033F10B /* NITextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -956,6 +959,10 @@
 		51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
 		B3E3990F19ECCC4C0033F10B /* SearchSortView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSortView.h; sourceTree = "<group>"; };
 		B3E3991019ECCC4C0033F10B /* SearchSortView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSortView.m; sourceTree = "<group>"; };
+		B3E3991419ED121F0033F10B /* Search_topBar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search_topBar_bg.png; sourceTree = "<group>"; };
+		B3E3991719ED29390033F10B /* Search_top_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search_top_arrow@2x.png"; sourceTree = "<group>"; };
+		B3E39B2019ED3D060033F10B /* NITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITextField.h; sourceTree = "<group>"; };
+		B3E39B2119ED3D060033F10B /* NITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1050,6 +1057,8 @@
 		43B183B319ECB74E00B7B1F6 /* FlatUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				B3E39B2019ED3D060033F10B /* NITextField.h */,
+				B3E39B2119ED3D060033F10B /* NITextField.m */,
 				43B183B419ECB74E00B7B1F6 /* FlatUIKit.h */,
 				43B183B519ECB74E00B7B1F6 /* FUIAlertView.h */,
 				43B183B619ECB74E00B7B1F6 /* FUIAlertView.m */,
@@ -1920,6 +1929,7 @@
 		51BEE0BA196922EC00566AFF /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B3E3991219ED11FB0033F10B /* Search */,
 				517C24DA19D6B76300331AE4 /* btnChangecity@2x.png */,
 				510A119719D4332F002BACF5 /* navbar@2x.png */,
 				51D4318F19C4502900B6F48B /* bgChoose@2x.png */,
@@ -2102,6 +2112,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		B3E3991219ED11FB0033F10B /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				B3E3991719ED29390033F10B /* Search_top_arrow@2x.png */,
+				B3E3991419ED121F0033F10B /* Search_topBar_bg.png */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2213,6 +2232,7 @@
 				1E979A3919B66F2100A0F7BF /* DetailLawyerHeaderView.xib in Resources */,
 				43DABED019ED276800CA3FD9 /* 6@2x.png in Resources */,
 				517F0C791977E4900044D8E5 /* Default.png in Resources */,
+				B3E3991819ED29390033F10B /* Search_top_arrow@2x.png in Resources */,
 				51BEE0CC1969245800566AFF /* tab_contact_sel@2x.png in Resources */,
 				43DABECC19ED276800CA3FD9 /* 2@2x.png in Resources */,
 				5197EA7319B6FCFC000484A7 /* ToolView.xib in Resources */,
@@ -2280,6 +2300,7 @@
 				51BEE0CF1969245800566AFF /* tab_setting_nor@2x.png in Resources */,
 				51E620FF197514690087B49B /* btn_icon3@2x.png in Resources */,
 				5143CBF31979027B00D4B7C0 /* LawyerCell.xib in Resources */,
+				B3E3991619ED121F0033F10B /* Search_topBar_bg.png in Resources */,
 				517C24DB19D6B76300331AE4 /* btnChangecity@2x.png in Resources */,
 				5143CBF5197908EA00D4B7C0 /* btnconsult@2x.png in Resources */,
 				51BEE0D21969245800566AFF /* tab_tool_sel@2x.png in Resources */,
@@ -2406,6 +2427,7 @@
 				43B1861F19ECBA4800B7B1F6 /* ATJumpAnimation.m in Sources */,
 				51E620EF1974C8610087B49B /* CoreDataManage.m in Sources */,
 				519A218D19A700D800248A21 /* AFHTTPClient.m in Sources */,
+				B3E39B2219ED3D060033F10B /* NITextField.m in Sources */,
 				43B1844D19ECB74E00B7B1F6 /* IQUIWindow+Hierarchy.m in Sources */,
 				43B1861C19ECBA4800B7B1F6 /* ATBookAnimationView.m in Sources */,
 				43B185EC19ECBA4800B7B1F6 /* ATB_StrikeThroughLabel.m in Sources */,

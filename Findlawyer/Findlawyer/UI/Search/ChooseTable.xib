@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
@@ -11,22 +10,33 @@
             <rect key="frame" x="0.0" y="0.0" width="118" height="83"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bgChoose.png" translatesAutoresizingMaskIntoConstraints="NO" id="xUI-zJ-s11">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="bgChoose.png" translatesAutoresizingMaskIntoConstraints="NO" id="xUI-zJ-s11">
                     <rect key="frame" x="0.0" y="0.0" width="118" height="85"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="118" id="fPs-8q-2gG"/>
+                        <constraint firstAttribute="height" constant="85" id="gpo-7G-iyw"/>
+                    </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ze5-73-xVV">
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ze5-73-xVV">
                     <rect key="frame" x="0.0" y="48" width="118" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="118" id="3La-OH-XBE"/>
+                        <constraint firstAttribute="height" constant="30" id="ZoB-c0-4zT"/>
+                    </constraints>
                     <state key="normal" title="   律师事务所">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="chooseLawfirm:" destination="iN0-l3-epB" eventType="touchUpInside" id="Dm4-JX-9Y1"/>
-                        <action selector="chooseLawyerDone:" destination="iN0-l3-epB" eventType="touchUpInside" id="oOZ-fN-YaU"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IAf-79-Qwr">
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IAf-79-Qwr">
                     <rect key="frame" x="0.0" y="12" width="118" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="Gki-lk-dbb"/>
+                        <constraint firstAttribute="width" constant="118" id="klX-YV-TUX"/>
+                    </constraints>
                     <state key="normal" title="   律师">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -36,7 +46,11 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="IAf-79-Qwr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="FcH-vG-sdA"/>
+                <constraint firstItem="xUI-zJ-s11" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ySB-cF-CgA"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>

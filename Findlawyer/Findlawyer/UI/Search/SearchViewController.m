@@ -10,9 +10,30 @@
 #import "SearchDeatalViewController.h"
 #import "SearchLawyerViewController.h"
 #import "SearchSortView.h"
+#import "NITextField.h"
+#import "ChooseTable.h"
+
+#define kSortBetweenSpace 10
+
+typedef enum
+{
+    SelectSortType_lawyer,//律师
+    SelectSortType_lawfirm,//律所
+}SelectSortType;
 
 @interface SearchViewController ()<UISearchBarDelegate>
-
+{
+    UIButton                    *_leftBtn;//左边选中btn
+    
+    UIScrollView                *_sortBgScrollView;//两个分类的背景视图
+    SearchSortView              *_courtSortView;//法院分类
+    SearchSortView              *_specialtySortView;//擅长分类
+    
+    SelectSortType              _sortType;//选中的种类
+    
+    UIView                      *_chooseBgView;//选择背景视图
+    
+}
 
 @property (nonatomic,strong )NSArray *searchResults;
 @property (nonatomic,strong)NSArray * staticSearchList;
@@ -46,6 +67,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = ATColorRGBMake(223, 223, 223);
+    
+    _sortType = SelectSortType_lawyer;
     
     self.staticSearchList = @[@{@"Item":@"     周边律所",@"ItemValue": @[]},
                               @{@"Item":@"     附近律师",@"ItemValue": @[]},
@@ -55,11 +79,140 @@
 //    self.searchDisplayController.searchBar.delegate = self;
 //    self.searchDisplayController.searchResultsTableView.separatorColor = [UIColor clearColor];
     
-    SearchSortView *view = [[SearchSortView alloc] initWithFrame:CGRectMake(15, 0, self.view.width - 15*2, 300) title:@"法院周边" sortNameArray:@[@"深圳市中级人民法院",@"福田区法院",@"罗湖区法院",@"南山区法院",@"宝安区法院",@"更多"]];
-    [self.view addSubview:view];
-    self.view.backgroundColor = [UIColor blueColor];
+    [self initTopBar];
+    [self initScrollViewAndCourtSortView];
+    [self initSpecialtySortView];
+    
     
 };
+
+#pragma mark - init method
+- (void)initTopBar
+{
+    
+    //用于改变 searchTopBarBgView 的位置
+    UIView *hiddenView = [[UIView alloc] initWithFrame:CGRectMake(0, 22, 1, 40)];
+    hiddenView.backgroundColor = [UIColor clearColor];
+    UIBarButtonItem *hidden = [[UIBarButtonItem alloc] initWithCustomView:hiddenView];
+    self.navigationItem.leftBarButtonItem = hidden;
+    
+    //bg view
+    UIView *searchTopBarBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 250, 29)];
+    searchTopBarBgView.backgroundColor = [UIColor clearColor];
+    
+    //背景图
+    UIImageView *bgIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 250, 28.5)];
+    bgIV.image = [UIImage imageNamed:@"Search_topBar_bg"];
+    bgIV.alpha = 0.5;
+    [searchTopBarBgView addSubview:bgIV];
+    
+    CGFloat sideSpace = 10;
+    _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _leftBtn.frame = CGRectMake(sideSpace, 0, 55, 28);
+    _leftBtn.imageEdgeInsets = UIEdgeInsetsMake(3, 34, 0, -36);
+    _leftBtn.titleEdgeInsets = UIEdgeInsetsMake(2, -30, 0, 0);
+//    _leftBtn.titleLabel.font = SP16Font;
+    [_leftBtn setTitle:@"律师" forState:UIControlStateNormal];
+    [_leftBtn setImage:[UIImage imageNamed:@"Search_top_arrow"] forState:UIControlStateNormal];
+    [_leftBtn addTarget:self action:@selector(selectSearchSort:) forControlEvents:UIControlEventTouchUpInside];
+    _leftBtn.backgroundColor = [UIColor clearColor];
+    [searchTopBarBgView addSubview:_leftBtn];
+    
+    //分割线
+    UIView *segmentLine = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_leftBtn.frame), .5, .5, bgIV.height - .5)];
+    segmentLine.backgroundColor = [UIColor whiteColor];
+    [searchTopBarBgView addSubview:segmentLine];
+    
+    CGFloat tfX = CGRectGetMaxX(segmentLine.frame) + 2;
+    NITextField *searchTF = [[NITextField alloc] initWithFrame:CGRectMake(tfX, 0, searchTopBarBgView.width - tfX - sideSpace, bgIV.height)];
+    searchTF.backgroundColor = [UIColor clearColor];
+    searchTF.placeholder = @"请输入名称";
+    searchTF.placeholderTextColor = [UIColor whiteColor];
+    searchTF.placeholderFont = _leftBtn.titleLabel.font;
+    [searchTopBarBgView addSubview:searchTF];
+    
+    //右边取消按钮
+    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelBtn.frame = CGRectMake(0, 22, 40, 40);
+    cancelBtn.backgroundColor = [UIColor clearColor];
+    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelBtn addTarget:self action:@selector(cancelBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
+    cancelBtn.titleLabel.font = _leftBtn.titleLabel.font;
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithCustomView:cancelBtn];
+    self.navigationItem.rightBarButtonItem = cancelButton;
+    
+    self.navigationItem.titleView = searchTopBarBgView;
+    
+//    [self.navigationController.navigationBar setBarTintColor:ATColorRGBMake(1, 122, 255)];
+}
+
+- (void)initScrollViewAndCourtSortView
+{
+    _sortBgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+    [_sortBgScrollView keepAutoresizingInFull];
+    [self.view addSubview:_sortBgScrollView];
+    
+    _courtSortView = [[SearchSortView alloc] initWithFrame:CGRectMake(kSortBetweenSpace, 4, _sortBgScrollView.width - kSortBetweenSpace*2, 10) title:@"法院周边" sortNameArray:@[@"福田区法院",@"南山区法院",@"罗湖区法院",@"盐田区法院",@"宝安区法院",@"龙岗区法院",@"深圳市中级法院",@"市民中心",@"招商银行大厦",@"赛格广场",@"地王大厦",@"国贸大厦",@"海岸城"]];
+    _courtSortView.delegate = self;
+    [_sortBgScrollView addSubview:_courtSortView];
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_courtSortView.frame), self.view.width, 0.5)];
+    lineView.backgroundColor = ATColorRGBMake(199, 198, 198);
+    [_sortBgScrollView addSubview:lineView];
+}
+
+- (void)initSpecialtySortView
+{
+    _specialtySortView = [[SearchSortView alloc] initWithFrame:CGRectMake(kSortBetweenSpace, CGRectGetMaxY(_courtSortView.frame) + 2, _sortBgScrollView.width - kSortBetweenSpace*2, 10) title:@"擅长领域" sortNameArray:@[@"刑事辩护",@"婚姻家庭",@"民商经济",@"劳动人事",@"行政诉讼",@"知识产权",@"交通事故",@"房产建筑",@"银行保险",@"金融证券",@"并购上市",@"涉外国际",@"法律顾问"]];
+    _specialtySortView.delegate = self;
+    [_sortBgScrollView addSubview:_specialtySortView];
+    _sortBgScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(_specialtySortView.frame));
+}
+
+#pragma mark - btn touch
+/**
+ *  选择是搜索 律师or律所
+ *
+ *  @param btn touchBtn
+ */
+- (void)selectSearchSort:(UIButton*)btn
+{
+    if (!_chooseBgView) {
+        _chooseBgView = [[UIView alloc] initWithFrame:self.view.bounds];
+        _chooseBgView.backgroundColor = [UIColor clearColor];
+        ChooseTable *chooseTable = [ChooseTable loadFromNib];
+        chooseTable.frameOriginX = 30;
+        chooseTable.delegate = self;
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideChooseBgView:)];
+        [_chooseBgView addGestureRecognizer:tap];
+        [_chooseBgView addSubview:chooseTable];
+        [self.view addSubview:_chooseBgView];
+    }
+    _chooseBgView.hidden = NO;
+}
+
+/**
+ *  取消btn touch
+ *
+ *  @param btn
+ */
+- (void)cancelBtnTouch:(UIButton*)btn
+{
+    
+}
+
+/**
+ *  点击背景隐藏choose view
+ *
+ *  @param gesture 点击手势
+ */
+- (void)hideChooseBgView:(UITapGestureRecognizer*)gesture
+{
+    _chooseBgView.hidden = YES;
+}
+
+
 
 // 快速搜索周边律所 和附近律师
 - (void)ChooseSearchDetail:(UIButton *)btn
@@ -91,6 +244,51 @@
         [self performSegueWithIdentifier:@"toSearchDetailLawyer" sender:self]; // 搜索律师
     }
 }
+
+#pragma mark - SearchSortView delegate
+
+/**
+ *  点击分类按钮触发时间处理
+ *
+ *  @param view  SearchSortView
+ *  @param index 点击的index
+ */
+- (void)SearchSortView:(SearchSortView*)view didTouchIndex:(NSInteger)index
+{
+    if ([view isEqual:_courtSortView])
+    {
+        
+    }
+    else if ([view isEqual:_specialtySortView])
+    {
+        
+    }
+}
+
+#pragma mark - ChooseTable delegate
+/**
+ *  选中一个类型触发
+ *
+ *  @param view ChooseTableView
+ *  @param index selectIndex
+ */
+- (void)ChooseTable:(ChooseTable*)view didSelectIndex:(NSInteger)index
+{
+    if (index > 1) {
+        view.hidden = YES;
+        return;
+    }
+    //改变选中的类型
+    _sortType = index;
+    [_leftBtn setTitle:index==0?@"律师":@"律所" forState:UIControlStateNormal];
+    _chooseBgView.hidden = YES;
+    
+    //改变scrollView contentSize 和 隐藏_specialtySortView
+    CGFloat maxY = index==0 ? CGRectGetMaxY(_specialtySortView.frame):CGRectGetMaxY(_courtSortView.frame);
+    _sortBgScrollView.contentSize = CGSizeMake(0, maxY);
+    _specialtySortView.hidden = index==0?NO:YES;
+}
+
 
 #pragma mark - UITableViewDatasource And UITableViewDelegate
 

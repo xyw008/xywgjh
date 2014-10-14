@@ -49,36 +49,40 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor whiteColor];
-        _tilteLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, 30)];
+        self.backgroundColor = [UIColor clearColor];
+        _tilteLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, self.width, 18)];
         _tilteLB.backgroundColor = [UIColor clearColor];
-        _tilteLB.font = SP18Font;
         _tilteLB.textColor = ATColorRGBMake(97, 97, 97);
         _tilteLB.text = title;
         [self addSubview:_tilteLB];
         
         CGFloat startX = 0;
-        CGFloat startY = CGRectGetMaxY(_tilteLB.frame) + 10;
+        CGFloat startY = CGRectGetMaxY(_tilteLB.frame) + 6;
         CGFloat defaultBtnWidth = self.width/3;
-        CGFloat defaultBtnHeight = 40;
+        CGFloat defaultBtnHeight = 35;
+        CGFloat defaultBtnLineWidth = .5;
         for (int i=0; i<array.count; i++)
         {
             SortBtn *btn = [[SortBtn alloc] initWithFrame:CGRectMake(startX, startY, defaultBtnWidth, defaultBtnHeight)];
-            btn.backgroundColor = kBtnDafaultBgColor;
             btn.tag = kSortBtnStartTag + i;
-            [btn setTitle:[array objectAtIndex:i] forState:UIControlStateNormal];
+            btn.backgroundColor = kBtnDafaultBgColor;
+            btn.layer.borderColor = ATColorRGBMake(224, 224, 224).CGColor;
+            btn.layer.borderWidth = defaultBtnLineWidth;
             btn.titleLabel.font = SP15Font;
-            btn.titleLabel.textColor = [UIColor blackColor];
+            btn.titleLabel.lineBreakMode = 0;
+            btn.titleLabel.textAlignment = NSTextAlignmentCenter;
+            [btn setTitle:[array objectAtIndex:i] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(sortBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
-            startX += defaultBtnWidth;
-            if (0 == (i+1)%3)
+            startX += defaultBtnWidth - defaultBtnLineWidth;
+            if (0 == (i+1)%3 && i != array.count - 1)
             {
-                startY += defaultBtnHeight;
+                startY += defaultBtnHeight - defaultBtnLineWidth;
                 startX = 0;
             }
         }
-        self.height = startY + defaultBtnHeight + 10;
+        self.height = startY + defaultBtnHeight + 8;
     }
     return self;
 }
