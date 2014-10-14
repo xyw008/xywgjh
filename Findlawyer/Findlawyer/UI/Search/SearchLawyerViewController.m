@@ -28,6 +28,7 @@
 #import <MessageUI/MessageUI.h>
 #import "ACETelPrompt.h"
 #import "Network.h"
+#import "BMKLawyerPaoPaoView.h"
 
 #define HUDTage 999
 
@@ -333,6 +334,13 @@
     }
 }
 
+- (UIImage *)getMapAnnotationPointImageWithIndex:(NSInteger)index
+{
+    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",index]];
+    
+    return image;
+}
+
 #pragma mark - Message compose view controller delegate
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
@@ -360,7 +368,7 @@
     if ([annotation isKindOfClass:[LBSLawyerLocationAnnotation class]])
     {
         LBSLawyerLocationAnnotation *theAnnotation = (LBSLawyerLocationAnnotation *)annotation;
-        DLog("space is %f",theAnnotation.lawyer.distance);
+//        DLog("space is %f - %@",theAnnotation.lawyer.distance, theAnnotation.lawyer.lawfirmName);
         
         // 生成重用标示identifier
         NSString *AnnotationViewID = @"renameMark";
@@ -370,14 +378,24 @@
         
         if (newAnnotationView == nil)
         {
-            newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
+            newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:theAnnotation reuseIdentifier:AnnotationViewID];
         }
         
+        newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawyer] + 1];
+        
+        // paopao视图
+        BMKLawyerPaoPaoView *paopaoView = [BMKLawyerPaoPaoView loadFromNib];
+        
+        // 加载paopao视图的数据
+        [paopaoView loadViewData:theAnnotation.lawyer];
+        newAnnotationView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
+        
+        /*
         // 设置颜色
         ((BMKPinAnnotationView*)newAnnotationView).pinColor = BMKPinAnnotationColorPurple;
         // 从天上掉下效果
         ((BMKPinAnnotationView*)newAnnotationView).animatesDrop = NO;
-        ((BMKPinAnnotationView*)newAnnotationView).animatesDrop = YES;// 设置该标注点动画显示
+         */
         
         return newAnnotationView;
     }

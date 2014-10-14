@@ -23,7 +23,7 @@
 @property (strong, nonatomic) NSString *city;                  // 律师城市
 @property (strong, nonatomic) NSString *certificateNo;         // 执业证号
 @property (strong, nonatomic) NSString *specialArea;           // 专业领域
-@property (strong, nonatomic) NSString *lawfirmName;           // 专业领域
+@property (strong, nonatomic) NSString *lawfirmName;           // 律所名称
 @property (strong, nonatomic) NSNumber *isPhoto;
 @property (strong, nonatomic) NSString *tel;                // 电话
 @property (strong, nonatomic) NSString *fax;                // 律所传真
