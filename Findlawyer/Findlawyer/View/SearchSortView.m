@@ -89,8 +89,8 @@
 
 - (void)sortBtnTouch:(SortBtn*)btn
 {
-    if ([_delegate respondsToSelector:@selector(SearchSortView:didTouchIndex:)]) {
-        [_delegate SearchSortView:self didTouchIndex:btn.tag - kSortBtnStartTag];
+    if ([_delegate respondsToSelector:@selector(SearchSortView:didTouchIndex:didBtnTitle:)]) {
+        [_delegate SearchSortView:self didTouchIndex:btn.tag - kSortBtnStartTag didBtnTitle:btn.titleLabel.text];
     }
     
 }

@@ -21,7 +21,7 @@ typedef enum
     SelectSortType_lawfirm,//律所
 }SelectSortType;
 
-@interface SearchViewController ()<UISearchBarDelegate>
+@interface SearchViewController ()<UISearchBarDelegate,UITextFieldDelegate>
 {
     UIButton                    *_leftBtn;//左边选中btn
     
@@ -129,6 +129,7 @@ typedef enum
     searchTF.placeholder = @"请输入名称";
     searchTF.placeholderTextColor = [UIColor whiteColor];
     searchTF.placeholderFont = _leftBtn.titleLabel.font;
+    searchTF.returnKeyType = UIReturnKeySearch;
     [searchTopBarBgView addSubview:searchTF];
     
     //右边取消按钮
@@ -232,6 +233,7 @@ typedef enum
         [self pushToSeachDetailView];
     }
 }
+
 // 搜索具体搜索项
 - (void)pushToSeachDetailView
 {
@@ -253,15 +255,15 @@ typedef enum
  *  @param view  SearchSortView
  *  @param index 点击的index
  */
-- (void)SearchSortView:(SearchSortView*)view didTouchIndex:(NSInteger)index
+- (void)SearchSortView:(SearchSortView*)view didTouchIndex:(NSInteger)index didBtnTitle:(NSString*)title
 {
     if ([view isEqual:_courtSortView])
     {
-        
+        [self pushSearchDeatalVCWithSearchKey:title];
     }
     else if ([view isEqual:_specialtySortView])
     {
-        
+        [self pushSearchLawyerVCWithSearchKey:title];
     }
 }
 
@@ -287,6 +289,49 @@ typedef enum
     CGFloat maxY = index==0 ? CGRectGetMaxY(_specialtySortView.frame):CGRectGetMaxY(_courtSortView.frame);
     _sortBgScrollView.contentSize = CGSizeMake(0, maxY);
     _specialtySortView.hidden = index==0?NO:YES;
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField.text.length < 1)
+    {
+        [self showHUDInfoByString:@"请输入搜索名称"];
+    }
+    else
+    {
+        if (_sortType == SelectSortType_lawyer)//搜索律师
+        {
+            [self pushSearchLawyerVCWithSearchKey:textField.text];
+        }
+        else if (_sortType == SelectSortType_lawfirm)//搜索律所
+        {
+            [self pushSearchDeatalVCWithSearchKey:textField.text];
+        }
+    }
+    return YES;
+}
+
+
+#pragma mark - push method
+- (void)pushSearchDeatalVCWithSearchKey:(NSString*)key
+{
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+    SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
+    vc.searchKey = key;
+    vc.strTitle = @"周边律所";
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)pushSearchLawyerVCWithSearchKey:(NSString*)key
+{
+//    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+    //        SearchLawyerViewController *vc = (SearchLawyerViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawyer"];
+    SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
+    vc.strTitle = @"附近律师";
+    vc.searchKey = key;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

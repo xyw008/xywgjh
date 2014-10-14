@@ -20,6 +20,7 @@
 		1E34A1B619B7821E0035CDE6 /* defualtLawfirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E34A1B319B7821E0035CDE6 /* defualtLawfirm@2x.png */; };
 		1E979A3719B66EDA00A0F7BF /* DetailLawyerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E979A3619B66EDA00A0F7BF /* DetailLawyerHeaderView.m */; };
 		1E979A3919B66F2100A0F7BF /* DetailLawyerHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E979A3819B66F2100A0F7BF /* DetailLawyerHeaderView.xib */; };
+		2306A42B19ED786E00D6F55F /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2306A42A19ED786E00D6F55F /* SearchView.m */; };
 		43B1842519ECB74E00B7B1F6 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B1839D19ECB74E00B7B1F6 /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43B1842619ECB74E00B7B1F6 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B183A019ECB74E00B7B1F6 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43B1842719ECB74E00B7B1F6 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B183A219ECB74E00B7B1F6 /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -359,6 +360,8 @@
 		1E979A3519B66EDA00A0F7BF /* DetailLawyerHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailLawyerHeaderView.h; sourceTree = "<group>"; };
 		1E979A3619B66EDA00A0F7BF /* DetailLawyerHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailLawyerHeaderView.m; sourceTree = "<group>"; };
 		1E979A3819B66F2100A0F7BF /* DetailLawyerHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailLawyerHeaderView.xib; sourceTree = "<group>"; };
+		2306A42919ED786E00D6F55F /* SearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchView.h; sourceTree = "<group>"; };
+		2306A42A19ED786E00D6F55F /* SearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
 		43B1839C19ECB74E00B7B1F6 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		43B1839D19ECB74E00B7B1F6 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		43B1839E19ECB74E00B7B1F6 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -2108,6 +2111,8 @@
 				43DABE5C19ED00E700CA3FD9 /* BMKLawyerPaoPaoView.h */,
 				43DABE5D19ED00E700CA3FD9 /* BMKLawyerPaoPaoView.m */,
 				43DABE5F19ED00F700CA3FD9 /* BMKLawyerPaoPaoView.xib */,
+				2306A42919ED786E00D6F55F /* SearchView.h */,
+				2306A42A19ED786E00D6F55F /* SearchView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2394,6 +2399,7 @@
 				5184B03419B55051004738FC /* UILabel+StringFrame.m in Sources */,
 				43B1845119ECB74E00B7B1F6 /* MKAnnotationView+WebCache.m in Sources */,
 				43B1845C19ECB74E00B7B1F6 /* SRSlimeView.m in Sources */,
+				2306A42B19ED786E00D6F55F /* SearchView.m in Sources */,
 				43B1844A19ECB74E00B7B1F6 /* IQToolbar.m in Sources */,
 				519A219519A700D800248A21 /* UIImageView+AFNetworking.m in Sources */,
 				43B1851F19ECBA0C00B7B1F6 /* BaseNetworkViewController+NetRequestManager.m in Sources */,

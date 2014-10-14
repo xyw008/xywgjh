@@ -18,7 +18,7 @@
  *  @param view  self
  *  @param index index
  */
-- (void)SearchSortView:(SearchSortView*)view didTouchIndex:(NSInteger)index;
+- (void)SearchSortView:(SearchSortView*)view didTouchIndex:(NSInteger)index didBtnTitle:(NSString*)title;
 
 @end
 
