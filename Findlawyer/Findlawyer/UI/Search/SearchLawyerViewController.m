@@ -474,7 +474,7 @@
     [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:searchLawyer searchKye:self.searchKey index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
         if (dataModel)
 		{
-            DLog(@"searchkey = %@  index = %d page = %d",self.searchKey,currentIndex,pageSize);
+//            DLog(@"searchkey = %@  index = %d page = %d",self.searchKey,currentIndex,pageSize);
             
             // 将得到的数据初始化律师这个数据
             LBSLawyer *lawyer = [[LBSLawyer alloc]initWithDataModel:dataModel];
@@ -637,14 +637,22 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-   return 120;
+   return 140;
    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    static NSString *cellIdentifier = @"LawyerCell";
     
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LawyerCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    cell.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    /*
+    if (!cell)
+    {
+        cell = [LawyerCell loadFromNib];
+        cell.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    }
+     */
     [self configureLawyerCell:cell atIndexPath:indexPath];
     
     return cell;
