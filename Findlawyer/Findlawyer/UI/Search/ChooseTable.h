@@ -8,7 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
+@class ChooseTable;
+
+@protocol ChooseTableDelegate <NSObject>
+
+/**
+ *  btn 点击触发
+ *
+ *  @param view  self
+ *  @param index index
+ */
+- (void)ChooseTable:(ChooseTable*)view didSelectIndex:(NSInteger)index;
+
+@end
+
 @interface ChooseTable : UIView
+{
+    __weak id<ChooseTableDelegate>      _delegate;
+}
+@property (nonatomic,weak)id            delegate;
 
 - (IBAction)chooseLawyerDone:(id)sender;
 

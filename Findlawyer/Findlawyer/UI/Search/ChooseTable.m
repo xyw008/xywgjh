@@ -30,11 +30,19 @@
 
 - (IBAction)chooseLawyerDone:(id)sender
 {
-    
+    [self btnTouch:0];
 }
 
 - (IBAction)chooseLawfirm:(id)sender
 {
-    
+    [self btnTouch:1];
 }
+
+- (void)btnTouch:(NSInteger)index
+{
+    if ([_delegate respondsToSelector:@selector(ChooseTable:didSelectIndex:)]) {
+        [_delegate ChooseTable:self didSelectIndex:index];
+    }
+}
+
 @end
