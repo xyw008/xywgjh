@@ -72,6 +72,8 @@
 {
     [super viewDidLoad];
     
+    self.navigationItem.rightBarButtonItem.title = @"列表";
+    
     currentIndex = 0;
     pageSize = 30;
     
@@ -99,11 +101,11 @@
     self.tableView.delegate = self;
     
     self.tableView.tableFooterView = [[UIView alloc ]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 15)];
+    self.tableView.hidden = YES;
     [self.view addSubview:self.tableView];
     
     //开始时先加上地图，但先让地图隐藏，列表显示
     self.mapView = [[BMKMapView alloc]initWithFrame:subviewframe];
-    self.mapView.hidden = YES;
     [self.view addSubview:self.mapView];
     
    
@@ -357,9 +359,26 @@
 {
     if ([annotation isKindOfClass:[LBSLawyerLocationAnnotation class]])
     {
-        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
-        newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
-        newAnnotationView.animatesDrop = YES;// 设置该标注点动画显示
+        LBSLawyerLocationAnnotation *theAnnotation = (LBSLawyerLocationAnnotation *)annotation;
+        DLog("space is %f",theAnnotation.lawyer.distance);
+        
+        // 生成重用标示identifier
+        NSString *AnnotationViewID = @"renameMark";
+        
+        // 检查是否有重用的缓存
+        BMKAnnotationView* newAnnotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
+        
+        if (newAnnotationView == nil)
+        {
+            newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
+        }
+        
+        // 设置颜色
+        ((BMKPinAnnotationView*)newAnnotationView).pinColor = BMKPinAnnotationColorPurple;
+        // 从天上掉下效果
+        ((BMKPinAnnotationView*)newAnnotationView).animatesDrop = NO;
+        ((BMKPinAnnotationView*)newAnnotationView).animatesDrop = YES;// 设置该标注点动画显示
+        
         return newAnnotationView;
     }
     return nil;
@@ -419,19 +438,22 @@
 - (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius
 {
     __weak  SearchLawyerViewController * weakSelf = self;
-    [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:searchLawyer searchKye:self.searchKey index:currentIndex     pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
+    [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:searchLawyer searchKye:self.searchKey index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
         if (dataModel)
 		{
             // 将得到的数据初始化律师这个数据
             LBSLawyer *lawyer = [[LBSLawyer alloc]initWithDataModel:dataModel];
             [weakSelf.listContend addObject:lawyer];// 将取到的数据放在数组里
-
-
         }
 		else
 		{
             self.navigationItem.rightBarButtonItem.enabled = YES;
             dispatch_async(dispatch_get_main_queue(), ^{
+                // 排序
+                [weakSelf.listContend sortUsingComparator:^NSComparisonResult(LBSLawyer *obj1, LBSLawyer *obj2) {
+                    return obj1.distance < obj2.distance ? NSOrderedAscending : NSOrderedDescending;
+                }];
+                
 				NSLog(@"reload data now.");
 				totalItemCount = request.availableItemCount;
 				NSLog(@"total:%d, loaded:%d", totalItemCount, [weakSelf.listContend count]);

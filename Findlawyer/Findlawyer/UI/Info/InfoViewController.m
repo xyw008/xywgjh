@@ -128,11 +128,11 @@
     CGRect frame;
     CGRect lframe;
     
-    NSString *texts[] = {@"周边律所",@"附近律师", @"我要咨询", @"待定1", @"待定2", @"待定3"};
+    NSString *texts[] = {@"附近律师",@"周边律所", @"我要咨询", @"待定1", @"待定2", @"待定3"};
     
-    NSString *images[] = {@"btn_icon1", @"btn_icon2", @"btn_icon3", @"btn_icon4", @"btn_icon5", @"btn_icon5"};
+    NSString *images[] = {@"btn_icon2", @"btn_icon1", @"btn_icon3", @"btn_icon4", @"btn_icon5", @"btn_icon5"};
     
-    NSString *cimages[] = {@"btn_icon1", @"btn_icon2", @"btn_icon3", @"btn_icon4", @"btn_icon5", @"btn_icon5"};
+    NSString *cimages[] = {@"btn_icon2", @"btn_icon1", @"btn_icon3", @"btn_icon4", @"btn_icon5", @"btn_icon5"};
     
     int index = 0;
     frame.origin = CGPointMake(35, 10);
@@ -203,21 +203,19 @@
     if (sender.tag == 0)
     {
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-        SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
-        vc.searchKey = @"";
-        vc.strTitle = @"周边律所";
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    else if (sender.tag == 1)
-    {
-        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
         SearchLawyerViewController *vc = (SearchLawyerViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawyer"];
         vc.strTitle = @"附近律师";
         vc.searchKey = @"";
         [self.navigationController pushViewController:vc animated:YES];
     }
-    
-
+    else if (sender.tag == 1)
+    {
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+        SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
+        vc.searchKey = @"";
+        vc.strTitle = @"周边律所";
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     else if (sender.tag == 2)
     {
         AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;

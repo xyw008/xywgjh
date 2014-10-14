@@ -30,7 +30,7 @@
 @property (strong, nonatomic) NSString *mailBox;
 @property (strong, nonatomic) NSString *mobile;
 
-@property (assign, nonatomic) NSUInteger distance;                  // 距离
+@property (assign, nonatomic) double distance;                      // 距离
 @property (assign, nonatomic) CLLocationCoordinate2D coordinate;    // 律师坐标
 
 - (id)initWithDataModel:(NSDictionary *)dataModel;                  // 初始化
