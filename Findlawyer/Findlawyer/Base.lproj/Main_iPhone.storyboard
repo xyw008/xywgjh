@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<<<<<<< HEAD
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
-=======
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
->>>>>>> 55a073c34d8b121ba1bc245ef31cce5d2a6592e6
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8YX-ce-x5E">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
-        <!--Setting View Controller - 更多-->
+        <!--更多-->
         <scene sceneID="M4D-t4-7SX">
             <objects>
                 <tableViewController id="HUb-D3-P7n" customClass="SettingViewController" sceneMemberID="viewController">
@@ -73,7 +70,7 @@
             </objects>
             <point key="canvasLocation" x="168" y="1458"/>
         </scene>
-        <!--Navigation Controller - 更多-->
+        <!--更多-->
         <scene sceneID="3Nt-BK-rvR">
             <objects>
                 <navigationController definesPresentationContext="YES" id="EcI-8e-amd" sceneMemberID="viewController">
@@ -117,7 +114,7 @@
             </objects>
             <point key="canvasLocation" x="-829" y="-616"/>
         </scene>
-        <!--Navigation Controller - 首页-->
+        <!--首页-->
         <scene sceneID="uVd-j8-05y">
             <objects>
                 <navigationController id="GND-lI-jUS" sceneMemberID="viewController">
@@ -143,7 +140,7 @@
             </objects>
             <point key="canvasLocation" x="-321" y="-1399"/>
         </scene>
-        <!--Navigation Controller - 搜索-->
+        <!--搜索-->
         <scene sceneID="P7W-Di-Rlb">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="hs1-0j-Z6u" sceneMemberID="viewController">
@@ -193,7 +190,7 @@
             </objects>
             <point key="canvasLocation" x="59" y="-659"/>
         </scene>
-        <!--Search View Controller - 搜索-->
+        <!--搜索-->
         <scene sceneID="SkM-Nk-leI">
             <objects>
                 <tableViewController id="47z-cN-7WM" customClass="SearchViewController" sceneMemberID="viewController">
@@ -392,7 +389,7 @@
             </objects>
             <point key="canvasLocation" x="110" y="-1425"/>
         </scene>
-        <!--Info Detail View Controller - 资讯详情-->
+        <!--资讯详情-->
         <scene sceneID="i2U-X3-iaX">
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="c2U-1G-ikw" customClass="InfoDetailViewController" sceneMemberID="viewController">
@@ -411,7 +408,7 @@
             </objects>
             <point key="canvasLocation" x="449" y="-659"/>
         </scene>
-        <!--City List View Controller - 切换城市-->
+        <!--切换城市-->
         <scene sceneID="sCs-Av-oLJ">
             <objects>
                 <tableViewController hidesBottomBarWhenPushed="YES" id="4Hb-0F-m0j" customClass="CityListViewController" sceneMemberID="viewController">
@@ -456,7 +453,7 @@
             </objects>
             <point key="canvasLocation" x="1024" y="-1440"/>
         </scene>
-        <!--Navigation Controller - 我要咨询-->
+        <!--我要咨询-->
         <scene sceneID="MFb-hf-pAG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OZZ-9a-OaW" sceneMemberID="viewController">
@@ -481,7 +478,7 @@
             </objects>
             <point key="canvasLocation" x="-270" y="813"/>
         </scene>
-        <!--Consult View Controller - 我要咨询-->
+        <!--我要咨询-->
         <scene sceneID="iJ1-UZ-JNG">
             <objects>
                 <tableViewController id="6D0-Nm-KQN" customClass="ConsultViewController" sceneMemberID="viewController">
