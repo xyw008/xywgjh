@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
@@ -41,7 +40,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="地址:深圳福田珠海地王大厦22" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dC-Fc-0sw">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="地址:深圳福田珠海地王大厦22" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dC-Fc-0sw">
                     <rect key="frame" x="87" y="27" width="191" height="37"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="191" id="Ta5-cJ-NBm"/>
@@ -50,11 +49,11 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="执业人数：288" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sra-G1-yDM">
-                    <rect key="frame" x="87" y="64" width="186" height="19"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="执业人数：288" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sra-G1-yDM">
+                    <rect key="frame" x="87" y="64" width="191" height="19"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="19" id="8f4-hw-lEw"/>
-                        <constraint firstAttribute="width" constant="186" id="urT-oK-cL0"/>
+                        <constraint firstAttribute="width" constant="191" id="urT-oK-cL0"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -73,17 +72,18 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="4dC-Fc-0sw" secondAttribute="trailing" constant="3" id="539-xy-nex"/>
                 <constraint firstItem="tSd-ED-XXK" firstAttribute="top" secondItem="3pi-fv-W2j" secondAttribute="top" constant="8" id="E6V-1c-AZp"/>
                 <constraint firstItem="faM-Yp-ICS" firstAttribute="leading" secondItem="3pi-fv-W2j" secondAttribute="leading" constant="7" id="HTy-uG-Fe5"/>
+                <constraint firstItem="Sra-G1-yDM" firstAttribute="leading" secondItem="faM-Yp-ICS" secondAttribute="trailing" constant="6" id="VQR-gH-mGo"/>
                 <constraint firstItem="eTx-in-7Sv" firstAttribute="leading" secondItem="faM-Yp-ICS" secondAttribute="trailing" constant="6" id="ZlG-1j-UWg"/>
-                <constraint firstItem="4dC-Fc-0sw" firstAttribute="leading" secondItem="faM-Yp-ICS" secondAttribute="trailing" constant="6" id="m2N-vl-LD8"/>
+                <constraint firstItem="4dC-Fc-0sw" firstAttribute="top" secondItem="eTx-in-7Sv" secondAttribute="bottom" id="bOh-sx-QqM"/>
                 <constraint firstItem="eTx-in-7Sv" firstAttribute="top" secondItem="3pi-fv-W2j" secondAttribute="top" constant="8" id="maD-Je-QYm"/>
+                <constraint firstItem="Sra-G1-yDM" firstAttribute="top" secondItem="4dC-Fc-0sw" secondAttribute="bottom" id="mqg-w1-AiH"/>
                 <constraint firstItem="faM-Yp-ICS" firstAttribute="top" secondItem="3pi-fv-W2j" secondAttribute="top" constant="15" id="ndv-Cy-vIN"/>
                 <constraint firstItem="tSd-ED-XXK" firstAttribute="leading" secondItem="eTx-in-7Sv" secondAttribute="trailing" id="tmD-fB-vec"/>
-                <constraint firstItem="Sra-G1-yDM" firstAttribute="leading" secondItem="faM-Yp-ICS" secondAttribute="trailing" constant="6" id="vAs-Vn-OqR"/>
+                <constraint firstItem="4dC-Fc-0sw" firstAttribute="leading" secondItem="faM-Yp-ICS" secondAttribute="trailing" constant="6" id="ylp-Bn-Fkw"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -97,10 +97,12 @@
             </variation>
             <connections>
                 <outlet property="distanceLabel" destination="tSd-ED-XXK" id="JMc-OI-Wyw"/>
+                <outlet property="lawfirmAddressLabel" destination="4dC-Fc-0sw" id="FIS-yl-rwR"/>
                 <outlet property="lawfirmNameLabel" destination="eTx-in-7Sv" id="ycu-Dg-IUo"/>
+                <outlet property="lawyerNumLabel" destination="Sra-G1-yDM" id="6lV-ja-TV1"/>
                 <outlet property="lawyfirmHeaderImageView" destination="faM-Yp-ICS" id="csK-iF-4hD"/>
             </connections>
-            <point key="canvasLocation" x="306.5" y="430.5"/>
+            <point key="canvasLocation" x="145.5" y="288.5"/>
         </view>
     </objects>
     <resources>

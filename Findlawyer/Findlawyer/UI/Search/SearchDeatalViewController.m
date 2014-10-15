@@ -115,8 +115,14 @@
     
     if (_isAddNearbySearch)
     {
-        //指定地址附件搜索，先搜索这个地址，得到个地址坐标
-        [self loadLocalData];
+        if (_searchLocation.latitude)
+        {
+            [self loadDataWithLocation:_searchLocation radius:kRadius searchKey:@""];
+        }
+        else
+        {
+            [self loadLocalData];
+        }
     }
     else
     {
@@ -222,7 +228,17 @@
        NSDictionary * userinfo = signal.userInfo;
        NSIndexPath * cellindexpath = [userinfo objectForKey:@"cellindexPath"];
        self.seletedlawfirm = [self.listContend objectAtIndex:cellindexpath.row];
-       [self showMap];
+//       [self showMap];
+        
+        // 切换视图
+        [self sceneChange:nil];
+        
+        // 设置地图annotation-paopao视图的弹出
+        [self clearLawyersShowMapPaopaoViewStatus];
+        self.seletedlawfirm.isShowMapLawfirmAnnotationPaopaoView = YES;
+        
+        [self showMapnode];
+        
     }
     else if ([signal.name isEqualToString:SignalCellopenUrl] && [self isViewLoaded])
     {
@@ -264,14 +280,57 @@
 {
     if ([annotation isKindOfClass:[LBSLocationAnnotation class]])
     {
-        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
-        newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
-        newAnnotationView.animatesDrop = YES; // 设置该标注点动画显示
+        LBSLocationAnnotation *theAnnotation = (LBSLocationAnnotation *)annotation;
+        //        DLog("space is %f - %@",theAnnotation.lawyer.distance, theAnnotation.lawyer.lawfirmName);
+        
+        // 生成重用标示identifier
+        NSString *AnnotationViewID = @"renameMark";
+        
+        // 检查是否有重用的缓存
+        BMKAnnotationView* newAnnotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
+        
+        if (newAnnotationView == nil)
+        {
+            newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:theAnnotation reuseIdentifier:AnnotationViewID];
+        }
+        
+        newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawfirm] + 1];
+        
+        // paopao视图
+        BMKLawfirmPaoPaoView *paopaoView = [BMKLawfirmPaoPaoView loadFromNib];
+        
+        // 加载paopao视图的数据
+        [paopaoView loadViewData:theAnnotation.lawfirm];
+        newAnnotationView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
+        
+        /*
+         // 设置颜色
+         ((BMKPinAnnotationView*)newAnnotationView).pinColor = BMKPinAnnotationColorPurple;
+         // 从天上掉下效果
+         ((BMKPinAnnotationView*)newAnnotationView).animatesDrop = NO;
+         */
+        
         return newAnnotationView;
     }
     return nil;
 }
 
+- (void)mapView:(BMKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+    for (BMKAnnotationView *annotationView in views)
+    {
+        LBSLocationAnnotation *locationAnnotation = annotationView.annotation;
+        
+        if ([locationAnnotation isKindOfClass:[LBSLocationAnnotation class]] && locationAnnotation.lawfirm.isShowMapLawfirmAnnotationPaopaoView)
+        {
+            [mapView selectAnnotation:locationAnnotation animated:YES];
+            [mapView setCenterCoordinate:locationAnnotation.coordinate animated:YES];
+            
+            // 清除lawyer paopao视图的弹出状态
+            [self clearLawyersShowMapPaopaoViewStatus];
+        }
+    }
+}
 
 - (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view
 {
@@ -569,6 +628,21 @@
     [self loadmoreData];
 }
 
+#pragma mark - other method
+- (void)clearLawyersShowMapPaopaoViewStatus
+{
+    for (LBSLawfirm *lawfirm in _listContend)
+    {
+        lawfirm.isShowMapLawfirmAnnotationPaopaoView = NO;
+    }
+}
+
+- (UIImage *)getMapAnnotationPointImageWithIndex:(NSInteger)index
+{
+    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",index]];
+    
+    return image;
+}
 
 #pragma mark -
 

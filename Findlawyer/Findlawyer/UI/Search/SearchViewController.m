@@ -203,9 +203,9 @@ typedef enum
  *
  *  @param lawfirmName 法院or指定地点的名字（key）
  *
- *  @return 经度和纬度的数组
+ *  @return 指定地点的CLLocationCoordinate2D
  */
-- (NSArray*)getLawfirmLocationCoordinate2D:(NSString*)lawfirmName
+- (CLLocationCoordinate2D)getLawfirmLocationCoordinate2D:(NSString*)lawfirmName
 {
     NSDictionary *allCoordinateDic = @{@"福田区法院":@[@114.060687, @22.526431],
                                        @"南山区法院":@[@113.938349, @22.552192],
@@ -221,7 +221,11 @@ typedef enum
                                        @"地王大厦":@[@114.117076, @22.548921],
                                        @"国贸大厦":@[@114.126176, @22.546843],
                                        @"海岸城":@[@113.943485, @22.522769]};
-    return (NSArray*)[allCoordinateDic objectForKey:lawfirmName];
+    
+    NSArray *loaction = (NSArray*)[allCoordinateDic objectForKey:lawfirmName];
+    
+    //latitude是第二个，longitude是第一个,所以取值的时候先 index:1 再 index:0
+    return CLLocationCoordinate2DMake([[loaction objectAtIndex:1] doubleValue], [[loaction objectAtIndex:0] doubleValue]);
 }
 
 #pragma mark - btn touch
@@ -313,7 +317,7 @@ typedef enum
 {
     if ([view isEqual:_courtSortView])
     {
-        [self pushSearchDeatalVCWithSearchKey:title];
+        [self pushSearchDeatalVCWithSearchKey:title hasCoordinate:YES];
     }
     else if ([view isEqual:_specialtySortView])
     {
@@ -361,7 +365,7 @@ typedef enum
         }
         else if (_sortType == SelectSortType_lawfirm)//搜索律所
         {
-            [self pushSearchDeatalVCWithSearchKey:textField.text];
+            [self pushSearchDeatalVCWithSearchKey:textField.text hasCoordinate:NO];
         }
     }
     return YES;
@@ -369,7 +373,7 @@ typedef enum
 
 
 #pragma mark - push method
-- (void)pushSearchDeatalVCWithSearchKey:(NSString*)key
+- (void)pushSearchDeatalVCWithSearchKey:(NSString*)key hasCoordinate:(BOOL)hasCoordinate
 {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
@@ -378,6 +382,9 @@ typedef enum
     vc.strTitle = @"周边律所";
     vc.isShowMapView = NO;
     vc.isAddNearbySearch = YES;
+    if (hasCoordinate) {
+        vc.searchLocation = [self getLawfirmLocationCoordinate2D:key];
+    }
     [self.navigationController pushViewController:vc animated:YES];
 }
 
