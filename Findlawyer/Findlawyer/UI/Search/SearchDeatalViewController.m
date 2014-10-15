@@ -74,7 +74,7 @@
     currentIndex = 0;
     pageSize = 30;
    
-    
+    [self.searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"Search_topBar_bg"] forState:UIControlStateNormal];
     self.searchBar.delegate = self;
     self.searchResults =[[NSMutableArray alloc]init];
     self.listContend  = [[NSMutableArray alloc]init];
@@ -143,7 +143,11 @@
 // 设置地图中心位置，加载地图标注
 - (void) showMapnode
 {
- 
+    NSArray * array = [NSArray arrayWithArray:[self.mapView annotations]];
+    if (array.count >0) {
+        [self.mapView removeAnnotations:array];
+    }
+    
     if (self.listContend.count >0) {
         
         LBSLawfirm *lawyerfirm = [self.listContend objectAtIndex:0];
@@ -151,15 +155,12 @@
         BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(0.05f,0.05f));
         BMKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
         [self.mapView setRegion:adjustedRegion animated:YES];
-        
-        NSArray * array = [NSArray arrayWithArray:[self.mapView annotations]];
-        if (array.count >0) {
-              [self.mapView removeAnnotations:array];
-        }
+    
         [self loadAnnotationWithArray:self.listContend];
     }
     else
     {
+        /*
         AppDelegate *delegate =(AppDelegate *) [UIApplication sharedApplication].delegate;
         CLLocationCoordinate2D coor;
         coor.latitude = delegate.userlocation.coordinate.latitude;
@@ -167,6 +168,7 @@
         BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(0.05f,0.05f));
         BMKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
         [self.mapView setRegion:adjustedRegion animated:YES];
+         */
     }
 }
 

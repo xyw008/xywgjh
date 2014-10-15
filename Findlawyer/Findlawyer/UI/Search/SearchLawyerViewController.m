@@ -87,7 +87,7 @@
     if (self.searchKey.length >0) {
         self.searchBar.text = self.searchKey;
     }
-    
+    [self.searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"Search_topBar_bg"] forState:UIControlStateNormal];
     self.searchBar.delegate = self;
     [self.view addSubview:_searchBar];
     
