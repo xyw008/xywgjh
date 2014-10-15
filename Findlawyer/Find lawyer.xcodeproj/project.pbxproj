@@ -20,6 +20,14 @@
 		1E34A1B619B7821E0035CDE6 /* defualtLawfirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E34A1B319B7821E0035CDE6 /* defualtLawfirm@2x.png */; };
 		1E979A3719B66EDA00A0F7BF /* DetailLawyerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E979A3619B66EDA00A0F7BF /* DetailLawyerHeaderView.m */; };
 		1E979A3919B66F2100A0F7BF /* DetailLawyerHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E979A3819B66F2100A0F7BF /* DetailLawyerHeaderView.xib */; };
+		2306A42B19ED786E00D6F55F /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2306A42A19ED786E00D6F55F /* SearchView.m */; };
+
+		2B2A339219ED6A0B00DAE712 /* callHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338C19ED6A0B00DAE712 /* callHighlight@2x.png */; };
+		2B2A339319ED6A0B00DAE712 /* callNomal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338D19ED6A0B00DAE712 /* callNomal@2x.png */; };
+		2B2A339419ED6A0B00DAE712 /* consultHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338E19ED6A0B00DAE712 /* consultHighlight@2x.png */; };
+		2B2A339519ED6A0B00DAE712 /* consultNomal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338F19ED6A0B00DAE712 /* consultNomal@2x.png */; };
+		2B2A339619ED6A0B00DAE712 /* messageHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A339019ED6A0B00DAE712 /* messageHighlight@2x.png */; };
+		2B2A339719ED6A0B00DAE712 /* messageNomal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A339119ED6A0B00DAE712 /* messageNomal@2x.png */; };
 		43B1842519ECB74E00B7B1F6 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B1839D19ECB74E00B7B1F6 /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43B1842619ECB74E00B7B1F6 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B183A019ECB74E00B7B1F6 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43B1842719ECB74E00B7B1F6 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B183A219ECB74E00B7B1F6 /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -359,6 +367,15 @@
 		1E979A3519B66EDA00A0F7BF /* DetailLawyerHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailLawyerHeaderView.h; sourceTree = "<group>"; };
 		1E979A3619B66EDA00A0F7BF /* DetailLawyerHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailLawyerHeaderView.m; sourceTree = "<group>"; };
 		1E979A3819B66F2100A0F7BF /* DetailLawyerHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailLawyerHeaderView.xib; sourceTree = "<group>"; };
+		2306A42919ED786E00D6F55F /* SearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchView.h; sourceTree = "<group>"; };
+		2306A42A19ED786E00D6F55F /* SearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
+		2B2A338C19ED6A0B00DAE712 /* callHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callHighlight@2x.png"; sourceTree = "<group>"; };
+		2B2A338D19ED6A0B00DAE712 /* callNomal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callNomal@2x.png"; sourceTree = "<group>"; };
+		2B2A338E19ED6A0B00DAE712 /* consultHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "consultHighlight@2x.png"; sourceTree = "<group>"; };
+		2B2A338F19ED6A0B00DAE712 /* consultNomal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "consultNomal@2x.png"; sourceTree = "<group>"; };
+		2B2A339019ED6A0B00DAE712 /* messageHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messageHighlight@2x.png"; sourceTree = "<group>"; };
+		2B2A339119ED6A0B00DAE712 /* messageNomal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messageNomal@2x.png"; sourceTree = "<group>"; };
+
 		43B1839C19ECB74E00B7B1F6 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		43B1839D19ECB74E00B7B1F6 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		43B1839E19ECB74E00B7B1F6 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -1001,6 +1018,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B2A338B19ED6A0B00DAE712 /* lawyerDetail */ = {
+			isa = PBXGroup;
+			children = (
+				2B2A338C19ED6A0B00DAE712 /* callHighlight@2x.png */,
+				2B2A338D19ED6A0B00DAE712 /* callNomal@2x.png */,
+				2B2A338E19ED6A0B00DAE712 /* consultHighlight@2x.png */,
+				2B2A338F19ED6A0B00DAE712 /* consultNomal@2x.png */,
+				2B2A339019ED6A0B00DAE712 /* messageHighlight@2x.png */,
+				2B2A339119ED6A0B00DAE712 /* messageNomal@2x.png */,
+			);
+			path = lawyerDetail;
+			sourceTree = "<group>";
+		};
 		43B1839A19ECB74E00B7B1F6 /* Class */ = {
 			isa = PBXGroup;
 			children = (
@@ -1258,6 +1288,7 @@
 		43B1842419ECB74E00B7B1F6 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				2B2A338B19ED6A0B00DAE712 /* lawyerDetail */,
 				43DABED619ED3E6500CA3FD9 /* navBack@2x.png */,
 				43DABE9F19ED276800CA3FD9 /* mapAnnotations */,
 				43DABE9819ED1C3600CA3FD9 /* lawyerMapAnnotationUserHeaderDefault.@2x.png */,
@@ -2108,6 +2139,8 @@
 				43DABE5C19ED00E700CA3FD9 /* BMKLawyerPaoPaoView.h */,
 				43DABE5D19ED00E700CA3FD9 /* BMKLawyerPaoPaoView.m */,
 				43DABE5F19ED00F700CA3FD9 /* BMKLawyerPaoPaoView.xib */,
+				2306A42919ED786E00D6F55F /* SearchView.h */,
+				2306A42A19ED786E00D6F55F /* SearchView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2218,6 +2251,7 @@
 				1E34A19A19B76DD00035CDE6 /* bgNavbar@2x.png in Resources */,
 				5184B03019B537FB004738FC /* leftArrow@2x.png in Resources */,
 				43DABECA19ED276800CA3FD9 /* 25@2x.png in Resources */,
+				2B2A339219ED6A0B00DAE712 /* callHighlight@2x.png in Resources */,
 				43DABEC719ED276800CA3FD9 /* 22@2x.png in Resources */,
 				43DABE6219ED054C00CA3FD9 /* lawyerPaoPao@2x.png in Resources */,
 				51BEE09419690AC000566AFF /* Main_iPad.storyboard in Resources */,
@@ -2225,6 +2259,7 @@
 				43DABECD19ED276800CA3FD9 /* 3@2x.png in Resources */,
 				5112D0DF1978F31D0039A88F /* logo@2x.png in Resources */,
 				51E62101197514690087B49B /* btn_icon5@2x.png in Resources */,
+				2B2A339719ED6A0B00DAE712 /* messageNomal@2x.png in Resources */,
 				517C5B8A196E3EE0000FF983 /* mapapi.bundle in Resources */,
 				5112D0DD1978D2970039A88F /* tab3_nor.@2x.png in Resources */,
 				5197EA7B19B71786000484A7 /* call@2x.png in Resources */,
@@ -2254,6 +2289,8 @@
 				51D700B719EB8AB800CCC80A /* LBSCoreDataInfo.plist in Resources */,
 				1E34A1B519B7821E0035CDE6 /* defaultNOPhoto@2x.png in Resources */,
 				43DABEC819ED276800CA3FD9 /* 23@2x.png in Resources */,
+				2B2A339619ED6A0B00DAE712 /* messageHighlight@2x.png in Resources */,
+				2B2A339519ED6A0B00DAE712 /* consultNomal@2x.png in Resources */,
 				43DABEBC19ED276800CA3FD9 /* 12@2x.png in Resources */,
 				51E62100197514690087B49B /* btn_icon4@2x.png in Resources */,
 				43DABEC219ED276800CA3FD9 /* 18@2x.png in Resources */,
@@ -2281,6 +2318,7 @@
 				517F0C7A1977E4900044D8E5 /* Default~iphone.png in Resources */,
 				5166D01819738CFF003A0994 /* arrow_right@2x.png in Resources */,
 				43DABED719ED3E6500CA3FD9 /* navBack@2x.png in Resources */,
+				2B2A339319ED6A0B00DAE712 /* callNomal@2x.png in Resources */,
 				43DABEC019ED276800CA3FD9 /* 16@2x.png in Resources */,
 				43DABED119ED276800CA3FD9 /* 7@2x.png in Resources */,
 				43DABE6019ED00F700CA3FD9 /* BMKLawyerPaoPaoView.xib in Resources */,
@@ -2289,6 +2327,7 @@
 				5112D0DC1978D2970039A88F /* tab2_nor@2x.png in Resources */,
 				51E620FE197514690087B49B /* btn_icon2@2x.png in Resources */,
 				510A119819D4332F002BACF5 /* navbar@2x.png in Resources */,
+				2B2A339419ED6A0B00DAE712 /* consultHighlight@2x.png in Resources */,
 				1E34A1A519B778E80035CDE6 /* sms_seleted@2x.png in Resources */,
 				43DABEC119ED276800CA3FD9 /* 17@2x.png in Resources */,
 				51BEE0CD1969245800566AFF /* tab_recent_nor@2x.png in Resources */,
@@ -2394,6 +2433,7 @@
 				5184B03419B55051004738FC /* UILabel+StringFrame.m in Sources */,
 				43B1845119ECB74E00B7B1F6 /* MKAnnotationView+WebCache.m in Sources */,
 				43B1845C19ECB74E00B7B1F6 /* SRSlimeView.m in Sources */,
+				2306A42B19ED786E00D6F55F /* SearchView.m in Sources */,
 				43B1844A19ECB74E00B7B1F6 /* IQToolbar.m in Sources */,
 				519A219519A700D800248A21 /* UIImageView+AFNetworking.m in Sources */,
 				43B1851F19ECBA0C00B7B1F6 /* BaseNetworkViewController+NetRequestManager.m in Sources */,
