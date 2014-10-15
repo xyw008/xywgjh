@@ -336,6 +336,7 @@
 		51F64BFA196FE91D00BBD314 /* UIView+ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64BF9196FE91D00BBD314 /* UIView+ProgressHUD.m */; };
 		51F64C08196FEA6600BBD314 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B3B083F519EE4FD400BF5BC9 /* Search_topBar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B083F419EE4FD400BF5BC9 /* Search_topBar_bg@2x.png */; };
+		B3B083F819EE57F500BF5BC9 /* ConsultInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */; };
 		B3E3991119ECCC4C0033F10B /* SearchSortView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E3991019ECCC4C0033F10B /* SearchSortView.m */; };
 		B3E3991819ED29390033F10B /* Search_top_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E3991719ED29390033F10B /* Search_top_arrow@2x.png */; };
 		B3E39B2219ED3D060033F10B /* NITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E39B2119ED3D060033F10B /* NITextField.m */; };
@@ -973,6 +974,8 @@
 		51F64C06196FEA6600BBD314 /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
 		51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
 		B3B083F419EE4FD400BF5BC9 /* Search_topBar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search_topBar_bg@2x.png"; sourceTree = "<group>"; };
+		B3B083F619EE57F500BF5BC9 /* ConsultInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultInfoVC.h; sourceTree = "<group>"; };
+		B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultInfoVC.m; sourceTree = "<group>"; };
 		B3E3990F19ECCC4C0033F10B /* SearchSortView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSortView.h; sourceTree = "<group>"; };
 		B3E3991019ECCC4C0033F10B /* SearchSortView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSortView.m; sourceTree = "<group>"; };
 		B3E3991719ED29390033F10B /* Search_top_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search_top_arrow@2x.png"; sourceTree = "<group>"; };
@@ -1639,6 +1642,8 @@
 			children = (
 				5107E2B319766882005A965C /* ConsultViewController.h */,
 				5107E2B419766882005A965C /* ConsultViewController.m */,
+				B3B083F619EE57F500BF5BC9 /* ConsultInfoVC.h */,
+				B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */,
 			);
 			path = Consult;
 			sourceTree = "<group>";
@@ -2523,6 +2528,7 @@
 				43B185E419ECBA4700B7B1F6 /* ATB_AlertFunc.m in Sources */,
 				43B184E219ECB91100B7B1F6 /* NSFileManager+SSToolkitAdditions.m in Sources */,
 				43B184F619ECB91100B7B1F6 /* ColorManager.m in Sources */,
+				B3B083F819EE57F500BF5BC9 /* ConsultInfoVC.m in Sources */,
 				43B1862919ECBA4800B7B1F6 /* ATSeedFill.mm in Sources */,
 				43B1842C19ECB74E00B7B1F6 /* ASINetworkQueue.m in Sources */,
 				43B184EA19ECB91100B7B1F6 /* UIImageView+Image.m in Sources */,
