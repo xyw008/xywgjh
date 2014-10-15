@@ -415,7 +415,8 @@
     lycell.lbName.text = lawyer.name;
     lycell.lblawfirm.text = lawyer.lawfirmName;
     lycell.lbCertificate.text = lawyer.certificateNo;
-    lycell.lbSpecialArea.text = lawyer.specialArea;
+    lycell.specialAreaStr = lawyer.specialArea;
+    
     [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
