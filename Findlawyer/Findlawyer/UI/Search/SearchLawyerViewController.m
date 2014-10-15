@@ -186,10 +186,12 @@
 	NSArray *retainedInforation = information;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
 		NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[retainedInforation count]];
+        
 		for (LBSLawyer *lawyer in retainedInforation) {
 			LBSLawyerLocationAnnotation *locationAnnotation = [[LBSLawyerLocationAnnotation alloc] initWithLawyer:lawyer];
 			[annotations addObject:locationAnnotation];
 		}
+        
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self.mapView addAnnotations:annotations];
 		});
@@ -433,6 +435,23 @@
     return nil;
 }
 
+- (void)mapView:(BMKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+    for (BMKAnnotationView *annotationView in views)
+    {
+        LBSLawyerLocationAnnotation *locationAnnotation = annotationView.annotation;
+        
+        if ([locationAnnotation isKindOfClass:[LBSLawyerLocationAnnotation class]] && locationAnnotation.lawyer.isShowMapLawyerAnnotationPaopaoView)
+        {
+            [mapView selectAnnotation:locationAnnotation animated:YES];
+            [mapView setCenterCoordinate:locationAnnotation.coordinate animated:YES];
+            
+            // 清除lawyer paopao视图的弹出状态
+            [self clearLawyersShowMapPaopaoViewStatus];
+        }
+    }
+}
+
 - (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view
 {
 	
@@ -440,12 +459,7 @@
 
 - (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view
 {
-//	LBSLawyerLocationAnnotation *locationAnnotation = view.annotation;
-    //    if ([locationAnnotation isKindOfClass:[LBSLocationAnnotation class]])
-    //    {
-    //        self.selectedAnnotation = locationAnnotation;
-    //        [self performSegueWithIdentifier:@"segueForWebView" sender:self];
-    //    }
+	
 }
 
 
@@ -822,7 +836,14 @@
     {
         case LawyerCellOperationType_MapLocation:
         {
+            // 切换视图
+            [self sceneChange:nil];
             
+            // 设置地图annotation-paopao视图的弹出
+            [self clearLawyersShowMapPaopaoViewStatus];
+            cellSelectedLawyer.isShowMapLawyerAnnotationPaopaoView = YES;
+            
+            [self showMapnode];
         }
             break;
         case LawyerCellOperationType_SpecialAreaSearch:
@@ -854,6 +875,15 @@
         */
         default:
             break;
+    }
+}
+
+// 清除lawyer paopao视图的弹出状态
+- (void)clearLawyersShowMapPaopaoViewStatus
+{
+    for (LBSLawyer *lawyer in _listContend)
+    {
+        lawyer.isShowMapLawyerAnnotationPaopaoView = NO;
     }
 }
 
