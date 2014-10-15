@@ -29,11 +29,12 @@
 #import "ACETelPrompt.h"
 #import "Network.h"
 #import "BMKLawyerPaoPaoView.h"
+#import "UIFactory.h"
 
 #define HUDTage 999
 
 
-@interface SearchLawyerViewController ()<MFMessageComposeViewControllerDelegate>
+@interface SearchLawyerViewController ()<MFMessageComposeViewControllerDelegate, LawyerCellDelegate>
 
 {
   	NSUInteger currentIndex;
@@ -98,14 +99,14 @@
     self.searchResults =[[NSMutableArray alloc]init];
     self.listContend  = [[NSMutableArray alloc]init];
     
-    CGFloat statusBarHigh = [UIApplication sharedApplication].statusBarFrame.size.height;
-    CGFloat navBarHigh = self.navigationController.navigationBar.frame.size.height;
-    CGFloat high = [UIScreen mainScreen].bounds.size.height - statusBarHigh - navBarHigh- CGRectGetHeight(self.searchBar.frame);
-    CGRect subviewframe = CGRectMake(0, CGRectGetMaxY(self.searchBar.frame), CGRectGetWidth(self.view.frame), high);
-    
+    CGRect subviewframe = CGRectMake(0, CGRectGetMaxY(_searchBar.frame), self.viewBoundsWidth, self.viewBoundsHeight - CGRectGetMaxY(_searchBar.frame));
     self.bgSearchView = [[UIView alloc]initWithFrame:subviewframe];
     self.bgSearchView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
+    
     self.tableView = [[UITableView alloc]initWithFrame:subviewframe];
+    [_tableView keepAutoresizingInFull];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.backgroundColor = HEXCOLOR(0XF0F0F0);
     
     //先注册自定义的LawyerCell以便重用
     [self.tableView registerNib:[UINib nibWithNibName:@"LawyerCell" bundle:nil] forCellReuseIdentifier:@"LawyerCell"];
@@ -118,6 +119,7 @@
     
     //开始时先加上地图，但先让地图隐藏，列表显示
     self.mapView = [[BMKMapView alloc]initWithFrame:subviewframe];
+    [_mapView keepAutoresizingInFull];
     [self.view addSubview:self.mapView];
     
    
@@ -144,8 +146,14 @@
 // 设置地图中心位置，加载地图标注
 - (void) showMapnode
 {
-    if (self.listContend.count >0) {
-        
+    if ([_mapView.annotations isAbsoluteValid])
+    {
+        NSArray * array = [NSArray arrayWithArray:[_mapView annotations]];
+        [self.mapView removeAnnotations:array];
+    }
+    
+    if (self.listContend.count > 0)
+    {
         LBSLawyer *lawyer = [self.listContend objectAtIndex:0];
         CLLocationCoordinate2D coor = lawyer.coordinate;
         BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(0.05f,0.05f));
@@ -153,22 +161,20 @@
         [self.mapView setRegion:adjustedRegion animated:YES];
       //  [self.mapView setCenterCoordinate:coor];
         
-        NSArray * array = [NSArray arrayWithArray:[self.mapView annotations]];
-        if (array.count >0)
-        {
-           [self.mapView removeAnnotations:array];
-        }
         [self loadAnnotationWithArray:self.listContend];
     }
     else
     {
+        /*
         AppDelegate *delegate =(AppDelegate *) [UIApplication sharedApplication].delegate;
         CLLocationCoordinate2D coor;
         coor.latitude = delegate.userlocation.coordinate.latitude;
-        coor.longitude= delegate.userlocation.coordinate.longitude;
+        coor.longitude = delegate.userlocation.coordinate.longitude;
         BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(0.05f,0.05f));
         BMKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
+        
         [self.mapView setRegion:adjustedRegion animated:YES];
+         */
     }
 }
 
@@ -176,6 +182,7 @@
 - (void)loadAnnotationWithArray:(NSArray *)information
 {
 	if (information == nil) return;
+    
 	NSArray *retainedInforation = information;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
 		NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[retainedInforation count]];
@@ -195,24 +202,33 @@
 {
     _isShowMapView = !_isShowMapView;
 
-    if (!_isShowMapView)
-    {
-        self.mapView.hidden = YES;
-        self.tableView.hidden = NO;
-        
-        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"地图" action:@selector(sceneChange:)];
-    }
-    else
-    {
-        if (self.tableView)
+    [UIView transitionWithView:self.view duration:.45 options:!_isShowMapView ? UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionFlipFromRight animations:^{
+        if (!_isShowMapView)
         {
-            self.tableView.hidden = YES;
-            self.mapView.hidden = NO;
-            
-            [self showMapnode];
+            self.mapView.hidden = YES;
+            self.tableView.hidden = NO;
         }
-        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"列表" action:@selector(sceneChange:)];
-    }
+        else
+        {
+            if (self.tableView)
+            {
+                self.tableView.hidden = YES;
+                self.mapView.hidden = NO;
+                
+                [self showMapnode];
+            }
+        }
+    } completion:^(BOOL finished) {
+        
+        if (!_isShowMapView)
+        {
+            [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"地图" action:@selector(sceneChange:)];
+        }
+        else
+        {
+            [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"列表" action:@selector(sceneChange:)];
+        }
+    }];
 }
 
 // 处理cell 中各种BUtton 发出的通知
@@ -496,11 +512,12 @@
             
             weakSelf.listContend = !isSearch ? weakSelf.allLawyerEntityArray : weakSelf.searchResults;
             
+            // 排序
+            [weakSelf.listContend sortUsingComparator:^NSComparisonResult(LBSLawyer *obj1, LBSLawyer *obj2) {
+                return obj1.distance < obj2.distance ? NSOrderedAscending : NSOrderedDescending;
+            }];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                // 排序
-                [weakSelf.listContend sortUsingComparator:^NSComparisonResult(LBSLawyer *obj1, LBSLawyer *obj2) {
-                    return obj1.distance < obj2.distance ? NSOrderedAscending : NSOrderedDescending;
-                }];
                 
 				NSLog(@"reload data now.");
 				totalItemCount = request.availableItemCount;
@@ -511,15 +528,15 @@
 					_noMoreResultsAvail = YES;
 				if (request.error)
                     //	[iToast make:LBSUINetWorkError duration:750];
-                    [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView: weakSelf.view tag:HUDTage delay:1];
+                    [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
                 
 				else if (request.availableItemCount)
 					//[iToast make:LBSUIDataComplete duration:750];
-                    [UIView hideHUDWithTitle:LBSUIDataComplete image:nil onView: weakSelf.view tag:HUDTage delay:1];
+                    [UIView hideHUDWithTitle:LBSUIDataComplete image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
                 
 				else
                     //	[iToast make:LBSUINoMoreData duration:750];
-                    [UIView hideHUDWithTitle:LBSUINoMoreData image:nil onView: weakSelf.view tag:HUDTage delay:1];
+                    [UIView hideHUDWithTitle:LBSUINoMoreData image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
                 
 				[weakSelf.tableView reloadData];//从新加载列表
                 [self showMapnode];// 从新加载地图地图
@@ -530,37 +547,51 @@
     }];
 }
 
-/*
 // 以城市为单位进行搜索
 - (void)loadLocalData
 {
+    [UIView showHUDWithTitle:@"搜索中..." onView:self.view tag:HUDTage];
+    
     __weak  SearchLawyerViewController * weakSelf = self;
+    
     [[LBSDataCenter defaultCenter] loadDataWithRegionSearchkey:self.searchKey searchtype:searchLawyer index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, id dataModel) {
         if (dataModel)
 		{
             LBSLawyer *lawyer = [[LBSLawyer alloc]initWithDataModel:dataModel];
+            /*
             [weakSelf.listContend addObject:lawyer];
+             */
+            [weakSelf.searchResults addObject:lawyer];
         }
 		else
 		{
+            weakSelf.listContend = weakSelf.searchResults;
+
+            // 排序
+            [weakSelf.listContend sortUsingComparator:^NSComparisonResult(LBSLawyer *obj1, LBSLawyer *obj2) {
+                return obj1.distance < obj2.distance ? NSOrderedAscending : NSOrderedDescending;
+            }];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
+                
                 NSLog(@"reload data now.");
 				totalItemCount = request.availableItemCount;
 				NSLog(@"total:%d, loaded:%d", totalItemCount, [weakSelf.listContend count]);
 				NSUInteger curCnt = [weakSelf.listContend count];
+                
 				if (curCnt >= totalItemCount)
 					_noMoreResultsAvail = YES;
 				if (request.error)
                     //	[iToast make:LBSUINetWorkError duration:750];
-                    [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView: weakSelf.view tag:HUDTage delay:1];
+                    [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
                 
 				else if (request.availableItemCount)
 					//[iToast make:LBSUIDataComplete duration:750];
-                    [UIView hideHUDWithTitle:LBSUIDataComplete image:nil onView: weakSelf.view tag:HUDTage delay:1];
+                    [UIView hideHUDWithTitle:LBSUIDataComplete image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
                 
 				else
                     //	[iToast make:LBSUINoMoreData duration:750];
-                    [UIView hideHUDWithTitle:LBSUINoMoreData image:nil onView: weakSelf.view tag:HUDTage delay:1];
+                    [UIView hideHUDWithTitle:LBSUINoMoreData image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
                 
 				[weakSelf.tableView reloadData];
                 
@@ -568,9 +599,10 @@
         }
         
     }];
+    /*
     currentIndex++;
 	[[LBSSharedData sharedData] setCurrentIndex:currentIndex];
-    
+    */
     
     //    [[LBSDataCenter defaultCenter] loadDataWithRegionName:[[[LBSDataBase sharedInstance] placeNames] objectAtIndex:self.pickerRegionIndex] priceRange:priceRange rentalType:self.pickerRentalIndex index:_currentIndex pageSize:_pageSize pieceComplete:^(LBSRequest *request, id dataModel) {
     //		if (dataModel)
@@ -605,20 +637,18 @@
 	//currentIndex++;
 	//[[LBSSharedData sharedData] setCurrentIndex:currentIndex];
 }
-*/
-
 
 #pragma mark - UITableViewDatasource And UITableViewDelegate
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.listContend.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.listContend.count;
+    return 1;
 }
 
 // 用自定义cell 显示每个律师数据
@@ -626,26 +656,28 @@
 {
     LawyerCell *lycell = (LawyerCell *)cell;
     lycell.cellindexPath = indexPath;
-    LBSLawyer *lawyer = [self.listContend objectAtIndex:indexPath.row];
+    LBSLawyer *lawyer = [self.listContend objectAtIndex:indexPath.section];
     lycell.lbName.text = lawyer.name;
     lycell.lblawfirm.text = lawyer.lawfirmName;
     lycell.lbCertificate.text = lawyer.certificateNo;
-    lycell.lbSpecialArea.text = lawyer.specialArea;
+    lycell.lbPhone.text = lawyer.mobile ? lawyer.mobile : @"暂无电话";
+    lycell.specialAreaStr = lawyer.specialArea;
+
     [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
    return 140;
-   
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"LawyerCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    LawyerCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     cell.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    cell.delegate = self;
     /*
     if (!cell)
     {
@@ -661,7 +693,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-     self.seletedlawyer = [self.listContend objectAtIndex:indexPath.row];
+     self.seletedlawyer = [self.listContend objectAtIndex:indexPath.section];
     
     DetailLawyerViewController *detailLawyerVC = [[DetailLawyerViewController alloc] init];
     detailLawyerVC.lawyer = _seletedlawyer;
@@ -673,26 +705,29 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 30;
+    if (0 == section)
+    {
+        return 18;
     }
-    return 0;
-    
+    else
+    {
+        return CellSeparatorSpace;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    CGSize size = [tableView rectForHeaderInSection:section].size;
     
-    UIView  *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
-    view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
-    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
-    lable.textAlignment = NSTextAlignmentLeft;
-    lable.backgroundColor = [UIColor clearColor];
-    lable.font = [UIFont boldSystemFontOfSize:15];
-    // lable.textColor = [UIColor colorWithRed:0 green:122/255.0 blue:255.0/255.0 alpha:1];
-    [view addSubview:lable];
-    lable.text = [NSString stringWithFormat:@"  搜索到%d位律师",self.listContend.count];
-    return view;
+    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    lable.backgroundColor = 0 == section ? HEXCOLOR(0XF0F0F0) : [UIColor clearColor];
+    lable.font = [UIFont boldSystemFontOfSize:12];
+    if (0 == section)
+    {
+        lable.textColor = HEXCOLOR(0XB6B6B6);
+        lable.text = [NSString stringWithFormat:@" 附近共%d位律师",self.listContend.count];
+    }
+    return lable;
 }
 
 #pragma mark -UISearchBarDelagat
@@ -776,6 +811,51 @@
      }
 
  }
+
+#pragma mark - LawyerCellDelegate methods
+
+- (void)LawyerCell:(LawyerCell *)cell didClickOperationBtnWithType:(LawyerCellOperationType)type sender:(id)sender
+{
+    LBSLawyer *cellSelectedLawyer = [_listContend objectAtIndex:[_tableView indexPathForCell:cell].section];
+    
+    switch (type)
+    {
+        case LawyerCellOperationType_MapLocation:
+        {
+            
+        }
+            break;
+        case LawyerCellOperationType_SpecialAreaSearch:
+        {
+            UILabel *sepcialAreaLabel = (UILabel *)sender;
+
+            [_searchResults removeAllObjects];
+            
+            self.searchKey = sepcialAreaLabel.text;
+            [self loadLocalData];
+        }
+            break;
+        case LawyerCellOperationType_Consult:
+        {
+            
+        }
+            break;
+        /*
+        case LawyerCellOperationType_PhoneCall:
+        {
+            [UIFactory call:cellSelectedLawyer.mobile];
+        }
+            break;
+        case LawyerCellOperationType_SendMessage:
+        {
+            [UIFactory sendSMS:cellSelectedLawyer.mobile];
+        }
+            break;
+        */
+        default:
+            break;
+    }
+}
 
 @end
 
