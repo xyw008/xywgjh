@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="3pi-fv-W2j" customClass="BMKLawfirmPaoPaoView">
+            <rect key="frame" x="0.0" y="0.0" width="281" height="137"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lawfirmPaoPao.png" translatesAutoresizingMaskIntoConstraints="NO" id="eWw-Tz-Qzx">
+                    <rect key="frame" x="0.0" y="0.0" width="281" height="137"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="faM-Yp-ICS">
+                    <rect key="frame" x="7" y="15" width="74" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="74" id="HT7-K9-iBl"/>
+                        <constraint firstAttribute="height" constant="56" id="hEU-2g-uEG"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="珠海人民法院律师事务所律师事务所" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTx-in-7Sv">
+                    <rect key="frame" x="87" y="8" width="144" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="144" id="7gy-Sf-Xnh"/>
+                        <constraint firstAttribute="height" constant="19" id="tJA-Yz-IzG"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999米" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSd-ED-XXK">
+                    <rect key="frame" x="231" y="8" width="47" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="19" id="7z2-iL-F5p"/>
+                        <constraint firstAttribute="width" constant="47" id="UEf-ko-PFf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="地址:深圳福田珠海地王大厦22" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dC-Fc-0sw">
+                    <rect key="frame" x="87" y="27" width="191" height="37"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="191" id="Ta5-cJ-NBm"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="执业人数：288" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sra-G1-yDM">
+                    <rect key="frame" x="87" y="64" width="186" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="19" id="8f4-hw-lEw"/>
+                        <constraint firstAttribute="width" constant="186" id="urT-oK-cL0"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址:深圳唐家湾香洲" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pxN-hM-7cb">
+                    <rect key="frame" x="87" y="32" width="185" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000米" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46r-tc-jiW">
+                    <rect key="frame" x="87" y="57" width="185" height="19"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="4dC-Fc-0sw" secondAttribute="trailing" constant="3" id="539-xy-nex"/>
+                <constraint firstItem="tSd-ED-XXK" firstAttribute="top" secondItem="3pi-fv-W2j" secondAttribute="top" constant="8" id="E6V-1c-AZp"/>
+                <constraint firstItem="faM-Yp-ICS" firstAttribute="leading" secondItem="3pi-fv-W2j" secondAttribute="leading" constant="7" id="HTy-uG-Fe5"/>
+                <constraint firstItem="eTx-in-7Sv" firstAttribute="leading" secondItem="faM-Yp-ICS" secondAttribute="trailing" constant="6" id="ZlG-1j-UWg"/>
+                <constraint firstItem="4dC-Fc-0sw" firstAttribute="leading" secondItem="faM-Yp-ICS" secondAttribute="trailing" constant="6" id="m2N-vl-LD8"/>
+                <constraint firstItem="eTx-in-7Sv" firstAttribute="top" secondItem="3pi-fv-W2j" secondAttribute="top" constant="8" id="maD-Je-QYm"/>
+                <constraint firstItem="faM-Yp-ICS" firstAttribute="top" secondItem="3pi-fv-W2j" secondAttribute="top" constant="15" id="ndv-Cy-vIN"/>
+                <constraint firstItem="tSd-ED-XXK" firstAttribute="leading" secondItem="eTx-in-7Sv" secondAttribute="trailing" id="tmD-fB-vec"/>
+                <constraint firstItem="Sra-G1-yDM" firstAttribute="leading" secondItem="faM-Yp-ICS" secondAttribute="trailing" constant="6" id="vAs-Vn-OqR"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="pxN-hM-7cb"/>
+                    <exclude reference="46r-tc-jiW"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="distanceLabel" destination="tSd-ED-XXK" id="JMc-OI-Wyw"/>
+                <outlet property="lawfirmNameLabel" destination="eTx-in-7Sv" id="ycu-Dg-IUo"/>
+                <outlet property="lawyfirmHeaderImageView" destination="faM-Yp-ICS" id="csK-iF-4hD"/>
+            </connections>
+            <point key="canvasLocation" x="306.5" y="430.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="lawfirmPaoPao.png" width="281" height="137"/>
+    </resources>
+</document>

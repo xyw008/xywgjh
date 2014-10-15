@@ -31,6 +31,9 @@
 
 @property (assign, nonatomic) NSUInteger distance;                  // 距离
 @property (assign, nonatomic) CLLocationCoordinate2D coordinate;    // 律所坐标
+
+@property (nonatomic, assign) BOOL isShowMapLawfirmAnnotationPaopaoView; // 是否弹出地图上的律所annotation的泡泡视图
+
 - (id)initWithDataModel:(NSDictionary *)dataModel;                  // 初始化
 
 @end

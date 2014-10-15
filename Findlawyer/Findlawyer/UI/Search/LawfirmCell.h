@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbAddress;
 @property (weak, nonatomic) IBOutlet UIImageView *imgIntroduct;
 @property (strong, nonatomic) NSIndexPath *cellindexPath;
+@property (strong, nonatomic) UIView *lineView;
 
 - (IBAction)showmap:(id)sender;
 - (IBAction)openUrl:(id)sender;

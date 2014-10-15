@@ -13,7 +13,9 @@
 
 - (void)awakeFromNib
 {
-    // Initialization code
+    _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.height - LineWidth, self.width, LineWidth)];
+    _lineView.backgroundColor = CellSeparatorColor;
+    [self.contentView addSubview:_lineView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

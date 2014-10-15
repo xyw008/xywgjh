@@ -337,6 +337,9 @@
 		51F64C08196FEA6600BBD314 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B3B083F519EE4FD400BF5BC9 /* Search_topBar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B083F419EE4FD400BF5BC9 /* Search_topBar_bg@2x.png */; };
 		B3B083F819EE57F500BF5BC9 /* ConsultInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */; };
+		B3B083FD19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B083FC19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.m */; };
+		B3B083FF19EE8CC100BF5BC9 /* BMKLawfirmPaoPaoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B083FE19EE8CC100BF5BC9 /* BMKLawfirmPaoPaoView.xib */; };
+		B3B0840119EE8D5A00BF5BC9 /* lawfirmPaoPao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B0840019EE8D5A00BF5BC9 /* lawfirmPaoPao@2x.png */; };
 		B3E3991119ECCC4C0033F10B /* SearchSortView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E3991019ECCC4C0033F10B /* SearchSortView.m */; };
 		B3E3991819ED29390033F10B /* Search_top_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E3991719ED29390033F10B /* Search_top_arrow@2x.png */; };
 		B3E39B2219ED3D060033F10B /* NITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E39B2119ED3D060033F10B /* NITextField.m */; };
@@ -976,6 +979,10 @@
 		B3B083F419EE4FD400BF5BC9 /* Search_topBar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search_topBar_bg@2x.png"; sourceTree = "<group>"; };
 		B3B083F619EE57F500BF5BC9 /* ConsultInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultInfoVC.h; sourceTree = "<group>"; };
 		B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultInfoVC.m; sourceTree = "<group>"; };
+		B3B083FB19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKLawfirmPaoPaoView.h; sourceTree = "<group>"; };
+		B3B083FC19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMKLawfirmPaoPaoView.m; sourceTree = "<group>"; };
+		B3B083FE19EE8CC100BF5BC9 /* BMKLawfirmPaoPaoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BMKLawfirmPaoPaoView.xib; sourceTree = "<group>"; };
+		B3B0840019EE8D5A00BF5BC9 /* lawfirmPaoPao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lawfirmPaoPao@2x.png"; sourceTree = "<group>"; };
 		B3E3990F19ECCC4C0033F10B /* SearchSortView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSortView.h; sourceTree = "<group>"; };
 		B3E3991019ECCC4C0033F10B /* SearchSortView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSortView.m; sourceTree = "<group>"; };
 		B3E3991719ED29390033F10B /* Search_top_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search_top_arrow@2x.png"; sourceTree = "<group>"; };
@@ -1294,6 +1301,7 @@
 				43DABE9F19ED276800CA3FD9 /* mapAnnotations */,
 				43DABE9819ED1C3600CA3FD9 /* lawyerMapAnnotationUserHeaderDefault.@2x.png */,
 				43DABE6119ED054C00CA3FD9 /* lawyerPaoPao@2x.png */,
+				B3B0840019EE8D5A00BF5BC9 /* lawfirmPaoPao@2x.png */,
 			);
 			path = image;
 			sourceTree = "<group>";
@@ -2139,11 +2147,14 @@
 			children = (
 				B3E3990F19ECCC4C0033F10B /* SearchSortView.h */,
 				B3E3991019ECCC4C0033F10B /* SearchSortView.m */,
+				2306A42919ED786E00D6F55F /* SearchView.h */,
+				2306A42A19ED786E00D6F55F /* SearchView.m */,
 				43DABE5C19ED00E700CA3FD9 /* BMKLawyerPaoPaoView.h */,
 				43DABE5D19ED00E700CA3FD9 /* BMKLawyerPaoPaoView.m */,
 				43DABE5F19ED00F700CA3FD9 /* BMKLawyerPaoPaoView.xib */,
-				2306A42919ED786E00D6F55F /* SearchView.h */,
-				2306A42A19ED786E00D6F55F /* SearchView.m */,
+				B3B083FB19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.h */,
+				B3B083FC19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.m */,
+				B3B083FE19EE8CC100BF5BC9 /* BMKLawfirmPaoPaoView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2254,6 +2265,7 @@
 				43DABECE19ED276800CA3FD9 /* 4@2x.png in Resources */,
 				1E34A19A19B76DD00035CDE6 /* bgNavbar@2x.png in Resources */,
 				5184B03019B537FB004738FC /* leftArrow@2x.png in Resources */,
+				B3B083FF19EE8CC100BF5BC9 /* BMKLawfirmPaoPaoView.xib in Resources */,
 				43DABECA19ED276800CA3FD9 /* 25@2x.png in Resources */,
 				2B2A339219ED6A0B00DAE712 /* callHighlight@2x.png in Resources */,
 				43DABEC719ED276800CA3FD9 /* 22@2x.png in Resources */,
@@ -2288,6 +2300,7 @@
 				51BEE0CE1969245800566AFF /* tab_recent_sel@2x.png in Resources */,
 				43DABEBA19ED276800CA3FD9 /* 10@2x.png in Resources */,
 				51D6989C19A1E11600F7155E /* icon@2x.png in Resources */,
+				B3B0840119EE8D5A00BF5BC9 /* lawfirmPaoPao@2x.png in Resources */,
 				51BEE09119690AC000566AFF /* Main_iPhone.storyboard in Resources */,
 				1E34A1B019B77D4E0035CDE6 /* consult_unseleted@2x.png in Resources */,
 				51D700B719EB8AB800CCC80A /* LBSCoreDataInfo.plist in Resources */,
@@ -2512,6 +2525,7 @@
 				43B1862119ECBA4800B7B1F6 /* ATBitmapRGBAData.m in Sources */,
 				43B185F719ECBA4800B7B1F6 /* ATSingleton.m in Sources */,
 				5197EA6D19B6FCB4000484A7 /* ToolView.m in Sources */,
+				B3B083FD19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.m in Sources */,
 				43B1862B19ECBA4800B7B1F6 /* ATPopupController.m in Sources */,
 				43B184F719ECB91100B7B1F6 /* CoreDataManager.m in Sources */,
 				43B1844919ECB74E00B7B1F6 /* IQTitleBarButtonItem.m in Sources */,

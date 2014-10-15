@@ -29,6 +29,7 @@
 
 
 #define ProHUD 199
+#define kHeardHeight 18
 
 @interface DetailLawfirmViewController ()<MFMessageComposeViewControllerDelegate>
 {
@@ -422,7 +423,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return 126;
+    return 140;
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -444,7 +445,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 30;
+        return kHeardHeight;
     }
     return 0;
     
@@ -453,9 +454,9 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    UIView  *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
+    UIView  *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, kHeardHeight)];
     view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
-    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
+    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, kHeardHeight)];
     lable.textAlignment = NSTextAlignmentLeft;
     lable.backgroundColor = [UIColor clearColor];
     lable.font = [UIFont boldSystemFontOfSize:15];

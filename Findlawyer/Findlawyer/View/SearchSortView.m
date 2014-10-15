@@ -54,6 +54,7 @@
         _tilteLB.backgroundColor = [UIColor clearColor];
         _tilteLB.textColor = ATColorRGBMake(97, 97, 97);
         _tilteLB.text = title;
+        _tilteLB.font = SP15Font;
         [self addSubview:_tilteLB];
         
         CGFloat startX = 0;
@@ -68,7 +69,7 @@
             btn.backgroundColor = kBtnDafaultBgColor;
             btn.layer.borderColor = ATColorRGBMake(224, 224, 224).CGColor;
             btn.layer.borderWidth = defaultBtnLineWidth;
-            btn.titleLabel.font = SP15Font;
+            btn.titleLabel.font = SP14Font;
             btn.titleLabel.lineBreakMode = 0;
             btn.titleLabel.textAlignment = NSTextAlignmentCenter;
             [btn setTitle:[array objectAtIndex:i] forState:UIControlStateNormal];

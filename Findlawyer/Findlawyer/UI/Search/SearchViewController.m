@@ -21,6 +21,7 @@ typedef enum
     SelectSortType_lawfirm,//律所
 }SelectSortType;
 
+
 @interface SearchViewController ()<UISearchBarDelegate,UITextFieldDelegate>
 {
     UIButton                    *_leftBtn;//左边选中btn
@@ -75,7 +76,6 @@ typedef enum
                               @{@"Item":@"     附近律师",@"ItemValue": @[]},
                               @{@"Item":@"     法院周边",@"ItemValue": @[@"xcode中级法院",@"福田区法院",@"罗湖区法院",@"南山区法院",@"宝安区法院",@"更多"]},
                               @{@"Item":@"     擅长领域",@"ItemValue":@[@"刑事",@"刑事辩护",@"公司",@"经济合同",@"民商经济",@"房地产",@"更多"]}];
-
 //    self.searchDisplayController.searchBar.delegate = self;
 //    self.searchDisplayController.searchResultsTableView.separatorColor = [UIColor clearColor];
     
@@ -155,7 +155,7 @@ typedef enum
     [_sortBgScrollView keepAutoresizingInFull];
     [self.view addSubview:_sortBgScrollView];
     
-    _courtSortView = [[SearchSortView alloc] initWithFrame:CGRectMake(kSortBetweenSpace, 4, _sortBgScrollView.width - kSortBetweenSpace*2, 10) title:@"法院周边" sortNameArray:@[@"福田区法院",@"南山区法院",@"罗湖区法院",@"盐田区法院",@"宝安区法院",@"龙岗区法院",@"深圳市中级法院",@"市民中心",@"招商银行大厦",@"赛格广场",@"地王大厦",@"国贸大厦",@"海岸城"]];
+    _courtSortView = [[SearchSortView alloc] initWithFrame:CGRectMake(kSortBetweenSpace, 4, _sortBgScrollView.width - kSortBetweenSpace*2, 10) title:@"法院周边" sortNameArray:[self getLawfirmArray]];
     _courtSortView.delegate = self;
     [_sortBgScrollView addSubview:_courtSortView];
     
@@ -170,6 +170,58 @@ typedef enum
     _specialtySortView.delegate = self;
     [_sortBgScrollView addSubview:_specialtySortView];
     _sortBgScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(_specialtySortView.frame));
+}
+
+#pragma mark - get data soucre
+
+/*
+ 指定周边 的经纬度
+ 
+ 福田区人民法院  114.060687, 22.526431
+ 南山区人民法院  113.938349, 22.552192
+ 罗湖区人民法院  114.152211, 22.56198
+ 盐田区人民法院  114.24362, 22.563674
+ 宝安区人民法院  113.91767, 22.562314
+ 龙岗区人民法院  114.24941, 22.725061
+ 深圳市中级人民法院  114.073383, 22.565234
+ 
+ 市民中心  114.066122, 22.548637
+ 招商银行大厦  114.028946, 22.54308
+ 赛格广场  114.094122, 22.547269
+ 地王大厦  114.117076, 22.548921
+ 国贸大厦  114.126176, 22.546843
+ 海岸城  113.943485, 22.522769
+ */
+
+- (NSArray*)getLawfirmArray
+{
+    return @[@"福田区法院",@"南山区法院",@"罗湖区法院",@"盐田区法院",@"宝安区法院",@"龙岗区法院",@"深圳市中级法院",@"市民中心",@"招商银行大厦",@"赛格广场",@"地王大厦",@"国贸大厦",@"海岸城"];
+}
+
+/**
+ *  获取给定地点的坐标（经度、纬度）
+ *
+ *  @param lawfirmName 法院or指定地点的名字（key）
+ *
+ *  @return 经度和纬度的数组
+ */
+- (NSArray*)getLawfirmLocationCoordinate2D:(NSString*)lawfirmName
+{
+    NSDictionary *allCoordinateDic = @{@"福田区法院":@[@114.060687, @22.526431],
+                                       @"南山区法院":@[@113.938349, @22.552192],
+                                       @"罗湖区法院":@[@114.152211, @22.56198],
+                                       @"盐田区法院":@[@114.24362, @22.563674],
+                                       @"宝安区法院":@[@113.91767, @22.562314],
+                                       @"龙岗区法院":@[@114.24941, @22.725061],
+                                       @"深圳市中级法院":@[@114.073383, @22.565234],
+                                       
+                                       @"市民中心":@[@114.066122, @22.548637],
+                                       @"招商银行大厦":@[@114.028946, @22.54308],
+                                       @"赛格广场":@[@114.094122, @22.547269],
+                                       @"地王大厦":@[@114.117076, @22.548921],
+                                       @"国贸大厦":@[@114.126176, @22.546843],
+                                       @"海岸城":@[@113.943485, @22.522769]};
+    return (NSArray*)[allCoordinateDic objectForKey:lawfirmName];
 }
 
 #pragma mark - btn touch

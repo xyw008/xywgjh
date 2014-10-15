@@ -24,31 +24,14 @@
 #import "DetailLawfirmViewController.h"
 #import "UIViewController+loading.h"
 #import  "UIView+ProgressHUD.h"
+#import "BMKLawfirmPaoPaoView.h"
 
 #define HUDTage 999
 #define kRadius 200000
+#define kHeardHeight 18
 
-/*
- 指定周边 的经纬度
- 
- 深圳市中级人民法院  114.073383, 22.565234
- 福田区人民法院  114.060687, 22.526431
- 南山区人民法院  113.938349, 22.552192
- 罗湖区人民法院  114.152211, 22.56198
- 盐田区人民法院  114.24362, 22.563674
- 宝安区人民法院  113.91767, 22.562314
- 龙岗区人民法院  114.24941, 22.725061
-
- 市民中心  114.066122, 22.548637
- 招商银行大厦  114.028946, 22.54308
- 赛格广场  114.094122, 22.547269
- 地王大厦  114.117076, 22.548921
- 国贸大厦  114.126176, 22.546843
- 海岸城  113.943485, 22.522769
-*/
 
 @interface SearchDeatalViewController ()
-
 {
   	NSUInteger currentIndex;
 	NSUInteger pageSize;
@@ -494,7 +477,10 @@
     lfcell.lbMembercount.text = [NSString stringWithFormat:@"%@",lawfirm.memberCount];
     [lfcell.imgIntroduct setImageWithURL:lawfirm.mainImageURL placeholderImage:[UIImage imageNamed:@"defualtLawfirm"]];
     lfcell.cellindexPath = indexPath;
-
+    lfcell.lineView.hidden = NO;
+    if (indexPath.row + 1 == self.listContend.count) {
+        lfcell.lineView.hidden = YES;
+    }
 }
 
 
@@ -520,7 +506,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 30;
+        return kHeardHeight;
     }
     return 0;
     
@@ -528,15 +514,17 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView  *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
-    view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
-    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
+    UIView  *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, kHeardHeight)];
+//    view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    view.backgroundColor = HEXCOLOR(0XF0F0F0);
+    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, kHeardHeight)];
     lable.textAlignment = NSTextAlignmentLeft;
     lable.backgroundColor = [UIColor clearColor];
     lable.font = [UIFont boldSystemFontOfSize:15];
+    lable.textColor = HEXCOLOR(0XB6B6B6);
     // lable.textColor = [UIColor colorWithRed:0 green:122/255.0 blue:255.0/255.0 alpha:1];
     [view addSubview:lable];
-    lable.text = [NSString stringWithFormat:@"  搜索到%d家律师事务所",self.listContend.count];
+    lable.text = [NSString stringWithFormat:@"附近共%d家律所",self.listContend.count];
     return view;
 }
 
