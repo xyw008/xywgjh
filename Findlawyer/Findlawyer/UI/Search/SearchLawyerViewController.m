@@ -40,7 +40,6 @@
 	NSUInteger pageSize;
 	NSUInteger totalItemCount;
     
-    BOOL _isShowMapView;
 }
 
 @property (assign, atomic) BOOL loading;
@@ -78,8 +77,6 @@
 {
     [super viewDidLoad];
     
-    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"列表" action:@selector(sceneChange:)];
-    
     currentIndex = 0;
     pageSize = 30;
     
@@ -113,13 +110,16 @@
     self.tableView.delegate = self;
     
     self.tableView.tableFooterView = [[UIView alloc ]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 15)];
-    self.tableView.hidden = YES;
     [self.view addSubview:self.tableView];
     
     //开始时先加上地图，但先让地图隐藏，列表显示
     self.mapView = [[BMKMapView alloc]initWithFrame:subviewframe];
     [self.view addSubview:self.mapView];
     
+    //判断是显示地图还是列表
+    self.mapView.hidden = !_isShowMapView;
+    self.tableView.hidden = _isShowMapView;
+    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:_isShowMapView?@"列表":@"地图" action:@selector(sceneChange:)];
    
     [self loadmoreDataIsSearStatus:NO];
     // [self loadLocalData];

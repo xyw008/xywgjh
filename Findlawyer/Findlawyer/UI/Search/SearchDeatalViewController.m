@@ -26,7 +26,7 @@
 #import  "UIView+ProgressHUD.h"
 
 #define HUDTage 999
-
+#define kRadius 200000
 
 
 @interface SearchDeatalViewController ()
@@ -56,7 +56,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        _isShowMapView = YES;
+        _isAddNearbySearch = NO;
     }
     return self;
 }
@@ -95,9 +96,12 @@
 
     // 开始时先加上地图，但先让地图隐藏，列表显示
     self.mapView = [[BMKMapView alloc]initWithFrame:subviewframe];
-    self.mapView.hidden = YES;
     [self.view addSubview:self.mapView];
-    self.tableView.hidden = NO;
+    
+    //判断是显示地图还是列表
+    self.mapView.hidden = !_isShowMapView;
+    self.tableView.hidden = _isShowMapView;
+    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:_isShowMapView?@"列表":@"地图" action:@selector(sceneChange:)];
     
     self.title = self.strTitle;;
 
@@ -107,7 +111,16 @@
     {
         self.searchBar.text = self.searchKey;
     }
-    [self loadmoreData];
+    
+    if (_isAddNearbySearch)
+    {
+        //指定地址附件搜索，先搜索这个地址，得到个地址坐标
+        [self loadLocalData];
+    }
+    else
+    {
+        [self loadmoreData];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -178,11 +191,13 @@
 // 列表和地图模式切换
 - (IBAction)sceneChange:(id)sender {
     
-    if ([self.navigationItem.rightBarButtonItem.title isEqualToString:@"列表"]) {
+    _isShowMapView = !_isShowMapView;
+    if (!_isShowMapView) {
        
         self.mapView.hidden = YES;
         self.tableView.hidden = NO;
-        self.navigationItem.rightBarButtonItem.title = @"地图";
+        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"地图" action:@selector(sceneChange:)];
+        
     }
     else
     {
@@ -191,7 +206,7 @@
             self.mapView.hidden = NO;
             [self showMapnode];
         }
-        self.navigationItem.rightBarButtonItem.title = @"列表";
+        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"列表" action:@selector(sceneChange:)];
     }
 }
 
@@ -288,7 +303,7 @@
         {
             [[LBSSharedData sharedData] setCurrentCoordinate2D:location.coordinate];
             // 得到地理坐标后，进行百度LBS云搜索
-            [weakSelf loadDataWithLocation:location.coordinate radius:200000];
+            [weakSelf loadDataWithLocation:location.coordinate radius:kRadius searchKey:self.searchKey];
         }
         else
         {    // 没有坐标则显示定位失败
@@ -305,10 +320,10 @@
 
 
  // 用地理坐标进行百度LBS云搜索
-- (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius
+- (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius searchKey:(NSString*)searchKey
 {
     __weak  SearchDeatalViewController * weakSelf = self;
-    [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:SearchHouse searchKye:self.searchKey index:currentIndex     pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
+    [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:SearchHouse searchKye:searchKey index:currentIndex     pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
         if (dataModel)
 		{
             // 将得到的数据初始化律所这个数据
@@ -354,7 +369,14 @@
         if (dataModel)
 		{
             LBSLawfirm *lawfirm = [[LBSLawfirm alloc]initWithDataModel:dataModel];
-            [weakSelf.listContend addObject:lawfirm];
+            if (lawfirm.distance <= kRadius) {
+                [weakSelf.listContend addObject:lawfirm];
+            }
+            
+            
+//            [[LBSSharedData sharedData] setCurrentCoordinate2D:lawfirm.coordinate];
+//            // 得到地理坐标后，进行百度LBS云搜索
+//            [weakSelf loadDataWithLocation:lawfirm.coordinate radius:200000 searchKey:@""];
         }
 		else
 		{
@@ -387,6 +409,7 @@
 	[[LBSSharedData sharedData] setCurrentIndex:currentIndex];
 
 
+    
 //    [[LBSDataCenter defaultCenter] loadDataWithRegionName:[[[LBSDataBase sharedInstance] placeNames] objectAtIndex:self.pickerRegionIndex] priceRange:priceRange rentalType:self.pickerRentalIndex index:_currentIndex pageSize:_pageSize pieceComplete:^(LBSRequest *request, id dataModel) {
 //		if (dataModel)
 //		{
@@ -417,8 +440,8 @@
 //			});
 //		}
 //	}];
-	//currentIndex++;
-	//[[LBSSharedData sharedData] setCurrentIndex:currentIndex];
+//	currentIndex++;
+//	[[LBSSharedData sharedData] setCurrentIndex:currentIndex];
 
 
 }

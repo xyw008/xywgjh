@@ -125,7 +125,9 @@ typedef enum
     
     CGFloat tfX = CGRectGetMaxX(segmentLine.frame) + 2;
     NITextField *searchTF = [[NITextField alloc] initWithFrame:CGRectMake(tfX, 0, searchTopBarBgView.width - tfX - sideSpace, bgIV.height)];
+    searchTF.delegate = self;
     searchTF.backgroundColor = [UIColor clearColor];
+    searchTF.textColor = [UIColor whiteColor];
     searchTF.placeholder = @"请输入名称";
     searchTF.placeholderTextColor = [UIColor whiteColor];
     searchTF.placeholderFont = _leftBtn.titleLabel.font;
@@ -319,8 +321,11 @@ typedef enum
 {
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
+//    SearchDeatalViewController *vc = [[SearchDeatalViewController alloc] init];
     vc.searchKey = key;
     vc.strTitle = @"周边律所";
+    vc.isShowMapView = NO;
+    vc.isAddNearbySearch = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -331,6 +336,7 @@ typedef enum
     SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
     vc.strTitle = @"附近律师";
     vc.searchKey = key;
+    vc.isShowMapView = NO;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

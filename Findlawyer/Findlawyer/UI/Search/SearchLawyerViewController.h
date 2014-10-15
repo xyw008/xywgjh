@@ -16,6 +16,7 @@
 @property (nonatomic,strong) NSString * strTitle;//VC titile
 @property (nonatomic,strong) NSString * searchKey; //搜索关键字
 @property (nonatomic,strong) UIView *bgSearchView;
+@property (nonatomic,assign) BOOL isShowMapView;//判断是先显示地图还是列表
 
 - (void)sceneChange:(id)sender;
 
