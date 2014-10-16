@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+>>>>>>> 9e079ad1b1fb79aa60eeabd97755fee4b990cbf2
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
@@ -15,37 +19,61 @@
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="执业证号:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NqR-hR-J4l">
                     <rect key="frame" x="97" y="13" width="70" height="25"/>
+<<<<<<< HEAD
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
+=======
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+>>>>>>> 9e079ad1b1fb79aa60eeabd97755fee4b990cbf2
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="专业领域:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFO-Vs-mJB">
                     <rect key="frame" x="97" y="55" width="70" height="25"/>
+<<<<<<< HEAD
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
+=======
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+>>>>>>> 9e079ad1b1fb79aa60eeabd97755fee4b990cbf2
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="14403200710550299" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHv-QQ-yzy">
                     <rect key="frame" x="165" y="13" width="135" height="25"/>
+<<<<<<< HEAD
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
+=======
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+>>>>>>> 9e079ad1b1fb79aa60eeabd97755fee4b990cbf2
                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="某律师事务所" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ey6-rJ-bY6">
                     <rect key="frame" x="97" y="35" width="209" height="25"/>
+<<<<<<< HEAD
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
+=======
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+>>>>>>> 9e079ad1b1fb79aa60eeabd97755fee4b990cbf2
                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="刑事代理 公司法务 刑事辩护 更多" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hA4-0X-sCc">
                     <rect key="frame" x="96" y="76" width="214" height="25"/>
+<<<<<<< HEAD
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
+=======
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+>>>>>>> 9e079ad1b1fb79aa60eeabd97755fee4b990cbf2
                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="简介：办案经验丰富，业务功底深厚" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="flg-uE-v1c">
                     <rect key="frame" x="10" y="103" width="300" height="25"/>
+<<<<<<< HEAD
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
+=======
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+>>>>>>> 9e079ad1b1fb79aa60eeabd97755fee4b990cbf2
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -60,10 +88,15 @@
                 <outlet property="lbLawfirm" destination="ey6-rJ-bY6" id="5BT-DI-Dn5"/>
                 <outlet property="lbSpecialArea" destination="hA4-0X-sCc" id="8Fe-S3-6G9"/>
             </connections>
+            <point key="canvasLocation" x="337" y="268"/>
         </view>
     </objects>
     <resources>
+<<<<<<< HEAD
         <image name="lawyer.png" width="82" height="61"/>
+=======
+        <image name="lawyer.png" width="32" height="30"/>
+>>>>>>> 9e079ad1b1fb79aa60eeabd97755fee4b990cbf2
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
