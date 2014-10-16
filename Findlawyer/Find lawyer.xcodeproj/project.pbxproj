@@ -21,6 +21,7 @@
 		1E979A3719B66EDA00A0F7BF /* DetailLawyerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E979A3619B66EDA00A0F7BF /* DetailLawyerHeaderView.m */; };
 		1E979A3919B66F2100A0F7BF /* DetailLawyerHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E979A3819B66F2100A0F7BF /* DetailLawyerHeaderView.xib */; };
 		2306A42B19ED786E00D6F55F /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2306A42A19ED786E00D6F55F /* SearchView.m */; };
+		232F838319F0235E006C0E51 /* EXPhotoViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 232F838219F0235E006C0E51 /* EXPhotoViewer.m */; };
 		2B2A339219ED6A0B00DAE712 /* callHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338C19ED6A0B00DAE712 /* callHighlight@2x.png */; };
 		2B2A339319ED6A0B00DAE712 /* callNomal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338D19ED6A0B00DAE712 /* callNomal@2x.png */; };
 		2B2A339419ED6A0B00DAE712 /* consultHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338E19ED6A0B00DAE712 /* consultHighlight@2x.png */; };
@@ -380,6 +381,8 @@
 		1E979A3819B66F2100A0F7BF /* DetailLawyerHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailLawyerHeaderView.xib; sourceTree = "<group>"; };
 		2306A42919ED786E00D6F55F /* SearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchView.h; sourceTree = "<group>"; };
 		2306A42A19ED786E00D6F55F /* SearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
+		232F838119F0235E006C0E51 /* EXPhotoViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPhotoViewer.h; sourceTree = "<group>"; };
+		232F838219F0235E006C0E51 /* EXPhotoViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPhotoViewer.m; sourceTree = "<group>"; };
 		2B2A338C19ED6A0B00DAE712 /* callHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callHighlight@2x.png"; sourceTree = "<group>"; };
 		2B2A338D19ED6A0B00DAE712 /* callNomal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callNomal@2x.png"; sourceTree = "<group>"; };
 		2B2A338E19ED6A0B00DAE712 /* consultHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "consultHighlight@2x.png"; sourceTree = "<group>"; };
@@ -1045,6 +1048,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		232F838019F0235E006C0E51 /* EXPhotoViewer */ = {
+			isa = PBXGroup;
+			children = (
+				232F838119F0235E006C0E51 /* EXPhotoViewer.h */,
+				232F838219F0235E006C0E51 /* EXPhotoViewer.m */,
+			);
+			path = EXPhotoViewer;
+			sourceTree = "<group>";
+		};
 		2B2A338B19ED6A0B00DAE712 /* lawyerDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1061,6 +1073,7 @@
 		43B1839A19ECB74E00B7B1F6 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				232F838019F0235E006C0E51 /* EXPhotoViewer */,
 				B3AAEB9219EFED7A003FB7F9 /* CTAssetsPickerController */,
 				43B1839B19ECB74E00B7B1F6 /* ASIHttpRequst */,
 				43B183B319ECB74E00B7B1F6 /* FlatUIKit */,
@@ -2529,6 +2542,7 @@
 				43B1845719ECB74E00B7B1F6 /* UIButton+WebCache.m in Sources */,
 				43B1844C19ECB74E00B7B1F6 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				51951DCC196932B70010D7F1 /* InfoViewController.m in Sources */,
+				232F838319F0235E006C0E51 /* EXPhotoViewer.m in Sources */,
 				51D700B819EB8AB800CCC80A /* LBSDataBase.m in Sources */,
 				43B184ED19ECB91100B7B1F6 /* UIControl+SSToolkitAdditions.m in Sources */,
 				43B1862D19ECBA4800B7B1F6 /* ATTapView.m in Sources */,

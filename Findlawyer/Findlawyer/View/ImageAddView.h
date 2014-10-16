@@ -14,6 +14,8 @@
 
 - (void)ImageAddViewWantAddImage:(ImageAddView*)addView;
 
+- (void)ImageAddViewMyHeightHasChange:(ImageAddView *)addView;
+
 @end
 
 
@@ -21,6 +23,7 @@
 
 #define kDefaultEdgeDistance 15
 #define kDefaultLineImageNum 3
+#define kDefaultMaxAllImageNum 6
 #define kDefaultImageViewWidth 60
 #define kDefaultImageViewHeight 60
 #define kDefaultImageVerticalSpace 8
@@ -35,6 +38,8 @@
 @property (nonatomic,assign)CGFloat                 edgeDistance;//边缘距离 (default 15)
 
 @property (nonatomic,assign,readonly)NSInteger      lineImageNum;//一行的图片数量 (default 3)
+
+@property (nonatomic,assign)NSInteger               maxAllImageNum;//允许最多图片数目 (default 6)
 
 @property (nonatomic,assign,readonly)CGFloat        imageViewWidth;//图片视图的宽度 (优先级高于 lineImageNum 参数, default 60)
 
