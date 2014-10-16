@@ -15,10 +15,11 @@
 #import "SearchDeatalViewController.h"
 #import "SearchLawyerViewController.h"
 
+#import "UrlManager.h"
+#import "NetRequestManager.h"
 
 
-
-@interface InfoViewController ()
+@interface InfoViewController () <NetRequestDelegate>
 {
     UIView * rigitemTitleView;
 }
@@ -66,6 +67,9 @@
     self.tableView.tableHeaderView = self.titileview;
 
     [self.tableView reloadData];
+    
+    // 请求网络数据
+    [self getNetworkData];
 
 }
 - (void)receiveSignal:(QSignal *)signal
@@ -308,6 +312,27 @@
 - (void)dealloc
 {
     [self removeSignalObserver];
+}
+
+#pragma mark - custom methods
+
+- (void)getNetworkData
+{
+    NSURL *url = [UrlManager getRequestUrlByMethodName:@"GetTop5MainNewsList"];
+    
+    [[NetRequestManager sharedInstance] sendRequest:url parameterDic:nil requestTag:1000 delegate:self userInfo:nil];
+}
+
+#pragma mark - NetRequestDelegate methods
+
+- (void)netRequest:(NetRequest *)request successWithInfoObj:(id)infoObj
+{
+    
+}
+
+- (void)netRequest:(NetRequest *)request failedWithError:(NSError *)error
+{
+    
 }
 
 @end

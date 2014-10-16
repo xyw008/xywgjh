@@ -98,7 +98,7 @@
         
         if (dic && 0 != dic.count)
         {
-            urlStr = [urlStr stringByAppendingFormat:@"?%@",[NSString urlArgsStringFromDictionary:dic]];
+            urlStr = [urlStr stringByAppendingFormat:@"&%@",[NSString urlArgsStringFromDictionary:dic]];
         }
         url = [NSURL URLWithString:urlStr];
     }
