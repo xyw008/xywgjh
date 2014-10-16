@@ -215,6 +215,7 @@
         SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
         vc.searchKey = @"";
         vc.strTitle = @"周边律所";
+        vc.isShowMapView = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if (sender.tag == 2)

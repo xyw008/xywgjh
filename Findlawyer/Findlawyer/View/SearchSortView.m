@@ -72,6 +72,7 @@
             btn.titleLabel.font = SP14Font;
             btn.titleLabel.lineBreakMode = 0;
             btn.titleLabel.textAlignment = NSTextAlignmentCenter;
+            btn.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 4);
             [btn setTitle:[array objectAtIndex:i] forState:UIControlStateNormal];
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(sortBtnTouch:) forControlEvents:UIControlEventTouchUpInside];

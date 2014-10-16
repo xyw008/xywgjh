@@ -9,7 +9,13 @@
 #import "ConsultInfoVC.h"
 
 @interface ConsultInfoVC ()
-
+{
+    UIScrollView        *_bgSrcollView;//背景滚动视图
+    
+    UIView              *_addImgBgView;//添加图片的背景视图
+    UIView              *_selectTypeBgView;//选择咨询类型的背景视图
+    
+}
 @end
 
 @implementation ConsultInfoVC

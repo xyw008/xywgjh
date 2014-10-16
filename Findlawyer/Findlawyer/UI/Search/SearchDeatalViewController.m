@@ -71,6 +71,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     currentIndex = 0;
     pageSize = 30;
@@ -201,22 +202,51 @@
 - (IBAction)sceneChange:(id)sender {
     
     _isShowMapView = !_isShowMapView;
-    if (!_isShowMapView) {
-       
-        self.mapView.hidden = YES;
-        self.tableView.hidden = NO;
-        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"地图" action:@selector(sceneChange:)];
-        
-    }
-    else
-    {
-        if (self.tableView) {
-            self.tableView.hidden = YES;
-            self.mapView.hidden = NO;
-            [self showMapnode];
+//    if (!_isShowMapView) {
+//       
+//        self.mapView.hidden = YES;
+//        self.tableView.hidden = NO;
+//        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"地图" action:@selector(sceneChange:)];
+//        
+//    }
+//    else
+//    {
+//        if (self.tableView) {
+//            self.tableView.hidden = YES;
+//            self.mapView.hidden = NO;
+//            [self showMapnode];
+//        }
+//        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"列表" action:@selector(sceneChange:)];
+//    }
+    
+    [UIView transitionWithView:self.view duration:.45 options:!_isShowMapView ? UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionFlipFromRight animations:^{
+        if (!_isShowMapView)
+        {
+            self.mapView.hidden = YES;
+            self.tableView.hidden = NO;
         }
-        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"列表" action:@selector(sceneChange:)];
-    }
+        else
+        {
+            if (self.tableView)
+            {
+                self.tableView.hidden = YES;
+                self.mapView.hidden = NO;
+                
+                [self showMapnode];
+            }
+        }
+    } completion:^(BOOL finished) {
+        
+        if (!_isShowMapView)
+        {
+            [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"地图" action:@selector(sceneChange:)];
+        }
+        else
+        {
+            [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"列表" action:@selector(sceneChange:)];
+        }
+    }];
+    
 }
 
 // 处理cell 中各种BUtton 发出的通知
@@ -332,21 +362,24 @@
     }
 }
 
-- (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view
-{
-	
-}
-
 - (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view
 {
+    LBSLocationAnnotation *locationAnnotation = view.annotation;
+    DetailLawfirmViewController * vc = [[DetailLawfirmViewController alloc] init];
+    vc.lawfirmid = [locationAnnotation.lawfirm.lfid integerValue];
+    vc.lawfirm = locationAnnotation.lawfirm;
+    [self pushViewController:vc];
+}
 
+- (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view
+{
+    
 }
 
 - (void)mapView:(BMKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
 {
     
 }
-
 
 
 // 搜索加载数据
@@ -585,7 +618,7 @@
     [view addSubview:lable];
     lable.text = [NSString stringWithFormat:@"附近共%d家律所",self.listContend.count];
     return view;
-}
+}                  
 
 #pragma mark -UISearchBarDelagat
 
@@ -613,6 +646,9 @@
 {
     [self.bgSearchView removeFromSuperview];
     [self.searchBar resignFirstResponder];
+    
+    [_tableView reloadData]; // 从新加载列表
+    [self showMapnode];      // 从新加载地图
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar

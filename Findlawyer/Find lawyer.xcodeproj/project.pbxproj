@@ -335,11 +335,25 @@
 		51F64BF7196FE91000BBD314 /* NSString+TimeFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64BF6196FE91000BBD314 /* NSString+TimeFormat.m */; };
 		51F64BFA196FE91D00BBD314 /* UIView+ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64BF9196FE91D00BBD314 /* UIView+ProgressHUD.m */; };
 		51F64C08196FEA6600BBD314 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B3AAEB6319EF620A003FB7F9 /* defaultLawfirm_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB6019EF620A003FB7F9 /* defaultLawfirm_big@2x.png */; };
+		B3AAEB6419EF620A003FB7F9 /* defaultLawfirm_samll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB6119EF620A003FB7F9 /* defaultLawfirm_samll@2x.png */; };
+		B3AAEB6519EF620A003FB7F9 /* lawfirmPaoPao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB6219EF620A003FB7F9 /* lawfirmPaoPao@2x.png */; };
+		B3AAEB7E19EFB78E003FB7F9 /* ELCAlbumPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AAEB6819EFB78E003FB7F9 /* ELCAlbumPickerController.m */; };
+		B3AAEB7F19EFB78E003FB7F9 /* ELCAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AAEB6A19EFB78E003FB7F9 /* ELCAsset.m */; };
+		B3AAEB8019EFB78E003FB7F9 /* ELCAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AAEB6C19EFB78E003FB7F9 /* ELCAssetCell.m */; };
+		B3AAEB8119EFB78E003FB7F9 /* ELCAssetTablePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AAEB7019EFB78E003FB7F9 /* ELCAssetTablePicker.m */; };
+		B3AAEB8219EFB78E003FB7F9 /* ELCConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AAEB7219EFB78E003FB7F9 /* ELCConsole.m */; };
+		B3AAEB8319EFB78E003FB7F9 /* ELCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AAEB7419EFB78E003FB7F9 /* ELCImagePickerController.m */; };
+		B3AAEB8419EFB78E003FB7F9 /* ELCOverlayImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AAEB7719EFB78E003FB7F9 /* ELCOverlayImageView.m */; };
+		B3AAEB8519EFB78E003FB7F9 /* ELCAlbumPickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB7919EFB78E003FB7F9 /* ELCAlbumPickerController.xib */; };
+		B3AAEB8619EFB78E003FB7F9 /* ELCAssetPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB7A19EFB78E003FB7F9 /* ELCAssetPicker.xib */; };
+		B3AAEB8719EFB78E003FB7F9 /* ELCAssetTablePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB7B19EFB78E003FB7F9 /* ELCAssetTablePicker.xib */; };
+		B3AAEB8819EFB78E003FB7F9 /* Overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB7C19EFB78E003FB7F9 /* Overlay.png */; };
+		B3AAEB8919EFB78E003FB7F9 /* Overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB7D19EFB78E003FB7F9 /* Overlay@2x.png */; };
 		B3B083F519EE4FD400BF5BC9 /* Search_topBar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B083F419EE4FD400BF5BC9 /* Search_topBar_bg@2x.png */; };
 		B3B083F819EE57F500BF5BC9 /* ConsultInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */; };
 		B3B083FD19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B083FC19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.m */; };
 		B3B083FF19EE8CC100BF5BC9 /* BMKLawfirmPaoPaoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B083FE19EE8CC100BF5BC9 /* BMKLawfirmPaoPaoView.xib */; };
-		B3B0840119EE8D5A00BF5BC9 /* lawfirmPaoPao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B0840019EE8D5A00BF5BC9 /* lawfirmPaoPao@2x.png */; };
 		B3E3991119ECCC4C0033F10B /* SearchSortView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E3991019ECCC4C0033F10B /* SearchSortView.m */; };
 		B3E3991819ED29390033F10B /* Search_top_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E3991719ED29390033F10B /* Search_top_arrow@2x.png */; };
 		B3E39B2219ED3D060033F10B /* NITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E39B2119ED3D060033F10B /* NITextField.m */; };
@@ -976,13 +990,37 @@
 		51F64BF9196FE91D00BBD314 /* UIView+ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ProgressHUD.m"; sourceTree = "<group>"; };
 		51F64C06196FEA6600BBD314 /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
 		51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
+		B3AAEB6019EF620A003FB7F9 /* defaultLawfirm_big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "defaultLawfirm_big@2x.png"; sourceTree = "<group>"; };
+		B3AAEB6119EF620A003FB7F9 /* defaultLawfirm_samll@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "defaultLawfirm_samll@2x.png"; sourceTree = "<group>"; };
+		B3AAEB6219EF620A003FB7F9 /* lawfirmPaoPao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lawfirmPaoPao@2x.png"; sourceTree = "<group>"; };
+		B3AAEB6719EFB78E003FB7F9 /* ELCAlbumPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAlbumPickerController.h; sourceTree = "<group>"; };
+		B3AAEB6819EFB78E003FB7F9 /* ELCAlbumPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAlbumPickerController.m; sourceTree = "<group>"; };
+		B3AAEB6919EFB78E003FB7F9 /* ELCAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAsset.h; sourceTree = "<group>"; };
+		B3AAEB6A19EFB78E003FB7F9 /* ELCAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAsset.m; sourceTree = "<group>"; };
+		B3AAEB6B19EFB78E003FB7F9 /* ELCAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAssetCell.h; sourceTree = "<group>"; };
+		B3AAEB6C19EFB78E003FB7F9 /* ELCAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAssetCell.m; sourceTree = "<group>"; };
+		B3AAEB6D19EFB78E003FB7F9 /* ELCAssetPickerFilterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAssetPickerFilterDelegate.h; sourceTree = "<group>"; };
+		B3AAEB6E19EFB78E003FB7F9 /* ELCAssetSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAssetSelectionDelegate.h; sourceTree = "<group>"; };
+		B3AAEB6F19EFB78E003FB7F9 /* ELCAssetTablePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCAssetTablePicker.h; sourceTree = "<group>"; };
+		B3AAEB7019EFB78E003FB7F9 /* ELCAssetTablePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAssetTablePicker.m; sourceTree = "<group>"; };
+		B3AAEB7119EFB78E003FB7F9 /* ELCConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCConsole.h; sourceTree = "<group>"; };
+		B3AAEB7219EFB78E003FB7F9 /* ELCConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCConsole.m; sourceTree = "<group>"; };
+		B3AAEB7319EFB78E003FB7F9 /* ELCImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCImagePickerController.h; sourceTree = "<group>"; };
+		B3AAEB7419EFB78E003FB7F9 /* ELCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCImagePickerController.m; sourceTree = "<group>"; };
+		B3AAEB7519EFB78E003FB7F9 /* ELCImagePickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCImagePickerHeader.h; sourceTree = "<group>"; };
+		B3AAEB7619EFB78E003FB7F9 /* ELCOverlayImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCOverlayImageView.h; sourceTree = "<group>"; };
+		B3AAEB7719EFB78E003FB7F9 /* ELCOverlayImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCOverlayImageView.m; sourceTree = "<group>"; };
+		B3AAEB7919EFB78E003FB7F9 /* ELCAlbumPickerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELCAlbumPickerController.xib; sourceTree = "<group>"; };
+		B3AAEB7A19EFB78E003FB7F9 /* ELCAssetPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELCAssetPicker.xib; sourceTree = "<group>"; };
+		B3AAEB7B19EFB78E003FB7F9 /* ELCAssetTablePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELCAssetTablePicker.xib; sourceTree = "<group>"; };
+		B3AAEB7C19EFB78E003FB7F9 /* Overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Overlay.png; sourceTree = "<group>"; };
+		B3AAEB7D19EFB78E003FB7F9 /* Overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Overlay@2x.png"; sourceTree = "<group>"; };
 		B3B083F419EE4FD400BF5BC9 /* Search_topBar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search_topBar_bg@2x.png"; sourceTree = "<group>"; };
 		B3B083F619EE57F500BF5BC9 /* ConsultInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultInfoVC.h; sourceTree = "<group>"; };
 		B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultInfoVC.m; sourceTree = "<group>"; };
 		B3B083FB19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKLawfirmPaoPaoView.h; sourceTree = "<group>"; };
 		B3B083FC19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMKLawfirmPaoPaoView.m; sourceTree = "<group>"; };
 		B3B083FE19EE8CC100BF5BC9 /* BMKLawfirmPaoPaoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BMKLawfirmPaoPaoView.xib; sourceTree = "<group>"; };
-		B3B0840019EE8D5A00BF5BC9 /* lawfirmPaoPao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lawfirmPaoPao@2x.png"; sourceTree = "<group>"; };
 		B3E3990F19ECCC4C0033F10B /* SearchSortView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSortView.h; sourceTree = "<group>"; };
 		B3E3991019ECCC4C0033F10B /* SearchSortView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSortView.m; sourceTree = "<group>"; };
 		B3E3991719ED29390033F10B /* Search_top_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search_top_arrow@2x.png"; sourceTree = "<group>"; };
@@ -1042,6 +1080,7 @@
 		43B1839A19ECB74E00B7B1F6 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				B3AAEB6619EFB78E003FB7F9 /* ELCImagePicker */,
 				43B1839B19ECB74E00B7B1F6 /* ASIHttpRequst */,
 				43B183B319ECB74E00B7B1F6 /* FlatUIKit */,
 				43B183DB19ECB74E00B7B1F6 /* HPGrowingTextView */,
@@ -1296,12 +1335,12 @@
 		43B1842419ECB74E00B7B1F6 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				B3AAEB5F19EF620A003FB7F9 /* lawfirm */,
 				2B2A338B19ED6A0B00DAE712 /* lawyerDetail */,
 				43DABED619ED3E6500CA3FD9 /* navBack@2x.png */,
 				43DABE9F19ED276800CA3FD9 /* mapAnnotations */,
 				43DABE9819ED1C3600CA3FD9 /* lawyerMapAnnotationUserHeaderDefault.@2x.png */,
 				43DABE6119ED054C00CA3FD9 /* lawyerPaoPao@2x.png */,
-				B3B0840019EE8D5A00BF5BC9 /* lawfirmPaoPao@2x.png */,
 			);
 			path = image;
 			sourceTree = "<group>";
@@ -2142,6 +2181,53 @@
 			path = "NSDate-Utilities";
 			sourceTree = "<group>";
 		};
+		B3AAEB5F19EF620A003FB7F9 /* lawfirm */ = {
+			isa = PBXGroup;
+			children = (
+				B3AAEB6019EF620A003FB7F9 /* defaultLawfirm_big@2x.png */,
+				B3AAEB6119EF620A003FB7F9 /* defaultLawfirm_samll@2x.png */,
+				B3AAEB6219EF620A003FB7F9 /* lawfirmPaoPao@2x.png */,
+			);
+			path = lawfirm;
+			sourceTree = "<group>";
+		};
+		B3AAEB6619EFB78E003FB7F9 /* ELCImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				B3AAEB6719EFB78E003FB7F9 /* ELCAlbumPickerController.h */,
+				B3AAEB6819EFB78E003FB7F9 /* ELCAlbumPickerController.m */,
+				B3AAEB6919EFB78E003FB7F9 /* ELCAsset.h */,
+				B3AAEB6A19EFB78E003FB7F9 /* ELCAsset.m */,
+				B3AAEB6B19EFB78E003FB7F9 /* ELCAssetCell.h */,
+				B3AAEB6C19EFB78E003FB7F9 /* ELCAssetCell.m */,
+				B3AAEB6D19EFB78E003FB7F9 /* ELCAssetPickerFilterDelegate.h */,
+				B3AAEB6E19EFB78E003FB7F9 /* ELCAssetSelectionDelegate.h */,
+				B3AAEB6F19EFB78E003FB7F9 /* ELCAssetTablePicker.h */,
+				B3AAEB7019EFB78E003FB7F9 /* ELCAssetTablePicker.m */,
+				B3AAEB7119EFB78E003FB7F9 /* ELCConsole.h */,
+				B3AAEB7219EFB78E003FB7F9 /* ELCConsole.m */,
+				B3AAEB7319EFB78E003FB7F9 /* ELCImagePickerController.h */,
+				B3AAEB7419EFB78E003FB7F9 /* ELCImagePickerController.m */,
+				B3AAEB7519EFB78E003FB7F9 /* ELCImagePickerHeader.h */,
+				B3AAEB7619EFB78E003FB7F9 /* ELCOverlayImageView.h */,
+				B3AAEB7719EFB78E003FB7F9 /* ELCOverlayImageView.m */,
+				B3AAEB7819EFB78E003FB7F9 /* Resources */,
+			);
+			path = ELCImagePicker;
+			sourceTree = "<group>";
+		};
+		B3AAEB7819EFB78E003FB7F9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B3AAEB7919EFB78E003FB7F9 /* ELCAlbumPickerController.xib */,
+				B3AAEB7A19EFB78E003FB7F9 /* ELCAssetPicker.xib */,
+				B3AAEB7B19EFB78E003FB7F9 /* ELCAssetTablePicker.xib */,
+				B3AAEB7C19EFB78E003FB7F9 /* Overlay.png */,
+				B3AAEB7D19EFB78E003FB7F9 /* Overlay@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		B3E3990E19ECCBEA0033F10B /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2296,12 +2382,16 @@
 				51BEE09C19690AC000566AFF /* Images.xcassets in Resources */,
 				5143CBFD19791BB800D4B7C0 /* bgSms@2x.png in Resources */,
 				1E34A19819B76CF80035CDE6 /* bgTabBar@2x.png in Resources */,
+				B3AAEB8519EFB78E003FB7F9 /* ELCAlbumPickerController.xib in Resources */,
+				B3AAEB8819EFB78E003FB7F9 /* Overlay.png in Resources */,
 				51E620FD197514690087B49B /* btn_icon1@2x.png in Resources */,
+				B3AAEB6419EF620A003FB7F9 /* defaultLawfirm_samll@2x.png in Resources */,
 				51BEE0CE1969245800566AFF /* tab_recent_sel@2x.png in Resources */,
 				43DABEBA19ED276800CA3FD9 /* 10@2x.png in Resources */,
+				B3AAEB6519EF620A003FB7F9 /* lawfirmPaoPao@2x.png in Resources */,
 				51D6989C19A1E11600F7155E /* icon@2x.png in Resources */,
-				B3B0840119EE8D5A00BF5BC9 /* lawfirmPaoPao@2x.png in Resources */,
 				51BEE09119690AC000566AFF /* Main_iPhone.storyboard in Resources */,
+				B3AAEB8919EFB78E003FB7F9 /* Overlay@2x.png in Resources */,
 				1E34A1B019B77D4E0035CDE6 /* consult_unseleted@2x.png in Resources */,
 				51D700B719EB8AB800CCC80A /* LBSCoreDataInfo.plist in Resources */,
 				1E34A1B519B7821E0035CDE6 /* defaultNOPhoto@2x.png in Resources */,
@@ -2334,6 +2424,7 @@
 				43DABEBF19ED276800CA3FD9 /* 15@2x.png in Resources */,
 				517F0C7A1977E4900044D8E5 /* Default~iphone.png in Resources */,
 				5166D01819738CFF003A0994 /* arrow_right@2x.png in Resources */,
+				B3AAEB8719EFB78E003FB7F9 /* ELCAssetTablePicker.xib in Resources */,
 				43DABED719ED3E6500CA3FD9 /* navBack@2x.png in Resources */,
 				2B2A339319ED6A0B00DAE712 /* callNomal@2x.png in Resources */,
 				43DABEC019ED276800CA3FD9 /* 16@2x.png in Resources */,
@@ -2346,11 +2437,13 @@
 				510A119819D4332F002BACF5 /* navbar@2x.png in Resources */,
 				2B2A339419ED6A0B00DAE712 /* consultHighlight@2x.png in Resources */,
 				1E34A1A519B778E80035CDE6 /* sms_seleted@2x.png in Resources */,
+				B3AAEB6319EF620A003FB7F9 /* defaultLawfirm_big@2x.png in Resources */,
 				43DABEC119ED276800CA3FD9 /* 17@2x.png in Resources */,
 				51BEE0CD1969245800566AFF /* tab_recent_nor@2x.png in Resources */,
 				51BD0C7319B064CF006EF8AC /* DetailLawfirmHeaderView.xib in Resources */,
 				51BEE08819690AC000566AFF /* InfoPlist.strings in Resources */,
 				5112D0D31978CEB40039A88F /* icon.png in Resources */,
+				B3AAEB8619EFB78E003FB7F9 /* ELCAssetPicker.xib in Resources */,
 				5197EA7919B71600000484A7 /* Sms@2x.png in Resources */,
 				43DABEC519ED276800CA3FD9 /* 20@2x.png in Resources */,
 				51BEE0CF1969245800566AFF /* tab_setting_nor@2x.png in Resources */,
@@ -2381,7 +2474,9 @@
 				43B1866819ECBC0800B7B1F6 /* AppSoundManager.m in Sources */,
 				51436E6019A72F720026BE31 /* UIViewController+loading.m in Sources */,
 				43B1842B19ECB74E00B7B1F6 /* ASIInputStream.m in Sources */,
+				B3AAEB8119EFB78E003FB7F9 /* ELCAssetTablePicker.m in Sources */,
 				43B1842519ECB74E00B7B1F6 /* ASIAuthenticationDialog.m in Sources */,
+				B3AAEB8319EFB78E003FB7F9 /* ELCImagePickerController.m in Sources */,
 				43B1851619ECB91100B7B1F6 /* UrlManager.m in Sources */,
 				43DABE5E19ED00E700CA3FD9 /* BMKLawyerPaoPaoView.m in Sources */,
 				5167570219A5A39E00672380 /* DetailLawfirmViewController.m in Sources */,
@@ -2438,6 +2533,7 @@
 				5143CBF21979027B00D4B7C0 /* LawyerCell.m in Sources */,
 				517C24D819D6985100331AE4 /* SearchDeatalViewController.m in Sources */,
 				51F64BF0196FDE9A00BBD314 /* QSignalManager.m in Sources */,
+				B3AAEB8019EFB78E003FB7F9 /* ELCAssetCell.m in Sources */,
 				43B184F519ECB91100B7B1F6 /* AppPropertiesInitialize.m in Sources */,
 				43B1843E19ECB74E00B7B1F6 /* UITabBar+FlatUI.m in Sources */,
 				43B1843419ECB74E00B7B1F6 /* FUITextField.m in Sources */,
@@ -2498,6 +2594,7 @@
 				43B184E819ECB91100B7B1F6 /* UIButton+BackgroundImage.m in Sources */,
 				43B1842F19ECB74E00B7B1F6 /* FUIButton.m in Sources */,
 				43B184FA19ECB91100B7B1F6 /* DrawLineUIBtn.m in Sources */,
+				B3AAEB8419EFB78E003FB7F9 /* ELCOverlayImageView.m in Sources */,
 				43B1850119ECB91100B7B1F6 /* NetRequestManager.m in Sources */,
 				43B185F019ECBA4800B7B1F6 /* ATBLibs+NSDate.m in Sources */,
 				51D700BE19EB8AB800CCC80A /* LBSRequestManager.m in Sources */,
@@ -2546,8 +2643,10 @@
 				43B1862919ECBA4800B7B1F6 /* ATSeedFill.mm in Sources */,
 				43B1842C19ECB74E00B7B1F6 /* ASINetworkQueue.m in Sources */,
 				43B184EA19ECB91100B7B1F6 /* UIImageView+Image.m in Sources */,
+				B3AAEB7F19EFB78E003FB7F9 /* ELCAsset.m in Sources */,
 				43B184E719ECB91100B7B1F6 /* NSURL+SSToolkitAdditions.m in Sources */,
 				43B185E919ECBA4800B7B1F6 /* ATB_NetworkFunc.m in Sources */,
+				B3AAEB8219EFB78E003FB7F9 /* ELCConsole.m in Sources */,
 				43B1844019ECB74E00B7B1F6 /* UIToolbar+FlatUI.m in Sources */,
 				43B1866E19ECBC0800B7B1F6 /* UserInfoModel.m in Sources */,
 				43B1862019ECBA4800B7B1F6 /* ATAudioPlayManager.m in Sources */,
@@ -2574,6 +2673,7 @@
 				51F64BF4196FE90100BBD314 /* FileManager.m in Sources */,
 				43B1843A19ECB74E00B7B1F6 /* UIPopoverController+FlatUI.m in Sources */,
 				43B1843319ECB74E00B7B1F6 /* FUISwitch.m in Sources */,
+				B3AAEB7E19EFB78E003FB7F9 /* ELCAlbumPickerController.m in Sources */,
 				43B184EC19ECB91100B7B1F6 /* UIColor+SSToolkitAdditions.m in Sources */,
 				43B1843919ECB74E00B7B1F6 /* UINavigationBar+FlatUI.m in Sources */,
 				43B1843119ECB74E00B7B1F6 /* FUIPopoverBackgroundView.m in Sources */,
