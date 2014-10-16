@@ -8,10 +8,56 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ImageAddView : UIView
+@class ImageAddView;
 
-@property (nonatomic,assign)CGFloat     edgeDistance;//边缘距离 (default 15)
-@property (nonatomic,assign)NSInteger   lineImageNum;//一行的图片数量 (default 3)
+@protocol ImageAddViewDelegate <NSObject>
+
+- (void)ImageAddViewWantAddImage:(ImageAddView*)addView;
+
+@end
+
+
+
+
+#define kDefaultEdgeDistance 15
+#define kDefaultLineImageNum 3
+#define kDefaultImageViewWidth 60
+#define kDefaultImageViewHeight 60
+#define kDefaultImageVerticalSpace 8
+
+@interface ImageAddView : UIView
+{
+    __weak id<ImageAddViewDelegate>                 _delegate;
+}
+
+@property (nonatomic,weak)id                        delegate;
+
+@property (nonatomic,assign)CGFloat                 edgeDistance;//边缘距离 (default 15)
+
+@property (nonatomic,assign,readonly)NSInteger      lineImageNum;//一行的图片数量 (default 3)
+
+@property (nonatomic,assign,readonly)CGFloat        imageViewWidth;//图片视图的宽度 (优先级高于 lineImageNum 参数, default 60)
+
+@property (nonatomic,assign,readonly)CGFloat        imageViewHeight;//图片视图的高度 (default 60)
+
+@property (nonatomic,assign)CGFloat                 imageVerticalSpace;//图片间的垂直间距 (default 8)
+
+@property (nonatomic,assign,readonly)BOOL           autoChangeSelfHeight;//是否自动改变自己的高度(default YES)
+
+/**
+ *  添加一张图片
+ *
+ *  @param img UIImage
+ */
+- (void)addImage:(UIImage*)img;
+
+/**
+ *  添加一组图片
+ *
+ *  @param imgArray 图片数组
+ */
+- (void)addImageArray:(NSArray*)imgArray;
+
 
 
 @end

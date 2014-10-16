@@ -7,9 +7,10 @@
 //  咨询详细信息上传
 
 #import "BaseViewController.h"
+#import "LBSLawyer.h"
 
 @interface ConsultInfoVC : BaseViewController
 
-
+@property (nonatomic,strong)LBSLawyer       *lawyerItem;
 
 @end

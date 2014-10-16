@@ -340,6 +340,10 @@
 		B3AAEB6519EF620A003FB7F9 /* lawfirmPaoPao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB6219EF620A003FB7F9 /* lawfirmPaoPao@2x.png */; };
 		B3AAEB8C19EFBA4B003FB7F9 /* ImageAddView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AAEB8B19EFBA4B003FB7F9 /* ImageAddView.m */; };
 		B3AAEB8F19EFC502003FB7F9 /* Delete_img.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB8E19EFC502003FB7F9 /* Delete_img.png */; };
+		B3AAEB9119EFCBA9003FB7F9 /* consult_addImg.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB9019EFCBA9003FB7F9 /* consult_addImg.png */; };
+		B3AAEB9819EFED7A003FB7F9 /* CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AAEB9419EFED7A003FB7F9 /* CTAssetsPickerController.m */; };
+		B3AAEB9919EFED7A003FB7F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB9519EFED7A003FB7F9 /* Images.xcassets */; };
+		B3AAEB9A19EFED7A003FB7F9 /* NSDate+TimeInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AAEB9719EFED7A003FB7F9 /* NSDate+TimeInterval.m */; };
 		B3B083F519EE4FD400BF5BC9 /* Search_topBar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B083F419EE4FD400BF5BC9 /* Search_topBar_bg@2x.png */; };
 		B3B083F819EE57F500BF5BC9 /* ConsultInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */; };
 		B3B083FD19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B083FC19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.m */; };
@@ -986,6 +990,12 @@
 		B3AAEB8A19EFBA4B003FB7F9 /* ImageAddView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAddView.h; sourceTree = "<group>"; };
 		B3AAEB8B19EFBA4B003FB7F9 /* ImageAddView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAddView.m; sourceTree = "<group>"; };
 		B3AAEB8E19EFC502003FB7F9 /* Delete_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Delete_img.png; sourceTree = "<group>"; };
+		B3AAEB9019EFCBA9003FB7F9 /* consult_addImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = consult_addImg.png; sourceTree = "<group>"; };
+		B3AAEB9319EFED7A003FB7F9 /* CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerController.h; sourceTree = "<group>"; };
+		B3AAEB9419EFED7A003FB7F9 /* CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerController.m; sourceTree = "<group>"; };
+		B3AAEB9519EFED7A003FB7F9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B3AAEB9619EFED7A003FB7F9 /* NSDate+TimeInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeInterval.h"; sourceTree = "<group>"; };
+		B3AAEB9719EFED7A003FB7F9 /* NSDate+TimeInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeInterval.m"; sourceTree = "<group>"; };
 		B3B083F419EE4FD400BF5BC9 /* Search_topBar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search_topBar_bg@2x.png"; sourceTree = "<group>"; };
 		B3B083F619EE57F500BF5BC9 /* ConsultInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultInfoVC.h; sourceTree = "<group>"; };
 		B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultInfoVC.m; sourceTree = "<group>"; };
@@ -1051,6 +1061,7 @@
 		43B1839A19ECB74E00B7B1F6 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				B3AAEB9219EFED7A003FB7F9 /* CTAssetsPickerController */,
 				43B1839B19ECB74E00B7B1F6 /* ASIHttpRequst */,
 				43B183B319ECB74E00B7B1F6 /* FlatUIKit */,
 				43B183DB19ECB74E00B7B1F6 /* HPGrowingTextView */,
@@ -2165,9 +2176,22 @@
 		B3AAEB8D19EFC502003FB7F9 /* Consult */ = {
 			isa = PBXGroup;
 			children = (
+				B3AAEB9019EFCBA9003FB7F9 /* consult_addImg.png */,
 				B3AAEB8E19EFC502003FB7F9 /* Delete_img.png */,
 			);
 			path = Consult;
+			sourceTree = "<group>";
+		};
+		B3AAEB9219EFED7A003FB7F9 /* CTAssetsPickerController */ = {
+			isa = PBXGroup;
+			children = (
+				B3AAEB9319EFED7A003FB7F9 /* CTAssetsPickerController.h */,
+				B3AAEB9419EFED7A003FB7F9 /* CTAssetsPickerController.m */,
+				B3AAEB9519EFED7A003FB7F9 /* Images.xcassets */,
+				B3AAEB9619EFED7A003FB7F9 /* NSDate+TimeInterval.h */,
+				B3AAEB9719EFED7A003FB7F9 /* NSDate+TimeInterval.m */,
+			);
+			path = CTAssetsPickerController;
 			sourceTree = "<group>";
 		};
 		B3E3990E19ECCBEA0033F10B /* View */ = {
@@ -2280,6 +2304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5143CC0519791F6800D4B7C0 /* bgbtn@2x.png in Resources */,
+				B3AAEB9919EFED7A003FB7F9 /* Images.xcassets in Resources */,
 				51D4319019C4502900B6F48B /* bgChoose@2x.png in Resources */,
 				5112D0D51978CEB40039A88F /* icon120.png in Resources */,
 				51BEE0D01969245800566AFF /* tab_setting_sel@2x.png in Resources */,
@@ -2345,6 +2370,7 @@
 				43DABEC219ED276800CA3FD9 /* 18@2x.png in Resources */,
 				5184B03119B537FB004738FC /* rightArrow@2x.png in Resources */,
 				5143CBEE1979024400D4B7C0 /* LawfirmCell.xib in Resources */,
+				B3AAEB9119EFCBA9003FB7F9 /* consult_addImg.png in Resources */,
 				43DABED219ED276800CA3FD9 /* 8@2x.png in Resources */,
 				1E34A1A619B778E80035CDE6 /* sms_unseleted@2x.png in Resources */,
 				43B1845919ECB74E00B7B1F6 /* sr_refresh.png in Resources */,
@@ -2411,6 +2437,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43B184E919ECB91100B7B1F6 /* UIButton+Cache.m in Sources */,
+				B3AAEB9819EFED7A003FB7F9 /* CTAssetsPickerController.m in Sources */,
 				43B1866819ECBC0800B7B1F6 /* AppSoundManager.m in Sources */,
 				51436E6019A72F720026BE31 /* UIViewController+loading.m in Sources */,
 				43B1842B19ECB74E00B7B1F6 /* ASIInputStream.m in Sources */,
@@ -2511,6 +2538,7 @@
 				51D700BF19EB8AB800CCC80A /* LBSSharedData.m in Sources */,
 				43B184E319ECB91100B7B1F6 /* NSMutableArray+SSToolkitAdditions.m in Sources */,
 				43B1843F19ECB74E00B7B1F6 /* UITableViewCell+FlatUI.m in Sources */,
+				B3AAEB9A19EFED7A003FB7F9 /* NSDate+TimeInterval.m in Sources */,
 				51D700BA19EB8AB800CCC80A /* LBSRental.m in Sources */,
 				43B1842919ECB74E00B7B1F6 /* ASIFormDataRequest.m in Sources */,
 				43B185F519ECBA4800B7B1F6 /* ATBLibs+UIImage.m in Sources */,

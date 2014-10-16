@@ -30,6 +30,7 @@
 #import "Network.h"
 #import "BMKLawyerPaoPaoView.h"
 #import "UIFactory.h"
+#import "ConsultInfoVC.h"
 
 #define HUDTage 999
 
@@ -858,7 +859,9 @@
             break;
         case LawyerCellOperationType_Consult:
         {
-            
+            ConsultInfoVC *vc = [[ConsultInfoVC alloc] init];
+            vc.lawyerItem = cellSelectedLawyer;
+            [self pushViewController:vc];
         }
             break;
         /*
