@@ -459,7 +459,14 @@
 
 - (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view
 {
-	
+    LBSLawyerLocationAnnotation *annotation = view.annotation;
+    
+    if ([annotation isKindOfClass:[LBSLawyerLocationAnnotation class]])
+    {
+        DetailLawyerViewController *detailLawyerVC = [[DetailLawyerViewController alloc] init];
+        detailLawyerVC.lawyer = annotation.lawyer;
+        [self pushViewController:detailLawyerVC];
+    }
 }
 
 

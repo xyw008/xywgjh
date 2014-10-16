@@ -402,7 +402,7 @@
         }
         else
         {    // 没有坐标则显示定位失败
-            [self hideHUDWithTitle:@"定位失败!" image:nil delay:1];
+            [self hideHUDWithTitle:@"定位失败!" image:nil delay:HUDAutoHideTypeShowTime];
                      self.navigationItem.rightBarButtonItem.enabled = YES;
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"reload data now.");
@@ -437,15 +437,15 @@
 					_noMoreResultsAvail = YES;
 				if (request.error)
 
-                    [self hideHUDWithTitle:LBSUINetWorkError image:nil delay:1];
+                    [self hideHUDWithTitle:LBSUINetWorkError image:nil delay:HUDAutoHideTypeShowTime];
                 
 				else if (request.availableItemCount)
 
-                    [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:1];
+                    [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:HUDAutoHideTypeShowTime];
 
 				else
 
-                     [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:1];
+                     [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:HUDAutoHideTypeShowTime];
 
 				[weakSelf.tableView reloadData];//从新加载列表
                 [self showMapnode];// 从新加载地图地图
@@ -484,15 +484,15 @@
 					_noMoreResultsAvail = YES;
 				if (request.error)
                     //	[iToast make:LBSUINetWorkError duration:750];
-                    [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView: weakSelf.view tag:HUDTage delay:1];
+                    [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
                 
 				else if (request.availableItemCount)
 					//[iToast make:LBSUIDataComplete duration:750];
-                    [UIView hideHUDWithTitle:LBSUIDataComplete image:nil onView: weakSelf.view tag:HUDTage delay:1];
+                    [UIView hideHUDWithTitle:LBSUIDataComplete image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
                 
 				else
                     //	[iToast make:LBSUINoMoreData duration:750];
-                    [UIView hideHUDWithTitle:LBSUINoMoreData image:nil onView: weakSelf.view tag:HUDTage delay:1];
+                    [UIView hideHUDWithTitle:LBSUINoMoreData image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
                 
 				[weakSelf.tableView reloadData];
 
