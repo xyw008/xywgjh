@@ -17,11 +17,14 @@
 
 #import "UrlManager.h"
 #import "NetRequestManager.h"
-
+#import "CommonEntity.h"
+#import "HUDManager.h"
 
 @interface InfoViewController () <NetRequestDelegate>
 {
     UIView * rigitemTitleView;
+    
+    NSMutableArray *_networkHomePageNewsEntitiesArray;
 }
 @property (nonatomic,strong)UIButton  *btnCity ;
 
@@ -49,18 +52,18 @@
     [super viewDidLoad];
   //   self.navigationController.navigationBar.translucent = YES;
     
-    UIImageView *imgview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 7, 50, 30)];
-    imgview.image = [UIImage imageNamed:@"logo"];
-    self.navigationItem.titleView = imgview;
+    UIImageView *imgview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
+    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithCustomView:imgview];
+    self.navigationItem.leftBarButtonItem = leftBarBtn;
+    
     NSString * currentcity = [FileManager currentCity];
-
-    if (currentcity.length == 0) {
+    if (currentcity.length == 0)
+    {
         [self customNavigationRightBtnViewByTitle:@"深圳"];
     }
-    else{
-        
+    else
+    {
         [self customNavigationRightBtnViewByTitle:currentcity];
-
     }
 
     [self customTitleView];
@@ -113,7 +116,7 @@
     // add title view
     rigitemTitleView = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                                   0,
-                                                                  title_label.frame.size.width + img_view.frame.size.width,
+                                                                  title_label.frame.size.width + img_view.frame.size.width + 10,
                                                                   MAX(title_label.frame.size.height, img_view.frame.size.height))];
     [rigitemTitleView addSubview:title_label];
     [rigitemTitleView addSubview:img_view];
@@ -161,7 +164,7 @@
             lframe.size.width += 30;
             UILabel *label = [[UILabel alloc] initWithFrame:lframe];
             label.text = texts[index-1];
-            label.font = [UIFont systemFontOfSize:13.0];
+            label.font = [UIFont boldSystemFontOfSize:13.0];
             label.backgroundColor = [UIColor clearColor];
             label.textColor = [UIColor blackColor];
             label.textAlignment = NSTextAlignmentCenter;
@@ -197,8 +200,6 @@
     imgAD.layer.borderColor = [[UIColor groupTableViewBackgroundColor]CGColor];
     [bgAD addSubview:imgAD];
    
-    
-    
   //  return self.titileview;SearchDetailTableView
 }
 
@@ -237,65 +238,64 @@
     [self performSegueWithIdentifier:@"TocityLIst" sender:self];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-
-}
-
-
 #pragma mark -UITableViewDelegate UITabevieDataSource
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row ==0) {
+    if (indexPath.row ==0)
+    {
         return 60;
     }
     return 35;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the nu mber of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
-    // Return the number of rows in the section.
-    return 6;
+    return _networkHomePageNewsEntitiesArray.count;
 }
 
-
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
  {
+     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+     HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
      UITableViewCell *cell = nil;
-     if (indexPath.row == 0) {
-          cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+     if (indexPath.row == 0)
+     {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+         [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
          
+         UILabel *titleLabel = (UILabel *)[cell viewWithTag:1001];
+         UILabel *descLabel = (UILabel *)[cell viewWithTag:1002];
+         
+         titleLabel.text = entity.newsTitleStr;
+         descLabel.text = entity.newsDescStr;
      }
-     else{
+     else
+     {
          cell = [tableView dequeueReusableCellWithIdentifier:@"sigleCell"];
-         if (!cell){
+         if (!cell)
+         {
               cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sigleCell"];
-          }
-         cell.textLabel.text = @"关于ios8等若干问题的重大讨论";
-         cell.textLabel.font = [UIFont systemFontOfSize:15];
-         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+             cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
+             cell.textLabel.textColor = [UIColor blackColor];
+             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+             [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
+         }
+         cell.textLabel.text = entity.newsTitleStr;
      }
    
- 
- // Configure the cell...
     return cell;
  }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self performSegueWithIdentifier:@"toInfoDetail" sender:self];
 }
@@ -327,12 +327,33 @@
 
 - (void)netRequest:(NetRequest *)request successWithInfoObj:(id)infoObj
 {
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:infoObj options:NSJSONReadingMutableContainers error:NULL];
     
+    [self parseNetworkDataWithDic:dic];
+    [self.tableView reloadData];
 }
 
 - (void)netRequest:(NetRequest *)request failedWithError:(NSError *)error
 {
-    
+    [HUDManager showAutoHideHUDWithToShowStr:LoadFailed HUDMode:MBProgressHUDModeText];
+}
+
+- (void)parseNetworkDataWithDic:(NSDictionary *)dic
+{
+    if ([dic isAbsoluteValid])
+    {
+        NSArray *newsList = [dic objectForKey:@"MainNews"];
+        if ([newsList isAbsoluteValid])
+        {
+            _networkHomePageNewsEntitiesArray = [NSMutableArray arrayWithCapacity:newsList.count];
+            for (NSDictionary *oneNewsDic in newsList)
+            {
+                HomePageNewsEntity *entity = [HomePageNewsEntity initWithDict:oneNewsDic];
+                
+                [_networkHomePageNewsEntitiesArray addObject:entity];
+            }
+        }
+    }
 }
 
 @end

@@ -21,6 +21,7 @@
 		1E979A3719B66EDA00A0F7BF /* DetailLawyerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E979A3619B66EDA00A0F7BF /* DetailLawyerHeaderView.m */; };
 		1E979A3919B66F2100A0F7BF /* DetailLawyerHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E979A3819B66F2100A0F7BF /* DetailLawyerHeaderView.xib */; };
 		2306A42B19ED786E00D6F55F /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2306A42A19ED786E00D6F55F /* SearchView.m */; };
+		2B288D2B19F00FE200ADAFFE /* CommonEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B288D2A19F00FE200ADAFFE /* CommonEntity.m */; };
 		2B2A339219ED6A0B00DAE712 /* callHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338C19ED6A0B00DAE712 /* callHighlight@2x.png */; };
 		2B2A339319ED6A0B00DAE712 /* callNomal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338D19ED6A0B00DAE712 /* callNomal@2x.png */; };
 		2B2A339419ED6A0B00DAE712 /* consultHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338E19ED6A0B00DAE712 /* consultHighlight@2x.png */; };
@@ -380,6 +381,8 @@
 		1E979A3819B66F2100A0F7BF /* DetailLawyerHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailLawyerHeaderView.xib; sourceTree = "<group>"; };
 		2306A42919ED786E00D6F55F /* SearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchView.h; sourceTree = "<group>"; };
 		2306A42A19ED786E00D6F55F /* SearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
+		2B288D2919F00FE200ADAFFE /* CommonEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonEntity.h; sourceTree = "<group>"; };
+		2B288D2A19F00FE200ADAFFE /* CommonEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonEntity.m; sourceTree = "<group>"; };
 		2B2A338C19ED6A0B00DAE712 /* callHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callHighlight@2x.png"; sourceTree = "<group>"; };
 		2B2A338D19ED6A0B00DAE712 /* callNomal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callNomal@2x.png"; sourceTree = "<group>"; };
 		2B2A338E19ED6A0B00DAE712 /* consultHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "consultHighlight@2x.png"; sourceTree = "<group>"; };
@@ -2077,6 +2080,8 @@
 				51D7009C19EB8A2200CCC80A /* LBSLawfirm.m */,
 				51D7009D19EB8A2200CCC80A /* LBSLawyer.h */,
 				51D7009E19EB8A2200CCC80A /* LBSLawyer.m */,
+				2B288D2919F00FE200ADAFFE /* CommonEntity.h */,
+				2B288D2A19F00FE200ADAFFE /* CommonEntity.m */,
 			);
 			path = Modle;
 			sourceTree = "<group>";
@@ -2545,6 +2550,7 @@
 				43B1861F19ECBA4800B7B1F6 /* ATJumpAnimation.m in Sources */,
 				51E620EF1974C8610087B49B /* CoreDataManage.m in Sources */,
 				519A218D19A700D800248A21 /* AFHTTPClient.m in Sources */,
+				2B288D2B19F00FE200ADAFFE /* CommonEntity.m in Sources */,
 				B3E39B2219ED3D060033F10B /* NITextField.m in Sources */,
 				43B1844D19ECB74E00B7B1F6 /* IQUIWindow+Hierarchy.m in Sources */,
 				43B1861C19ECBA4800B7B1F6 /* ATBookAnimationView.m in Sources */,
