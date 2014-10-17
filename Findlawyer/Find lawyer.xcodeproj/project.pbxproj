@@ -183,6 +183,13 @@
 		43B1867819ECBF0B00B7B1F6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B1867719ECBF0B00B7B1F6 /* MobileCoreServices.framework */; };
 		43B1867A19ECBF1800B7B1F6 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B1867919ECBF1800B7B1F6 /* libicucore.dylib */; };
 		43B334AF19F0BE8C00DBE372 /* searchBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334AE19F0BE8C00DBE372 /* searchBG@2x.png */; };
+		43B334B119F0E8F300DBE372 /* navTitleBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334B019F0E8F300DBE372 /* navTitleBtn@2x.png */; };
+		43B334BF19F0F21300DBE372 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334BB19F0F21300DBE372 /* Default-568h@2x.png */; };
+		43B334C019F0F21300DBE372 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334BC19F0F21300DBE372 /* Default-667h@2x.png */; };
+		43B334C119F0F21300DBE372 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334BD19F0F21300DBE372 /* Default@2x.png */; };
+		43B334C219F0F21300DBE372 /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334BE19F0F21300DBE372 /* Default@3x.png */; };
+		43B334C619F1001F00DBE372 /* saoyisao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334C419F1001F00DBE372 /* saoyisao@2x.png */; };
+		43B334C719F1001F00DBE372 /* xihuan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334C519F1001F00DBE372 /* xihuan@2x.png */; };
 		43DABE5E19ED00E700CA3FD9 /* BMKLawyerPaoPaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DABE5D19ED00E700CA3FD9 /* BMKLawyerPaoPaoView.m */; };
 		43DABE6019ED00F700CA3FD9 /* BMKLawyerPaoPaoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43DABE5F19ED00F700CA3FD9 /* BMKLawyerPaoPaoView.xib */; };
 		43DABE6219ED054C00CA3FD9 /* lawyerPaoPao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43DABE6119ED054C00CA3FD9 /* lawyerPaoPao@2x.png */; };
@@ -717,6 +724,13 @@
 		43B1867719ECBF0B00B7B1F6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		43B1867919ECBF1800B7B1F6 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		43B334AE19F0BE8C00DBE372 /* searchBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchBG@2x.png"; sourceTree = "<group>"; };
+		43B334B019F0E8F300DBE372 /* navTitleBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navTitleBtn@2x.png"; sourceTree = "<group>"; };
+		43B334BB19F0F21300DBE372 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		43B334BC19F0F21300DBE372 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
+		43B334BD19F0F21300DBE372 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		43B334BE19F0F21300DBE372 /* Default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@3x.png"; sourceTree = "<group>"; };
+		43B334C419F1001F00DBE372 /* saoyisao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saoyisao@2x.png"; sourceTree = "<group>"; };
+		43B334C519F1001F00DBE372 /* xihuan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xihuan@2x.png"; sourceTree = "<group>"; };
 		43DABE5C19ED00E700CA3FD9 /* BMKLawyerPaoPaoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKLawyerPaoPaoView.h; sourceTree = "<group>"; };
 		43DABE5D19ED00E700CA3FD9 /* BMKLawyerPaoPaoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMKLawyerPaoPaoView.m; sourceTree = "<group>"; };
 		43DABE5F19ED00F700CA3FD9 /* BMKLawyerPaoPaoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BMKLawyerPaoPaoView.xib; sourceTree = "<group>"; };
@@ -1343,6 +1357,9 @@
 		43B1842419ECB74E00B7B1F6 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				43B334C319F1001F00DBE372 /* setting */,
+				43B334B219F0F01900DBE372 /* appCommon */,
+				43B334B019F0E8F300DBE372 /* navTitleBtn@2x.png */,
 				43B334AE19F0BE8C00DBE372 /* searchBG@2x.png */,
 				B3AAEB8D19EFC502003FB7F9 /* Consult */,
 				B3AAEB5F19EF620A003FB7F9 /* lawfirm */,
@@ -1663,6 +1680,26 @@
 				43B185E319ECBA4700B7B1F6 /* ATTapView.m */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		43B334B219F0F01900DBE372 /* appCommon */ = {
+			isa = PBXGroup;
+			children = (
+				43B334BB19F0F21300DBE372 /* Default-568h@2x.png */,
+				43B334BC19F0F21300DBE372 /* Default-667h@2x.png */,
+				43B334BD19F0F21300DBE372 /* Default@2x.png */,
+				43B334BE19F0F21300DBE372 /* Default@3x.png */,
+			);
+			path = appCommon;
+			sourceTree = "<group>";
+		};
+		43B334C319F1001F00DBE372 /* setting */ = {
+			isa = PBXGroup;
+			children = (
+				43B334C419F1001F00DBE372 /* saoyisao@2x.png */,
+				43B334C519F1001F00DBE372 /* xihuan@2x.png */,
+			);
+			path = setting;
 			sourceTree = "<group>";
 		};
 		43DABE9F19ED276800CA3FD9 /* mapAnnotations */ = {
@@ -2365,6 +2402,7 @@
 				1E34A1A319B778E80035CDE6 /* phone_seleted@2x.png in Resources */,
 				43DABECD19ED276800CA3FD9 /* 3@2x.png in Resources */,
 				5112D0DF1978F31D0039A88F /* logo@2x.png in Resources */,
+				43B334C619F1001F00DBE372 /* saoyisao@2x.png in Resources */,
 				51E62101197514690087B49B /* btn_icon5@2x.png in Resources */,
 				2B2A339719ED6A0B00DAE712 /* messageNomal@2x.png in Resources */,
 				517C5B8A196E3EE0000FF983 /* mapapi.bundle in Resources */,
@@ -2411,9 +2449,11 @@
 				43DABED219ED276800CA3FD9 /* 8@2x.png in Resources */,
 				1E34A1A619B778E80035CDE6 /* sms_unseleted@2x.png in Resources */,
 				43B1845919ECB74E00B7B1F6 /* sr_refresh.png in Resources */,
+				43B334C119F0F21300DBE372 /* Default@2x.png in Resources */,
 				43B1862819ECBA4800B7B1F6 /* pinyin.sqlite in Resources */,
 				51E621031975148A0087B49B /* btn_icon6@2x.png in Resources */,
 				43B1862719ECBA4800B7B1F6 /* pinyin.correct in Resources */,
+				43B334C719F1001F00DBE372 /* xihuan@2x.png in Resources */,
 				5143CC0319791F5900D4B7C0 /* InviteTable@2x.png in Resources */,
 				43DABEC619ED276800CA3FD9 /* 21@2x.png in Resources */,
 				5143CBFC19791BB800D4B7C0 /* bgConsult@2x.png in Resources */,
@@ -2426,6 +2466,7 @@
 				51BEE0D11969245800566AFF /* tab_tool_nor@2x.png in Resources */,
 				1E34A1AF19B77D4E0035CDE6 /* consult_seleted@2x.png in Resources */,
 				43DABEBE19ED276800CA3FD9 /* 14@2x.png in Resources */,
+				43B334C219F0F21300DBE372 /* Default@3x.png in Resources */,
 				43DABEBF19ED276800CA3FD9 /* 15@2x.png in Resources */,
 				517F0C7A1977E4900044D8E5 /* Default~iphone.png in Resources */,
 				5166D01819738CFF003A0994 /* arrow_right@2x.png in Resources */,
@@ -2442,6 +2483,7 @@
 				2B2A339419ED6A0B00DAE712 /* consultHighlight@2x.png in Resources */,
 				1E34A1A519B778E80035CDE6 /* sms_seleted@2x.png in Resources */,
 				B3AAEB6319EF620A003FB7F9 /* defaultLawfirm_big@2x.png in Resources */,
+				43B334BF19F0F21300DBE372 /* Default-568h@2x.png in Resources */,
 				43DABEC119ED276800CA3FD9 /* 17@2x.png in Resources */,
 				51BEE0CD1969245800566AFF /* tab_recent_nor@2x.png in Resources */,
 				51BD0C7319B064CF006EF8AC /* DetailLawfirmHeaderView.xib in Resources */,
@@ -2452,8 +2494,10 @@
 				51BEE0CF1969245800566AFF /* tab_setting_nor@2x.png in Resources */,
 				51E620FF197514690087B49B /* btn_icon3@2x.png in Resources */,
 				5143CBF31979027B00D4B7C0 /* LawyerCell.xib in Resources */,
+				43B334C019F0F21300DBE372 /* Default-667h@2x.png in Resources */,
 				517C24DB19D6B76300331AE4 /* btnChangecity@2x.png in Resources */,
 				5143CBF5197908EA00D4B7C0 /* btnconsult@2x.png in Resources */,
+				43B334B119F0E8F300DBE372 /* navTitleBtn@2x.png in Resources */,
 				51BEE0D21969245800566AFF /* tab_tool_sel@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2823,7 +2867,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2846,7 +2891,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

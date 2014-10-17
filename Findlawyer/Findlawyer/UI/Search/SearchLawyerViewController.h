@@ -7,11 +7,12 @@
 //
 
 #import "BaseViewController.h"
+#import "BMapKit.h"
 
 @interface SearchLawyerViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,BMKMapViewDelegate,UISearchBarDelegate>
 
 @property (strong, nonatomic)  UISearchBar *searchBar;
-@property (nonatomic,strong) BMKMapView * mapView;
+//@property (nonatomic,strong) BMKMapView * mapView;
 @property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,strong) NSString * strTitle;//VC titile
 @property (nonatomic,strong) NSString * searchKey; //搜索关键字

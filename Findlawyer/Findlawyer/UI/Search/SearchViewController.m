@@ -33,6 +33,7 @@ typedef enum
     SelectSortType              _sortType;//选中的种类
     
     UIView                      *_chooseBgView;//选择背景视图
+    NITextField                 *searchTF;
     
 }
 
@@ -125,12 +126,13 @@ typedef enum
     [searchTopBarBgView addSubview:segmentLine];
     
     CGFloat tfX = CGRectGetMaxX(segmentLine.frame) + 2;
-    NITextField *searchTF = [[NITextField alloc] initWithFrame:CGRectMake(tfX, 0, searchTopBarBgView.width - tfX - sideSpace, bgIV.height)];
+    searchTF = [[NITextField alloc] initWithFrame:CGRectMake(tfX, 0, searchTopBarBgView.width - tfX - sideSpace, bgIV.height)];
     searchTF.delegate = self;
     searchTF.backgroundColor = [UIColor clearColor];
     searchTF.textColor = [UIColor whiteColor];
     searchTF.placeholder = @"请输入名称";
     searchTF.placeholderTextColor = [UIColor whiteColor];
+    searchTF.font = _leftBtn.titleLabel.font;
     searchTF.placeholderFont = _leftBtn.titleLabel.font;
     searchTF.returnKeyType = UIReturnKeySearch;
     [searchTopBarBgView addSubview:searchTF];
@@ -259,7 +261,8 @@ typedef enum
  */
 - (void)cancelBtnTouch:(UIButton*)btn
 {
-    
+    searchTF.text = nil;
+    [searchTF resignFirstResponder];
 }
 
 /**
@@ -354,6 +357,8 @@ typedef enum
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    [searchTF resignFirstResponder];
+    
     if (textField.text.length < 1)
     {
         [self showHUDInfoByString:@"请输入搜索名称"];

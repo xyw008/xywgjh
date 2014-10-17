@@ -8,12 +8,12 @@
 // 此VC用来搜索律所，对应的LBS律所的那个表
 
 #import "BaseViewController.h"
-
+#import "BMapKit.h"
 
 @interface SearchDeatalViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,BMKMapViewDelegate,UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (nonatomic,strong) BMKMapView * mapView;
+//@property (nonatomic,strong) BMKMapView * mapView;
 @property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,strong) NSString * strTitle; //VC Titile
 @property (nonatomic,strong) NSString * searchKey; // 搜索关键字
