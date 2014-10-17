@@ -6,8 +6,10 @@
 //  Copyright (c) 2014年 Kevin. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "BaseNetworkViewController.h"
 
-@interface InfoDetailViewController : BaseViewController
+@interface InfoDetailViewController : BaseNetworkViewController
+
+- (id)initWithNewsId:(NSInteger)newsId;
 
 @end

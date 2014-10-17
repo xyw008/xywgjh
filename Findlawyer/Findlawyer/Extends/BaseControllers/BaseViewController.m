@@ -178,12 +178,14 @@
     {
         case HUDInfoType_Success:
         {
-            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:OperationSuccess showType:HUDOperationSuccess];
+            [HUDManager showAutoHideHUDWithToShowStr:OperationSuccess HUDMode:MBProgressHUDModeText];
+//            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:OperationSuccess showType:HUDOperationSuccess];
         }
             break;
         case HUDInfoType_Failed:
         {
-            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:OperationFailure showType:HUDOperationFailed];
+            [HUDManager showAutoHideHUDWithToShowStr:OperationFailure HUDMode:MBProgressHUDModeText];
+//            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:OperationFailure showType:HUDOperationFailed];
         }
             break;
         case HUDInfoType_Loading:
@@ -193,7 +195,8 @@
             break;
             case HUDInfoType_NoConnectionNetwork:
         {
-            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:NoConnectionNetwork showType:HUDOperationFailed];
+            [HUDManager showAutoHideHUDWithToShowStr:NoConnectionNetwork HUDMode:MBProgressHUDModeText];
+//            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:NoConnectionNetwork showType:HUDOperationFailed];
         }
             break;
         default:
@@ -244,7 +247,7 @@
 
 - (void)setNavigationItemTitle:(NSString *)titleStr
 {
-    [self setNavigationItemTitle:titleStr titleFont:[UIFont boldSystemFontOfSize:NavTitleFontSize] titleColor:[UIColor blackColor]];
+    [self setNavigationItemTitle:titleStr titleFont:[UIFont boldSystemFontOfSize:17] titleColor:[UIColor whiteColor]];
 }
 
 - (void)setNavigationItemTitle:(NSString *)title titleFont:(UIFont *)font titleColor:(UIColor *)color

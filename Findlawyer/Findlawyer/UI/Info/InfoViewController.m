@@ -19,6 +19,7 @@
 #import "NetRequestManager.h"
 #import "CommonEntity.h"
 #import "HUDManager.h"
+#import "InfoDetailViewController.h"
 
 @interface InfoViewController () <NetRequestDelegate>
 {
@@ -296,8 +297,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self performSegueWithIdentifier:@"toInfoDetail" sender:self];
+     */
+    HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
+    InfoDetailViewController *newsDetailVC = [[InfoDetailViewController alloc] initWithNewsId:entity.newsId];
+    newsDetailVC.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:newsDetailVC animated:YES];
 }
 
 

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ACETelPrompt.h"
-
+#import "AppPropertiesInitialize.h"
 
 @implementation AppDelegate
 
@@ -35,7 +35,7 @@
       [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     }
     
-
+    [AppPropertiesInitialize startAppPropertiesInitialize];
     
 //   [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:79/255.0 green:180/255.0 blue:255.0/255.0 alpha:1]];
     

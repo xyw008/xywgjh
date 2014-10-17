@@ -7,8 +7,14 @@
 //
 
 #import "InfoDetailViewController.h"
+#import "BaseNetworkViewController+NetRequestManager.h"
 
 @interface InfoDetailViewController ()
+{
+    NSInteger _newsId;
+    
+    UIWebView *_webView;
+}
 
 @end
 
@@ -23,14 +29,24 @@
     return self;
 }
 
+- (id)initWithNewsId:(NSInteger)newsId
+{
+    self = [super init];
+    if (self)
+    {
+        _newsId = newsId;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
-   [super viewDidLoad];
+    [super viewDidLoad];
     
+    [self setNavigationItemTitle:@"资讯详情"];
     
- [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-
-    // Do any additional setup after loading the view.
+    [self initialization];
+    [self getNetworkData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,15 +55,53 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - custom methods
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)setNetworkRequestStatusBlocks
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    WEAKSELF
+    [self setNetSuccessBlock:^(NetRequest *request, id successInfoObj) {
+        
+        STRONGSELF
+        if ([successInfoObj isSafeObject])
+        {
+            NSArray *newsList = [successInfoObj objectForKey:@"MainArticle"];
+            if ([newsList isAbsoluteValid])
+            {
+                NSDictionary *newsDic = newsList[0];
+                
+                NSString *newsTitle = [newsDic objectForKey:@"Title"];
+                NSString *newsContent = [newsDic objectForKey:@"Content"];
+                
+                [weakSelf setNavigationItemTitle:newsTitle];
+                
+                newsContent = [NSString stringWithFormat:
+                                    @"<html> \n"
+                                     "<head> \n"
+                                     "<style type=\"text/css\"> \n"
+                                     "body {font-family: \"%@\"; font-size: %f; color: %@; line-height: %@}\n"
+                                     "</style> \n"
+                                     "</head> \n"
+                                     "<body>%@</body> \n"
+                                     "</html>", @"黑体", 18.0, @"#000000", [NSString stringWithFormat:@"%fpx",18.0 + 10.0], newsContent];
+                [strongSelf->_webView loadHTMLString:newsContent baseURL:nil];
+            }
+        }
+    }];
 }
-*/
+
+- (void)getNetworkData
+{
+    if (_newsId)
+    {
+        [self sendRequest:[[self class] getRequestURLStr:NetHomePageNewsRequestType_GetMainNewsDetail] parameterDic:@{@"id":@(_newsId)} requestTag:NetHomePageNewsRequestType_GetMainNewsDetail];
+    }
+}
+
+- (void)initialization
+{
+    _webView = InsertWebView(self.view, self.view.bounds, nil, 1000);
+    [_webView keepAutoresizingInFull];
+}
 
 @end
