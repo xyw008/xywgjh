@@ -13,6 +13,8 @@
 #import "YGPopupController.h"
 #import "PickerAlertTypeManager.h"
 #import "NetRequestManager.h"
+#import "BaseNetworkViewController+NetRequestManager.h"
+#import "UploadImageBC.h"
 
 #define kEdgeSpace 10
 #define kCancelBtnStr @"   取消"
@@ -35,8 +37,18 @@
     
     NSArray             *_typeArray;//可选择咨询类型数组
     
-    YGPopupController   *_popupController;
-    NSString            *_wantSelectStr;
+    YGPopupController   *_popupController;//弹出视图
+    NSString            *_wantSelectStr;//将要选择的咨询领域
+    
+    UploadImageBC       *_uploadImageBC;//上传图片
+    BOOL                _allPhotoUploadSuccess;//所有图片上传成功
+    
+    NSString            *_askId;//咨询ID (通过网络请求获取)
+    BOOL                _willImgButNoAskId;//要传图片但是没有 askId
+    NSMutableArray      *_uploadImgArray;//需要上传图片的数组
+    
+//    NSInteger           *_wantUploadIndex;//下个将要上传图片所在数组index
+    
 }
 @end
 
@@ -44,8 +56,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _typeArray = @[@"刑事辩护",@"婚姻家庭",@"民商经济",@"劳动人事",@"行政诉讼",@"知识产权",@"交通事故",@"房产建筑",@"银行保险",@"金融证券",@"并购上市",@"涉外国际",@"法律顾问"];
+    _typeArray = kSpecialtyDomainArray;
     
     [self initImageAddViewAndBgScrollView];
     [self initSelectBgView];
@@ -219,18 +230,34 @@
         STRONGSELF
         if (successInfoObj && [successInfoObj isKindOfClass:[NSDictionary class]])
         {
-            switch (request.tag) {
-                case kGetAskIdRequestTag:
-                    
+            switch (request.tag)
+            {
+                case NetConsultInfoRequestType_GetAskId:
+                {
+                    NSArray *askArray = [successInfoObj objectForKey:@"Ask"];
+                    if ([askArray isAbsoluteValid])
+                    {
+                        strongSelf->_askId = [askArray objectAtIndex:0];
+                        //如果要上传图片时候发现没有askId，而且发起的请求的情况
+                        if (strongSelf->_willImgButNoAskId)
+                        {
+                            [strongSelf uploadImgArray:strongSelf->_uploadImgArray];
+                            strongSelf->_willImgButNoAskId = NO;
+                            strongSelf->_uploadImgArray = nil;
+                        }
+                    }
+                }
                     break;
-                
+                case NetConsultInfoRequestType_PostSaveAskInfo:
+                {
+                    [strongSelf backViewController];
+                }
                 default:
                     break;
             }
-            
         }
     } failedBlock:^(NetRequest *request, NSError *error) {
-        
+        DLog(@"SD");
     }];
 }
 
@@ -238,18 +265,39 @@
 {
     if (_lawyerItem.lawerid)
     {
-        NSDictionary *parm = @{@"lawyerId":_lawyerItem.lawerid,@"fn":@"GetAskId"};
-        [self sendRequest:@"AppHandler.ashx" parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_GET requestTag:kGetAskIdRequestTag];
+        NSDictionary *parm = @{@"lawyerId":_lawyerItem.lawerid};
+        [self sendRequest:[BaseNetworkViewController getRequestURLStr:NetConsultInfoRequestType_GetAskId] parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_GET requestTag:NetConsultInfoRequestType_GetAskId];
     }
 }
 
-- (void)postPhotoReuqest
+- (void)saveAskInfoReuqest
 {
-    if (_lawyerItem.lawerid)
+    if (_askId)
     {
-        NSDictionary *parm = @{@"askId":_lawyerItem.lawerid,@"fn":@"AddAskPhoto"};
-        [self sendRequest:@"UploadHandler.ashx" parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_GET requestTag:kGetAskIdRequestTag];
+        if ([_selectTypeLB.text isEqualToString:@"咨询类型:"])
+        {
+            [self showHUDInfoByString:@"请选择咨询类型"];
+            return;
+        }
+        
+        if (_textView.text.length > 0)
+        {
+            //擅长领域ID，是所在数组index + 1
+            NSString *askTypeId = [NSString stringWithFormat:@"%d",[_typeArray indexOfObject:_selectTypeLB.text] + 1];
+            
+            NSDictionary *parm = @{@"askId":_askId,@"askTypeId":askTypeId,@"content":_textView.text};
+            [self sendRequest:[BaseNetworkViewController getRequestURLStr:NetConsultInfoRequestType_PostSaveAskInfo] parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostSaveAskInfo];
+        }
+        else
+        {
+            [self showHUDInfoByString:@"请填写咨询内容"];
+        }
     }
+    else
+    {
+        [self showHUDInfoByString:@"上传失败"];
+    }
+    
 }
 
 #pragma mark - YGPopupController delegate
@@ -310,6 +358,7 @@
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         STRONGSELF
         [strongSelf->_imageAddView addImage:image];
+        [strongSelf uploadImgArray:@[image]];
         [strongSelf.view layoutSubviews];
     }];
 }
@@ -323,6 +372,7 @@
         [imgArray addObject:[UIImage imageWithCGImage:asset.thumbnail]];
     }
     [_imageAddView addImageArray:imgArray];
+    [self uploadImgArray:imgArray];
 }
 
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker
@@ -358,5 +408,41 @@
 {
     _textViewPlaceholderLB.hidden = textView.text.length == 0 ? NO:YES;
 }
+
+#pragma mark - upload img
+
+- (void)uploadImgArray:(NSArray*)array
+{
+    if (![array isAbsoluteValid])
+        return;
+    
+    if (_askId != nil)
+    {
+        if (_uploadImageBC == nil)
+        {
+            WEAKSELF
+            _uploadImageBC = [[UploadImageBC alloc] initWithAskId:_askId UploadImgArray:array uploadStateBlock:^(BOOL success) {
+                STRONGSELF
+                if (success)
+                    strongSelf->_allPhotoUploadSuccess = success;
+            }];
+        }
+        else
+        {
+            [_uploadImageBC addUploadImgArray:array];
+        }
+    }
+    else
+    {
+        if (_uploadImgArray == nil)
+            _uploadImgArray = [[NSMutableArray alloc] initWithArray:array];
+        else
+            [_uploadImgArray addObjectsFromArray:array];
+        
+        _willImgButNoAskId = YES;
+        [self getNetworkData];
+    }
+}
+
 
 @end
