@@ -202,7 +202,7 @@
 
 - (void)sendInfoBtnTouch:(UIButton*)btn
 {
-    
+    [self saveAskInfoReuqest];
 }
 
 - (void)clickCancelOrConfirmBtn:(UIBarButtonItem *)sender
@@ -230,6 +230,7 @@
         STRONGSELF
         if (successInfoObj && [successInfoObj isKindOfClass:[NSDictionary class]])
         {
+            
             switch (request.tag)
             {
                 case NetConsultInfoRequestType_GetAskId:
@@ -256,6 +257,12 @@
                     break;
             }
         }
+        else
+        {
+            NSString *test = [[NSString alloc] initWithData:successInfoObj encoding:NSUTF8StringEncoding];
+            DLog(@"test = %@",test);
+        }
+        
     } failedBlock:^(NetRequest *request, NSError *error) {
         DLog(@"SD");
     }];
@@ -283,9 +290,12 @@
         if (_textView.text.length > 0)
         {
             //擅长领域ID，是所在数组index + 1
-            NSString *askTypeId = [NSString stringWithFormat:@"%d",[_typeArray indexOfObject:_selectTypeLB.text] + 1];
+            NSString *askTypeId = [NSString stringWithFormat:@"%d",([_typeArray indexOfObject:_selectTypeLB.text] + 1)];
+            DLog(@"askType id = %@  content = %@",askTypeId,_textView.text);
+            NSNumber *typeId = [[NSNumber alloc] initWithInteger:[askTypeId integerValue]];
             
-            NSDictionary *parm = @{@"askId":_askId,@"askTypeId":askTypeId,@"content":_textView.text};
+            
+            NSDictionary *parm = @{@"askId":_askId,@"askTypeId":typeId,@"content":_textView.text};
             [self sendRequest:[BaseNetworkViewController getRequestURLStr:NetConsultInfoRequestType_PostSaveAskInfo] parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostSaveAskInfo];
         }
         else
