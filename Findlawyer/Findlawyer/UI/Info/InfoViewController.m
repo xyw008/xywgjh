@@ -268,7 +268,7 @@
      UITableViewCell *cell = nil;
      if (indexPath.row == 0)
      {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
          [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
          
          UILabel *titleLabel = (UILabel *)[cell viewWithTag:1001];
@@ -282,7 +282,7 @@
          cell = [tableView dequeueReusableCellWithIdentifier:@"sigleCell"];
          if (!cell)
          {
-              cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sigleCell"];
+             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sigleCell"];
              cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
              cell.textLabel.textColor = [UIColor blackColor];
              cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -327,9 +327,7 @@
 
 - (void)netRequest:(NetRequest *)request successWithInfoObj:(id)infoObj
 {
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:infoObj options:NSJSONReadingMutableContainers error:NULL];
-    
-    [self parseNetworkDataWithDic:dic];
+    [self parseNetworkDataWithDic:infoObj];
     [self.tableView reloadData];
 }
 
