@@ -12,11 +12,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <sections>
-                            <tableViewSection id="rsM-WM-rPM">
-                                <cells/>
-                            </tableViewSection>
-                        </sections>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="HUb-D3-P7n" id="hgf-JM-4wM"/>
                             <outlet property="delegate" destination="HUb-D3-P7n" id="qkC-1N-CK1"/>
