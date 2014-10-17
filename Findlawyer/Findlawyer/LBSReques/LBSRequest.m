@@ -37,7 +37,11 @@ NSString * const kLBSRequestUpdateLocation = @"com.baidu.location.update";
 
 + (NSUInteger)keyForStatus:(NSDictionary *)rentalInfo
 {
-	return [[rentalInfo objectForKey:@"status"] unsignedIntegerValue];
+    if ([[rentalInfo objectForKey:@"status"] isSafeObject])
+    {
+        return [[rentalInfo objectForKey:@"status"] unsignedIntegerValue];
+    }
+    return NSNotFound;
 }
 
 + (NSUInteger) keyForTotalCount:(NSDictionary *)rentalInfo

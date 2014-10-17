@@ -23,8 +23,8 @@
 #import "DetailLocationViewController.h"
 #import "DetailLawfirmViewController.h"
 #import "UIViewController+loading.h"
-#import  "UIView+ProgressHUD.h"
 #import "BMKLawfirmPaoPaoView.h"
+#import "HUDManager.h"
 
 #define HUDTage 999
 #define kRadius 200000
@@ -36,6 +36,8 @@
   	NSUInteger currentIndex;
 	NSUInteger pageSize;
 	NSUInteger totalItemCount;
+    
+    BMKMapView *_mapView;
 }
 
 @property (assign, atomic) BOOL loading;
@@ -100,12 +102,14 @@
     [self.view addSubview:self.tableView];
 
     // 开始时先加上地图，但先让地图隐藏，列表显示
-    self.mapView = [[BMKMapView alloc]initWithFrame:subviewframe];
+    _mapView = [[BMKMapView alloc] initWithFrame:subviewframe];
+    _mapView.showsUserLocation = YES;
+    _mapView.delegate = self;
     [_mapView keepAutoresizingInFull];
-    [self.view addSubview:self.mapView];
+    [self.view addSubview:_mapView];
     
     //判断是显示地图还是列表
-    self.mapView.hidden = !_isShowMapView;
+    _mapView.hidden = !_isShowMapView;
     self.tableView.hidden = _isShowMapView;
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:_isShowMapView?@"列表":@"地图" action:@selector(sceneChange:)];
     
@@ -138,26 +142,29 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.mapView viewWillAppear];
-    self.mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+    
+    [_mapView viewWillAppear];
+    _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+    
      [self addSignalObserver];
- 
-    [self showMapnode];
+//    [self showMapnode];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [self.mapView viewWillDisappear];
-    self.mapView.delegate = nil; // 不用时，置nil
+    [_mapView viewWillDisappear];
+    _mapView.delegate = nil; // 不用时，置nil
+    
    [self removeSignalObserver];
    
+    [super viewWillDisappear:animated];
 }
 // 设置地图中心位置，加载地图标注
 - (void) showMapnode
 {
-    NSArray * array = [NSArray arrayWithArray:[self.mapView annotations]];
+    NSArray * array = [NSArray arrayWithArray:[_mapView annotations]];
     if (array.count >0) {
-        [self.mapView removeAnnotations:array];
+        [_mapView removeAnnotations:array];
     }
     
     if (self.listContend.count >0) {
@@ -165,8 +172,8 @@
         LBSLawfirm *lawyerfirm = [self.listContend objectAtIndex:0];
         CLLocationCoordinate2D coor = lawyerfirm.coordinate;
         BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(0.05f,0.05f));
-        BMKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
-        [self.mapView setRegion:adjustedRegion animated:YES];
+        BMKCoordinateRegion adjustedRegion = [_mapView regionThatFits:viewRegion];
+        [_mapView setRegion:adjustedRegion animated:YES];
     
         [self loadAnnotationWithArray:self.listContend];
     }
@@ -178,8 +185,8 @@
         coor.latitude = delegate.userlocation.coordinate.latitude;
         coor.longitude= delegate.userlocation.coordinate.longitude;
         BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(0.05f,0.05f));
-        BMKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
-        [self.mapView setRegion:adjustedRegion animated:YES];
+        BMKCoordinateRegion adjustedRegion = [_mapView regionThatFits:viewRegion];
+        [_mapView setRegion:adjustedRegion animated:YES];
          */
     }
 }
@@ -197,7 +204,7 @@
 			[annotations addObject:locationAnnotation];
 		}
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[self.mapView addAnnotations:annotations];
+			[_mapView addAnnotations:annotations];
 		});
 	});
 	
@@ -208,7 +215,7 @@
     _isShowMapView = !_isShowMapView;
 //    if (!_isShowMapView) {
 //       
-//        self.mapView.hidden = YES;
+//        _mapView.hidden = YES;
 //        self.tableView.hidden = NO;
 //        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"地图" action:@selector(sceneChange:)];
 //        
@@ -217,7 +224,7 @@
 //    {
 //        if (self.tableView) {
 //            self.tableView.hidden = YES;
-//            self.mapView.hidden = NO;
+//            _mapView.hidden = NO;
 //            [self showMapnode];
 //        }
 //        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"列表" action:@selector(sceneChange:)];
@@ -226,7 +233,7 @@
     [UIView transitionWithView:self.view duration:.45 options:!_isShowMapView ? UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionFlipFromRight animations:^{
         if (!_isShowMapView)
         {
-            self.mapView.hidden = YES;
+            _mapView.hidden = YES;
             self.tableView.hidden = NO;
         }
         else
@@ -234,7 +241,7 @@
             if (self.tableView)
             {
                 self.tableView.hidden = YES;
-                self.mapView.hidden = NO;
+                _mapView.hidden = NO;
                 
                 [self showMapnode];
             }
@@ -391,8 +398,8 @@
 
 - (void)loadmoreDataSearStatus:(BOOL)isSearch
 {
-
-    [self showHUDWithTitle:@"搜索中...."];
+//    [self showHUDWithTitle:@"搜索中...."];
+    
     self.navigationItem.rightBarButtonItem.enabled = NO;
     __weak SearchDeatalViewController *weakSelf = self;
     
@@ -406,8 +413,11 @@
         }
         else
         {    // 没有坐标则显示定位失败
-            [self hideHUDWithTitle:@"定位失败!" image:nil delay:HUDAutoHideTypeShowTime];
-                     self.navigationItem.rightBarButtonItem.enabled = YES;
+//            [self hideHUDWithTitle:@"定位失败!" image:nil delay:HUDAutoHideTypeShowTime];
+            [HUDManager showAutoHideHUDWithToShowStr:@"定位失败" HUDMode:MBProgressHUDModeText];
+            
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"reload data now.");
            
@@ -421,7 +431,10 @@
  // 用地理坐标进行百度LBS云搜索
 - (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius searchKey:(NSString*)searchKey IsSearStatus:(BOOL)isSearch
 {
+//    [self showHUDWithTitle:@"搜索中...."];
+    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeText autoHide:NO afterDelay:0 userInteractionEnabled:NO];
     __weak  SearchDeatalViewController * weakSelf = self;
+    
     [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:SearchHouse searchKye:searchKey index:currentIndex     pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
         if (dataModel)
 		{
@@ -457,17 +470,24 @@
 				NSUInteger curCnt = [weakSelf.listContend count];
 				if (curCnt >= totalItemCount)
 					_noMoreResultsAvail = YES;
+                
 				if (request.error)
-
+                    /*
                     [self hideHUDWithTitle:LBSUINetWorkError image:nil delay:HUDAutoHideTypeShowTime];
+                     */
+                    [HUDManager showAutoHideHUDWithToShowStr:LBSUINetWorkError HUDMode:MBProgressHUDModeText];
                 
 				else if (request.availableItemCount)
-
+                    /*
                     [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:HUDAutoHideTypeShowTime];
+                     */
+                    [HUDManager hideHUD];
 
 				else
-
+                    /*
                      [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:HUDAutoHideTypeShowTime];
+                     */
+                    [HUDManager showAutoHideHUDWithToShowStr:LBSUINoMoreData HUDMode:MBProgressHUDModeText];
 
 				[weakSelf.tableView reloadData];//从新加载列表
                 [self showMapnode];// 从新加载地图地图
@@ -481,7 +501,11 @@
 // 以城市为单位进行搜索
 - (void)loadLocalData
 {
+//    [self showHUDWithTitle:@"搜索中...."];
+    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeText autoHide:NO afterDelay:0 userInteractionEnabled:NO];
+    
      __weak  SearchDeatalViewController * weakSelf = self;
+    
     [[LBSDataCenter defaultCenter] loadDataWithRegionSearchkey:self.searchKey searchtype:SearchHouse index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, id dataModel) {
         if (dataModel)
 		{
@@ -514,17 +538,23 @@
 				NSUInteger curCnt = [weakSelf.listContend count];
 				if (curCnt >= totalItemCount)
 					_noMoreResultsAvail = YES;
-				if (request.error)
-                    //	[iToast make:LBSUINetWorkError duration:750];
-                    [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
                 
+				if (request.error)
+                    /*
+                    [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
+                     */
+                    [HUDManager showAutoHideHUDWithToShowStr:LBSUINetWorkError HUDMode:MBProgressHUDModeText];
 				else if (request.availableItemCount)
-					//[iToast make:LBSUIDataComplete duration:750];
+                    /*
                     [UIView hideHUDWithTitle:LBSUIDataComplete image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
+                     */
+                    [HUDManager hideHUD];
                 
 				else
-                    //	[iToast make:LBSUINoMoreData duration:750];
+                    /*
                     [UIView hideHUDWithTitle:LBSUINoMoreData image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
+                     */
+                    [HUDManager showAutoHideHUDWithToShowStr:LBSUINoMoreData HUDMode:MBProgressHUDModeText];
                 
 				[weakSelf.tableView reloadData];
 
@@ -723,9 +753,6 @@
 
 - (void)dealloc
 {
-    [self.mapView  removeFromSuperview];
-    self.mapView = nil;
-    self.mapView.delegate = nil;
     [self removeSignalObserver];
 }
 - (void)didReceiveMemoryWarning

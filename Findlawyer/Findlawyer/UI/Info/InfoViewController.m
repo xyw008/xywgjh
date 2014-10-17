@@ -215,8 +215,11 @@
     }
     else if (sender.tag == 1)
     {
-        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-        SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
+        
+//        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+//        SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
+        
+        SearchDeatalViewController *vc = [[SearchDeatalViewController alloc] init];
         vc.searchKey = @"";
         vc.strTitle = @"周边律所";
         vc.isShowMapView = YES;
