@@ -34,7 +34,7 @@
 #import "UIViewController+loading.h"
 
 #define HUDTage 999
-
+#define kRadius 200000
 
 @interface SearchLawyerViewController ()<MFMessageComposeViewControllerDelegate, LawyerCellDelegate>
 
@@ -128,9 +128,26 @@
     self.tableView.hidden = _isShowMapView;
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:_isShowMapView?@"列表":@"地图" action:@selector(sceneChange:)];
    
-    [self loadmoreDataIsSearStatus:NO];
+    if (self.searchKey.length >0)
+    {
+        self.searchBar.text = self.searchKey;
+    }
+    if (_isAddNearbySearch)
+    {
+        if (_searchLocation.latitude)
+        {
+            [self loadDataWithLocation:_searchLocation radius:kRadius IsSearStatus:YES];
+        }
+        else
+        {
+            [self loadLocalData];
+        }
+    }
+    else
+    {
+        [self loadmoreDataIsSearStatus:NO];
+    }
     // [self loadLocalData];
-  
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -482,7 +499,6 @@
     }
 }
 
-
 // 搜索加载数据
 #pragma mark - DataModle
 
@@ -499,7 +515,7 @@
         {
               //得到地理坐标后，进行百度LBS云搜索
             [[LBSSharedData sharedData] setCurrentCoordinate2D:location.coordinate];
-            [weakSelf loadDataWithLocation:location.coordinate radius:200000 IsSearStatus:isSearch];
+            [weakSelf loadDataWithLocation:location.coordinate radius:kRadius IsSearStatus:isSearch];
         }
         else
         {

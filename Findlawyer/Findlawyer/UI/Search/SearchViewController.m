@@ -381,11 +381,13 @@ typedef enum
 #pragma mark - push method
 - (void)pushSearchDeatalVCWithSearchKey:(NSString*)key hasCoordinate:(BOOL)hasCoordinate
 {
+    /*
     UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
-//    SearchDeatalViewController *vc = [[SearchDeatalViewController alloc] init];
+     */
+    SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
     vc.searchKey = key;
-    vc.strTitle = @"周边律所";
+    vc.strTitle = @"附近律师";
     vc.isShowMapView = NO;
     vc.isAddNearbySearch = YES;
     if (hasCoordinate) {

@@ -9,6 +9,7 @@
 #import "ConsultViewController.h"
 #import "SearchDeatalViewController.h"
 #import "SearchLawyerViewController.h"
+#import "AppDelegate.h"
 
 @interface ConsultViewController ()
 
@@ -55,18 +56,25 @@
 {
     if (indexPath.section == 0)
     {
+        /*
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
         SearchLawyerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawyer"];
-        vc.strTitle =@"附近律师";
+         */
+        SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
+        vc.strTitle = @"附近律师";
+        vc.searchKey = @"";
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if (indexPath.section == 1)
     {
+        /*
         UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
         SearchLawyerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawyer"];
         vc.strTitle =@"擅长领域";
         [self.navigationController pushViewController:vc animated:YES];
-        
+        */
+        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [appdelegate chooseMaintabIndex:1 andType:NSNotFound];
     }
     
 }
