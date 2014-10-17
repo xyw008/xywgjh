@@ -13,6 +13,10 @@ typedef enum
     // 主页新闻
     NetHomePageNewsRequestType_GetMainNewsDetail                       = 0, // 获取主页新闻详情(GET)
     
+    NetConsultInfoRequestType_GetAskId                                    , // 获取咨询系统分配ID (GET)
+    NetConsultInfoRequestType_PostPhoto                                   , // 上传咨询图片 (POST)
+    NetConsultInfoRequestType_PostSaveAskInfo                             , // 上传咨询信息 (POST)
+    
 } NetRequestType;
 
 @interface BaseNetworkViewController (NetRequestManager)
