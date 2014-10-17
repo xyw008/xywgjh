@@ -57,6 +57,10 @@
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithCustomView:imgview];
     self.navigationItem.leftBarButtonItem = leftBarBtn;
     
+    UIImage *middleBtnBGImage = [UIImage imageNamed:@"navTitleBtn"];
+    UIButton *middleBtn = InsertImageButton(nil, CGRectMake(0, 0, middleBtnBGImage.size.width, middleBtnBGImage.size.height), 1000, middleBtnBGImage, middleBtnBGImage, self, @selector(clickNavBarTitleBtn:));
+    self.navigationItem.titleView = middleBtn;
+    
     NSString * currentcity = [FileManager currentCity];
     if (currentcity.length == 0)
     {
@@ -76,6 +80,13 @@
     [self getNetworkData];
 
 }
+
+- (void)clickNavBarTitleBtn:(UIButton *)sender
+{
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appdelegate chooseMaintabIndex:1 andType:sender.tag];
+}
+
 - (void)receiveSignal:(QSignal *)signal
 {
     if ([signal.name isEqualToString:ChangeCitySignal]) {
