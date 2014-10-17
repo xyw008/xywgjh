@@ -43,9 +43,10 @@
 @property (assign, atomic) BOOL isLocationBasedSearch;
 @property (assign, atomic) BOOL isHaveResult;
 
-
+@property (nonatomic,strong) NSMutableArray *allLawyerEntityArray;
 @property (nonatomic,strong ) NSMutableArray *searchResults;
-@property (nonatomic,strong ) NSMutableArray * listContend;
+@property (nonatomic,strong ) NSMutableArray * listContend;         // 当前展示的数据(有可能是全部也有可能是搜索出得结果)
+
 @property (strong,nonatomic ) LBSLawfirm  *seletedlawfirm;
 
 @end
@@ -77,14 +78,14 @@
     pageSize = 30;
    
     [self.searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"Search_topBar_bg"] forState:UIControlStateNormal];
+    [_searchBar setBackgroundImage:[UIImage imageNamed:@"searchBG"]];
     self.searchBar.delegate = self;
+    
+    self.allLawyerEntityArray = [NSMutableArray array];
     self.searchResults =[[NSMutableArray alloc]init];
     self.listContend  = [[NSMutableArray alloc]init];
     
-    CGFloat statusBarHigh = [UIApplication sharedApplication].statusBarFrame.size.height;
-    CGFloat navBarHigh = self.navigationController.navigationBar.frame.size.height;
-    CGFloat high = [UIScreen mainScreen].bounds.size.height - statusBarHigh - navBarHigh- CGRectGetHeight(self.searchBar.frame);
-    CGRect subviewframe = CGRectMake(0, CGRectGetMaxY(self.searchBar.frame), CGRectGetWidth(self.view.frame), high);
+    CGRect subviewframe = CGRectMake(0, CGRectGetMaxY(_searchBar.frame), self.viewBoundsWidth, self.viewBoundsHeight - CGRectGetMaxY(_searchBar.frame));
     self.bgSearchView = [[UIView alloc]initWithFrame:subviewframe];
     
     self.bgSearchView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
@@ -94,10 +95,13 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.tableFooterView = [[UIView alloc ]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 15)];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_tableView keepAutoresizingInFull];
     [self.view addSubview:self.tableView];
 
     // 开始时先加上地图，但先让地图隐藏，列表显示
     self.mapView = [[BMKMapView alloc]initWithFrame:subviewframe];
+    [_mapView keepAutoresizingInFull];
     [self.view addSubview:self.mapView];
     
     //判断是显示地图还是列表
@@ -118,7 +122,7 @@
     {
         if (_searchLocation.latitude)
         {
-            [self loadDataWithLocation:_searchLocation radius:kRadius searchKey:@""];
+            [self loadDataWithLocation:_searchLocation radius:kRadius searchKey:@"" IsSearStatus:YES];
         }
         else
         {
@@ -127,7 +131,7 @@
     }
     else
     {
-        [self loadmoreData];
+        [self loadmoreDataSearStatus:NO];
     }
 }
 
@@ -385,7 +389,7 @@
 // 搜索加载数据
 #pragma mark - DataModle
 
-- (void)loadmoreData
+- (void)loadmoreDataSearStatus:(BOOL)isSearch
 {
 
     [self showHUDWithTitle:@"搜索中...."];
@@ -398,7 +402,7 @@
         {
             [[LBSSharedData sharedData] setCurrentCoordinate2D:location.coordinate];
             // 得到地理坐标后，进行百度LBS云搜索
-            [weakSelf loadDataWithLocation:location.coordinate radius:kRadius searchKey:self.searchKey];
+            [weakSelf loadDataWithLocation:location.coordinate radius:kRadius searchKey:self.searchKey IsSearStatus:isSearch];
         }
         else
         {    // 没有坐标则显示定位失败
@@ -415,7 +419,7 @@
 
 
  // 用地理坐标进行百度LBS云搜索
-- (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius searchKey:(NSString*)searchKey
+- (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius searchKey:(NSString*)searchKey IsSearStatus:(BOOL)isSearch
 {
     __weak  SearchDeatalViewController * weakSelf = self;
     [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:SearchHouse searchKye:searchKey index:currentIndex     pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
@@ -423,11 +427,29 @@
 		{
             // 将得到的数据初始化律所这个数据
             LBSLawfirm *lawfirm = [[LBSLawfirm alloc]initWithDataModel:dataModel];
+            /*
             [weakSelf.listContend addObject:lawfirm];// 将取到的数据放在数组里
+             */
+            if (!isSearch)
+            {
+                [weakSelf.allLawyerEntityArray addObject:lawfirm];
+            }
+            else
+            {
+                [weakSelf.searchResults addObject:lawfirm];
+            }
         }
 		else
 		{
            self.navigationItem.rightBarButtonItem.enabled = YES;
+            
+            weakSelf.listContend = !isSearch ? weakSelf.allLawyerEntityArray : weakSelf.searchResults;
+            
+            // 排序
+            [weakSelf.listContend sortUsingComparator:^NSComparisonResult(LBSLawyer *obj1, LBSLawyer *obj2) {
+                return obj1.distance < obj2.distance ? NSOrderedAscending : NSOrderedDescending;
+            }];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
 				NSLog(@"reload data now.");
 				totalItemCount = request.availableItemCount;
@@ -464,10 +486,13 @@
         if (dataModel)
 		{
             LBSLawfirm *lawfirm = [[LBSLawfirm alloc]initWithDataModel:dataModel];
-            if (lawfirm.distance <= kRadius) {
+            if (lawfirm.distance <= kRadius)
+            {
+                /*
                 [weakSelf.listContend addObject:lawfirm];
+                 */
+                [weakSelf.searchResults addObject:lawfirm];
             }
-            
             
 //            [[LBSSharedData sharedData] setCurrentCoordinate2D:lawfirm.coordinate];
 //            // 得到地理坐标后，进行百度LBS云搜索
@@ -475,6 +500,13 @@
         }
 		else
 		{
+            weakSelf.listContend = weakSelf.searchResults;
+            
+            // 排序
+            [weakSelf.listContend sortUsingComparator:^NSComparisonResult(LBSLawyer *obj1, LBSLawyer *obj2) {
+                return obj1.distance < obj2.distance ? NSOrderedAscending : NSOrderedDescending;
+            }];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"reload data now.");
 				totalItemCount = request.availableItemCount;
@@ -584,6 +616,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell  = [tableView dequeueReusableCellWithIdentifier:@"LawfirmCell"];
+    [cell addLineWithPosition:ViewDrawLinePostionType_Bottom lineColor:HEXCOLOR(0XE7E6E5) lineWidth:1];
+    
     [self configureLawfirmCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -612,11 +646,11 @@
     UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, kHeardHeight)];
     lable.textAlignment = NSTextAlignmentLeft;
     lable.backgroundColor = [UIColor clearColor];
-    lable.font = [UIFont boldSystemFontOfSize:15];
+    lable.font = [UIFont boldSystemFontOfSize:12];
     lable.textColor = HEXCOLOR(0XB6B6B6);
     // lable.textColor = [UIColor colorWithRed:0 green:122/255.0 blue:255.0/255.0 alpha:1];
     [view addSubview:lable];
-    lable.text = [NSString stringWithFormat:@"附近共%d家律所",self.listContend.count];
+    lable.text = [NSString stringWithFormat:@" 附近共%d家律所",self.listContend.count];
     return view;
 }                  
 
@@ -644,24 +678,28 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
 {
+    searchBar.text = nil;
     [self.bgSearchView removeFromSuperview];
     [self.searchBar resignFirstResponder];
     
+    self.listContend = _allLawyerEntityArray;
     [_tableView reloadData]; // 从新加载列表
     [self showMapnode];      // 从新加载地图
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-   
+    [self.searchResults removeAllObjects];
+    if (!_mapView.hidden)
+    {
+        [self sceneChange:nil];
+    }
+    
     [self.bgSearchView removeFromSuperview];
     [self.searchBar resignFirstResponder];
     self.searchKey = searchBar.text;
     
-    if (self.listContend.count >0) {
-        [self.listContend removeAllObjects];
-    }
-    [self loadmoreData];
+    [self loadmoreDataSearStatus:YES];
 }
 
 #pragma mark - other method

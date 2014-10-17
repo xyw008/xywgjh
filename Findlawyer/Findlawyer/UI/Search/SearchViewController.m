@@ -116,6 +116,7 @@ typedef enum
     [_leftBtn setImage:[UIImage imageNamed:@"Search_top_arrow"] forState:UIControlStateNormal];
     [_leftBtn addTarget:self action:@selector(selectSearchSort:) forControlEvents:UIControlEventTouchUpInside];
     _leftBtn.backgroundColor = [UIColor clearColor];
+    [_leftBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
     [searchTopBarBgView addSubview:_leftBtn];
     
     //分割线
@@ -159,7 +160,7 @@ typedef enum
     _courtSortView.delegate = self;
     [_sortBgScrollView addSubview:_courtSortView];
     
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_courtSortView.frame), self.view.width, 0.5)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_courtSortView.frame), self.view.width, 1)];
     lineView.backgroundColor = ATColorRGBMake(199, 198, 198);
     [_sortBgScrollView addSubview:lineView];
 }

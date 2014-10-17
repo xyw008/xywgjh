@@ -19,6 +19,7 @@
 #import "NetRequestManager.h"
 #import "CommonEntity.h"
 #import "HUDManager.h"
+#import "InfoDetailViewController.h"
 
 @interface InfoViewController () <NetRequestDelegate>
 {
@@ -177,30 +178,17 @@
  
     UIView *bgAD = [[UIView alloc]initWithFrame:CGRectMake(0,10+ 60 *2  +20*2+5 , self.view.frame.size.width , 90)];
     bgAD.backgroundColor = [UIColor groupTableViewBackgroundColor];
-//    bgAD.layer.cornerRadius =8;
-//
-//    bgAD.layer.masksToBounds = YES;
-//    bgAD.layer.borderColor = [[UIColor brownColor]CGColor];
-//    bgAD.layer.borderWidth = 3;
-//    bgAD.layer.borderColor = [[UIColor colorWithRed:0.52 green:0.09 blue:0.07 alpha:1] CGColor];
-//    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(100, 15, 90, 20)];
-//    lable.textAlignment = NSTextAlignmentCenter;
-//    lable.backgroundColor = [UIColor clearColor];
-//    lable.font = [UIFont boldSystemFontOfSize:18];
-//    lable.text = @"广告页";
-//    [bgAD addSubview:lable];
     
     [self.titileview addSubview:bgAD];
     
     UIImageView *imgAD =[[UIImageView alloc]initWithFrame:CGRectMake(10, 5 , self.view.frame.size.width-10*2, 80)];
     imgAD.image = [UIImage imageNamed:@"lawfirmSmal"];
     imgAD.layer.masksToBounds = YES;
-   // imgAD.layer.borderWidth = 3;
     imgAD.layer.cornerRadius = 5;
     imgAD.layer.borderColor = [[UIColor groupTableViewBackgroundColor]CGColor];
     [bgAD addSubview:imgAD];
    
-  //  return self.titileview;SearchDetailTableView
+  //  return self.titileview;
 }
 
 - (void)clicked:(UIButton *)sender
@@ -268,7 +256,7 @@
      UITableViewCell *cell = nil;
      if (indexPath.row == 0)
      {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
          [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
          
          UILabel *titleLabel = (UILabel *)[cell viewWithTag:1001];
@@ -282,7 +270,7 @@
          cell = [tableView dequeueReusableCellWithIdentifier:@"sigleCell"];
          if (!cell)
          {
-              cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sigleCell"];
+             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sigleCell"];
              cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
              cell.textLabel.textColor = [UIColor blackColor];
              cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -296,8 +284,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self performSegueWithIdentifier:@"toInfoDetail" sender:self];
+     */
+    HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
+    InfoDetailViewController *newsDetailVC = [[InfoDetailViewController alloc] initWithNewsId:entity.newsId];
+    newsDetailVC.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:newsDetailVC animated:YES];
 }
 
 
@@ -327,9 +322,7 @@
 
 - (void)netRequest:(NetRequest *)request successWithInfoObj:(id)infoObj
 {
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:infoObj options:NSJSONReadingMutableContainers error:NULL];
-    
-    [self parseNetworkDataWithDic:dic];
+    [self parseNetworkDataWithDic:infoObj];
     [self.tableView reloadData];
 }
 
