@@ -31,6 +31,8 @@
 #import "UIFactory.h"
 #import "ConsultInfoVC.h"
 #import "HUDManager.h"
+#import "UIViewController+loading.h"
+
 #define HUDTage 999
 
 
@@ -149,6 +151,8 @@
     
     [self removeSignalObserver];
     
+    [HUDManager hideHUD];
+    [self removeProgressHUD];
     [super viewWillDisappear:animated];
 }
 
@@ -518,7 +522,8 @@
  // 用地理坐标进行百度LBS云搜索
 - (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius IsSearStatus:(BOOL)isSearch
 {
-    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeText autoHide:NO afterDelay:0 userInteractionEnabled:NO];
+//    [self showHUDWithTitle:@"搜索中...."];
+    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
     __weak  SearchLawyerViewController * weakSelf = self;
     
     [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:searchLawyer searchKye:self.searchKey index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
@@ -592,7 +597,7 @@
 - (void)loadLocalData
 {
 //    [UIView showHUDWithTitle:@"搜索中..." onView:self.view tag:HUDTage];
-    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeText autoHide:NO afterDelay:0 userInteractionEnabled:NO];
+    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
     
     __weak  SearchLawyerViewController * weakSelf = self;
     

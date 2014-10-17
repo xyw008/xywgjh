@@ -157,6 +157,8 @@
     
    [self removeSignalObserver];
    
+    [HUDManager hideHUD];
+    [self removeProgressHUD];
     [super viewWillDisappear:animated];
 }
 // 设置地图中心位置，加载地图标注
@@ -431,8 +433,8 @@
  // 用地理坐标进行百度LBS云搜索
 - (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius searchKey:(NSString*)searchKey IsSearStatus:(BOOL)isSearch
 {
-//    [self showHUDWithTitle:@"搜索中...."];
-    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeText autoHide:NO afterDelay:0 userInteractionEnabled:NO];
+    [self showHUDWithTitle:@"搜索中...."];
+//    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
     __weak  SearchDeatalViewController * weakSelf = self;
     
     [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:SearchHouse searchKye:searchKey index:currentIndex     pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
@@ -478,17 +480,18 @@
                     [HUDManager showAutoHideHUDWithToShowStr:LBSUINetWorkError HUDMode:MBProgressHUDModeText];
                 
 				else if (request.availableItemCount)
-                    /*
-                    [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:HUDAutoHideTypeShowTime];
-                     */
+                    
+                    [self removeProgressHUD];
+//                    [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:HUDAutoHideTypeShowTime];
+                     /*
                     [HUDManager hideHUD];
-
+                      */
 				else
                     /*
                      [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:HUDAutoHideTypeShowTime];
                      */
                     [HUDManager showAutoHideHUDWithToShowStr:LBSUINoMoreData HUDMode:MBProgressHUDModeText];
-
+                
 				[weakSelf.tableView reloadData];//从新加载列表
                 [self showMapnode];// 从新加载地图地图
             
@@ -502,7 +505,7 @@
 - (void)loadLocalData
 {
 //    [self showHUDWithTitle:@"搜索中...."];
-    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeText autoHide:NO afterDelay:0 userInteractionEnabled:NO];
+    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
     
      __weak  SearchDeatalViewController * weakSelf = self;
     
@@ -656,7 +659,14 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     self.seletedlawfirm = [self.listContend objectAtIndex:indexPath.row];
+    
+    /*
     [self performSegueWithIdentifier:@"SearchtoDetailLawfirm" sender:self];
+     */
+    DetailLawfirmViewController *detailLawfirmVC = [[DetailLawfirmViewController alloc] init];
+    detailLawfirmVC.lawfirm = _seletedlawfirm;
+    detailLawfirmVC.lawfirmid = _seletedlawfirm.lfid.integerValue;
+    [self pushViewController:detailLawfirmVC];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
