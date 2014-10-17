@@ -178,30 +178,17 @@
  
     UIView *bgAD = [[UIView alloc]initWithFrame:CGRectMake(0,10+ 60 *2  +20*2+5 , self.view.frame.size.width , 90)];
     bgAD.backgroundColor = [UIColor groupTableViewBackgroundColor];
-//    bgAD.layer.cornerRadius =8;
-//
-//    bgAD.layer.masksToBounds = YES;
-//    bgAD.layer.borderColor = [[UIColor brownColor]CGColor];
-//    bgAD.layer.borderWidth = 3;
-//    bgAD.layer.borderColor = [[UIColor colorWithRed:0.52 green:0.09 blue:0.07 alpha:1] CGColor];
-//    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(100, 15, 90, 20)];
-//    lable.textAlignment = NSTextAlignmentCenter;
-//    lable.backgroundColor = [UIColor clearColor];
-//    lable.font = [UIFont boldSystemFontOfSize:18];
-//    lable.text = @"广告页";
-//    [bgAD addSubview:lable];
     
     [self.titileview addSubview:bgAD];
     
     UIImageView *imgAD =[[UIImageView alloc]initWithFrame:CGRectMake(10, 5 , self.view.frame.size.width-10*2, 80)];
     imgAD.image = [UIImage imageNamed:@"lawfirmSmal"];
     imgAD.layer.masksToBounds = YES;
-   // imgAD.layer.borderWidth = 3;
     imgAD.layer.cornerRadius = 5;
     imgAD.layer.borderColor = [[UIColor groupTableViewBackgroundColor]CGColor];
     [bgAD addSubview:imgAD];
    
-  //  return self.titileview;SearchDetailTableView
+  //  return self.titileview;
 }
 
 - (void)clicked:(UIButton *)sender

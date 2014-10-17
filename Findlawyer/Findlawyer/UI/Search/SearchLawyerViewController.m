@@ -41,7 +41,6 @@
   	NSUInteger currentIndex;
 	NSUInteger pageSize;
 	NSUInteger totalItemCount;
-    
 }
 
 @property (assign, atomic) BOOL loading;
@@ -90,6 +89,7 @@
         self.searchBar.text = self.searchKey;
     }
     [self.searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"Search_topBar_bg"] forState:UIControlStateNormal];
+    [_searchBar setBackgroundImage:[UIImage imageNamed:@"searchBG"]];
     self.searchBar.delegate = self;
     [self.view addSubview:_searchBar];
     
