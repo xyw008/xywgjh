@@ -54,7 +54,7 @@
         _tilteLB.backgroundColor = [UIColor clearColor];
         _tilteLB.textColor = ATColorRGBMake(97, 97, 97);
         _tilteLB.text = title;
-        _tilteLB.font = SP15Font;
+        _tilteLB.font = [UIFont boldSystemFontOfSize:15];
         [self addSubview:_tilteLB];
         
         CGFloat startX = 0;
@@ -67,14 +67,17 @@
             SortBtn *btn = [[SortBtn alloc] initWithFrame:CGRectMake(startX, startY, defaultBtnWidth, defaultBtnHeight)];
             btn.tag = kSortBtnStartTag + i;
             btn.backgroundColor = kBtnDafaultBgColor;
+            /*
             btn.layer.borderColor = ATColorRGBMake(224, 224, 224).CGColor;
             btn.layer.borderWidth = defaultBtnLineWidth;
-            btn.titleLabel.font = SP14Font;
+             */
+            btn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
             btn.titleLabel.lineBreakMode = 0;
             btn.titleLabel.textAlignment = NSTextAlignmentCenter;
-            btn.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 4);
+            btn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
             [btn setTitle:[array objectAtIndex:i] forState:UIControlStateNormal];
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [btn addLineWithPosition:ViewDrawLinePostionType_Bottom lineColor:HEXCOLOR(0XF8F8F8) lineWidth:1.5];
             [btn addTarget:self action:@selector(sortBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
             startX += defaultBtnWidth - defaultBtnLineWidth;
