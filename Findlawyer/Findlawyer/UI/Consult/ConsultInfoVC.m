@@ -45,8 +45,10 @@
     BOOL                _allPhotoUploadSuccess;//所有图片上传成功
     
     NSString            *_askId;//咨询ID (通过网络请求获取)
-    BOOL                _willImgButNoAskId;//要传图片但是没有 askId
     NSMutableArray      *_uploadImgArray;//需要上传图片的数组
+    
+    BOOL                _willUploadImgButNoAskId;//要传图片但是没有 askId
+    BOOL                _willSaveAskInfo;//将要上传图片详细 （如果图片还在上传就要等图片上传完成再发送保存请求）
     
 //    NSInteger           *_wantUploadIndex;//下个将要上传图片所在数组index
     
@@ -58,6 +60,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _typeArray = kSpecialtyDomainArray;
+    _willSaveAskInfo = NO;
+    _allPhotoUploadSuccess = YES;
     
     [self initImageAddViewAndBgScrollView];
     [self initSelectBgView];
@@ -244,10 +248,10 @@
                         {
                             strongSelf->_askId = [askDic objectForKey:@"AskId"];
                             //如果要上传图片时候发现没有askId，而且发起的请求的情况
-                            if (strongSelf->_willImgButNoAskId)
+                            if (strongSelf->_willUploadImgButNoAskId)
                             {
                                 [strongSelf uploadImgArray:strongSelf->_uploadImgArray];
-                                strongSelf->_willImgButNoAskId = NO;
+                                strongSelf->_willUploadImgButNoAskId = NO;
                                 strongSelf->_uploadImgArray = nil;
                             }
                         }
@@ -279,39 +283,42 @@
 
 - (void)saveAskInfoReuqest
 {
-    if (_askId)
+    if (_allPhotoUploadSuccess)
     {
-        if ([_selectTypeLB.text isEqualToString:@"咨询类型:"])
+        if (_askId)
         {
-            [self showHUDInfoByString:@"请选择咨询类型"];
-            return;
-        }
-        
-        if (_textView.text.length > 0)
-        {
-            //擅长领域ID，是所在数组index + 1
-            NSString *askTypeId = [NSString stringWithFormat:@"%d",([_typeArray indexOfObject:_selectTypeLB.text] + 1)];
-            DLog(@"askType id = %@  content = %@",askTypeId,_textView.text);
-            NSNumber *typeId = [[NSNumber alloc] initWithInteger:[askTypeId integerValue]];
+            if ([_selectTypeLB.text isEqualToString:@"咨询类型:"])
+            {
+                [self showHUDInfoByString:@"请选择咨询类型"];
+                return;
+            }
             
-            
-            NSDictionary *parm = @{@"askId":_askId,@"askTypeId":typeId,@"content":_textView.text};
-            
-            DLog(@"parm = %@",parm);
-            
-            
-            [self sendRequest:[BaseNetworkViewController getRequestURLStr:NetConsultInfoRequestType_PostSaveAskInfo] parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostSaveAskInfo];
+            if (_textView.text.length > 0)
+            {
+                _willSaveAskInfo = NO;
+                
+                //擅长领域ID，是所在数组index + 1
+                NSString *askTypeId = [NSString stringWithFormat:@"%d",([_typeArray indexOfObject:_selectTypeLB.text] + 1)];
+                NSNumber *typeId = [[NSNumber alloc] initWithInteger:[askTypeId integerValue]];
+                NSDictionary *parm = @{@"askId":_askId,@"askTypeId":typeId,@"content":_textView.text};
+                
+                [self sendRequest:[BaseNetworkViewController getRequestURLStr:NetConsultInfoRequestType_PostSaveAskInfo] parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostSaveAskInfo];
+            }
+            else
+            {
+                [self showHUDInfoByString:@"请填写咨询内容"];
+            }
         }
         else
         {
-            [self showHUDInfoByString:@"请填写咨询内容"];
+            [self showHUDInfoByString:@"上传失败"];
         }
     }
     else
     {
-        [self showHUDInfoByString:@"上传失败"];
+        [HUDManager showHUDWithToShowStr:@"正在上传图片..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
+        _willSaveAskInfo = YES;
     }
-    
 }
 
 #pragma mark - YGPopupController delegate
@@ -433,12 +440,29 @@
     
     if (_askId != nil)
     {
+        _allPhotoUploadSuccess = NO;
         if (_uploadImageBC == nil)
         {
             WEAKSELF
             _uploadImageBC = [[UploadImageBC alloc] initWithAskId:_askId UploadImgArray:array uploadStateBlock:^(BOOL success) {
                 STRONGSELF
-                    strongSelf->_allPhotoUploadSuccess = success;
+                //暂时都算上传成功，这里应该记录上失败图片，在图标显示地方提示点击重新上传才合逻辑
+                strongSelf->_allPhotoUploadSuccess = YES;
+                if (success)
+                {
+                    //如果还要发起保存请求
+                    if (_willSaveAskInfo)
+                    {
+                        [strongSelf saveAskInfoReuqest];
+                    }
+                }
+                else
+                {
+                    if (_willSaveAskInfo)
+                    {
+                        [strongSelf showHUDInfoByString:@"上传失败"];
+                    }
+                }
             }];
         }
         else
@@ -453,7 +477,7 @@
         else
             [_uploadImgArray addObjectsFromArray:array];
         
-        _willImgButNoAskId = YES;
+        _willUploadImgButNoAskId = YES;
         [self getNetworkData];
     }
 }
