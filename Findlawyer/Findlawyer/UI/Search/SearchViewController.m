@@ -224,11 +224,14 @@ typedef enum
                                        @"地王大厦":@[@114.117076, @22.548921],
                                        @"国贸大厦":@[@114.126176, @22.546843],
                                        @"海岸城":@[@113.943485, @22.522769]};
-    
-    NSArray *loaction = (NSArray*)[allCoordinateDic objectForKey:lawfirmName];
-    
-    //latitude是第二个，longitude是第一个,所以取值的时候先 index:1 再 index:0
-    return CLLocationCoordinate2DMake([[loaction objectAtIndex:1] doubleValue], [[loaction objectAtIndex:0] doubleValue]);
+    if ([[allCoordinateDic allKeys] containsObject:lawfirmName])
+    {
+        NSArray *loaction = (NSArray*)[allCoordinateDic objectForKey:lawfirmName];
+        
+        //latitude是第二个，longitude是第一个,所以取值的时候先 index:1 再 index:0
+        return CLLocationCoordinate2DMake([[loaction objectAtIndex:1] doubleValue], [[loaction objectAtIndex:0] doubleValue]);
+    }
+    return CLLocationCoordinate2DMake(22.526431, 114.060687);
 }
 
 #pragma mark - btn touch

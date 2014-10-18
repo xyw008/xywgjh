@@ -16,7 +16,7 @@
 #import "LawyerArticleViewController.h"
 #import <MessageUI/MessageUI.h>
 #import "ACETelPrompt.h"
-
+#import "HUDManager.h"
 
 #ifndef ProHUD
 #define ProHUD	199
@@ -99,27 +99,33 @@
             }
             else
             {
-                [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//                [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+                [HUDManager showAutoHideHUDWithToShowStr:@"加载完毕" HUDMode:MBProgressHUDModeText];
             }
         }
 
         else
         {
-           [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//           [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+            [HUDManager showAutoHideHUDWithToShowStr:@"加载完毕" HUDMode:MBProgressHUDModeText];
         }
     }];
                          
     if ( ret == NetBeginRequest)
     {
-       [UIView showHUDWithTitle:@"加载中..." onView:self.view tag:ProHUD];
+//       [UIView showHUDWithTitle:@"加载中..." onView:self.view tag:ProHUD];
+        
+        [HUDManager showHUDWithToShowStr:@"加载中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
     }
     else if  ( ret == NetworkDisenable)
     {
-        [UIView  showHUDWithTitle:@"网络不给力！" image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
+//        [UIView  showHUDWithTitle:@"网络不给力！" image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
+        [HUDManager showAutoHideHUDWithToShowStr:@"网络不给力！" HUDMode:MBProgressHUDModeText];
     }
     else
     {
-        [UIView  showHUDWithTitle:@"加载失败..." image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
+//        [UIView  showHUDWithTitle:@"加载失败..." image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
+        [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
     }
 }
 - (void)loadArticlTypes
@@ -146,19 +152,22 @@
                 }
                 else
                 {
-                    [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//                    [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+                    [HUDManager showAutoHideHUDWithToShowStr:@"加载完毕" HUDMode:MBProgressHUDModeText];
                 }
       
             }
             else
             {
-                [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//                [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+                [HUDManager showAutoHideHUDWithToShowStr:@"加载完毕" HUDMode:MBProgressHUDModeText];
             }
 
         }
         else
         {
-            [UIView hideHUDWithTitle:@"加载失败..." image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//            [UIView hideHUDWithTitle:@"加载失败..." image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+            [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
         }
     }];
     if ( ret == NetBeginRequest)
@@ -168,12 +177,14 @@
     else if  ( ret == NetworkDisenable)
     {
        
-         [UIView hideHUDWithTitle:@"网络不给力！" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//         [UIView hideHUDWithTitle:@"网络不给力！" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+        [HUDManager showAutoHideHUDWithToShowStr:@"网络不给力！" HUDMode:MBProgressHUDModeText];
     }
     else
     {
        // [UIView  showHUDWithTitle:@"加载失败..." image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
-        [UIView hideHUDWithTitle:@"加载失败..." image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//        [UIView hideHUDWithTitle:@"加载失败..." image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+        [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
     }
 }
 
@@ -188,7 +199,7 @@
   
     NetReturnType ret =[[Network sharedNetwork] loadArticleListWithLawyerID:[self.lawyer.lawerid integerValue] typeID:typeid completion:^(NSInteger result, NSString *message, id userInfo) {
         
-        [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//        [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
         if (userInfo)
         {
             weakSelf.dicLoaed[strType]= @(YES);
@@ -204,13 +215,15 @@
     else if  ( ret == NetworkDisenable)
     {
         //[UIView  showHUDWithTitle:@"网络不给力！" image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
-        [UIView hideHUDWithTitle:@"网络不给力！" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//        [UIView hideHUDWithTitle:@"网络不给力！" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+        
+        [HUDManager showAutoHideHUDWithToShowStr:@"网络不给力！" HUDMode:MBProgressHUDModeText];
 
     }
     else
     {
       //  [UIView  showHUDWithTitle:@"加载失败..." image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
-         [UIView hideHUDWithTitle:@"加载完毕..." image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//         [UIView hideHUDWithTitle:@"加载完毕..." image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
     }
 
     
