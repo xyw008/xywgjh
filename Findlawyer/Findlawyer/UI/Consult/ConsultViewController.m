@@ -63,6 +63,7 @@
         SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
         vc.strTitle = @"附近律师";
         vc.searchKey = @"";
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if (indexPath.section == 1)

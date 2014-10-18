@@ -396,6 +396,7 @@ typedef enum
     if (hasCoordinate) {
         vc.searchLocation = [self getLawfirmLocationCoordinate2D:key];
     }
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -407,6 +408,7 @@ typedef enum
     vc.strTitle = @"附近律师";
     vc.searchKey = key;
     vc.isShowMapView = NO;
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

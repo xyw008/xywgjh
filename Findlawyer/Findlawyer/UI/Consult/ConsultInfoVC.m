@@ -342,8 +342,8 @@
 
 - (void)ImageAddViewWantAddImage:(ImageAddView*)addView
 {
-    UIActionSheet *menu=[[UIActionSheet alloc] initWithTitle:@"上传图片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照上传",@"从相册上传", nil];
-    menu.actionSheetStyle=UIActionSheetStyleBlackTranslucent;
+    UIActionSheet *menu = [[UIActionSheet alloc] initWithTitle:@"上传图片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照上传",@"从相册上传", nil];
+    menu.actionSheetStyle = UIActionSheetStyleAutomatic;
     [menu showInView:self.view];
 }
 
@@ -390,7 +390,7 @@
 {
     NSMutableArray *imgArray = [[NSMutableArray alloc] initWithCapacity:assets.count];
     for (ALAsset *asset in assets) {
-        [imgArray addObject:[UIImage imageWithCGImage:asset.thumbnail]];
+        [imgArray addObject:[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage]];
     }
     [_imageAddView addImageArray:imgArray];
     [self uploadImgArray:imgArray];
