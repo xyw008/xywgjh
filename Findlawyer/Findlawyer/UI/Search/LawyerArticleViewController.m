@@ -36,12 +36,14 @@
     self.lbTitile.text = self.dicArticle[@"Title"];
     self.lbLaunchTime.text = self.dicArticle [@"DateTime"];
     
-    CGFloat statusBarHigh = [UIApplication sharedApplication].statusBarFrame.size.height;
-    CGFloat navBarHigh = self.navigationController.navigationBar.frame.size.height;
-    CGFloat high = [UIScreen mainScreen].bounds.size.height - statusBarHigh - navBarHigh-55;
-    self.textView = [[UITextView  alloc] initWithFrame: CGRectMake(10, 55, self.view.frame.size.width - 10 *2, high)];
+//    CGFloat statusBarHigh = [UIApplication sharedApplication].statusBarFrame.size.height;
+//    CGFloat navBarHigh = self.navigationController.navigationBar.frame.size.height;
+//    CGFloat high = [UIScreen mainScreen].bounds.size.height - statusBarHigh - navBarHigh-55;
+    
+    self.textView = [[UITextView  alloc] initWithFrame: CGRectMake(10, 55, self.view.frame.size.width - 10 *2, self.view.height - 55)];
     self.textView.textColor = [UIColor blackColor];
     self.textView.font = [UIFont fontWithName:@"Arial" size:14.0];//设置字
+    [_textView keepAutoresizingInFull];
     [self.view addSubview:self.textView];
     self.textView.editable = NO;
     [self loadArticle];
@@ -84,10 +86,10 @@
 }
 - (void)viewDidAppear:(BOOL)animated
 {
-    CGFloat statusBarHigh = [UIApplication sharedApplication].statusBarFrame.size.height;
-    CGFloat navBarHigh = self.navigationController.navigationBar.frame.size.height;
-    CGFloat high = [UIScreen mainScreen].bounds.size.height - statusBarHigh - navBarHigh-55;
-    self.textView.frame = CGRectMake(10, 55, self.view.frame.size.width - 10 *2, high);
+//    CGFloat statusBarHigh = [UIApplication sharedApplication].statusBarFrame.size.height;
+//    CGFloat navBarHigh = self.navigationController.navigationBar.frame.size.height;
+//    CGFloat high = [UIScreen mainScreen].bounds.size.height - statusBarHigh - navBarHigh-55;
+//    self.textView.frame = CGRectMake(10, 55, self.view.frame.size.width - 10 *2, high);
 }
 
 - (void)didReceiveMemoryWarning

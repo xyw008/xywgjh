@@ -32,6 +32,7 @@
 #import "ConsultInfoVC.h"
 #import "HUDManager.h"
 #import "UIViewController+loading.h"
+#import "CallAndMessageManager.h"
 
 #define HUDTage 999
 #define kRadius 200000
@@ -915,18 +916,29 @@
             [self pushViewController:vc];
         }
             break;
-        /*
+        
         case LawyerCellOperationType_PhoneCall:
         {
-            [UIFactory call:cellSelectedLawyer.mobile];
+            [CallAndMessageManager callNumber:cellSelectedLawyer.mobile call:^(NSTimeInterval duration) {
+                
+            } callCancel:^{
+                
+            }];
         }
             break;
         case LawyerCellOperationType_SendMessage:
         {
-            [UIFactory sendSMS:cellSelectedLawyer.mobile];
+            if ([CallAndMessageManager judgeSendMessageNumber:cellSelectedLawyer.mobile])
+            {
+                MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
+                vc.messageComposeDelegate = self;
+                NSArray * array = @[cellSelectedLawyer.mobile];
+                vc.recipients = array;
+                // vc.body =@"";
+                [self.parentViewController presentViewController:vc animated:YES completion:nil];
+            }
         }
             break;
-        */
         default:
             break;
     }

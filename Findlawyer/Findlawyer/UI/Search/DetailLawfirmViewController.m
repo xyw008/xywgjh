@@ -27,11 +27,13 @@
 #import <MessageUI/MessageUI.h>
 #import "ACETelPrompt.h"
 #import "HUDManager.h"
+#import "ConsultInfoVC.h"
+#import "CallAndMessageManager.h"
 
 #define ProHUD 199
 #define kHeardHeight 18
 
-@interface DetailLawfirmViewController ()<MFMessageComposeViewControllerDelegate>
+@interface DetailLawfirmViewController ()<LawyerCellDelegate>
 {
   	NSUInteger currentIndex;
 	NSUInteger pageSize;
@@ -214,66 +216,6 @@
     
 }
 
-// 处理cell中各种button按了以后发出的通知
-- (void)receiveSignal:(QSignal *)signal
-{
-    if ([signal.name isEqualToString:SignalCellShowMap]&& [self isViewLoaded])
-    {
-        NSDictionary * userinfo = signal.userInfo;
-        NSIndexPath * cellindexpath = [userinfo objectForKey:@"cellindexPath"];
-        self.seletedlawyer = [self.muarLawyerlist objectAtIndex:cellindexpath.row];
-        [self showMap];
-    }
-    else if ([signal.name isEqualToString:SignalCellCall]&& [self isViewLoaded])
-    {
-        NSDictionary * userinfo = signal.userInfo;
-        NSIndexPath * cellindexpath = [userinfo objectForKey:@"cellindexPath"];
-        self.seletedlawyer = [self.muarLawyerlist objectAtIndex:cellindexpath.row];
-        [self callNumber];
-    }
-    else if ([signal.name isEqualToString:SignalCellSendSms]&& [self isViewLoaded])
-    {
-        NSDictionary * userinfo = signal.userInfo;
-        NSIndexPath * cellindexpath = [userinfo objectForKey:@"cellindexPath"];
-        self.seletedlawyer = [self.muarLawyerlist objectAtIndex:cellindexpath.row];
-        [self senSms];
-    }
-    else if ([signal.name isEqualToString:SignalCellConSult]&& [self isViewLoaded])
-    {
-        NSDictionary * userinfo = signal.userInfo;
-        NSIndexPath * cellindexpath = [userinfo objectForKey:@"cellindexPath"];
-        self.seletedlawyer = [self.muarLawyerlist objectAtIndex:cellindexpath.row];
-        [self consult];
-    }
-
-}
-// 显示地图
-- (void)showMap
-{
-    NSLog(@"CellShowMap");
-    [self performSegueWithIdentifier:@"Detaillawfirm_lawyertoDetailLawfirmLocation" sender:self];
-}
-// 发短信
-- (void)senSms
-{
-    NSLog(@"CellSenSms");
-    [self presentMessageComposeViewControllerWithNumber:self.seletedlawyer.mobile];
-}
-
-//拨打电话
-- (void)callNumber
-{
-    NSLog(@"CellCallNumber");
-    [self callNumber:self.seletedlawyer.mobile];
-}
-// 咨询
-- (void)consult
-{
-    NSLog(@"Cellconsult");
-}
-
-
-
 // 另一个加载律师列表的接口，但好像没什么效果
 - (void)loadlawyerlist
 {
@@ -326,6 +268,237 @@
         }
     }];
 
+}
+
+
+#pragma mark - UITableViewDatasource And UITableViewDelegate
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    return self.muarLawyerlist.count;
+}
+
+
+
+- (void)configureLawyerCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    //显示本所律师列表中的每一个律师数据
+    LawyerCell *lycell = (LawyerCell *)cell;
+    lycell.cellindexPath = indexPath;
+    LBSLawyer *lawyer = [self.muarLawyerlist objectAtIndex:indexPath.row];
+    lycell.lbName.text = lawyer.name;
+    lycell.lblawfirm.text = lawyer.lawfirmName;
+    lycell.lbCertificate.text = lawyer.certificateNo;
+    lycell.specialAreaStr = lawyer.specialArea;
+    lycell.lbPhone.text = lawyer.mobile ? lawyer.mobile : @"暂无电话";
+    lycell.delegate = self;
+    [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 140;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LawyerCell"];
+    [self configureLawyerCell:cell atIndexPath:indexPath];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.seletedlawyer = [self.muarLawyerlist objectAtIndex:indexPath.row];
+    DetailLawyerViewController *vc = [[DetailLawyerViewController alloc] init];
+    vc.lawyer = _seletedlawyer;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return kHeardHeight;
+    }
+    return 0;
+    
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    UIView  *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, kHeardHeight)];
+    view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
+    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, kHeardHeight)];
+    lable.textAlignment = NSTextAlignmentLeft;
+    lable.backgroundColor = [UIColor clearColor];
+    lable.font = [UIFont boldSystemFontOfSize:15];
+    // lable.textColor = [UIColor colorWithRed:0 green:122/255.0 blue:255.0/255.0 alpha:1];
+    [view addSubview:lable];
+    lable.text = [NSString stringWithFormat:@"  本所律师列表"];
+    return view;
+}
+
+
+#pragma mark - LawyerCellDelegate methods
+
+- (void)LawyerCell:(LawyerCell *)cell didClickOperationBtnWithType:(LawyerCellOperationType)type sender:(id)sender
+{
+    LBSLawyer *cellSelectedLawyer = [_muarLawyerlist objectAtIndex:[self.tableView indexPathForCell:cell].row];
+    self.seletedlawyer = cellSelectedLawyer;
+    switch (type)
+    {
+        case LawyerCellOperationType_MapLocation:
+        {
+            DetailLocationViewController *vc = [[DetailLocationViewController alloc] init];;
+            vc.locationType = searchLawyer;
+            vc.LBSLocation = cellSelectedLawyer;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case LawyerCellOperationType_SpecialAreaSearch:
+        {
+//            UILabel *sepcialAreaLabel = (UILabel *)sender;
+            
+        }
+            break;
+        case LawyerCellOperationType_Consult:
+        {
+            ConsultInfoVC *vc = [[ConsultInfoVC alloc] init];
+            vc.lawyerItem = cellSelectedLawyer;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+        case LawyerCellOperationType_PhoneCall:
+        {
+            [CallAndMessageManager callNumber:cellSelectedLawyer.mobile call:^(NSTimeInterval duration) {
+                
+            } callCancel:^{
+                
+            }];
+        }
+            break;
+        case LawyerCellOperationType_SendMessage:
+        {
+            if ([CallAndMessageManager judgeSendMessageNumber:cellSelectedLawyer.mobile])
+            {
+                MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
+//                vc.messageComposeDelegate = self;
+                NSArray * array = @[cellSelectedLawyer.mobile];
+                vc.recipients = array;
+                // vc.body =@"";
+                [self.parentViewController presentViewController:vc animated:YES completion:nil];
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+
+# pragma mark -
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    [self removeSignalObserver];
+}
+
+
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // 进入地图界面
+    if ([segue.identifier isEqualToString:@"Detaillawfirm_lawyertoDetailLawfirmLocation"]) {
+        UINavigationController * navVC = segue.destinationViewController;
+        DetailLocationViewController *vc = (DetailLocationViewController *)[navVC.viewControllers lastObject];
+        vc.locationType = searchLawyer;
+        vc.LBSLocation = self.seletedlawyer;
+    }
+    
+    else if ([segue.identifier isEqualToString:@"DetailfirmToDetailLawyer"])//进入律师详情界面
+    {
+        DetailLawyerViewController *vc = (DetailLawyerViewController *)segue.destinationViewController;
+        vc.lawyer = self.seletedlawyer;
+    }
+
+}
+
+
+// 处理cell中各种button按了以后发出的通知
+- (void)receiveSignal:(QSignal *)signal
+{
+    if ([signal.name isEqualToString:SignalCellShowMap]&& [self isViewLoaded])
+    {
+        NSDictionary * userinfo = signal.userInfo;
+        NSIndexPath * cellindexpath = [userinfo objectForKey:@"cellindexPath"];
+        self.seletedlawyer = [self.muarLawyerlist objectAtIndex:cellindexpath.row];
+        [self showMap];
+    }
+    else if ([signal.name isEqualToString:SignalCellCall]&& [self isViewLoaded])
+    {
+        NSDictionary * userinfo = signal.userInfo;
+        NSIndexPath * cellindexpath = [userinfo objectForKey:@"cellindexPath"];
+        self.seletedlawyer = [self.muarLawyerlist objectAtIndex:cellindexpath.row];
+        [self callNumber];
+    }
+    else if ([signal.name isEqualToString:SignalCellSendSms]&& [self isViewLoaded])
+    {
+        NSDictionary * userinfo = signal.userInfo;
+        NSIndexPath * cellindexpath = [userinfo objectForKey:@"cellindexPath"];
+        self.seletedlawyer = [self.muarLawyerlist objectAtIndex:cellindexpath.row];
+        [self senSms];
+    }
+    else if ([signal.name isEqualToString:SignalCellConSult]&& [self isViewLoaded])
+    {
+        NSDictionary * userinfo = signal.userInfo;
+        NSIndexPath * cellindexpath = [userinfo objectForKey:@"cellindexPath"];
+        self.seletedlawyer = [self.muarLawyerlist objectAtIndex:cellindexpath.row];
+        [self consult];
+    }
+    
+}
+
+// 显示地图
+- (void)showMap
+{
+    NSLog(@"CellShowMap");
+    [self performSegueWithIdentifier:@"Detaillawfirm_lawyertoDetailLawfirmLocation" sender:self];
+}
+// 发短信
+- (void)senSms
+{
+    NSLog(@"CellSenSms");
+    [self presentMessageComposeViewControllerWithNumber:self.seletedlawyer.mobile];
+}
+
+//拨打电话
+- (void)callNumber
+{
+    NSLog(@"CellCallNumber");
+    [self callNumber:self.seletedlawyer.mobile];
+}
+// 咨询
+- (void)consult
+{
+    NSLog(@"Cellconsult");
 }
 
 // 打电话
@@ -397,121 +570,6 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"号码为空!" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
         [alert show];
     }
-}
-
-
-
-#pragma mark - UITableViewDatasource And UITableViewDelegate
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    
-    return self.muarLawyerlist.count;
-}
-
-
-
-- (void)configureLawyerCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    //显示本所律师列表中的每一个律师数据
-    LawyerCell *lycell = (LawyerCell *)cell;
-    lycell.cellindexPath = indexPath;
-    LBSLawyer *lawyer = [self.muarLawyerlist objectAtIndex:indexPath.row];
-    lycell.lbName.text = lawyer.name;
-    lycell.lblawfirm.text = lawyer.lawfirmName;
-    lycell.lbCertificate.text = lawyer.certificateNo;
-    lycell.specialAreaStr = lawyer.specialArea;
-    
-    [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    return 140;
-    
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LawyerCell"];
-    [self configureLawyerCell:cell atIndexPath:indexPath];
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.seletedlawyer = [self.muarLawyerlist objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"DetailfirmToDetailLawyer" sender:self];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if (section == 0) {
-        return kHeardHeight;
-    }
-    return 0;
-    
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    
-    UIView  *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, kHeardHeight)];
-    view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
-    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, kHeardHeight)];
-    lable.textAlignment = NSTextAlignmentLeft;
-    lable.backgroundColor = [UIColor clearColor];
-    lable.font = [UIFont boldSystemFontOfSize:15];
-    // lable.textColor = [UIColor colorWithRed:0 green:122/255.0 blue:255.0/255.0 alpha:1];
-    [view addSubview:lable];
-    lable.text = [NSString stringWithFormat:@"  本所律师列表"];
-    return view;
-}
-
-
-
-# pragma mark -
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)dealloc
-{
-    [self removeSignalObserver];
-}
-
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // 进入地图界面
-    if ([segue.identifier isEqualToString:@"Detaillawfirm_lawyertoDetailLawfirmLocation"]) {
-        UINavigationController * navVC = segue.destinationViewController;
-        DetailLocationViewController *vc = (DetailLocationViewController *)[navVC.viewControllers lastObject];
-        vc.locationType = searchLawyer;
-        vc.LBSLocation = self.seletedlawyer;
-    }
-    
-    else if ([segue.identifier isEqualToString:@"DetailfirmToDetailLawyer"])//进入律师详情界面
-    {
-        DetailLawyerViewController *vc = (DetailLawyerViewController *)segue.destinationViewController;
-        vc.lawyer = self.seletedlawyer;
-    }
-
 }
 
 

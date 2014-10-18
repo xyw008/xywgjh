@@ -26,7 +26,6 @@
     return self;
 }
 
-
 - (void) configViewWithmainImage:(NSURL *)mainimageurl certificateNum:(NSString *)num lawfirmname:(NSString *)lawfirmname specailarea:(NSString *)specialarea detailInfo: (NSString *)detailinfo;
 {
      [self.imgPhoto setImageWithURL:mainimageurl placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];

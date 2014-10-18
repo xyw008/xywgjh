@@ -127,14 +127,14 @@
 
 - (IBAction)call:(id)sender
 {
-//    [self operationDelegateMethodWithOperationBtnType:LawyerCellOperationType_PhoneCall sender:sender];
-    [self sendSignal:[QSignal signalWithName:SignalCellCall userInfo:@{@"cellindexPath": self.cellindexPath}]];
+    [self operationDelegateMethodWithOperationBtnType:LawyerCellOperationType_PhoneCall sender:sender];
+//    [self sendSignal:[QSignal signalWithName:SignalCellCall userInfo:@{@"cellindexPath": self.cellindexPath}]];
 }
 
 - (IBAction)btnSendSms:(id)sender
 {
-//    [self operationDelegateMethodWithOperationBtnType:LawyerCellOperationType_SendMessage sender:sender];
-    [self sendSignal:[QSignal signalWithName:SignalCellSendSms userInfo:@{@"cellindexPath": self.cellindexPath}]];
+    [self operationDelegateMethodWithOperationBtnType:LawyerCellOperationType_SendMessage sender:sender];
+//    [self sendSignal:[QSignal signalWithName:SignalCellSendSms userInfo:@{@"cellindexPath": self.cellindexPath}]];
 }
 
 

@@ -364,6 +364,7 @@
 		B3E3991119ECCC4C0033F10B /* SearchSortView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E3991019ECCC4C0033F10B /* SearchSortView.m */; };
 		B3E3991819ED29390033F10B /* Search_top_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3E3991719ED29390033F10B /* Search_top_arrow@2x.png */; };
 		B3E39B2219ED3D060033F10B /* NITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E39B2119ED3D060033F10B /* NITextField.m */; };
+		B3F4DEE819F25EBE001794E3 /* CallAndMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F4DEE719F25EBE001794E3 /* CallAndMessageManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1038,6 +1039,8 @@
 		B3E3991719ED29390033F10B /* Search_top_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search_top_arrow@2x.png"; sourceTree = "<group>"; };
 		B3E39B2019ED3D060033F10B /* NITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITextField.h; sourceTree = "<group>"; };
 		B3E39B2119ED3D060033F10B /* NITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITextField.m; sourceTree = "<group>"; };
+		B3F4DEE619F25EBE001794E3 /* CallAndMessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallAndMessageManager.h; sourceTree = "<group>"; };
+		B3F4DEE719F25EBE001794E3 /* CallAndMessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallAndMessageManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2150,6 +2153,8 @@
 				2B288D2A19F00FE200ADAFFE /* CommonEntity.m */,
 				B3A5C26719F0FFCD00D4A695 /* UploadImageBC.h */,
 				B3A5C26819F0FFCD00D4A695 /* UploadImageBC.m */,
+				B3F4DEE619F25EBE001794E3 /* CallAndMessageManager.h */,
+				B3F4DEE719F25EBE001794E3 /* CallAndMessageManager.m */,
 			);
 			path = Modle;
 			sourceTree = "<group>";
@@ -2651,6 +2656,7 @@
 				51D700BE19EB8AB800CCC80A /* LBSRequestManager.m in Sources */,
 				43B1866719ECBC0800B7B1F6 /* AppSmallUtils.m in Sources */,
 				43B1850419ECB91100B7B1F6 /* PopupController.m in Sources */,
+				B3F4DEE819F25EBE001794E3 /* CallAndMessageManager.m in Sources */,
 				43B1862A19ECBA4800B7B1F6 /* ATPageControl.m in Sources */,
 				43B1861D19ECBA4800B7B1F6 /* ATExplosionAnimation.m in Sources */,
 				43B1842819ECB74E00B7B1F6 /* ASIDownloadCache.m in Sources */,

@@ -18,6 +18,7 @@
 #import "ACETelPrompt.h"
 #import "HUDManager.h"
 #import "ConsultInfoVC.h"
+#import "CallAndMessageManager.h"
 
 #ifndef ProHUD
 #define ProHUD	199
@@ -52,6 +53,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     self.arChooseItems = [[NSArray alloc]init];
     self.dicLoaed = [[NSMutableDictionary alloc]init];
   //  self.arArtiiclelist = [[NSArray alloc]init];
@@ -72,7 +75,7 @@
     self.myScrollView.userInteractionEnabled=YES;
     self.myScrollView.scrollEnabled=YES;
     self.title = self.lawyer.name;
-
+    
     [self loadLawyerInfo];
    // [self.myScrollView setContentSize:CGSizeMake(320.0,630)];
 
@@ -257,7 +260,7 @@
     contendsize = CGSizeMake(contendsize.width, contendsize.height +25 );
     self.myScrollView.contentSize = contendsize;
     self.segmentcontrol= [[UISegmentedControl alloc]initWithItems:muar];
-    self.segmentcontrol.frame = CGRectMake(5, CGRectGetMaxY(self.headerview.frame), self.view.width - 5*2, 25);
+    self.segmentcontrol.frame = CGRectMake(10, CGRectGetMaxY(self.headerview.frame), self.view.width - 10*2, 25);
     [self.segmentcontrol addTarget:self action:@selector(segmentChange:) forControlEvents:UIControlEventValueChanged];
     self.segmentcontrol.selectedSegmentIndex = 0;
      self.choosedIndex = 0;
@@ -276,14 +279,17 @@
 {
     if (self.tableView)
     {
-        self.tableView.frame =CGRectMake(0, CGRectGetMaxY(self.segmentcontrol.frame), _myScrollView.width, self.arArtiiclelist.count * kTableCellDefaultHeight);
+//        self.tableView.frame =CGRectMake(0, CGRectGetMaxY(self.segmentcontrol.frame), _myScrollView.width, self.arArtiiclelist.count * kTableCellDefaultHeight);
+        
+        _tableView.height = self.arArtiiclelist.count * kTableCellDefaultHeight;
         [self.tableView reloadData];
     }
     else
     {
-        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.segmentcontrol.frame), _myScrollView.width, self.arArtiiclelist.count * kTableCellDefaultHeight) style:UITableViewStylePlain];
+        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(_segmentcontrol.frameOriginX, CGRectGetMaxY(self.segmentcontrol.frame), _segmentcontrol.width, self.arArtiiclelist.count * kTableCellDefaultHeight) style:UITableViewStylePlain];
         self.tableView.dataSource = self;
         self.tableView.delegate  = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.myScrollView addSubview:self.tableView];
     }
     self.myScrollView.contentSize = CGSizeMake(self.view.width, self.headerview.height + 10 +self.segmentcontrol.height + _tableView.contentSize.height +10);;
@@ -314,35 +320,42 @@
 
 - (void)callNumber:(NSString *)number
 {
-    if (number.length > 0)
-    {
-        if ([[Network sharedNetwork]isRightMobile:number]) {
-            BOOL success = [ACETelPrompt callPhoneNumber:number
-                                                    call:^(NSTimeInterval duration) {
-                                                    }
-                            
-                                                  cancel:^{
-                                                      
-                                                  }];
-            if (!success)
-            {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"号码无效，拨打失败" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-                [alert show];
-            }
-
-        }
-        else{
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"非法手机号" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-            [alert show];
+    [CallAndMessageManager callNumber:number call:^(NSTimeInterval duration) {
+        
+    } callCancel:^{
+        
+    }];
     
-        }
-    }
-    else
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"号码为空，拨打失败" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-        [alert show];
-    }
+//    if (number.length > 0)
+//    {
+//        if ([[Network sharedNetwork]isRightMobile:number])
+//        {
+//            BOOL success = [ACETelPrompt callPhoneNumber:number
+//                                                    call:^(NSTimeInterval duration) {
+//                                                    }
+//                            
+//                                                  cancel:^{
+//                                                      
+//                                                  }];
+//            if (!success)
+//            {
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"号码无效，拨打失败" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+//                [alert show];
+//            }
+//
+//        }
+//        else{
+//            
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"非法手机号" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+//            [alert show];
+//    
+//        }
+//    }
+//    else
+//    {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"号码为空，拨打失败" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+//        [alert show];
+//    }
 
 }
 
@@ -355,34 +368,43 @@
 
 - (void)presentMessageComposeViewControllerWithNumber:(NSString *)number
 {
-    if (number.length > 0) {
-        Class messageClass = (NSClassFromString(@"MFMessageComposeViewController"));
-        if (messageClass != nil)
-        {
-            if ([MFMessageComposeViewController canSendText])
-            {
-                
-                MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
-                vc.messageComposeDelegate = self;
-                NSArray * array = @[number];
-                vc.recipients = array;
-                // vc.body =@"";
-                [self.parentViewController presentViewController:vc animated:YES completion:nil];
-                
-                
-            }
-            else
-            {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"抱歉！该设备不支持发送短信的功能" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
-                [alert show];
-            }
-        }
-    }
-    else
+    if ([CallAndMessageManager judgeSendMessageNumber:number])
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"号码为空!" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-        [alert show];
+        MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
+        vc.messageComposeDelegate = self;
+        NSArray * array = @[number];
+        vc.recipients = array;
+        // vc.body =@"";
+        [self.parentViewController presentViewController:vc animated:YES completion:nil];
     }
+//    if (number.length > 0) {
+//        Class messageClass = (NSClassFromString(@"MFMessageComposeViewController"));
+//        if (messageClass != nil)
+//        {
+//            if ([MFMessageComposeViewController canSendText])
+//            {
+//                
+//                MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
+//                vc.messageComposeDelegate = self;
+//                NSArray * array = @[number];
+//                vc.recipients = array;
+//                // vc.body =@"";
+//                [self.parentViewController presentViewController:vc animated:YES completion:nil];
+//                
+//                
+//            }
+//            else
+//            {
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"抱歉！该设备不支持发送短信的功能" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+//                [alert show];
+//            }
+//        }
+//    }
+//    else
+//    {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"号码为空!" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+//        [alert show];
+//    }
  }
 
 #pragma mark - Message compose view controller delegate
@@ -447,12 +469,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return 30;
+    return kTableCellDefaultHeight;
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     static NSString *TableSampleIdentifier = @"TableSampleIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
                              TableSampleIdentifier];
@@ -461,9 +482,11 @@
         cell = [[UITableViewCell alloc]
                 initWithStyle:UITableViewCellStyleValue1
                 reuseIdentifier:TableSampleIdentifier];
+        CGFloat startX = 4;
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(startX, kTableCellDefaultHeight - .5, cell.width - startX*2, .5)];
+        line.backgroundColor = CellSeparatorColor;
+        [cell.contentView addSubview:line];
     }
-
-    
     NSDictionary * dic = [self.arArtiiclelist objectAtIndex:indexPath.row];
     cell.textLabel.text = dic[@"Title"];
     cell.textLabel.font = [UIFont systemFontOfSize:13];
@@ -477,7 +500,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     self.seletedArticle = [self.arArtiiclelist objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"LawyerToArticle" sender:self];
+    LawyerArticleViewController *vc = [[LawyerArticleViewController alloc] init];
+    vc.dicArticle = _seletedArticle;
+    [self pushViewController:vc];
+//    [self performSegueWithIdentifier:@"LawyerToArticle" sender:self];
 }
 
 #pragma mark -
