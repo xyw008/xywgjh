@@ -118,7 +118,7 @@
                     
                     NSURL *url =  [[NSURL alloc] initWithString:@"http://test3.sunlawyers.com/AppService/UploadHandler.ashx?fn=AddAskPhoto"];
                     
-                    [[NetRequestManager sharedInstance] sendUploadRequest:url parameterDic:@{@"askId":_askId} requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostPhoto delegate:self fileDic:@{@"path":imgPath}];
+                    [[NetRequestManager sharedInstance] sendUploadRequest:url parameterDic:@{@"askId":_askId,@"Filedata":keyStr} requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostPhoto delegate:self fileDic:@{@"path":imgPath}];
                 }
             }
         }

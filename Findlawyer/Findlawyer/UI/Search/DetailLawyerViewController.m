@@ -120,7 +120,7 @@
     else if  ( ret == NetworkDisenable)
     {
 //        [UIView  showHUDWithTitle:@"网络不给力！" image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
-        [HUDManager showAutoHideHUDWithToShowStr:@"网络不给力！" HUDMode:MBProgressHUDModeText];
+        [HUDManager showAutoHideHUDWithToShowStr:LBSUINetWorkError HUDMode:MBProgressHUDModeText];
     }
     else
     {
@@ -178,7 +178,7 @@
     {
        
 //         [UIView hideHUDWithTitle:@"网络不给力！" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
-        [HUDManager showAutoHideHUDWithToShowStr:@"网络不给力！" HUDMode:MBProgressHUDModeText];
+        [HUDManager showAutoHideHUDWithToShowStr:LBSUINetWorkError HUDMode:MBProgressHUDModeText];
     }
     else
     {
@@ -217,7 +217,7 @@
         //[UIView  showHUDWithTitle:@"网络不给力！" image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
 //        [UIView hideHUDWithTitle:@"网络不给力！" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
         
-        [HUDManager showAutoHideHUDWithToShowStr:@"网络不给力！" HUDMode:MBProgressHUDModeText];
+        [HUDManager showAutoHideHUDWithToShowStr:LBSUINetWorkError HUDMode:MBProgressHUDModeText];
 
     }
     else

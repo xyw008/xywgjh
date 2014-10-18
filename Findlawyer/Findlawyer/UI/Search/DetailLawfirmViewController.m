@@ -26,7 +26,7 @@
 #import "DetailLawyerViewController.h"
 #import <MessageUI/MessageUI.h>
 #import "ACETelPrompt.h"
-
+#import "HUDManager.h"
 
 #define ProHUD 199
 #define kHeardHeight 18
@@ -144,7 +144,8 @@
         else
         {
       
-           [UIView  showHUDWithTitle:@"加载失败..." image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];      
+//           [UIView  showHUDWithTitle:@"加载失败..." image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
+            [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
         }
               // [self loadlawyerlist];
         
@@ -152,15 +153,18 @@
     }];
     if ( ret == NetBeginRequest)
     {
-        [UIView showHUDWithTitle:@"加载中..." onView:self.view tag:ProHUD];
+//        [UIView showHUDWithTitle:@"加载中..." onView:self.view tag:ProHUD];
+        [HUDManager showHUDWithToShowStr:@"加载中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
     }
     else if  ( ret == NetworkDisenable)
     {
-        [UIView  showHUDWithTitle:@"网络不给力！" image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
+//        [UIView  showHUDWithTitle:@"网络不给力！" image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
+        [HUDManager showAutoHideHUDWithToShowStr:LBSUINetWorkError HUDMode:MBProgressHUDModeText];
     }
     else
     {
-        [UIView  showHUDWithTitle:@"加载失败..." image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
+//        [UIView  showHUDWithTitle:@"加载失败..." image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
+        [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
     }
     
 }
@@ -187,12 +191,15 @@
 					_noMoreResultsAvail = YES;
 				if (request.error)
 
-                    [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//                    [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+                    [HUDManager showAutoHideHUDWithToShowStr:LBSUINetWorkError HUDMode:MBProgressHUDModeText];
 				else if (request.availableItemCount)
 
-                      [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//                      [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+                    [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
 				else
-                    [UIView hideHUDWithTitle:@"加载完毕"image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//                    [UIView hideHUDWithTitle:@"加载完毕"image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+                    [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
                 
 				[weakSelf.tableView reloadData];
                 
@@ -292,7 +299,9 @@
                 
 				if (request.error)
                 {
-                 [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView:weakSelf.view tag:ProHUD delay:1];
+//                    [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView:weakSelf.view tag:ProHUD delay:1];
+                    [HUDManager showAutoHideHUDWithToShowStr:LBSUINetWorkError HUDMode:MBProgressHUDModeText];
+                    
                 }
                     //	[iToast make:LBSUINetWorkError duration:750];
              
@@ -300,14 +309,16 @@
                
 				else if (request.availableItemCount)
                 {
-                    [UIView hideHUDWithTitle:LBSUIDataComplete image:nil onView:weakSelf.view tag:ProHUD delay:1];
+//                    [UIView hideHUDWithTitle:LBSUIDataComplete image:nil onView:weakSelf.view tag:ProHUD delay:1];
+                    [HUDManager showAutoHideHUDWithToShowStr:LBSUIDataComplete HUDMode:MBProgressHUDModeText];
                 }
 					
                 // [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:1];
                 
 				else
                 {
-                    [UIView hideHUDWithTitle:LBSUINoMoreData image:nil onView:weakSelf.view tag:ProHUD delay:1];
+//                    [UIView hideHUDWithTitle:LBSUINoMoreData image:nil onView:weakSelf.view tag:ProHUD delay:1];
+                    [HUDManager showAutoHideHUDWithToShowStr:LBSUINoMoreData HUDMode:MBProgressHUDModeText];
                 }
                //  [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:1];
 				[weakSelf.tableView reloadData];
