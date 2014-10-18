@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
@@ -11,47 +10,85 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="136"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lawyer.png" translatesAutoresizingMaskIntoConstraints="NO" id="1J1-2h-5mA">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lawyer.png" translatesAutoresizingMaskIntoConstraints="NO" id="1J1-2h-5mA" customClass="defaultlawyerpng">
                     <rect key="frame" x="10" y="11" width="69" height="84"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="69" id="2Uq-1I-V7y"/>
+                        <constraint firstAttribute="height" constant="84" id="JIl-Pa-GVN"/>
+                    </constraints>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="执业证号:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NqR-hR-J4l">
-                    <rect key="frame" x="97" y="13" width="70" height="25"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="执业证号:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NqR-hR-J4l">
+                    <rect key="frame" x="97" y="13" width="62" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="62" id="3Ih-ac-iD4"/>
+                        <constraint firstAttribute="height" constant="23" id="Aj2-zG-YbU"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="专业领域:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFO-Vs-mJB">
-                    <rect key="frame" x="97" y="55" width="70" height="25"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="专业领域:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFO-Vs-mJB">
+                    <rect key="frame" x="97" y="58" width="70" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="Ies-cw-g1P"/>
+                        <constraint firstAttribute="width" constant="70" id="uae-0Y-OHh"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="14403200710550299" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHv-QQ-yzy">
-                    <rect key="frame" x="165" y="13" width="135" height="25"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14403200710550299" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHv-QQ-yzy">
+                    <rect key="frame" x="160" y="13" width="150" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="23" id="jzo-KK-YY5"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="某律师事务所" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ey6-rJ-bY6">
-                    <rect key="frame" x="97" y="35" width="209" height="25"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="某律师事务所" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ey6-rJ-bY6">
+                    <rect key="frame" x="97" y="37" width="213" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="7MS-Ac-3ln"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="刑事代理 公司法务 刑事辩护 更多" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hA4-0X-sCc">
-                    <rect key="frame" x="96" y="76" width="214" height="25"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="刑事代理 公司法务 刑事辩护 更多" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hA4-0X-sCc">
+                    <rect key="frame" x="96" y="79" width="214" height="20"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="简介：办案经验丰富，业务功底深厚" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="flg-uE-v1c">
-                    <rect key="frame" x="10" y="103" width="300" height="25"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="简介：办案经验丰富，业务功底深厚" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="flg-uE-v1c">
+                    <rect key="frame" x="10" y="105" width="300" height="25"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ey6-rJ-bY6" firstAttribute="top" secondItem="NqR-hR-J4l" secondAttribute="bottom" constant="1" id="47j-Td-sMu"/>
+                <constraint firstItem="ey6-rJ-bY6" firstAttribute="leading" secondItem="1J1-2h-5mA" secondAttribute="trailing" constant="18" id="4Qy-uh-kuh"/>
+                <constraint firstAttribute="trailing" secondItem="flg-uE-v1c" secondAttribute="trailing" constant="10" id="Bqf-kI-tZf"/>
+                <constraint firstItem="NqR-hR-J4l" firstAttribute="leading" secondItem="1J1-2h-5mA" secondAttribute="trailing" constant="18" id="ENg-d4-agX"/>
+                <constraint firstItem="gFO-Vs-mJB" firstAttribute="top" secondItem="ey6-rJ-bY6" secondAttribute="bottom" constant="1" id="H6e-Y9-CbO"/>
+                <constraint firstItem="1J1-2h-5mA" firstAttribute="top" secondItem="1" secondAttribute="top" constant="11" id="agR-Ru-4pF"/>
+                <constraint firstItem="OHv-QQ-yzy" firstAttribute="leading" secondItem="NqR-hR-J4l" secondAttribute="trailing" constant="1" id="bTN-ou-C4e"/>
+                <constraint firstItem="flg-uE-v1c" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="10" id="cqr-Pu-ENB"/>
+                <constraint firstItem="hA4-0X-sCc" firstAttribute="top" secondItem="gFO-Vs-mJB" secondAttribute="bottom" constant="1" id="fV2-4S-htH"/>
+                <constraint firstAttribute="trailing" secondItem="hA4-0X-sCc" secondAttribute="trailing" constant="10" id="gJS-KW-Og3"/>
+                <constraint firstAttribute="trailing" secondItem="ey6-rJ-bY6" secondAttribute="trailing" constant="10" id="hMn-v2-2PI"/>
+                <constraint firstItem="NqR-hR-J4l" firstAttribute="top" secondItem="1" secondAttribute="top" constant="13" id="iBO-b8-kPT"/>
+                <constraint firstItem="gFO-Vs-mJB" firstAttribute="leading" secondItem="1J1-2h-5mA" secondAttribute="trailing" constant="18" id="jl4-Hl-n5S"/>
+                <constraint firstItem="1J1-2h-5mA" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="10" id="kWP-IZ-TZV"/>
+                <constraint firstItem="hA4-0X-sCc" firstAttribute="leading" secondItem="1J1-2h-5mA" secondAttribute="trailing" constant="17" id="sSn-0i-GhH"/>
+                <constraint firstAttribute="trailing" secondItem="OHv-QQ-yzy" secondAttribute="trailing" constant="10" id="vRH-kx-ILJ"/>
+                <constraint firstItem="OHv-QQ-yzy" firstAttribute="top" secondItem="1" secondAttribute="top" constant="13" id="xMV-1t-wR5"/>
+                <constraint firstItem="flg-uE-v1c" firstAttribute="top" secondItem="hA4-0X-sCc" secondAttribute="bottom" constant="6" id="y4f-QL-lG1"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -61,7 +98,7 @@
                 <outlet property="lbLawfirm" destination="ey6-rJ-bY6" id="5BT-DI-Dn5"/>
                 <outlet property="lbSpecialArea" destination="hA4-0X-sCc" id="8Fe-S3-6G9"/>
             </connections>
-            <point key="canvasLocation" x="337" y="268"/>
+            <point key="canvasLocation" x="280" y="316"/>
         </view>
     </objects>
     <resources>

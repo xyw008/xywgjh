@@ -39,26 +39,26 @@
 
 - (IBAction)btnCall:(id)sender
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(selectedToolView:btnTag:)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ToolView:didBtnType:)])
     {
-        [self.delegate selectedToolView:self btnTag:1];
+        [self.delegate ToolView:self didBtnType:ToolBtnTouchType_Call];
     }
 
 }
 
 - (IBAction)btnConsult:(id)sender
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(selectedToolView:btnTag:)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ToolView:didBtnType:)])
     {
-        [self.delegate selectedToolView:self btnTag:0];
+        [self.delegate ToolView:self didBtnType:ToolBtnTouchType_Consult];
     }
 }
 
 - (IBAction)btnSms:(id)sender
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(selectedToolView:btnTag:)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ToolView:didBtnType:)])
     {
-        [self.delegate selectedToolView:self btnTag:2];
+        [self.delegate ToolView:self didBtnType:ToolBtnTouchType_Sms];
     }
 }
 @end

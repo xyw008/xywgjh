@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum
+{
+    ToolBtnTouchType_Consult,//咨询
+    ToolBtnTouchType_Call,//打电话
+    ToolBtnTouchType_Sms,//发短信
+}ToolBtnTouchType;
+
 @protocol ToolViewDelegate;
 
 @interface ToolView : UIView
@@ -24,6 +31,6 @@
 
 @protocol ToolViewDelegate <NSObject>
 
-- (void)selectedToolView:(ToolView *)view btnTag:(NSInteger)btnTag;
+- (void)ToolView:(ToolView *)view didBtnType:(ToolBtnTouchType)type;
 
 @end

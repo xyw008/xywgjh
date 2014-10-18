@@ -114,11 +114,12 @@
                 if ([defaultFile fileExistsAtPath:imgPath] )
                 {
                     _nowUploadingPathStr = imgPath;
+                    DLog(@"img path = %@",imgPath);
                     
                     
                     NSURL *url =  [[NSURL alloc] initWithString:@"http://test3.sunlawyers.com/AppService/UploadHandler.ashx?fn=AddAskPhoto"];
                     
-                    [[NetRequestManager sharedInstance] sendUploadRequest:url parameterDic:@{@"askId":_askId,@"Filedata":keyStr} requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostPhoto delegate:self fileDic:@{@"path":imgPath}];
+                    [[NetRequestManager sharedInstance] sendUploadRequest:url parameterDic:@{@"askId":_askId} requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostPhoto delegate:self fileDic:@{@"Filedata":imgPath}];
                 }
             }
         }
@@ -140,6 +141,9 @@
     {
         case NetConsultInfoRequestType_PostPhoto:
         {
+            NSString *infoStr = [[NSString alloc] initWithData:infoObj encoding:NSUTF8StringEncoding];
+            DLog(@"info str = %@",infoStr);
+            
             [_uploadImgArray removeObjectAtIndex:0];
             _nowUploadingPathStr = nil;
             [self uploadImgRequest];

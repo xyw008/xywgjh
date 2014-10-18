@@ -17,10 +17,13 @@
 #import <MessageUI/MessageUI.h>
 #import "ACETelPrompt.h"
 #import "HUDManager.h"
+#import "ConsultInfoVC.h"
 
 #ifndef ProHUD
 #define ProHUD	199
 #endif
+
+#define kTableCellDefaultHeight 30
 
 @interface DetailLawyerViewController ()<UIScrollViewDelegate,MFMessageComposeViewControllerDelegate>
 
@@ -53,18 +56,17 @@
     self.dicLoaed = [[NSMutableDictionary alloc]init];
   //  self.arArtiiclelist = [[NSArray alloc]init];
     
-    CGFloat statusBarHigh = [UIApplication sharedApplication].statusBarFrame.size.height;
-    CGFloat navBarHigh = self.navigationController.navigationBar.frame.size.height;
-    CGFloat high = [UIScreen mainScreen].bounds.size.height - statusBarHigh - navBarHigh-40;
+    ToolView *tempTool = [ToolView loadFromNib];
     
     //用来添加各种界面后
-    self.myScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, high)];
+    self.myScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - tempTool.height)];
     self.myScrollView.tag=4;
     self.myScrollView.backgroundColor=[UIColor colorWithRed:229.0/255.0 green:229.0/255.0 blue:(229.0/255.0) alpha:1];
     self.myScrollView.backgroundColor=[UIColor whiteColor];
     self.myScrollView.pagingEnabled=NO;
     self.myScrollView.showsVerticalScrollIndicator=YES;
     self.myScrollView.showsHorizontalScrollIndicator=NO;
+    [_myScrollView keepAutoresizingInFull];
     [self.view addSubview:self.myScrollView];
     
     self.myScrollView.userInteractionEnabled=YES;
@@ -229,10 +231,13 @@
     
 }
 
+
+#pragma mark - config all sub view
 //配置律师页面的最上面部分的各种信息
 - (void)configHeaderView
 {
-    self.headerview =[[[NSBundle mainBundle] loadNibNamed:@"DetailLawyerHeaderView" owner:self options:nil] lastObject];
+    _headerview = [DetailLawyerHeaderView loadFromNib];
+    _headerview.width = _myScrollView.width;
     [self.headerview configViewWithmainImage:self.lawyer.mainImageURL certificateNum:self.lawyer.certificateNo lawfirmname:self.lawyer.lawfirmName specailarea:self.lawyer.specialArea detailInfo:self.lawyer.detail];
     self.myScrollView.contentSize = CGSizeMake(self.view.frame.size.width,CGRectGetMaxY(self.headerview.frame)+10);
     [self.myScrollView addSubview:self.headerview];
@@ -252,7 +257,7 @@
     contendsize = CGSizeMake(contendsize.width, contendsize.height +25 );
     self.myScrollView.contentSize = contendsize;
     self.segmentcontrol= [[UISegmentedControl alloc]initWithItems:muar];
-    self.segmentcontrol.frame = CGRectMake(5, CGRectGetMaxY(self.headerview.frame), 310, 25);
+    self.segmentcontrol.frame = CGRectMake(5, CGRectGetMaxY(self.headerview.frame), self.view.width - 5*2, 25);
     [self.segmentcontrol addTarget:self action:@selector(segmentChange:) forControlEvents:UIControlEventValueChanged];
     self.segmentcontrol.selectedSegmentIndex = 0;
      self.choosedIndex = 0;
@@ -269,37 +274,30 @@
 //配置每一个文章类型下的文章列表
 - (void)configTableview
 {
-    CGSize  contendsize = CGSizeMake(self.view.frame.size.width, self.headerview.frame.size.height + 10+self.segmentcontrol.frame.size.height +self.arArtiiclelist.count * 30 +10);
-    self.myScrollView.contentSize = contendsize;
-    
     if (self.tableView)
     {
-       [self.tableView removeFromSuperview];
-        self.tableView.frame =CGRectMake(0, CGRectGetMaxY(self.segmentcontrol.frame), CGRectGetWidth(self.view.frame), self.arArtiiclelist.count * 30);
-        [self.myScrollView addSubview:self.tableView];
+        self.tableView.frame =CGRectMake(0, CGRectGetMaxY(self.segmentcontrol.frame), _myScrollView.width, self.arArtiiclelist.count * kTableCellDefaultHeight);
         [self.tableView reloadData];
     }
     else
     {
-        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.segmentcontrol.frame), CGRectGetWidth(self.view.frame), self.arArtiiclelist.count * 30) style:UITableViewStylePlain];
-        self.tableView.tableFooterView = [[UIView alloc]init];
+        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.segmentcontrol.frame), _myScrollView.width, self.arArtiiclelist.count * kTableCellDefaultHeight) style:UITableViewStylePlain];
         self.tableView.dataSource = self;
         self.tableView.delegate  = self;
         [self.myScrollView addSubview:self.tableView];
-
     }
+    self.myScrollView.contentSize = CGSizeMake(self.view.width, self.headerview.height + 10 +self.segmentcontrol.height + _tableView.contentSize.height +10);;
    
 }
 // 配置下面的工具界面 包括联系电话 ，在线咨询，打电话，发短信
 - (void)configToolview
 {
- 
-     self.toolview =[[[NSBundle mainBundle] loadNibNamed:@"ToolView" owner:self options:nil] lastObject];
-    self.toolview.frame = CGRectMake(0, CGRectGetMaxY(self.myScrollView.frame), 320, 40);
-    [self.toolview configViewWithPhone:self.lawyer.mobile];
-    self.toolview.delegate = self;
-    [self.view addSubview:self.toolview];
-    
+    _toolview = [ToolView loadFromNib];
+    _toolview.frame = CGRectMake(0, CGRectGetMaxY(self.myScrollView.frame), self.view.width, _toolview.height);
+    [_toolview configViewWithPhone:self.lawyer.mobile];
+    _toolview.delegate = self;
+    [_toolview keepAutoresizingInFull];
+    [self.view addSubview:_toolview];
 }
 
 
@@ -394,7 +392,7 @@
  
     if (result == MessageComposeResultCancelled)
     {
-           }
+    }
     else if (result == MessageComposeResultSent)
     {
     }
@@ -409,20 +407,25 @@
 
 #pragma mark - ToolViewDelegate
 
-- (void)selectedToolView:(ToolView *)view btnTag:(NSInteger)btnTag
+- (void)ToolView:(ToolView *)view didBtnType:(ToolBtnTouchType)type
 {
-    NSLog(@"ToolViewDelegate!");
-    if (btnTag ==0)
+    switch (type)
     {
-       
-    }
-    else if (btnTag ==1)
-    {
-      [self callNumber:self.lawyer.mobile];
-    }
-    else if (btnTag ==2)
-    {
-       [self presentMessageComposeViewControllerWithNumber:self.lawyer.mobile];
+        case ToolBtnTouchType_Consult:
+        {
+            ConsultInfoVC *vc = [[ConsultInfoVC alloc] init];
+            vc.lawyerItem = _lawyer;
+            [self pushViewController:vc];
+        }
+            break;
+        case ToolBtnTouchType_Call:
+            [self callNumber:self.lawyer.mobile];
+            break;
+        case ToolBtnTouchType_Sms:
+            [self presentMessageComposeViewControllerWithNumber:self.lawyer.mobile];
+            break;
+        default:
+            break;
     }
 }
 

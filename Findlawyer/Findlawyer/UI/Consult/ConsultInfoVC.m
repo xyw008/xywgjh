@@ -15,6 +15,7 @@
 #import "NetRequestManager.h"
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "UploadImageBC.h"
+#import "HUDManager.h"
 
 #define kEdgeSpace 10
 #define kCancelBtnStr @"   取消"
@@ -238,31 +239,30 @@
                     NSArray *askArray = [successInfoObj objectForKey:@"Ask"];
                     if ([askArray isAbsoluteValid])
                     {
-                        strongSelf->_askId = [askArray objectAtIndex:0];
-                        //如果要上传图片时候发现没有askId，而且发起的请求的情况
-                        if (strongSelf->_willImgButNoAskId)
+                        NSDictionary *askDic = [askArray objectAtIndex:0];
+                        if ([askDic isAbsoluteValid])
                         {
-                            [strongSelf uploadImgArray:strongSelf->_uploadImgArray];
-                            strongSelf->_willImgButNoAskId = NO;
-                            strongSelf->_uploadImgArray = nil;
+                            strongSelf->_askId = [askDic objectForKey:@"AskId"];
+                            //如果要上传图片时候发现没有askId，而且发起的请求的情况
+                            if (strongSelf->_willImgButNoAskId)
+                            {
+                                [strongSelf uploadImgArray:strongSelf->_uploadImgArray];
+                                strongSelf->_willImgButNoAskId = NO;
+                                strongSelf->_uploadImgArray = nil;
+                            }
                         }
                     }
                 }
                     break;
                 case NetConsultInfoRequestType_PostSaveAskInfo:
                 {
-                    [strongSelf backViewController];
+                    [HUDManager showAutoHideHUDWithToShowStr:@"发送成功" HUDMode:MBProgressHUDModeText];
+                    [strongSelf performSelector:@selector(backViewController) withObject:nil afterDelay:HUDAutoHideTypeShowTime];
                 }
                 default:
                     break;
             }
         }
-        else
-        {
-            NSString *test = [[NSString alloc] initWithData:successInfoObj encoding:NSUTF8StringEncoding];
-            DLog(@"test = %@",test);
-        }
-        
     } failedBlock:^(NetRequest *request, NSError *error) {
         DLog(@"SD");
     }];
@@ -296,6 +296,10 @@
             
             
             NSDictionary *parm = @{@"askId":_askId,@"askTypeId":typeId,@"content":_textView.text};
+            
+            DLog(@"parm = %@",parm);
+            
+            
             [self sendRequest:[BaseNetworkViewController getRequestURLStr:NetConsultInfoRequestType_PostSaveAskInfo] parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostSaveAskInfo];
         }
         else
@@ -403,6 +407,7 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
+    _wantSelectStr = [_typeArray objectAtIndex:row];
     return [_typeArray objectAtIndex:row];
 }
 
@@ -410,7 +415,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    _wantSelectStr = [_typeArray objectAtIndex:row];
+//    _wantSelectStr = [_typeArray objectAtIndex:row];
 }
 
 #pragma mark - UITextView delegate
@@ -433,7 +438,6 @@
             WEAKSELF
             _uploadImageBC = [[UploadImageBC alloc] initWithAskId:_askId UploadImgArray:array uploadStateBlock:^(BOOL success) {
                 STRONGSELF
-                if (success)
                     strongSelf->_allPhotoUploadSuccess = success;
             }];
         }
