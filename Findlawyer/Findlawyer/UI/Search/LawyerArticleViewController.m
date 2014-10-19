@@ -65,7 +65,7 @@
             weakSelf.textView.text = dic[@"Content"];
         }
 //        [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
-        [HUDManager showAutoHideHUDWithToShowStr:@"加载完毕" HUDMode:MBProgressHUDModeText];
+//        [HUDManager showAutoHideHUDWithToShowStr:@"加载完毕" HUDMode:MBProgressHUDModeText];
     }];
     
     if ( ret == NetBeginRequest)
