@@ -80,7 +80,8 @@
     self.ifhavedload = YES;
     self.muarLawyerlist = [[NSMutableArray alloc]init];
     self.title = self.lawfirm.name;
-   [self.tableView registerNib:[UINib nibWithNibName:@"LawyerCell" bundle:nil] forCellReuseIdentifier:@"LawyerCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"LawyerCell" bundle:nil] forCellReuseIdentifier:@"LawyerCell"];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [[UIView alloc]init];
 
 }
@@ -347,6 +348,7 @@
     lable.font = [UIFont boldSystemFontOfSize:15];
     // lable.textColor = [UIColor colorWithRed:0 green:122/255.0 blue:255.0/255.0 alpha:1];
     [view addSubview:lable];
+    lable.textColor = HEXCOLOR(0XB6B6B6);
     lable.text = [NSString stringWithFormat:@"  本所律师列表"];
     return view;
 }
