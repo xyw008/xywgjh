@@ -94,6 +94,7 @@
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [HUDManager hideHUD];
     [self removeSignalObserver];
 }
 
@@ -106,7 +107,7 @@
         if (result) {
             
             if (userInfo) {
-                
+                [HUDManager hideHUD];
                 NSArray * contents = userInfo[@"LawFirm"];
                 NSDictionary * dic = [contents objectAtIndex:0];
                 weakSelf.lawfirm.tel = dic[@"Tel"];
@@ -196,9 +197,11 @@
 //                    [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
                     [HUDManager showAutoHideHUDWithToShowStr:LBSUINetWorkError HUDMode:MBProgressHUDModeText];
 				else if (request.availableItemCount)
-
-//                      [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
-                    [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
+                {
+//                    [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+//                    [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
+                }
+                
 				else
 //                    [UIView hideHUDWithTitle:@"加载完毕"image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
                     [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
@@ -298,6 +301,7 @@
     lycell.lblawfirm.text = lawyer.lawfirmName;
     lycell.lbCertificate.text = lawyer.certificateNo;
     lycell.specialAreaStr = lawyer.specialArea;
+    DLog(@"mobile %@",lawyer.mobile);
     lycell.lbPhone.text = lawyer.mobile ? lawyer.mobile : @"暂无电话";
     lycell.delegate = self;
     [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];

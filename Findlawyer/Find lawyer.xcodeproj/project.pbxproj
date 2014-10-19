@@ -22,6 +22,7 @@
 		1E979A3919B66F2100A0F7BF /* DetailLawyerHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E979A3819B66F2100A0F7BF /* DetailLawyerHeaderView.xib */; };
 		2306A42B19ED786E00D6F55F /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2306A42A19ED786E00D6F55F /* SearchView.m */; };
 		232F838319F0235E006C0E51 /* EXPhotoViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 232F838219F0235E006C0E51 /* EXPhotoViewer.m */; };
+		238F7B6819F3FE74004BADD5 /* ImageBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 238F7B6719F3FE74004BADD5 /* ImageBox.m */; };
 		2B288D2B19F00FE200ADAFFE /* CommonEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B288D2A19F00FE200ADAFFE /* CommonEntity.m */; };
 		2B2A339219ED6A0B00DAE712 /* callHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338C19ED6A0B00DAE712 /* callHighlight@2x.png */; };
 		2B2A339319ED6A0B00DAE712 /* callNomal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A338D19ED6A0B00DAE712 /* callNomal@2x.png */; };
@@ -396,6 +397,8 @@
 		2306A42A19ED786E00D6F55F /* SearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
 		232F838119F0235E006C0E51 /* EXPhotoViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPhotoViewer.h; sourceTree = "<group>"; };
 		232F838219F0235E006C0E51 /* EXPhotoViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPhotoViewer.m; sourceTree = "<group>"; };
+		238F7B6619F3FE74004BADD5 /* ImageBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBox.h; sourceTree = "<group>"; };
+		238F7B6719F3FE74004BADD5 /* ImageBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBox.m; sourceTree = "<group>"; };
 		2B288D2919F00FE200ADAFFE /* CommonEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonEntity.h; sourceTree = "<group>"; };
 		2B288D2A19F00FE200ADAFFE /* CommonEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonEntity.m; sourceTree = "<group>"; };
 		2B2A338C19ED6A0B00DAE712 /* callHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callHighlight@2x.png"; sourceTree = "<group>"; };
@@ -2287,6 +2290,8 @@
 				B3B083FE19EE8CC100BF5BC9 /* BMKLawfirmPaoPaoView.xib */,
 				B3AAEB8A19EFBA4B003FB7F9 /* ImageAddView.h */,
 				B3AAEB8B19EFBA4B003FB7F9 /* ImageAddView.m */,
+				238F7B6619F3FE74004BADD5 /* ImageBox.h */,
+				238F7B6719F3FE74004BADD5 /* ImageBox.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2571,6 +2576,7 @@
 				43B185E619ECBA4700B7B1F6 /* ATB_CGContext.m in Sources */,
 				43B1862C19ECBA4800B7B1F6 /* ATStyledLabel.m in Sources */,
 				43B185F419ECBA4800B7B1F6 /* ATBLibs+UIColor.m in Sources */,
+				238F7B6819F3FE74004BADD5 /* ImageBox.m in Sources */,
 				43B185E819ECBA4800B7B1F6 /* ATB_Math.m in Sources */,
 				43B185F819ECBA4800B7B1F6 /* ATColorSpace.c in Sources */,
 				43B1843819ECB74E00B7B1F6 /* UIImage+FlatUI.m in Sources */,

@@ -7,75 +7,7 @@
 //
 
 #import "ImageAddView.h"
-#import "EXPhotoViewer.h"
-
-@class ImageBox;
-
-@protocol ImageBoxDelegate <NSObject>
-
-- (void)ImageBoxWantDeleteImg:(ImageBox*)box;
-
-@end
-
-@interface ImageBox : UIView
-{
-    UIButton                        *_deleteBtn;//删除按钮
-    __weak id<ImageBoxDelegate>     _delegate;
-}
-
-@end
-
-
-@implementation ImageBox
-
-- (instancetype)initWithFrame:(CGRect)frame image:(UIImage*)img delegate:(id)delegate
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        _delegate = delegate;
-        
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        imageView.image = img;
-        [self addSubview:imageView];
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enlargeImageTap:)];
-        [self addGestureRecognizer:tap];
-        
-        CGFloat btnWidth = 12;
-        UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        deleteBtn.backgroundColor = [UIColor clearColor];
-        deleteBtn.frame = CGRectMake(self.width - btnWidth - 2, 2, btnWidth, btnWidth);
-        [deleteBtn setImage:[UIImage imageNamed:@"Delete_img"] forState:UIControlStateNormal];
-        [deleteBtn addTarget:self action:@selector(deleteBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:deleteBtn];
-    }
-    return self;
-}
-
-- (void)deleteBtnTouch:(UIButton*)btn
-{
-    if ([_delegate respondsToSelector:@selector(ImageBoxWantDeleteImg:)]) {
-        [_delegate ImageBoxWantDeleteImg:self];
-    }
-}
-
-- (void)enlargeImageTap:(UIGestureRecognizer*)tap
-{
-    for (UIView *view in self.subviews) {
-        if ([view isKindOfClass:[UIImageView class]])
-        {
-            [EXPhotoViewer showImageFrom:(UIImageView *)view];
-            return;
-        }
-    }
-
-}
-
-@end
-
-
-////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
+#import "ImageBox.h"
 
 #define kTopSpace 8 //距离顶部空间
 #define kBottomSpace 10 //距离底部空间
@@ -149,7 +81,7 @@
     if (_imageBoxArray == nil) {
         _imageBoxArray = [[NSMutableArray alloc] init];
     }
-    ImageBox *box = [[ImageBox alloc] initWithFrame:[self getImageBoxFrameForIndex:_imageBoxArray.count] image:img delegate:self];
+    ImageBox *box = [[ImageBox alloc] initWithFrame:[self getImageBoxFrameForIndex:_imageBoxArray.count] image:img delegate:self needDeleteBtn:YES];
     box.tag = kImgBoxStartTag + _imageBoxArray.count;
     [self addSubview:box];
     [_imageBoxArray addObject:box];

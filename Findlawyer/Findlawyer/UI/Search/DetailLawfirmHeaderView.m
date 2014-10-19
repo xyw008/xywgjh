@@ -8,7 +8,8 @@
 
 #import "DetailLawfirmHeaderView.h"
 #import "UIImageView+WebCache.h"
-
+#import "EXPhotoViewer.h"
+#import "ImageBox.h"
 
 @implementation DetailLawfirmHeaderView
 
@@ -51,9 +52,11 @@
     // Add images into scroll view
     for (int i=0; i<imagelist.count; i++)
     {
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*imagesize.width+5, 0, imagesize.width-10, imagesize.height)];
-         [imgView setImageWithURL:[NSURL URLWithString:[imagelist objectAtIndex:i]] placeholderImage:[UIImage imageNamed:@"defualtLawfirm"]];
-        [self.scPhoto addSubview:imgView];
+//        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*imagesize.width+5, 0, imagesize.width-10,
+        
+        ImageBox *box = [[ImageBox alloc] initWithFrame:CGRectMake(i*imagesize.width+5, 0, imagesize.width-10, imagesize.height) image:nil delegate:nil needDeleteBtn:NO];
+        [box.imgView setImageWithURL:[NSURL URLWithString:[imagelist objectAtIndex:i]] placeholderImage:[UIImage imageNamed:@"defualtLawfirm"]];
+        [self.scPhoto addSubview:box];
     }
  
  
