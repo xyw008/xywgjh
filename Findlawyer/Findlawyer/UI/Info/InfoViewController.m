@@ -14,12 +14,13 @@
 #import "AppDelegate.h"
 #import "SearchDeatalViewController.h"
 #import "SearchLawyerViewController.h"
-
 #import "UrlManager.h"
 #import "NetRequestManager.h"
 #import "CommonEntity.h"
 #import "HUDManager.h"
 #import "InfoDetailViewController.h"
+
+#define kCellHeight 35
 
 @interface InfoViewController () <NetRequestDelegate>
 {
@@ -251,7 +252,7 @@
     {
         return 60;
     }
-    return 35;
+    return kCellHeight;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -261,28 +262,43 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _networkHomePageNewsEntitiesArray.count;
+    return _networkHomePageNewsEntitiesArray.count + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
  {
      tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-     HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
      UITableViewCell *cell = nil;
      if (indexPath.row == 0)
      {
          cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
          [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
          
+         HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
          UILabel *titleLabel = (UILabel *)[cell viewWithTag:1001];
          UILabel *descLabel = (UILabel *)[cell viewWithTag:1002];
          
          titleLabel.text = entity.newsTitleStr;
          descLabel.text = entity.newsDescStr;
      }
+     else if(_networkHomePageNewsEntitiesArray.count == indexPath.row)
+     {
+         static NSString *moreIdentifier = @"moreCellIdentifier";
+         cell = [tableView dequeueReusableCellWithIdentifier:moreIdentifier];
+         if (!cell) {
+             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:moreIdentifier];
+             UILabel *moreLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, cell.width, kCellHeight)];
+             moreLB.text = @"更多新闻";
+             moreLB.textAlignment = NSTextAlignmentCenter;
+             moreLB.font = SP15Font;
+             [cell.contentView addSubview:moreLB];
+             [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
+         }
+     }
      else
      {
+         HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
          cell = [tableView dequeueReusableCellWithIdentifier:@"sigleCell"];
          if (!cell)
          {
@@ -304,11 +320,19 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self performSegueWithIdentifier:@"toInfoDetail" sender:self];
      */
-    HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
-    InfoDetailViewController *newsDetailVC = [[InfoDetailViewController alloc] initWithNewsId:entity.newsId];
-    newsDetailVC.hidesBottomBarWhenPushed = YES;
     
-    [self.navigationController pushViewController:newsDetailVC animated:YES];
+    if (_networkHomePageNewsEntitiesArray.count == indexPath.row)
+    {
+        
+    }
+    else
+    {
+        HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
+        InfoDetailViewController *newsDetailVC = [[InfoDetailViewController alloc] initWithNewsId:entity.newsId];
+        newsDetailVC.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:newsDetailVC animated:YES];
+    }
 }
 
 

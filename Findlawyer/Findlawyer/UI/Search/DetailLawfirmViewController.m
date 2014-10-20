@@ -303,7 +303,7 @@
     lycell.lbCertificate.text = lawyer.certificateNo;
     lycell.specialAreaStr = lawyer.specialArea;
     DLog(@"mobile %@",lawyer.mobile);
-    lycell.lbPhone.text = lawyer.mobile ? lawyer.mobile : @"暂无电话";
+    lycell.lbPhone.text = lawyer.tel ? lawyer.tel : @"暂无电话";
     lycell.delegate = self;
     [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
 }

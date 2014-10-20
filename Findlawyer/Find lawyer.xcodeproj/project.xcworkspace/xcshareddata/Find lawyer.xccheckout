@@ -14,10 +14,6 @@
 		<string>https://github.com/xyw008/xywgjh.git</string>
 		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++3947</key>
 		<string>svn://192.168.0.100/o2o_ios/trunk/o2o/Class/Nimbus/src/webcontroller/resources/NimbusWebController.bundle</string>
-		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++422</key>
-		<string>svn://192.168.0.100/o2o_ios/trunk/o2o/Class/Nimbus/src/photos/resources/NimbusPhotos.bundle</string>
-		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++4580</key>
-		<string>svn://192.168.0.100/o2o_ios/trunk/o2o/Class/Nimbus/src/overview/resources/NimbusOverviewer.bundle</string>
 		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++9572</key>
 		<string>svn://192.168.0.100/o2o_ios/trunk/o2o/Class/IQKeyBoardManager/IQKeyboardManager.bundle</string>
 	</dict>
@@ -28,21 +24,13 @@
 		<key>1AF7752217A9D9410BE5F13786533F31F062C653</key>
 		<string>../../..</string>
 		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++3947</key>
-		<string>../../../Findlawyer/Class/Nimbus/src/webcontroller/resources/NimbusWebController.bundle</string>
-		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++422</key>
-		<string>../../../Findlawyer/Class/Nimbus/src/photos/resources/NimbusPhotos.bundle</string>
-		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++4580</key>
-		<string>../../../Findlawyer/Class/Nimbus/src/overview/resources/NimbusOverviewer.bundle</string>
+		<string>../../../../findlawyer/Findlawyer/Class/webcontroller/resources/NimbusWebController.bundle</string>
 		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++9572</key>
 		<string>../../..Findlawyer/Class/IQKeyBoardManager/IQKeyboardManager.bundle</string>
 	</dict>
 	<key>IDESourceControlProjectRepositoryRootDictionary</key>
 	<dict>
 		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++3947</key>
-		<string>svn://192.168.0.100/o2o_ios</string>
-		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++422</key>
-		<string>svn://192.168.0.100/o2o_ios</string>
-		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++4580</key>
 		<string>svn://192.168.0.100/o2o_ios</string>
 		<key>43ad27df-ac1c-4d72-822e-fa1f3520b629++9572</key>
 		<string>svn://192.168.0.100/o2o_ios</string>
@@ -70,22 +58,6 @@
 			<string>43ad27df-ac1c-4d72-822e-fa1f3520b629++9572</string>
 			<key>IDESourceControlWCCName</key>
 			<string>IQKeyboardManager.bundle</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.subversion</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>43ad27df-ac1c-4d72-822e-fa1f3520b629++4580</string>
-			<key>IDESourceControlWCCName</key>
-			<string>NimbusOverviewer.bundle</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.subversion</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>43ad27df-ac1c-4d72-822e-fa1f3520b629++422</string>
-			<key>IDESourceControlWCCName</key>
-			<string>NimbusPhotos.bundle</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

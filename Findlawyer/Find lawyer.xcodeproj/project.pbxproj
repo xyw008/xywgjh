@@ -283,7 +283,6 @@
 		519A219419A700D800248A21 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 519A218A19A700D800248A21 /* AFXMLRequestOperation.m */; };
 		519A219519A700D800248A21 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 519A218C19A700D800248A21 /* UIImageView+AFNetworking.m */; };
 		51A5067E1974B53500108B2B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51A5067D1974B53500108B2B /* CoreData.framework */; };
-		51BC07AF197CA7CF0046D4D4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 51BC07AE197CA7CF0046D4D4 /* Default-568h@2x.png */; };
 		51BD0C7119B0644C006EF8AC /* DetailLawfirmHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51BD0C7019B0644C006EF8AC /* DetailLawfirmHeaderView.m */; };
 		51BD0C7319B064CF006EF8AC /* DetailLawfirmHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51BD0C7219B064CF006EF8AC /* DetailLawfirmHeaderView.xib */; };
 		51BEE07E19690AC000566AFF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51BEE07D19690AC000566AFF /* Foundation.framework */; };
@@ -346,6 +345,12 @@
 		51F64BF7196FE91000BBD314 /* NSString+TimeFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64BF6196FE91000BBD314 /* NSString+TimeFormat.m */; };
 		51F64BFA196FE91D00BBD314 /* UIView+ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64BF9196FE91D00BBD314 /* UIView+ProgressHUD.m */; };
 		51F64C08196FEA6600BBD314 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B39F440C19F4A7AE00C89290 /* MoreNewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F440B19F4A7AE00C89290 /* MoreNewVC.m */; };
+		B39F441819F4DC0E00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F440E19F4DC0E00C89290 /* deps */; };
+		B39F441919F4DC0E00C89290 /* NimbusWebController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B39F441019F4DC0E00C89290 /* NimbusWebController.bundle */; };
+		B39F441A19F4DC0E00C89290 /* NIWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F441419F4DC0E00C89290 /* NIWebController.m */; };
+		B39F441B19F4DC0E00C89290 /* NimbusWebControllerTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B39F441619F4DC0E00C89290 /* NimbusWebControllerTests-Info.plist */; };
+		B39F441C19F4DC0E00C89290 /* NIWebControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F441719F4DC0E00C89290 /* NIWebControllerTests.m */; };
 		B3A5C26319F0B62300D4A695 /* YGPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A5C26219F0B62300D4A695 /* YGPopupController.m */; };
 		B3A5C26619F0BD3000D4A695 /* PickerAlertTypeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A5C26519F0BD3000D4A695 /* PickerAlertTypeManager.m */; };
 		B3A5C26919F0FFCD00D4A695 /* UploadImageBC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A5C26819F0FFCD00D4A695 /* UploadImageBC.m */; };
@@ -916,7 +921,6 @@
 		519A218B19A700D800248A21 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		519A218C19A700D800248A21 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		51A5067D1974B53500108B2B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		51BC07AE197CA7CF0046D4D4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		51BD0C6F19B0644C006EF8AC /* DetailLawfirmHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailLawfirmHeaderView.h; sourceTree = "<group>"; };
 		51BD0C7019B0644C006EF8AC /* DetailLawfirmHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailLawfirmHeaderView.m; sourceTree = "<group>"; };
 		51BD0C7219B064CF006EF8AC /* DetailLawfirmHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailLawfirmHeaderView.xib; sourceTree = "<group>"; };
@@ -1013,6 +1017,15 @@
 		51F64BF9196FE91D00BBD314 /* UIView+ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ProgressHUD.m"; sourceTree = "<group>"; };
 		51F64C06196FEA6600BBD314 /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
 		51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
+		B39F440A19F4A7AE00C89290 /* MoreNewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreNewVC.h; sourceTree = "<group>"; };
+		B39F440B19F4A7AE00C89290 /* MoreNewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreNewVC.m; sourceTree = "<group>"; };
+		B39F440E19F4DC0E00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F441019F4DC0E00C89290 /* NimbusWebController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NimbusWebController.bundle; sourceTree = "<group>"; };
+		B39F441219F4DC0E00C89290 /* NimbusWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusWebController.h; sourceTree = "<group>"; };
+		B39F441319F4DC0E00C89290 /* NIWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIWebController.h; sourceTree = "<group>"; };
+		B39F441419F4DC0E00C89290 /* NIWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIWebController.m; sourceTree = "<group>"; };
+		B39F441619F4DC0E00C89290 /* NimbusWebControllerTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NimbusWebControllerTests-Info.plist"; sourceTree = "<group>"; };
+		B39F441719F4DC0E00C89290 /* NIWebControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIWebControllerTests.m; sourceTree = "<group>"; };
 		B3A5C26119F0B62300D4A695 /* YGPopupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGPopupController.h; sourceTree = "<group>"; };
 		B3A5C26219F0B62300D4A695 /* YGPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGPopupController.m; sourceTree = "<group>"; };
 		B3A5C26419F0BD3000D4A695 /* PickerAlertTypeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerAlertTypeManager.h; sourceTree = "<group>"; };
@@ -1107,6 +1120,7 @@
 		43B1839A19ECB74E00B7B1F6 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				B39F440D19F4DC0E00C89290 /* webcontroller */,
 				232F838019F0235E006C0E51 /* EXPhotoViewer */,
 				B3AAEB9219EFED7A003FB7F9 /* CTAssetsPickerController */,
 				43B1839B19ECB74E00B7B1F6 /* ASIHttpRequst */,
@@ -1885,6 +1899,8 @@
 				51E62104197517020087B49B /* InfoCell.h */,
 				51E62105197517020087B49B /* InfoCell.m */,
 				51E62106197517020087B49B /* InfoCell.xib */,
+				B39F440A19F4A7AE00C89290 /* MoreNewVC.h */,
+				B39F440B19F4A7AE00C89290 /* MoreNewVC.m */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -2096,7 +2112,6 @@
 				5143CBFA19791BB800D4B7C0 /* bgSms@2x.png */,
 				517F0C771977E4900044D8E5 /* Default.png */,
 				517F0C781977E4900044D8E5 /* Default~iphone.png */,
-				51BC07AE197CA7CF0046D4D4 /* Default-568h@2x.png */,
 				5112D0DE1978F31D0039A88F /* logo@2x.png */,
 				5112D0D01978CEB40039A88F /* icon.png */,
 				51D6989B19A1E11600F7155E /* icon@2x.png */,
@@ -2242,6 +2257,44 @@
 				51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */,
 			);
 			path = "NSDate-Utilities";
+			sourceTree = "<group>";
+		};
+		B39F440D19F4DC0E00C89290 /* webcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				B39F440E19F4DC0E00C89290 /* deps */,
+				B39F440F19F4DC0E00C89290 /* resources */,
+				B39F441119F4DC0E00C89290 /* src */,
+				B39F441519F4DC0E00C89290 /* unittests */,
+			);
+			path = webcontroller;
+			sourceTree = "<group>";
+		};
+		B39F440F19F4DC0E00C89290 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				B39F441019F4DC0E00C89290 /* NimbusWebController.bundle */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		B39F441119F4DC0E00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F441219F4DC0E00C89290 /* NimbusWebController.h */,
+				B39F441319F4DC0E00C89290 /* NIWebController.h */,
+				B39F441419F4DC0E00C89290 /* NIWebController.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F441519F4DC0E00C89290 /* unittests */ = {
+			isa = PBXGroup;
+			children = (
+				B39F441619F4DC0E00C89290 /* NimbusWebControllerTests-Info.plist */,
+				B39F441719F4DC0E00C89290 /* NIWebControllerTests.m */,
+			);
+			path = unittests;
 			sourceTree = "<group>";
 		};
 		B3AAEB5F19EF620A003FB7F9 /* lawfirm */ = {
@@ -2398,7 +2451,6 @@
 				5143CBFB19791BB800D4B7C0 /* bgCall@2x.png in Resources */,
 				5197EA7819B71600000484A7 /* consult@2x.png in Resources */,
 				43DABED319ED276800CA3FD9 /* 9@2x.png in Resources */,
-				51BC07AF197CA7CF0046D4D4 /* Default-568h@2x.png in Resources */,
 				51E62108197517020087B49B /* InfoCell.xib in Resources */,
 				43DABECE19ED276800CA3FD9 /* 4@2x.png in Resources */,
 				1E34A19A19B76DD00035CDE6 /* bgNavbar@2x.png in Resources */,
@@ -2413,6 +2465,7 @@
 				43DABECD19ED276800CA3FD9 /* 3@2x.png in Resources */,
 				5112D0DF1978F31D0039A88F /* logo@2x.png in Resources */,
 				43B334C619F1001F00DBE372 /* saoyisao@2x.png in Resources */,
+				B39F441919F4DC0E00C89290 /* NimbusWebController.bundle in Resources */,
 				51E62101197514690087B49B /* btn_icon5@2x.png in Resources */,
 				2B2A339719ED6A0B00DAE712 /* messageNomal@2x.png in Resources */,
 				517C5B8A196E3EE0000FF983 /* mapapi.bundle in Resources */,
@@ -2459,6 +2512,7 @@
 				43DABED219ED276800CA3FD9 /* 8@2x.png in Resources */,
 				1E34A1A619B778E80035CDE6 /* sms_unseleted@2x.png in Resources */,
 				43B1845919ECB74E00B7B1F6 /* sr_refresh.png in Resources */,
+				B39F441B19F4DC0E00C89290 /* NimbusWebControllerTests-Info.plist in Resources */,
 				43B334C119F0F21300DBE372 /* Default@2x.png in Resources */,
 				43B1862819ECBA4800B7B1F6 /* pinyin.sqlite in Resources */,
 				51E621031975148A0087B49B /* btn_icon6@2x.png in Resources */,
@@ -2503,6 +2557,7 @@
 				43DABEC519ED276800CA3FD9 /* 20@2x.png in Resources */,
 				51BEE0CF1969245800566AFF /* tab_setting_nor@2x.png in Resources */,
 				51E620FF197514690087B49B /* btn_icon3@2x.png in Resources */,
+				B39F441819F4DC0E00C89290 /* deps in Resources */,
 				5143CBF31979027B00D4B7C0 /* LawyerCell.xib in Resources */,
 				43B334C019F0F21300DBE372 /* Default-667h@2x.png in Resources */,
 				517C24DB19D6B76300331AE4 /* btnChangecity@2x.png in Resources */,
@@ -2538,6 +2593,7 @@
 				5167570219A5A39E00672380 /* DetailLawfirmViewController.m in Sources */,
 				43B184FF19ECB91100B7B1F6 /* LanguagesManager.m in Sources */,
 				43B1843219ECB74E00B7B1F6 /* FUISegmentedControl.m in Sources */,
+				B39F440C19F4A7AE00C89290 /* MoreNewVC.m in Sources */,
 				43B185EF19ECBA4800B7B1F6 /* ATBLibs+NSData+Base64.m in Sources */,
 				43B1866D19ECBC0800B7B1F6 /* UINavigationItem+margin.m in Sources */,
 				43B1866B19ECBC0800B7B1F6 /* PRPAlertView.m in Sources */,
@@ -2547,6 +2603,7 @@
 				43B1844719ECB74E00B7B1F6 /* IQSegmentedNextPrevious.m in Sources */,
 				43B1843719ECB74E00B7B1F6 /* UIFont+FlatUI.m in Sources */,
 				519A219019A700D800248A21 /* AFJSONRequestOperation.m in Sources */,
+				B39F441C19F4DC0E00C89290 /* NIWebControllerTests.m in Sources */,
 				43B185E519ECBA4700B7B1F6 /* ATB_BubbleMessageLabel.m in Sources */,
 				43B184F119ECB91100B7B1F6 /* UIScrollView+SSToolkitAdditions.m in Sources */,
 				51D698A519A21A0900F7155E /* iToast.m in Sources */,
@@ -2739,6 +2796,7 @@
 				43B1843119ECB74E00B7B1F6 /* FUIPopoverBackgroundView.m in Sources */,
 				43B1851419ECB91100B7B1F6 /* StringJudgeManager.m in Sources */,
 				43B185F919ECBA4800B7B1F6 /* ATUtf8.c in Sources */,
+				B39F441A19F4DC0E00C89290 /* NIWebController.m in Sources */,
 				43B185F619ECBA4800B7B1F6 /* ATBLibs+UIView.m in Sources */,
 				43B1851519ECB91100B7B1F6 /* UpdataAppModel.m in Sources */,
 				43B1845219ECB74E00B7B1F6 /* SDImageCache.m in Sources */,
