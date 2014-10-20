@@ -69,12 +69,19 @@
     self.myScrollView.pagingEnabled=NO;
     self.myScrollView.showsVerticalScrollIndicator=YES;
     self.myScrollView.showsHorizontalScrollIndicator=NO;
+    _myScrollView.contentSize = CGSizeMake(0, 0);
     [_myScrollView keepAutoresizingInFull];
     [self.view addSubview:self.myScrollView];
     
     self.myScrollView.userInteractionEnabled=YES;
     self.myScrollView.scrollEnabled=YES;
     self.title = self.lawyer.name;
+    
+    //显示咨询btn
+    if (_showConsultBtn)
+        [self initConsultBtn];
+    else
+        [self configToolview];
     
     [self loadLawyerInfo];
    // [self.myScrollView setContentSize:CGSizeMake(320.0,630)];
@@ -86,21 +93,27 @@
 {
     __weak DetailLawyerViewController *weakSelf = self;
     NetReturnType ret = [[Network sharedNetwork]loadlawyerInfoWithID:[self.lawyer.lawerid integerValue] completion:^(NSInteger result, NSString *message, NSDictionary * userInfo) {
+        
+        STRONGSELF
         if (result) {
             if (userInfo)
             {
                 NSArray * contents = userInfo[@"Lawyer"];
                 NSDictionary * dic = [contents objectAtIndex:0];
-                weakSelf.lawyer.tel = dic[@"Tel"];
+//                weakSelf.lawyer.tel = dic[@"Tel"];
                 weakSelf.lawyer.fax = dic [@"Fax"];
                 weakSelf.lawyer.address = dic [@"Address"];
                 weakSelf.lawyer.detail = dic [@"Detail"];
                 weakSelf.lawyer.mailBox = dic [@"Mail"];
                 weakSelf.lawyer.mobile = dic [@"Mobile"];
                 [weakSelf configHeaderView];
-                if (weakSelf.lawyer.mobile.length > 0) {
-                    [weakSelf configToolview];
-                }
+                
+                if (!strongSelf->_showConsultBtn)
+                    [strongSelf initConsultBtn];
+                else
+                    [strongSelf configToolview];
+                
+//                [weakSelf configToolview];
             }
             else
             {
@@ -299,13 +312,34 @@
 - (void)configToolview
 {
     _toolview = [ToolView loadFromNib];
-    _toolview.frame = CGRectMake(0, CGRectGetMaxY(self.myScrollView.frame), self.view.width, _toolview.height);
-    [_toolview configViewWithPhone:self.lawyer.mobile];
+    _toolview.frame = CGRectMake(0, CGRectGetMaxY(_myScrollView.frame), self.view.width, _toolview.height);
+    [_toolview configViewWithPhone:self.lawyer.tel];
     _toolview.delegate = self;
     [_toolview keepAutoresizingInFull];
     [self.view addSubview:_toolview];
 }
 
+- (void)initConsultBtn
+{
+    ToolView *tempTool = [ToolView loadFromNib];
+    
+    UIButton *consultBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_myScrollView.frame), self.view.width, tempTool.height)];
+    consultBtn.backgroundColor = tempTool.backgroundColor;
+    [consultBtn setTitle:@"向TA咨询" forState:UIControlStateNormal];
+    [consultBtn addTarget:self action:@selector(consultBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
+    consultBtn.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    [consultBtn keepAutoresizingInFull];
+    [self.view addSubview:consultBtn];
+}
+
+#pragma mark - Btn touch event
+
+- (void)consultBtnTouch:(UIButton*)btn
+{
+    ConsultInfoVC *vc = [[ConsultInfoVC alloc] init];
+    vc.lawyerItem = _lawyer;
+    [self pushViewController:vc];
+}
 
 //文章类型改变后，要根据ID加载文章列表
 -(void)segmentChange:(UISegmentedControl *)Seg
@@ -435,9 +469,7 @@
     {
         case ToolBtnTouchType_Consult:
         {
-            ConsultInfoVC *vc = [[ConsultInfoVC alloc] init];
-            vc.lawyerItem = _lawyer;
-            [self pushViewController:vc];
+            [self consultBtnTouch:nil];
         }
             break;
         case ToolBtnTouchType_Call:

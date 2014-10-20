@@ -283,7 +283,6 @@
 		519A219419A700D800248A21 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 519A218A19A700D800248A21 /* AFXMLRequestOperation.m */; };
 		519A219519A700D800248A21 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 519A218C19A700D800248A21 /* UIImageView+AFNetworking.m */; };
 		51A5067E1974B53500108B2B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51A5067D1974B53500108B2B /* CoreData.framework */; };
-		51BC07AF197CA7CF0046D4D4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 51BC07AE197CA7CF0046D4D4 /* Default-568h@2x.png */; };
 		51BD0C7119B0644C006EF8AC /* DetailLawfirmHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51BD0C7019B0644C006EF8AC /* DetailLawfirmHeaderView.m */; };
 		51BD0C7319B064CF006EF8AC /* DetailLawfirmHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51BD0C7219B064CF006EF8AC /* DetailLawfirmHeaderView.xib */; };
 		51BEE07E19690AC000566AFF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51BEE07D19690AC000566AFF /* Foundation.framework */; };
@@ -346,6 +345,123 @@
 		51F64BF7196FE91000BBD314 /* NSString+TimeFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64BF6196FE91000BBD314 /* NSString+TimeFormat.m */; };
 		51F64BFA196FE91D00BBD314 /* UIView+ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64BF9196FE91D00BBD314 /* UIView+ProgressHUD.m */; };
 		51F64C08196FEA6600BBD314 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B39F440C19F4A7AE00C89290 /* MoreNewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F440B19F4A7AE00C89290 /* MoreNewVC.m */; };
+		B39F45B119F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F445B19F4E28F00C89290 /* deps */; };
+		B39F45B219F4E28F00C89290 /* NIAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F445E19F4E28F00C89290 /* NIAttributedLabel.m */; };
+		B39F45B319F4E28F00C89290 /* NSMutableAttributedString+NimbusAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F446219F4E28F00C89290 /* NSMutableAttributedString+NimbusAttributedLabel.m */; };
+		B39F45B619F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F446719F4E28F00C89290 /* deps */; };
+		B39F45B719F4E28F00C89290 /* NIBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F446A19F4E28F00C89290 /* NIBadgeView.m */; };
+		B39F45B919F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F446F19F4E28F00C89290 /* deps */; };
+		B39F45BA19F4E28F00C89290 /* NICollectionViewActions.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F447219F4E28F00C89290 /* NICollectionViewActions.m */; };
+		B39F45BB19F4E28F00C89290 /* NICollectionViewCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F447419F4E28F00C89290 /* NICollectionViewCellFactory.m */; };
+		B39F45BC19F4E28F00C89290 /* NICollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F447719F4E28F00C89290 /* NICollectionViewModel.m */; };
+		B39F45BD19F4E28F00C89290 /* NIMutableCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F447B19F4E28F00C89290 /* NIMutableCollectionViewModel.m */; };
+		B39F45BE19F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F447D19F4E28F00C89290 /* deps */; };
+		B39F45C019F4E28F00C89290 /* NIActions.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F448319F4E28F00C89290 /* NIActions.m */; };
+		B39F45C119F4E28F00C89290 /* NIButtonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F448519F4E28F00C89290 /* NIButtonUtilities.m */; };
+		B39F45C219F4E28F00C89290 /* NICommonMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F448719F4E28F00C89290 /* NICommonMetrics.m */; };
+		B39F45C319F4E28F00C89290 /* NIDataStructures.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F448919F4E28F00C89290 /* NIDataStructures.m */; };
+		B39F45C419F4E28F00C89290 /* NIDebuggingTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F448B19F4E28F00C89290 /* NIDebuggingTools.m */; };
+		B39F45C519F4E28F00C89290 /* NIDeviceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F448D19F4E28F00C89290 /* NIDeviceOrientation.m */; };
+		B39F45C619F4E28F00C89290 /* NIError.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F448F19F4E28F00C89290 /* NIError.m */; };
+		B39F45C719F4E28F00C89290 /* NIFoundationMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F449119F4E28F00C89290 /* NIFoundationMethods.m */; };
+		B39F45C819F4E28F00C89290 /* NIImageUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F449319F4E28F00C89290 /* NIImageUtilities.m */; };
+		B39F45C919F4E28F00C89290 /* NIInMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F449519F4E28F00C89290 /* NIInMemoryCache.m */; };
+		B39F45CA19F4E28F00C89290 /* NINavigationAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F449919F4E28F00C89290 /* NINavigationAppearance.m */; };
+		B39F45CB19F4E28F00C89290 /* NINetworkActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F449B19F4E28F00C89290 /* NINetworkActivity.m */; };
+		B39F45CC19F4E28F00C89290 /* NINonEmptyCollectionTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F449D19F4E28F00C89290 /* NINonEmptyCollectionTesting.m */; };
+		B39F45CD19F4E28F00C89290 /* NINonRetainingCollections.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F449F19F4E28F00C89290 /* NINonRetainingCollections.m */; };
+		B39F45CE19F4E28F00C89290 /* NIOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44A219F4E28F00C89290 /* NIOperations.m */; };
+		B39F45CF19F4E28F00C89290 /* NIPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44A419F4E28F00C89290 /* NIPaths.m */; };
+		B39F45D019F4E28F00C89290 /* NIRuntimeClassModifications.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44A719F4E28F00C89290 /* NIRuntimeClassModifications.m */; };
+		B39F45D119F4E28F00C89290 /* NISDKAvailability.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44A919F4E28F00C89290 /* NISDKAvailability.m */; };
+		B39F45D219F4E28F00C89290 /* NISnapshotRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44AB19F4E28F00C89290 /* NISnapshotRotation.m */; };
+		B39F45D319F4E28F00C89290 /* NIState.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44AD19F4E28F00C89290 /* NIState.m */; };
+		B39F45D419F4E28F00C89290 /* NIViewRecycler.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44AF19F4E28F00C89290 /* NIViewRecycler.m */; };
+		B39F45D519F4E28F00C89290 /* UIResponder+NimbusCore.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44B119F4E28F00C89290 /* UIResponder+NimbusCore.m */; };
+		B39F45E419F4E28F00C89290 /* chameleon.js in Resources */ = {isa = PBXBuildFile; fileRef = B39F44C419F4E28F00C89290 /* chameleon.js */; };
+		B39F45E519F4E28F00C89290 /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = B39F44C519F4E28F00C89290 /* package.json */; };
+		B39F45E619F4E28F00C89290 /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = B39F44C619F4E28F00C89290 /* README.mdown */; };
+		B39F45E719F4E28F00C89290 /* server.js in Resources */ = {isa = PBXBuildFile; fileRef = B39F44C719F4E28F00C89290 /* server.js */; };
+		B39F45E819F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F44C819F4E28F00C89290 /* deps */; };
+		B39F45E919F4E28F00C89290 /* css.grammar in Resources */ = {isa = PBXBuildFile; fileRef = B39F44CA19F4E28F00C89290 /* css.grammar */; };
+		B39F45EA19F4E28F00C89290 /* CSSTokenizerPrefix in Resources */ = {isa = PBXBuildFile; fileRef = B39F44CB19F4E28F00C89290 /* CSSTokenizerPrefix */; };
+		B39F45EB19F4E28F00C89290 /* CSSTokens.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B39F44CC19F4E28F00C89290 /* CSSTokens.cpp */; };
+		B39F45EC19F4E28F00C89290 /* generate in Resources */ = {isa = PBXBuildFile; fileRef = B39F44CE19F4E28F00C89290 /* generate */; };
+		B39F45ED19F4E28F00C89290 /* CSSTokenizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44D019F4E28F00C89290 /* CSSTokenizer.m */; };
+		B39F45EE19F4E28F00C89290 /* CSSTokens.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44D219F4E28F00C89290 /* CSSTokens.m */; };
+		B39F45EF19F4E28F00C89290 /* NIChameleonObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44D419F4E28F00C89290 /* NIChameleonObserver.m */; };
+		B39F45F019F4E28F00C89290 /* NICSSParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44D619F4E28F00C89290 /* NICSSParser.m */; };
+		B39F45F119F4E28F00C89290 /* NICSSRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44D819F4E28F00C89290 /* NICSSRuleset.m */; };
+		B39F45F219F4E28F00C89290 /* NIDOM.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44DA19F4E28F00C89290 /* NIDOM.m */; };
+		B39F45F319F4E28F00C89290 /* NIStylesheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44DE19F4E28F00C89290 /* NIStylesheet.m */; };
+		B39F45F419F4E28F00C89290 /* NIStylesheetCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44E019F4E28F00C89290 /* NIStylesheetCache.m */; };
+		B39F45F519F4E28F00C89290 /* NITextField+NIStyleable.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44E219F4E28F00C89290 /* NITextField+NIStyleable.m */; };
+		B39F45F619F4E28F00C89290 /* NIUserInterfaceString.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44E419F4E28F00C89290 /* NIUserInterfaceString.m */; };
+		B39F45F719F4E28F00C89290 /* UIActivityIndicatorView+NIStyleable.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44E619F4E28F00C89290 /* UIActivityIndicatorView+NIStyleable.m */; };
+		B39F45F819F4E28F00C89290 /* UIButton+NIStyleable.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44E819F4E28F00C89290 /* UIButton+NIStyleable.m */; };
+		B39F45F919F4E28F00C89290 /* UILabel+NIStyleable.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44EA19F4E28F00C89290 /* UILabel+NIStyleable.m */; };
+		B39F45FA19F4E28F00C89290 /* UINavigationBar+NIStyleable.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44EC19F4E28F00C89290 /* UINavigationBar+NIStyleable.m */; };
+		B39F45FB19F4E28F00C89290 /* UIScrollView+NIStyleable.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44EE19F4E28F00C89290 /* UIScrollView+NIStyleable.m */; };
+		B39F45FC19F4E28F00C89290 /* UISearchBar+NIStyleable.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44F019F4E28F00C89290 /* UISearchBar+NIStyleable.m */; };
+		B39F45FD19F4E28F00C89290 /* UITableView+NIStyleable.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44F219F4E28F00C89290 /* UITableView+NIStyleable.m */; };
+		B39F45FE19F4E28F00C89290 /* UITextField+NIStyleable.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44F419F4E28F00C89290 /* UITextField+NIStyleable.m */; };
+		B39F45FF19F4E28F00C89290 /* UIToolbar+NIStyleable.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44F619F4E28F00C89290 /* UIToolbar+NIStyleable.m */; };
+		B39F460019F4E28F00C89290 /* UIView+NIStyleable.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F44F819F4E28F00C89290 /* UIView+NIStyleable.m */; };
+		B39F460E19F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F450919F4E28F00C89290 /* deps */; };
+		B39F460F19F4E28F00C89290 /* NIInterapp.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F450C19F4E28F00C89290 /* NIInterapp.m */; };
+		B39F461219F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F451319F4E28F00C89290 /* deps */; };
+		B39F461319F4E28F00C89290 /* NILauncherButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F451619F4E28F00C89290 /* NILauncherButtonView.m */; };
+		B39F461419F4E28F00C89290 /* NILauncherPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F451819F4E28F00C89290 /* NILauncherPageView.m */; };
+		B39F461519F4E28F00C89290 /* NILauncherView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F451A19F4E28F00C89290 /* NILauncherView.m */; };
+		B39F461619F4E28F00C89290 /* NILauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F451C19F4E28F00C89290 /* NILauncherViewController.m */; };
+		B39F461719F4E28F00C89290 /* NILauncherViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F451E19F4E28F00C89290 /* NILauncherViewModel.m */; };
+		B39F461819F4E28F00C89290 /* NILauncherViewObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F452019F4E28F00C89290 /* NILauncherViewObject.m */; };
+		B39F461B19F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F452719F4E28F00C89290 /* deps */; };
+		B39F461D19F4E28F00C89290 /* NICellBackgrounds.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F452C19F4E28F00C89290 /* NICellBackgrounds.m */; };
+		B39F461E19F4E28F00C89290 /* NICellCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F452E19F4E28F00C89290 /* NICellCatalog.m */; };
+		B39F461F19F4E28F00C89290 /* NICellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F453019F4E28F00C89290 /* NICellFactory.m */; };
+		B39F462019F4E28F00C89290 /* NIFormCellCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F453219F4E28F00C89290 /* NIFormCellCatalog.m */; };
+		B39F462119F4E28F00C89290 /* NIMutableTableViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F453619F4E28F00C89290 /* NIMutableTableViewModel.m */; };
+		B39F462219F4E28F00C89290 /* NIRadioGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F453819F4E28F00C89290 /* NIRadioGroup.m */; };
+		B39F462319F4E28F00C89290 /* NIRadioGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F453A19F4E28F00C89290 /* NIRadioGroupController.m */; };
+		B39F462419F4E28F00C89290 /* NITableViewActions.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F453C19F4E28F00C89290 /* NITableViewActions.m */; };
+		B39F462519F4E28F00C89290 /* NITableViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F453F19F4E28F00C89290 /* NITableViewModel.m */; };
+		B39F462A19F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F454619F4E28F00C89290 /* deps */; };
+		B39F462B19F4E28F00C89290 /* NINetworkTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F454A19F4E28F00C89290 /* NINetworkTableViewController.m */; };
+		B39F463419F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F455C19F4E28F00C89290 /* deps */; };
+		B39F463519F4E28F00C89290 /* NimbusOverviewer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B39F455E19F4E28F00C89290 /* NimbusOverviewer.bundle */; };
+		B39F463619F4E28F00C89290 /* NIDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F456119F4E28F00C89290 /* NIDeviceInfo.m */; };
+		B39F463719F4E28F00C89290 /* NIOverview.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F456419F4E28F00C89290 /* NIOverview.m */; };
+		B39F463819F4E28F00C89290 /* NIOverviewGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F456619F4E28F00C89290 /* NIOverviewGraphView.m */; };
+		B39F463919F4E28F00C89290 /* NIOverviewLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F456819F4E28F00C89290 /* NIOverviewLogger.m */; };
+		B39F463A19F4E28F00C89290 /* NIOverviewMemoryCacheController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F456A19F4E28F00C89290 /* NIOverviewMemoryCacheController.m */; };
+		B39F463B19F4E28F00C89290 /* NIOverviewPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F456C19F4E28F00C89290 /* NIOverviewPageView.m */; };
+		B39F463C19F4E28F00C89290 /* NIOverviewSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F456E19F4E28F00C89290 /* NIOverviewSwizzling.m */; };
+		B39F463D19F4E28F00C89290 /* NIOverviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F457019F4E28F00C89290 /* NIOverviewView.m */; };
+		B39F464019F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F457519F4E28F00C89290 /* deps */; };
+		B39F464119F4E28F00C89290 /* NIPagingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F457A19F4E28F00C89290 /* NIPagingScrollView.m */; };
+		B39F464219F4E28F00C89290 /* NIPagingScrollViewPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F457C19F4E28F00C89290 /* NIPagingScrollViewPage.m */; };
+		B39F464519F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F458119F4E28F00C89290 /* deps */; };
+		B39F464619F4E28F00C89290 /* NimbusPhotos.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B39F458319F4E28F00C89290 /* NimbusPhotos.bundle */; };
+		B39F464719F4E28F00C89290 /* NIPhotoAlbumScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F458719F4E28F00C89290 /* NIPhotoAlbumScrollView.m */; };
+		B39F464819F4E28F00C89290 /* NIPhotoScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F458B19F4E28F00C89290 /* NIPhotoScrollView.m */; };
+		B39F464919F4E28F00C89290 /* NIPhotoScrubberView.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F458F19F4E28F00C89290 /* NIPhotoScrubberView.m */; };
+		B39F464A19F4E28F00C89290 /* NIToolbarPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F459119F4E28F00C89290 /* NIToolbarPhotoViewController.m */; };
+		B39F464D19F4E28F00C89290 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F459619F4E28F00C89290 /* Default.png */; };
+		B39F464E19F4E28F00C89290 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F459719F4E28F00C89290 /* Default@2x.png */; };
+		B39F464F19F4E28F00C89290 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F459819F4E28F00C89290 /* Icon-72.png */; };
+		B39F465019F4E28F00C89290 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F459919F4E28F00C89290 /* Icon-Small-50.png */; };
+		B39F465119F4E28F00C89290 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F459A19F4E28F00C89290 /* Icon-Small.png */; };
+		B39F465219F4E28F00C89290 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F459B19F4E28F00C89290 /* Icon-Small@2x.png */; };
+		B39F465319F4E28F00C89290 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F459C19F4E28F00C89290 /* Icon.png */; };
+		B39F465419F4E28F00C89290 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F459D19F4E28F00C89290 /* Icon@2x.png */; };
+		B39F465519F4E28F00C89290 /* lib.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = B39F459E19F4E28F00C89290 /* lib.xcconfig */; };
+		B39F465619F4E28F00C89290 /* nimbus64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = B39F459F19F4E28F00C89290 /* nimbus64x64.png */; };
+		B39F465719F4E28F00C89290 /* unittest.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = B39F45A019F4E28F00C89290 /* unittest.xcconfig */; };
+		B39F465A19F4E28F00C89290 /* deps in Resources */ = {isa = PBXBuildFile; fileRef = B39F45A719F4E28F00C89290 /* deps */; };
+		B39F465B19F4E28F00C89290 /* NimbusWebController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B39F45A919F4E28F00C89290 /* NimbusWebController.bundle */; };
+		B39F465C19F4E28F00C89290 /* NIWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39F45AD19F4E28F00C89290 /* NIWebController.m */; };
 		B3A5C26319F0B62300D4A695 /* YGPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A5C26219F0B62300D4A695 /* YGPopupController.m */; };
 		B3A5C26619F0BD3000D4A695 /* PickerAlertTypeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A5C26519F0BD3000D4A695 /* PickerAlertTypeManager.m */; };
 		B3A5C26919F0FFCD00D4A695 /* UploadImageBC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A5C26819F0FFCD00D4A695 /* UploadImageBC.m */; };
@@ -916,7 +1032,6 @@
 		519A218B19A700D800248A21 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		519A218C19A700D800248A21 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		51A5067D1974B53500108B2B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		51BC07AE197CA7CF0046D4D4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		51BD0C6F19B0644C006EF8AC /* DetailLawfirmHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailLawfirmHeaderView.h; sourceTree = "<group>"; };
 		51BD0C7019B0644C006EF8AC /* DetailLawfirmHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailLawfirmHeaderView.m; sourceTree = "<group>"; };
 		51BD0C7219B064CF006EF8AC /* DetailLawfirmHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailLawfirmHeaderView.xib; sourceTree = "<group>"; };
@@ -1013,6 +1128,236 @@
 		51F64BF9196FE91D00BBD314 /* UIView+ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ProgressHUD.m"; sourceTree = "<group>"; };
 		51F64C06196FEA6600BBD314 /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
 		51F64C07196FEA6600BBD314 /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
+		B39F440A19F4A7AE00C89290 /* MoreNewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreNewVC.h; sourceTree = "<group>"; };
+		B39F440B19F4A7AE00C89290 /* MoreNewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreNewVC.m; sourceTree = "<group>"; };
+		B39F445B19F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F445D19F4E28F00C89290 /* NIAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIAttributedLabel.h; sourceTree = "<group>"; };
+		B39F445E19F4E28F00C89290 /* NIAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIAttributedLabel.m; sourceTree = "<group>"; };
+		B39F445F19F4E28F00C89290 /* NimbusAttributedLabel+Namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NimbusAttributedLabel+Namespace.h"; sourceTree = "<group>"; };
+		B39F446019F4E28F00C89290 /* NimbusAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusAttributedLabel.h; sourceTree = "<group>"; };
+		B39F446119F4E28F00C89290 /* NSMutableAttributedString+NimbusAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+NimbusAttributedLabel.h"; sourceTree = "<group>"; };
+		B39F446219F4E28F00C89290 /* NSMutableAttributedString+NimbusAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+NimbusAttributedLabel.m"; sourceTree = "<group>"; };
+		B39F446719F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F446919F4E28F00C89290 /* NIBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIBadgeView.h; sourceTree = "<group>"; };
+		B39F446A19F4E28F00C89290 /* NIBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIBadgeView.m; sourceTree = "<group>"; };
+		B39F446B19F4E28F00C89290 /* NimbusBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusBadge.h; sourceTree = "<group>"; };
+		B39F446F19F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F447119F4E28F00C89290 /* NICollectionViewActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NICollectionViewActions.h; sourceTree = "<group>"; };
+		B39F447219F4E28F00C89290 /* NICollectionViewActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NICollectionViewActions.m; sourceTree = "<group>"; };
+		B39F447319F4E28F00C89290 /* NICollectionViewCellFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NICollectionViewCellFactory.h; sourceTree = "<group>"; };
+		B39F447419F4E28F00C89290 /* NICollectionViewCellFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NICollectionViewCellFactory.m; sourceTree = "<group>"; };
+		B39F447519F4E28F00C89290 /* NICollectionViewModel+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NICollectionViewModel+Private.h"; sourceTree = "<group>"; };
+		B39F447619F4E28F00C89290 /* NICollectionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NICollectionViewModel.h; sourceTree = "<group>"; };
+		B39F447719F4E28F00C89290 /* NICollectionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NICollectionViewModel.m; sourceTree = "<group>"; };
+		B39F447819F4E28F00C89290 /* NimbusCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusCollections.h; sourceTree = "<group>"; };
+		B39F447919F4E28F00C89290 /* NIMutableCollectionViewModel+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NIMutableCollectionViewModel+Private.h"; sourceTree = "<group>"; };
+		B39F447A19F4E28F00C89290 /* NIMutableCollectionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMutableCollectionViewModel.h; sourceTree = "<group>"; };
+		B39F447B19F4E28F00C89290 /* NIMutableCollectionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMutableCollectionViewModel.m; sourceTree = "<group>"; };
+		B39F447D19F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F448119F4E28F00C89290 /* NIActions+Subclassing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NIActions+Subclassing.h"; sourceTree = "<group>"; };
+		B39F448219F4E28F00C89290 /* NIActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIActions.h; sourceTree = "<group>"; };
+		B39F448319F4E28F00C89290 /* NIActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIActions.m; sourceTree = "<group>"; };
+		B39F448419F4E28F00C89290 /* NIButtonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIButtonUtilities.h; sourceTree = "<group>"; };
+		B39F448519F4E28F00C89290 /* NIButtonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIButtonUtilities.m; sourceTree = "<group>"; };
+		B39F448619F4E28F00C89290 /* NICommonMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NICommonMetrics.h; sourceTree = "<group>"; };
+		B39F448719F4E28F00C89290 /* NICommonMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NICommonMetrics.m; sourceTree = "<group>"; };
+		B39F448819F4E28F00C89290 /* NIDataStructures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDataStructures.h; sourceTree = "<group>"; };
+		B39F448919F4E28F00C89290 /* NIDataStructures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDataStructures.m; sourceTree = "<group>"; };
+		B39F448A19F4E28F00C89290 /* NIDebuggingTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDebuggingTools.h; sourceTree = "<group>"; };
+		B39F448B19F4E28F00C89290 /* NIDebuggingTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDebuggingTools.m; sourceTree = "<group>"; };
+		B39F448C19F4E28F00C89290 /* NIDeviceOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDeviceOrientation.h; sourceTree = "<group>"; };
+		B39F448D19F4E28F00C89290 /* NIDeviceOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDeviceOrientation.m; sourceTree = "<group>"; };
+		B39F448E19F4E28F00C89290 /* NIError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIError.h; sourceTree = "<group>"; };
+		B39F448F19F4E28F00C89290 /* NIError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIError.m; sourceTree = "<group>"; };
+		B39F449019F4E28F00C89290 /* NIFoundationMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIFoundationMethods.h; sourceTree = "<group>"; };
+		B39F449119F4E28F00C89290 /* NIFoundationMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIFoundationMethods.m; sourceTree = "<group>"; };
+		B39F449219F4E28F00C89290 /* NIImageUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIImageUtilities.h; sourceTree = "<group>"; };
+		B39F449319F4E28F00C89290 /* NIImageUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIImageUtilities.m; sourceTree = "<group>"; };
+		B39F449419F4E28F00C89290 /* NIInMemoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIInMemoryCache.h; sourceTree = "<group>"; };
+		B39F449519F4E28F00C89290 /* NIInMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIInMemoryCache.m; sourceTree = "<group>"; };
+		B39F449619F4E28F00C89290 /* NimbusCore+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NimbusCore+Additions.h"; sourceTree = "<group>"; };
+		B39F449719F4E28F00C89290 /* NimbusCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusCore.h; sourceTree = "<group>"; };
+		B39F449819F4E28F00C89290 /* NINavigationAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NINavigationAppearance.h; sourceTree = "<group>"; };
+		B39F449919F4E28F00C89290 /* NINavigationAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NINavigationAppearance.m; sourceTree = "<group>"; };
+		B39F449A19F4E28F00C89290 /* NINetworkActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NINetworkActivity.h; sourceTree = "<group>"; };
+		B39F449B19F4E28F00C89290 /* NINetworkActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NINetworkActivity.m; sourceTree = "<group>"; };
+		B39F449C19F4E28F00C89290 /* NINonEmptyCollectionTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NINonEmptyCollectionTesting.h; sourceTree = "<group>"; };
+		B39F449D19F4E28F00C89290 /* NINonEmptyCollectionTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NINonEmptyCollectionTesting.m; sourceTree = "<group>"; };
+		B39F449E19F4E28F00C89290 /* NINonRetainingCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NINonRetainingCollections.h; sourceTree = "<group>"; };
+		B39F449F19F4E28F00C89290 /* NINonRetainingCollections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NINonRetainingCollections.m; sourceTree = "<group>"; };
+		B39F44A019F4E28F00C89290 /* NIOperations+Subclassing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NIOperations+Subclassing.h"; sourceTree = "<group>"; };
+		B39F44A119F4E28F00C89290 /* NIOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIOperations.h; sourceTree = "<group>"; };
+		B39F44A219F4E28F00C89290 /* NIOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIOperations.m; sourceTree = "<group>"; };
+		B39F44A319F4E28F00C89290 /* NIPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPaths.h; sourceTree = "<group>"; };
+		B39F44A419F4E28F00C89290 /* NIPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIPaths.m; sourceTree = "<group>"; };
+		B39F44A519F4E28F00C89290 /* NIPreprocessorMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPreprocessorMacros.h; sourceTree = "<group>"; };
+		B39F44A619F4E28F00C89290 /* NIRuntimeClassModifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIRuntimeClassModifications.h; sourceTree = "<group>"; };
+		B39F44A719F4E28F00C89290 /* NIRuntimeClassModifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIRuntimeClassModifications.m; sourceTree = "<group>"; };
+		B39F44A819F4E28F00C89290 /* NISDKAvailability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NISDKAvailability.h; sourceTree = "<group>"; };
+		B39F44A919F4E28F00C89290 /* NISDKAvailability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NISDKAvailability.m; sourceTree = "<group>"; };
+		B39F44AA19F4E28F00C89290 /* NISnapshotRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NISnapshotRotation.h; sourceTree = "<group>"; };
+		B39F44AB19F4E28F00C89290 /* NISnapshotRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NISnapshotRotation.m; sourceTree = "<group>"; };
+		B39F44AC19F4E28F00C89290 /* NIState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIState.h; sourceTree = "<group>"; };
+		B39F44AD19F4E28F00C89290 /* NIState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIState.m; sourceTree = "<group>"; };
+		B39F44AE19F4E28F00C89290 /* NIViewRecycler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIViewRecycler.h; sourceTree = "<group>"; };
+		B39F44AF19F4E28F00C89290 /* NIViewRecycler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIViewRecycler.m; sourceTree = "<group>"; };
+		B39F44B019F4E28F00C89290 /* UIResponder+NimbusCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+NimbusCore.h"; sourceTree = "<group>"; };
+		B39F44B119F4E28F00C89290 /* UIResponder+NimbusCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+NimbusCore.m"; sourceTree = "<group>"; };
+		B39F44C419F4E28F00C89290 /* chameleon.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = chameleon.js; sourceTree = "<group>"; };
+		B39F44C519F4E28F00C89290 /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
+		B39F44C619F4E28F00C89290 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.mdown; sourceTree = "<group>"; };
+		B39F44C719F4E28F00C89290 /* server.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = server.js; sourceTree = "<group>"; };
+		B39F44C819F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F44CA19F4E28F00C89290 /* css.grammar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = css.grammar; sourceTree = "<group>"; };
+		B39F44CB19F4E28F00C89290 /* CSSTokenizerPrefix */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CSSTokenizerPrefix; sourceTree = "<group>"; };
+		B39F44CC19F4E28F00C89290 /* CSSTokens.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CSSTokens.cpp; sourceTree = "<group>"; };
+		B39F44CD19F4E28F00C89290 /* CSSTokens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSTokens.h; sourceTree = "<group>"; };
+		B39F44CE19F4E28F00C89290 /* generate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate; sourceTree = "<group>"; };
+		B39F44D019F4E28F00C89290 /* CSSTokenizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSTokenizer.m; sourceTree = "<group>"; };
+		B39F44D119F4E28F00C89290 /* CSSTokens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSSTokens.h; sourceTree = "<group>"; };
+		B39F44D219F4E28F00C89290 /* CSSTokens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSTokens.m; sourceTree = "<group>"; };
+		B39F44D319F4E28F00C89290 /* NIChameleonObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIChameleonObserver.h; sourceTree = "<group>"; };
+		B39F44D419F4E28F00C89290 /* NIChameleonObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIChameleonObserver.m; sourceTree = "<group>"; };
+		B39F44D519F4E28F00C89290 /* NICSSParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NICSSParser.h; sourceTree = "<group>"; };
+		B39F44D619F4E28F00C89290 /* NICSSParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NICSSParser.m; sourceTree = "<group>"; };
+		B39F44D719F4E28F00C89290 /* NICSSRuleset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NICSSRuleset.h; sourceTree = "<group>"; };
+		B39F44D819F4E28F00C89290 /* NICSSRuleset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NICSSRuleset.m; sourceTree = "<group>"; };
+		B39F44D919F4E28F00C89290 /* NIDOM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDOM.h; sourceTree = "<group>"; };
+		B39F44DA19F4E28F00C89290 /* NIDOM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDOM.m; sourceTree = "<group>"; };
+		B39F44DB19F4E28F00C89290 /* NimbusCSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusCSS.h; sourceTree = "<group>"; };
+		B39F44DC19F4E28F00C89290 /* NIStyleable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIStyleable.h; sourceTree = "<group>"; };
+		B39F44DD19F4E28F00C89290 /* NIStylesheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIStylesheet.h; sourceTree = "<group>"; };
+		B39F44DE19F4E28F00C89290 /* NIStylesheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIStylesheet.m; sourceTree = "<group>"; };
+		B39F44DF19F4E28F00C89290 /* NIStylesheetCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIStylesheetCache.h; sourceTree = "<group>"; };
+		B39F44E019F4E28F00C89290 /* NIStylesheetCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIStylesheetCache.m; sourceTree = "<group>"; };
+		B39F44E119F4E28F00C89290 /* NITextField+NIStyleable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NITextField+NIStyleable.h"; sourceTree = "<group>"; };
+		B39F44E219F4E28F00C89290 /* NITextField+NIStyleable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NITextField+NIStyleable.m"; sourceTree = "<group>"; };
+		B39F44E319F4E28F00C89290 /* NIUserInterfaceString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIUserInterfaceString.h; sourceTree = "<group>"; };
+		B39F44E419F4E28F00C89290 /* NIUserInterfaceString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIUserInterfaceString.m; sourceTree = "<group>"; };
+		B39F44E519F4E28F00C89290 /* UIActivityIndicatorView+NIStyleable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+NIStyleable.h"; sourceTree = "<group>"; };
+		B39F44E619F4E28F00C89290 /* UIActivityIndicatorView+NIStyleable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActivityIndicatorView+NIStyleable.m"; sourceTree = "<group>"; };
+		B39F44E719F4E28F00C89290 /* UIButton+NIStyleable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+NIStyleable.h"; sourceTree = "<group>"; };
+		B39F44E819F4E28F00C89290 /* UIButton+NIStyleable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+NIStyleable.m"; sourceTree = "<group>"; };
+		B39F44E919F4E28F00C89290 /* UILabel+NIStyleable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+NIStyleable.h"; sourceTree = "<group>"; };
+		B39F44EA19F4E28F00C89290 /* UILabel+NIStyleable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+NIStyleable.m"; sourceTree = "<group>"; };
+		B39F44EB19F4E28F00C89290 /* UINavigationBar+NIStyleable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+NIStyleable.h"; sourceTree = "<group>"; };
+		B39F44EC19F4E28F00C89290 /* UINavigationBar+NIStyleable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+NIStyleable.m"; sourceTree = "<group>"; };
+		B39F44ED19F4E28F00C89290 /* UIScrollView+NIStyleable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+NIStyleable.h"; sourceTree = "<group>"; };
+		B39F44EE19F4E28F00C89290 /* UIScrollView+NIStyleable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+NIStyleable.m"; sourceTree = "<group>"; };
+		B39F44EF19F4E28F00C89290 /* UISearchBar+NIStyleable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+NIStyleable.h"; sourceTree = "<group>"; };
+		B39F44F019F4E28F00C89290 /* UISearchBar+NIStyleable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+NIStyleable.m"; sourceTree = "<group>"; };
+		B39F44F119F4E28F00C89290 /* UITableView+NIStyleable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+NIStyleable.h"; sourceTree = "<group>"; };
+		B39F44F219F4E28F00C89290 /* UITableView+NIStyleable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+NIStyleable.m"; sourceTree = "<group>"; };
+		B39F44F319F4E28F00C89290 /* UITextField+NIStyleable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+NIStyleable.h"; sourceTree = "<group>"; };
+		B39F44F419F4E28F00C89290 /* UITextField+NIStyleable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+NIStyleable.m"; sourceTree = "<group>"; };
+		B39F44F519F4E28F00C89290 /* UIToolbar+NIStyleable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIToolbar+NIStyleable.h"; sourceTree = "<group>"; };
+		B39F44F619F4E28F00C89290 /* UIToolbar+NIStyleable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIToolbar+NIStyleable.m"; sourceTree = "<group>"; };
+		B39F44F719F4E28F00C89290 /* UIView+NIStyleable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NIStyleable.h"; sourceTree = "<group>"; };
+		B39F44F819F4E28F00C89290 /* UIView+NIStyleable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NIStyleable.m"; sourceTree = "<group>"; };
+		B39F450719F4E28F00C89290 /* Doxygen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Doxygen.h; sourceTree = "<group>"; };
+		B39F450919F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F450B19F4E28F00C89290 /* NIInterapp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIInterapp.h; sourceTree = "<group>"; };
+		B39F450C19F4E28F00C89290 /* NIInterapp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIInterapp.m; sourceTree = "<group>"; };
+		B39F450D19F4E28F00C89290 /* NimbusInterapp+Namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NimbusInterapp+Namespace.h"; sourceTree = "<group>"; };
+		B39F450E19F4E28F00C89290 /* NimbusInterapp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusInterapp.h; sourceTree = "<group>"; };
+		B39F451319F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F451519F4E28F00C89290 /* NILauncherButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NILauncherButtonView.h; sourceTree = "<group>"; };
+		B39F451619F4E28F00C89290 /* NILauncherButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NILauncherButtonView.m; sourceTree = "<group>"; };
+		B39F451719F4E28F00C89290 /* NILauncherPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NILauncherPageView.h; sourceTree = "<group>"; };
+		B39F451819F4E28F00C89290 /* NILauncherPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NILauncherPageView.m; sourceTree = "<group>"; };
+		B39F451919F4E28F00C89290 /* NILauncherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NILauncherView.h; sourceTree = "<group>"; };
+		B39F451A19F4E28F00C89290 /* NILauncherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NILauncherView.m; sourceTree = "<group>"; };
+		B39F451B19F4E28F00C89290 /* NILauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NILauncherViewController.h; sourceTree = "<group>"; };
+		B39F451C19F4E28F00C89290 /* NILauncherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NILauncherViewController.m; sourceTree = "<group>"; };
+		B39F451D19F4E28F00C89290 /* NILauncherViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NILauncherViewModel.h; sourceTree = "<group>"; };
+		B39F451E19F4E28F00C89290 /* NILauncherViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NILauncherViewModel.m; sourceTree = "<group>"; };
+		B39F451F19F4E28F00C89290 /* NILauncherViewObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NILauncherViewObject.h; sourceTree = "<group>"; };
+		B39F452019F4E28F00C89290 /* NILauncherViewObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NILauncherViewObject.m; sourceTree = "<group>"; };
+		B39F452119F4E28F00C89290 /* NimbusLauncher+Namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NimbusLauncher+Namespace.h"; sourceTree = "<group>"; };
+		B39F452219F4E28F00C89290 /* NimbusLauncher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusLauncher.h; sourceTree = "<group>"; };
+		B39F452719F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F452B19F4E28F00C89290 /* NICellBackgrounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NICellBackgrounds.h; sourceTree = "<group>"; };
+		B39F452C19F4E28F00C89290 /* NICellBackgrounds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NICellBackgrounds.m; sourceTree = "<group>"; };
+		B39F452D19F4E28F00C89290 /* NICellCatalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NICellCatalog.h; sourceTree = "<group>"; };
+		B39F452E19F4E28F00C89290 /* NICellCatalog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NICellCatalog.m; sourceTree = "<group>"; };
+		B39F452F19F4E28F00C89290 /* NICellFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NICellFactory.h; sourceTree = "<group>"; };
+		B39F453019F4E28F00C89290 /* NICellFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NICellFactory.m; sourceTree = "<group>"; };
+		B39F453119F4E28F00C89290 /* NIFormCellCatalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIFormCellCatalog.h; sourceTree = "<group>"; };
+		B39F453219F4E28F00C89290 /* NIFormCellCatalog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIFormCellCatalog.m; sourceTree = "<group>"; };
+		B39F453319F4E28F00C89290 /* NimbusModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusModels.h; sourceTree = "<group>"; };
+		B39F453419F4E28F00C89290 /* NIMutableTableViewModel+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NIMutableTableViewModel+Private.h"; sourceTree = "<group>"; };
+		B39F453519F4E28F00C89290 /* NIMutableTableViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMutableTableViewModel.h; sourceTree = "<group>"; };
+		B39F453619F4E28F00C89290 /* NIMutableTableViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMutableTableViewModel.m; sourceTree = "<group>"; };
+		B39F453719F4E28F00C89290 /* NIRadioGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIRadioGroup.h; sourceTree = "<group>"; };
+		B39F453819F4E28F00C89290 /* NIRadioGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIRadioGroup.m; sourceTree = "<group>"; };
+		B39F453919F4E28F00C89290 /* NIRadioGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIRadioGroupController.h; sourceTree = "<group>"; };
+		B39F453A19F4E28F00C89290 /* NIRadioGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIRadioGroupController.m; sourceTree = "<group>"; };
+		B39F453B19F4E28F00C89290 /* NITableViewActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITableViewActions.h; sourceTree = "<group>"; };
+		B39F453C19F4E28F00C89290 /* NITableViewActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITableViewActions.m; sourceTree = "<group>"; };
+		B39F453D19F4E28F00C89290 /* NITableViewModel+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NITableViewModel+Private.h"; sourceTree = "<group>"; };
+		B39F453E19F4E28F00C89290 /* NITableViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITableViewModel.h; sourceTree = "<group>"; };
+		B39F453F19F4E28F00C89290 /* NITableViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITableViewModel.m; sourceTree = "<group>"; };
+		B39F454619F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F454819F4E28F00C89290 /* NimbusNetworkControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusNetworkControllers.h; sourceTree = "<group>"; };
+		B39F454919F4E28F00C89290 /* NINetworkTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NINetworkTableViewController.h; sourceTree = "<group>"; };
+		B39F454A19F4E28F00C89290 /* NINetworkTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NINetworkTableViewController.m; sourceTree = "<group>"; };
+		B39F455C19F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F455E19F4E28F00C89290 /* NimbusOverviewer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NimbusOverviewer.bundle; sourceTree = "<group>"; };
+		B39F456019F4E28F00C89290 /* NIDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDeviceInfo.h; sourceTree = "<group>"; };
+		B39F456119F4E28F00C89290 /* NIDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDeviceInfo.m; sourceTree = "<group>"; };
+		B39F456219F4E28F00C89290 /* NimbusOverview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusOverview.h; sourceTree = "<group>"; };
+		B39F456319F4E28F00C89290 /* NIOverview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIOverview.h; sourceTree = "<group>"; };
+		B39F456419F4E28F00C89290 /* NIOverview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIOverview.m; sourceTree = "<group>"; };
+		B39F456519F4E28F00C89290 /* NIOverviewGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIOverviewGraphView.h; sourceTree = "<group>"; };
+		B39F456619F4E28F00C89290 /* NIOverviewGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIOverviewGraphView.m; sourceTree = "<group>"; };
+		B39F456719F4E28F00C89290 /* NIOverviewLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIOverviewLogger.h; sourceTree = "<group>"; };
+		B39F456819F4E28F00C89290 /* NIOverviewLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIOverviewLogger.m; sourceTree = "<group>"; };
+		B39F456919F4E28F00C89290 /* NIOverviewMemoryCacheController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIOverviewMemoryCacheController.h; sourceTree = "<group>"; };
+		B39F456A19F4E28F00C89290 /* NIOverviewMemoryCacheController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIOverviewMemoryCacheController.m; sourceTree = "<group>"; };
+		B39F456B19F4E28F00C89290 /* NIOverviewPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIOverviewPageView.h; sourceTree = "<group>"; };
+		B39F456C19F4E28F00C89290 /* NIOverviewPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIOverviewPageView.m; sourceTree = "<group>"; };
+		B39F456D19F4E28F00C89290 /* NIOverviewSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIOverviewSwizzling.h; sourceTree = "<group>"; };
+		B39F456E19F4E28F00C89290 /* NIOverviewSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIOverviewSwizzling.m; sourceTree = "<group>"; };
+		B39F456F19F4E28F00C89290 /* NIOverviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIOverviewView.h; sourceTree = "<group>"; };
+		B39F457019F4E28F00C89290 /* NIOverviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIOverviewView.m; sourceTree = "<group>"; };
+		B39F457519F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F457719F4E28F00C89290 /* NimbusPagingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusPagingScrollView.h; sourceTree = "<group>"; };
+		B39F457819F4E28F00C89290 /* NIPagingScrollView+Subclassing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NIPagingScrollView+Subclassing.h"; sourceTree = "<group>"; };
+		B39F457919F4E28F00C89290 /* NIPagingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPagingScrollView.h; sourceTree = "<group>"; };
+		B39F457A19F4E28F00C89290 /* NIPagingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIPagingScrollView.m; sourceTree = "<group>"; };
+		B39F457B19F4E28F00C89290 /* NIPagingScrollViewPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPagingScrollViewPage.h; sourceTree = "<group>"; };
+		B39F457C19F4E28F00C89290 /* NIPagingScrollViewPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIPagingScrollViewPage.m; sourceTree = "<group>"; };
+		B39F458119F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F458319F4E28F00C89290 /* NimbusPhotos.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NimbusPhotos.bundle; sourceTree = "<group>"; };
+		B39F458519F4E28F00C89290 /* NimbusPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusPhotos.h; sourceTree = "<group>"; };
+		B39F458619F4E28F00C89290 /* NIPhotoAlbumScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPhotoAlbumScrollView.h; sourceTree = "<group>"; };
+		B39F458719F4E28F00C89290 /* NIPhotoAlbumScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIPhotoAlbumScrollView.m; sourceTree = "<group>"; };
+		B39F458819F4E28F00C89290 /* NIPhotoAlbumScrollViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPhotoAlbumScrollViewDataSource.h; sourceTree = "<group>"; };
+		B39F458919F4E28F00C89290 /* NIPhotoAlbumScrollViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPhotoAlbumScrollViewDelegate.h; sourceTree = "<group>"; };
+		B39F458A19F4E28F00C89290 /* NIPhotoScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPhotoScrollView.h; sourceTree = "<group>"; };
+		B39F458B19F4E28F00C89290 /* NIPhotoScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIPhotoScrollView.m; sourceTree = "<group>"; };
+		B39F458C19F4E28F00C89290 /* NIPhotoScrollViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPhotoScrollViewDelegate.h; sourceTree = "<group>"; };
+		B39F458D19F4E28F00C89290 /* NIPhotoScrollViewPhotoSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPhotoScrollViewPhotoSize.h; sourceTree = "<group>"; };
+		B39F458E19F4E28F00C89290 /* NIPhotoScrubberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIPhotoScrubberView.h; sourceTree = "<group>"; };
+		B39F458F19F4E28F00C89290 /* NIPhotoScrubberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIPhotoScrubberView.m; sourceTree = "<group>"; };
+		B39F459019F4E28F00C89290 /* NIToolbarPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIToolbarPhotoViewController.h; sourceTree = "<group>"; };
+		B39F459119F4E28F00C89290 /* NIToolbarPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIToolbarPhotoViewController.m; sourceTree = "<group>"; };
+		B39F459619F4E28F00C89290 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		B39F459719F4E28F00C89290 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		B39F459819F4E28F00C89290 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		B39F459919F4E28F00C89290 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		B39F459A19F4E28F00C89290 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		B39F459B19F4E28F00C89290 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		B39F459C19F4E28F00C89290 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		B39F459D19F4E28F00C89290 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		B39F459E19F4E28F00C89290 /* lib.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = lib.xcconfig; sourceTree = "<group>"; };
+		B39F459F19F4E28F00C89290 /* nimbus64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nimbus64x64.png; sourceTree = "<group>"; };
+		B39F45A019F4E28F00C89290 /* unittest.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = unittest.xcconfig; sourceTree = "<group>"; };
+		B39F45A719F4E28F00C89290 /* deps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deps; sourceTree = "<group>"; };
+		B39F45A919F4E28F00C89290 /* NimbusWebController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NimbusWebController.bundle; sourceTree = "<group>"; };
+		B39F45AB19F4E28F00C89290 /* NimbusWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusWebController.h; sourceTree = "<group>"; };
+		B39F45AC19F4E28F00C89290 /* NIWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIWebController.h; sourceTree = "<group>"; };
+		B39F45AD19F4E28F00C89290 /* NIWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIWebController.m; sourceTree = "<group>"; };
 		B3A5C26119F0B62300D4A695 /* YGPopupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGPopupController.h; sourceTree = "<group>"; };
 		B3A5C26219F0B62300D4A695 /* YGPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGPopupController.m; sourceTree = "<group>"; };
 		B3A5C26419F0BD3000D4A695 /* PickerAlertTypeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerAlertTypeManager.h; sourceTree = "<group>"; };
@@ -1107,6 +1452,7 @@
 		43B1839A19ECB74E00B7B1F6 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				B39F445819F4E28F00C89290 /* Nimbus */,
 				232F838019F0235E006C0E51 /* EXPhotoViewer */,
 				B3AAEB9219EFED7A003FB7F9 /* CTAssetsPickerController */,
 				43B1839B19ECB74E00B7B1F6 /* ASIHttpRequst */,
@@ -1885,6 +2231,8 @@
 				51E62104197517020087B49B /* InfoCell.h */,
 				51E62105197517020087B49B /* InfoCell.m */,
 				51E62106197517020087B49B /* InfoCell.xib */,
+				B39F440A19F4A7AE00C89290 /* MoreNewVC.h */,
+				B39F440B19F4A7AE00C89290 /* MoreNewVC.m */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -2096,7 +2444,6 @@
 				5143CBFA19791BB800D4B7C0 /* bgSms@2x.png */,
 				517F0C771977E4900044D8E5 /* Default.png */,
 				517F0C781977E4900044D8E5 /* Default~iphone.png */,
-				51BC07AE197CA7CF0046D4D4 /* Default-568h@2x.png */,
 				5112D0DE1978F31D0039A88F /* logo@2x.png */,
 				5112D0D01978CEB40039A88F /* icon.png */,
 				51D6989B19A1E11600F7155E /* icon@2x.png */,
@@ -2244,6 +2591,521 @@
 			path = "NSDate-Utilities";
 			sourceTree = "<group>";
 		};
+		B39F445819F4E28F00C89290 /* Nimbus */ = {
+			isa = PBXGroup;
+			children = (
+				B39F445919F4E28F00C89290 /* src */,
+			);
+			path = Nimbus;
+			sourceTree = "<group>";
+		};
+		B39F445919F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F445A19F4E28F00C89290 /* attributedlabel */,
+				B39F446619F4E28F00C89290 /* badge */,
+				B39F446E19F4E28F00C89290 /* collections */,
+				B39F447C19F4E28F00C89290 /* core */,
+				B39F44C219F4E28F00C89290 /* css */,
+				B39F450719F4E28F00C89290 /* Doxygen.h */,
+				B39F450819F4E28F00C89290 /* interapp */,
+				B39F451219F4E28F00C89290 /* launcher */,
+				B39F452619F4E28F00C89290 /* models */,
+				B39F454519F4E28F00C89290 /* networkcontrollers */,
+				B39F455B19F4E28F00C89290 /* overview */,
+				B39F457419F4E28F00C89290 /* pagingscrollview */,
+				B39F458019F4E28F00C89290 /* photos */,
+				B39F459519F4E28F00C89290 /* resources */,
+				B39F45A619F4E28F00C89290 /* webcontroller */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F445A19F4E28F00C89290 /* attributedlabel */ = {
+			isa = PBXGroup;
+			children = (
+				B39F445B19F4E28F00C89290 /* deps */,
+				B39F445C19F4E28F00C89290 /* src */,
+			);
+			path = attributedlabel;
+			sourceTree = "<group>";
+		};
+		B39F445C19F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F445D19F4E28F00C89290 /* NIAttributedLabel.h */,
+				B39F445E19F4E28F00C89290 /* NIAttributedLabel.m */,
+				B39F445F19F4E28F00C89290 /* NimbusAttributedLabel+Namespace.h */,
+				B39F446019F4E28F00C89290 /* NimbusAttributedLabel.h */,
+				B39F446119F4E28F00C89290 /* NSMutableAttributedString+NimbusAttributedLabel.h */,
+				B39F446219F4E28F00C89290 /* NSMutableAttributedString+NimbusAttributedLabel.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F446619F4E28F00C89290 /* badge */ = {
+			isa = PBXGroup;
+			children = (
+				B39F446719F4E28F00C89290 /* deps */,
+				B39F446819F4E28F00C89290 /* src */,
+			);
+			path = badge;
+			sourceTree = "<group>";
+		};
+		B39F446819F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F446919F4E28F00C89290 /* NIBadgeView.h */,
+				B39F446A19F4E28F00C89290 /* NIBadgeView.m */,
+				B39F446B19F4E28F00C89290 /* NimbusBadge.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F446E19F4E28F00C89290 /* collections */ = {
+			isa = PBXGroup;
+			children = (
+				B39F446F19F4E28F00C89290 /* deps */,
+				B39F447019F4E28F00C89290 /* src */,
+			);
+			path = collections;
+			sourceTree = "<group>";
+		};
+		B39F447019F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F447119F4E28F00C89290 /* NICollectionViewActions.h */,
+				B39F447219F4E28F00C89290 /* NICollectionViewActions.m */,
+				B39F447319F4E28F00C89290 /* NICollectionViewCellFactory.h */,
+				B39F447419F4E28F00C89290 /* NICollectionViewCellFactory.m */,
+				B39F447519F4E28F00C89290 /* NICollectionViewModel+Private.h */,
+				B39F447619F4E28F00C89290 /* NICollectionViewModel.h */,
+				B39F447719F4E28F00C89290 /* NICollectionViewModel.m */,
+				B39F447819F4E28F00C89290 /* NimbusCollections.h */,
+				B39F447919F4E28F00C89290 /* NIMutableCollectionViewModel+Private.h */,
+				B39F447A19F4E28F00C89290 /* NIMutableCollectionViewModel.h */,
+				B39F447B19F4E28F00C89290 /* NIMutableCollectionViewModel.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F447C19F4E28F00C89290 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				B39F447D19F4E28F00C89290 /* deps */,
+				B39F447E19F4E28F00C89290 /* examples */,
+				B39F448019F4E28F00C89290 /* src */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		B39F447E19F4E28F00C89290 /* examples */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = examples;
+			sourceTree = "<group>";
+		};
+		B39F448019F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F448119F4E28F00C89290 /* NIActions+Subclassing.h */,
+				B39F448219F4E28F00C89290 /* NIActions.h */,
+				B39F448319F4E28F00C89290 /* NIActions.m */,
+				B39F448419F4E28F00C89290 /* NIButtonUtilities.h */,
+				B39F448519F4E28F00C89290 /* NIButtonUtilities.m */,
+				B39F448619F4E28F00C89290 /* NICommonMetrics.h */,
+				B39F448719F4E28F00C89290 /* NICommonMetrics.m */,
+				B39F448819F4E28F00C89290 /* NIDataStructures.h */,
+				B39F448919F4E28F00C89290 /* NIDataStructures.m */,
+				B39F448A19F4E28F00C89290 /* NIDebuggingTools.h */,
+				B39F448B19F4E28F00C89290 /* NIDebuggingTools.m */,
+				B39F448C19F4E28F00C89290 /* NIDeviceOrientation.h */,
+				B39F448D19F4E28F00C89290 /* NIDeviceOrientation.m */,
+				B39F448E19F4E28F00C89290 /* NIError.h */,
+				B39F448F19F4E28F00C89290 /* NIError.m */,
+				B39F449019F4E28F00C89290 /* NIFoundationMethods.h */,
+				B39F449119F4E28F00C89290 /* NIFoundationMethods.m */,
+				B39F449219F4E28F00C89290 /* NIImageUtilities.h */,
+				B39F449319F4E28F00C89290 /* NIImageUtilities.m */,
+				B39F449419F4E28F00C89290 /* NIInMemoryCache.h */,
+				B39F449519F4E28F00C89290 /* NIInMemoryCache.m */,
+				B39F449619F4E28F00C89290 /* NimbusCore+Additions.h */,
+				B39F449719F4E28F00C89290 /* NimbusCore.h */,
+				B39F449819F4E28F00C89290 /* NINavigationAppearance.h */,
+				B39F449919F4E28F00C89290 /* NINavigationAppearance.m */,
+				B39F449A19F4E28F00C89290 /* NINetworkActivity.h */,
+				B39F449B19F4E28F00C89290 /* NINetworkActivity.m */,
+				B39F449C19F4E28F00C89290 /* NINonEmptyCollectionTesting.h */,
+				B39F449D19F4E28F00C89290 /* NINonEmptyCollectionTesting.m */,
+				B39F449E19F4E28F00C89290 /* NINonRetainingCollections.h */,
+				B39F449F19F4E28F00C89290 /* NINonRetainingCollections.m */,
+				B39F44A019F4E28F00C89290 /* NIOperations+Subclassing.h */,
+				B39F44A119F4E28F00C89290 /* NIOperations.h */,
+				B39F44A219F4E28F00C89290 /* NIOperations.m */,
+				B39F44A319F4E28F00C89290 /* NIPaths.h */,
+				B39F44A419F4E28F00C89290 /* NIPaths.m */,
+				B39F44A519F4E28F00C89290 /* NIPreprocessorMacros.h */,
+				B39F44A619F4E28F00C89290 /* NIRuntimeClassModifications.h */,
+				B39F44A719F4E28F00C89290 /* NIRuntimeClassModifications.m */,
+				B39F44A819F4E28F00C89290 /* NISDKAvailability.h */,
+				B39F44A919F4E28F00C89290 /* NISDKAvailability.m */,
+				B39F44AA19F4E28F00C89290 /* NISnapshotRotation.h */,
+				B39F44AB19F4E28F00C89290 /* NISnapshotRotation.m */,
+				B39F44AC19F4E28F00C89290 /* NIState.h */,
+				B39F44AD19F4E28F00C89290 /* NIState.m */,
+				B39F44AE19F4E28F00C89290 /* NIViewRecycler.h */,
+				B39F44AF19F4E28F00C89290 /* NIViewRecycler.m */,
+				B39F44B019F4E28F00C89290 /* UIResponder+NimbusCore.h */,
+				B39F44B119F4E28F00C89290 /* UIResponder+NimbusCore.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F44C219F4E28F00C89290 /* css */ = {
+			isa = PBXGroup;
+			children = (
+				B39F44C319F4E28F00C89290 /* chameleon */,
+				B39F44C819F4E28F00C89290 /* deps */,
+				B39F44C919F4E28F00C89290 /* grammar */,
+				B39F44CF19F4E28F00C89290 /* src */,
+			);
+			path = css;
+			sourceTree = "<group>";
+		};
+		B39F44C319F4E28F00C89290 /* chameleon */ = {
+			isa = PBXGroup;
+			children = (
+				B39F44C419F4E28F00C89290 /* chameleon.js */,
+				B39F44C519F4E28F00C89290 /* package.json */,
+				B39F44C619F4E28F00C89290 /* README.mdown */,
+				B39F44C719F4E28F00C89290 /* server.js */,
+			);
+			path = chameleon;
+			sourceTree = "<group>";
+		};
+		B39F44C919F4E28F00C89290 /* grammar */ = {
+			isa = PBXGroup;
+			children = (
+				B39F44CA19F4E28F00C89290 /* css.grammar */,
+				B39F44CB19F4E28F00C89290 /* CSSTokenizerPrefix */,
+				B39F44CC19F4E28F00C89290 /* CSSTokens.cpp */,
+				B39F44CD19F4E28F00C89290 /* CSSTokens.h */,
+				B39F44CE19F4E28F00C89290 /* generate */,
+			);
+			path = grammar;
+			sourceTree = "<group>";
+		};
+		B39F44CF19F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F44D019F4E28F00C89290 /* CSSTokenizer.m */,
+				B39F44D119F4E28F00C89290 /* CSSTokens.h */,
+				B39F44D219F4E28F00C89290 /* CSSTokens.m */,
+				B39F44D319F4E28F00C89290 /* NIChameleonObserver.h */,
+				B39F44D419F4E28F00C89290 /* NIChameleonObserver.m */,
+				B39F44D519F4E28F00C89290 /* NICSSParser.h */,
+				B39F44D619F4E28F00C89290 /* NICSSParser.m */,
+				B39F44D719F4E28F00C89290 /* NICSSRuleset.h */,
+				B39F44D819F4E28F00C89290 /* NICSSRuleset.m */,
+				B39F44D919F4E28F00C89290 /* NIDOM.h */,
+				B39F44DA19F4E28F00C89290 /* NIDOM.m */,
+				B39F44DB19F4E28F00C89290 /* NimbusCSS.h */,
+				B39F44DC19F4E28F00C89290 /* NIStyleable.h */,
+				B39F44DD19F4E28F00C89290 /* NIStylesheet.h */,
+				B39F44DE19F4E28F00C89290 /* NIStylesheet.m */,
+				B39F44DF19F4E28F00C89290 /* NIStylesheetCache.h */,
+				B39F44E019F4E28F00C89290 /* NIStylesheetCache.m */,
+				B39F44E119F4E28F00C89290 /* NITextField+NIStyleable.h */,
+				B39F44E219F4E28F00C89290 /* NITextField+NIStyleable.m */,
+				B39F44E319F4E28F00C89290 /* NIUserInterfaceString.h */,
+				B39F44E419F4E28F00C89290 /* NIUserInterfaceString.m */,
+				B39F44E519F4E28F00C89290 /* UIActivityIndicatorView+NIStyleable.h */,
+				B39F44E619F4E28F00C89290 /* UIActivityIndicatorView+NIStyleable.m */,
+				B39F44E719F4E28F00C89290 /* UIButton+NIStyleable.h */,
+				B39F44E819F4E28F00C89290 /* UIButton+NIStyleable.m */,
+				B39F44E919F4E28F00C89290 /* UILabel+NIStyleable.h */,
+				B39F44EA19F4E28F00C89290 /* UILabel+NIStyleable.m */,
+				B39F44EB19F4E28F00C89290 /* UINavigationBar+NIStyleable.h */,
+				B39F44EC19F4E28F00C89290 /* UINavigationBar+NIStyleable.m */,
+				B39F44ED19F4E28F00C89290 /* UIScrollView+NIStyleable.h */,
+				B39F44EE19F4E28F00C89290 /* UIScrollView+NIStyleable.m */,
+				B39F44EF19F4E28F00C89290 /* UISearchBar+NIStyleable.h */,
+				B39F44F019F4E28F00C89290 /* UISearchBar+NIStyleable.m */,
+				B39F44F119F4E28F00C89290 /* UITableView+NIStyleable.h */,
+				B39F44F219F4E28F00C89290 /* UITableView+NIStyleable.m */,
+				B39F44F319F4E28F00C89290 /* UITextField+NIStyleable.h */,
+				B39F44F419F4E28F00C89290 /* UITextField+NIStyleable.m */,
+				B39F44F519F4E28F00C89290 /* UIToolbar+NIStyleable.h */,
+				B39F44F619F4E28F00C89290 /* UIToolbar+NIStyleable.m */,
+				B39F44F719F4E28F00C89290 /* UIView+NIStyleable.h */,
+				B39F44F819F4E28F00C89290 /* UIView+NIStyleable.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F450819F4E28F00C89290 /* interapp */ = {
+			isa = PBXGroup;
+			children = (
+				B39F450919F4E28F00C89290 /* deps */,
+				B39F450A19F4E28F00C89290 /* src */,
+			);
+			path = interapp;
+			sourceTree = "<group>";
+		};
+		B39F450A19F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F450B19F4E28F00C89290 /* NIInterapp.h */,
+				B39F450C19F4E28F00C89290 /* NIInterapp.m */,
+				B39F450D19F4E28F00C89290 /* NimbusInterapp+Namespace.h */,
+				B39F450E19F4E28F00C89290 /* NimbusInterapp.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F451219F4E28F00C89290 /* launcher */ = {
+			isa = PBXGroup;
+			children = (
+				B39F451319F4E28F00C89290 /* deps */,
+				B39F451419F4E28F00C89290 /* src */,
+			);
+			path = launcher;
+			sourceTree = "<group>";
+		};
+		B39F451419F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F451519F4E28F00C89290 /* NILauncherButtonView.h */,
+				B39F451619F4E28F00C89290 /* NILauncherButtonView.m */,
+				B39F451719F4E28F00C89290 /* NILauncherPageView.h */,
+				B39F451819F4E28F00C89290 /* NILauncherPageView.m */,
+				B39F451919F4E28F00C89290 /* NILauncherView.h */,
+				B39F451A19F4E28F00C89290 /* NILauncherView.m */,
+				B39F451B19F4E28F00C89290 /* NILauncherViewController.h */,
+				B39F451C19F4E28F00C89290 /* NILauncherViewController.m */,
+				B39F451D19F4E28F00C89290 /* NILauncherViewModel.h */,
+				B39F451E19F4E28F00C89290 /* NILauncherViewModel.m */,
+				B39F451F19F4E28F00C89290 /* NILauncherViewObject.h */,
+				B39F452019F4E28F00C89290 /* NILauncherViewObject.m */,
+				B39F452119F4E28F00C89290 /* NimbusLauncher+Namespace.h */,
+				B39F452219F4E28F00C89290 /* NimbusLauncher.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F452619F4E28F00C89290 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				B39F452719F4E28F00C89290 /* deps */,
+				B39F452819F4E28F00C89290 /* examples */,
+				B39F452A19F4E28F00C89290 /* src */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		B39F452819F4E28F00C89290 /* examples */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = examples;
+			sourceTree = "<group>";
+		};
+		B39F452A19F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F452B19F4E28F00C89290 /* NICellBackgrounds.h */,
+				B39F452C19F4E28F00C89290 /* NICellBackgrounds.m */,
+				B39F452D19F4E28F00C89290 /* NICellCatalog.h */,
+				B39F452E19F4E28F00C89290 /* NICellCatalog.m */,
+				B39F452F19F4E28F00C89290 /* NICellFactory.h */,
+				B39F453019F4E28F00C89290 /* NICellFactory.m */,
+				B39F453119F4E28F00C89290 /* NIFormCellCatalog.h */,
+				B39F453219F4E28F00C89290 /* NIFormCellCatalog.m */,
+				B39F453319F4E28F00C89290 /* NimbusModels.h */,
+				B39F453419F4E28F00C89290 /* NIMutableTableViewModel+Private.h */,
+				B39F453519F4E28F00C89290 /* NIMutableTableViewModel.h */,
+				B39F453619F4E28F00C89290 /* NIMutableTableViewModel.m */,
+				B39F453719F4E28F00C89290 /* NIRadioGroup.h */,
+				B39F453819F4E28F00C89290 /* NIRadioGroup.m */,
+				B39F453919F4E28F00C89290 /* NIRadioGroupController.h */,
+				B39F453A19F4E28F00C89290 /* NIRadioGroupController.m */,
+				B39F453B19F4E28F00C89290 /* NITableViewActions.h */,
+				B39F453C19F4E28F00C89290 /* NITableViewActions.m */,
+				B39F453D19F4E28F00C89290 /* NITableViewModel+Private.h */,
+				B39F453E19F4E28F00C89290 /* NITableViewModel.h */,
+				B39F453F19F4E28F00C89290 /* NITableViewModel.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F454519F4E28F00C89290 /* networkcontrollers */ = {
+			isa = PBXGroup;
+			children = (
+				B39F454619F4E28F00C89290 /* deps */,
+				B39F454719F4E28F00C89290 /* src */,
+			);
+			path = networkcontrollers;
+			sourceTree = "<group>";
+		};
+		B39F454719F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F454819F4E28F00C89290 /* NimbusNetworkControllers.h */,
+				B39F454919F4E28F00C89290 /* NINetworkTableViewController.h */,
+				B39F454A19F4E28F00C89290 /* NINetworkTableViewController.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F455B19F4E28F00C89290 /* overview */ = {
+			isa = PBXGroup;
+			children = (
+				B39F455C19F4E28F00C89290 /* deps */,
+				B39F455D19F4E28F00C89290 /* resources */,
+				B39F455F19F4E28F00C89290 /* src */,
+			);
+			path = overview;
+			sourceTree = "<group>";
+		};
+		B39F455D19F4E28F00C89290 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				B39F455E19F4E28F00C89290 /* NimbusOverviewer.bundle */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		B39F455F19F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F456019F4E28F00C89290 /* NIDeviceInfo.h */,
+				B39F456119F4E28F00C89290 /* NIDeviceInfo.m */,
+				B39F456219F4E28F00C89290 /* NimbusOverview.h */,
+				B39F456319F4E28F00C89290 /* NIOverview.h */,
+				B39F456419F4E28F00C89290 /* NIOverview.m */,
+				B39F456519F4E28F00C89290 /* NIOverviewGraphView.h */,
+				B39F456619F4E28F00C89290 /* NIOverviewGraphView.m */,
+				B39F456719F4E28F00C89290 /* NIOverviewLogger.h */,
+				B39F456819F4E28F00C89290 /* NIOverviewLogger.m */,
+				B39F456919F4E28F00C89290 /* NIOverviewMemoryCacheController.h */,
+				B39F456A19F4E28F00C89290 /* NIOverviewMemoryCacheController.m */,
+				B39F456B19F4E28F00C89290 /* NIOverviewPageView.h */,
+				B39F456C19F4E28F00C89290 /* NIOverviewPageView.m */,
+				B39F456D19F4E28F00C89290 /* NIOverviewSwizzling.h */,
+				B39F456E19F4E28F00C89290 /* NIOverviewSwizzling.m */,
+				B39F456F19F4E28F00C89290 /* NIOverviewView.h */,
+				B39F457019F4E28F00C89290 /* NIOverviewView.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F457419F4E28F00C89290 /* pagingscrollview */ = {
+			isa = PBXGroup;
+			children = (
+				B39F457519F4E28F00C89290 /* deps */,
+				B39F457619F4E28F00C89290 /* src */,
+			);
+			path = pagingscrollview;
+			sourceTree = "<group>";
+		};
+		B39F457619F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F457719F4E28F00C89290 /* NimbusPagingScrollView.h */,
+				B39F457819F4E28F00C89290 /* NIPagingScrollView+Subclassing.h */,
+				B39F457919F4E28F00C89290 /* NIPagingScrollView.h */,
+				B39F457A19F4E28F00C89290 /* NIPagingScrollView.m */,
+				B39F457B19F4E28F00C89290 /* NIPagingScrollViewPage.h */,
+				B39F457C19F4E28F00C89290 /* NIPagingScrollViewPage.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F458019F4E28F00C89290 /* photos */ = {
+			isa = PBXGroup;
+			children = (
+				B39F458119F4E28F00C89290 /* deps */,
+				B39F458219F4E28F00C89290 /* resources */,
+				B39F458419F4E28F00C89290 /* src */,
+			);
+			path = photos;
+			sourceTree = "<group>";
+		};
+		B39F458219F4E28F00C89290 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				B39F458319F4E28F00C89290 /* NimbusPhotos.bundle */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		B39F458419F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F458519F4E28F00C89290 /* NimbusPhotos.h */,
+				B39F458619F4E28F00C89290 /* NIPhotoAlbumScrollView.h */,
+				B39F458719F4E28F00C89290 /* NIPhotoAlbumScrollView.m */,
+				B39F458819F4E28F00C89290 /* NIPhotoAlbumScrollViewDataSource.h */,
+				B39F458919F4E28F00C89290 /* NIPhotoAlbumScrollViewDelegate.h */,
+				B39F458A19F4E28F00C89290 /* NIPhotoScrollView.h */,
+				B39F458B19F4E28F00C89290 /* NIPhotoScrollView.m */,
+				B39F458C19F4E28F00C89290 /* NIPhotoScrollViewDelegate.h */,
+				B39F458D19F4E28F00C89290 /* NIPhotoScrollViewPhotoSize.h */,
+				B39F458E19F4E28F00C89290 /* NIPhotoScrubberView.h */,
+				B39F458F19F4E28F00C89290 /* NIPhotoScrubberView.m */,
+				B39F459019F4E28F00C89290 /* NIToolbarPhotoViewController.h */,
+				B39F459119F4E28F00C89290 /* NIToolbarPhotoViewController.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B39F459519F4E28F00C89290 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				B39F459619F4E28F00C89290 /* Default.png */,
+				B39F459719F4E28F00C89290 /* Default@2x.png */,
+				B39F459819F4E28F00C89290 /* Icon-72.png */,
+				B39F459919F4E28F00C89290 /* Icon-Small-50.png */,
+				B39F459A19F4E28F00C89290 /* Icon-Small.png */,
+				B39F459B19F4E28F00C89290 /* Icon-Small@2x.png */,
+				B39F459C19F4E28F00C89290 /* Icon.png */,
+				B39F459D19F4E28F00C89290 /* Icon@2x.png */,
+				B39F459E19F4E28F00C89290 /* lib.xcconfig */,
+				B39F459F19F4E28F00C89290 /* nimbus64x64.png */,
+				B39F45A019F4E28F00C89290 /* unittest.xcconfig */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		B39F45A619F4E28F00C89290 /* webcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				B39F45A719F4E28F00C89290 /* deps */,
+				B39F45A819F4E28F00C89290 /* resources */,
+				B39F45AA19F4E28F00C89290 /* src */,
+			);
+			path = webcontroller;
+			sourceTree = "<group>";
+		};
+		B39F45A819F4E28F00C89290 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				B39F45A919F4E28F00C89290 /* NimbusWebController.bundle */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		B39F45AA19F4E28F00C89290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B39F45AB19F4E28F00C89290 /* NimbusWebController.h */,
+				B39F45AC19F4E28F00C89290 /* NIWebController.h */,
+				B39F45AD19F4E28F00C89290 /* NIWebController.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		B3AAEB5F19EF620A003FB7F9 /* lawfirm */ = {
 			isa = PBXGroup;
 			children = (
@@ -2389,7 +3251,9 @@
 				5143CC0519791F6800D4B7C0 /* bgbtn@2x.png in Resources */,
 				B3AAEB9919EFED7A003FB7F9 /* Images.xcassets in Resources */,
 				51D4319019C4502900B6F48B /* bgChoose@2x.png in Resources */,
+				B39F465519F4E28F00C89290 /* lib.xcconfig in Resources */,
 				5112D0D51978CEB40039A88F /* icon120.png in Resources */,
+				B39F464F19F4E28F00C89290 /* Icon-72.png in Resources */,
 				51BEE0D01969245800566AFF /* tab_setting_sel@2x.png in Resources */,
 				5112D0DA1978D2970039A88F /* tab0_nor.@2x.png in Resources */,
 				B3B083F519EE4FD400BF5BC9 /* Search_topBar_bg@2x.png in Resources */,
@@ -2398,27 +3262,37 @@
 				5143CBFB19791BB800D4B7C0 /* bgCall@2x.png in Resources */,
 				5197EA7819B71600000484A7 /* consult@2x.png in Resources */,
 				43DABED319ED276800CA3FD9 /* 9@2x.png in Resources */,
-				51BC07AF197CA7CF0046D4D4 /* Default-568h@2x.png in Resources */,
 				51E62108197517020087B49B /* InfoCell.xib in Resources */,
 				43DABECE19ED276800CA3FD9 /* 4@2x.png in Resources */,
 				1E34A19A19B76DD00035CDE6 /* bgNavbar@2x.png in Resources */,
 				5184B03019B537FB004738FC /* leftArrow@2x.png in Resources */,
 				B3B083FF19EE8CC100BF5BC9 /* BMKLawfirmPaoPaoView.xib in Resources */,
+				B39F465219F4E28F00C89290 /* Icon-Small@2x.png in Resources */,
+				B39F465019F4E28F00C89290 /* Icon-Small-50.png in Resources */,
 				43DABECA19ED276800CA3FD9 /* 25@2x.png in Resources */,
 				2B2A339219ED6A0B00DAE712 /* callHighlight@2x.png in Resources */,
 				43DABEC719ED276800CA3FD9 /* 22@2x.png in Resources */,
 				43DABE6219ED054C00CA3FD9 /* lawyerPaoPao@2x.png in Resources */,
+				B39F465619F4E28F00C89290 /* nimbus64x64.png in Resources */,
 				51BEE09419690AC000566AFF /* Main_iPad.storyboard in Resources */,
 				1E34A1A319B778E80035CDE6 /* phone_seleted@2x.png in Resources */,
+				B39F465B19F4E28F00C89290 /* NimbusWebController.bundle in Resources */,
 				43DABECD19ED276800CA3FD9 /* 3@2x.png in Resources */,
 				5112D0DF1978F31D0039A88F /* logo@2x.png in Resources */,
 				43B334C619F1001F00DBE372 /* saoyisao@2x.png in Resources */,
 				51E62101197514690087B49B /* btn_icon5@2x.png in Resources */,
+				B39F45E519F4E28F00C89290 /* package.json in Resources */,
+				B39F45E819F4E28F00C89290 /* deps in Resources */,
+				B39F463519F4E28F00C89290 /* NimbusOverviewer.bundle in Resources */,
+				B39F464519F4E28F00C89290 /* deps in Resources */,
 				2B2A339719ED6A0B00DAE712 /* messageNomal@2x.png in Resources */,
 				517C5B8A196E3EE0000FF983 /* mapapi.bundle in Resources */,
 				5112D0DD1978D2970039A88F /* tab3_nor.@2x.png in Resources */,
 				5197EA7B19B71786000484A7 /* call@2x.png in Resources */,
+				B39F462A19F4E28F00C89290 /* deps in Resources */,
+				B39F45B619F4E28F00C89290 /* deps in Resources */,
 				51BEE0CB1969245800566AFF /* tab_contact_nor@2x.png in Resources */,
+				B39F45B919F4E28F00C89290 /* deps in Resources */,
 				1E979A3919B66F2100A0F7BF /* DetailLawyerHeaderView.xib in Resources */,
 				43DABED019ED276800CA3FD9 /* 6@2x.png in Resources */,
 				517F0C791977E4900044D8E5 /* Default.png in Resources */,
@@ -2427,24 +3301,35 @@
 				43DABECC19ED276800CA3FD9 /* 2@2x.png in Resources */,
 				5197EA7319B6FCFC000484A7 /* ToolView.xib in Resources */,
 				43B1844419ECB74E00B7B1F6 /* IQKeyboardManager.bundle in Resources */,
+				B39F461B19F4E28F00C89290 /* deps in Resources */,
 				43DABEC919ED276800CA3FD9 /* 24@2x.png in Resources */,
 				1E34A1A419B778E80035CDE6 /* phone_unseleted@2x.png in Resources */,
 				51D4318E19C44F7600B6F48B /* ChooseTable.xib in Resources */,
 				43DABE9919ED1C3600CA3FD9 /* lawyerMapAnnotationUserHeaderDefault.@2x.png in Resources */,
+				B39F45BE19F4E28F00C89290 /* deps in Resources */,
 				5112D0DB1978D2970039A88F /* tab1_nor@2x.png in Resources */,
 				51BEE09C19690AC000566AFF /* Images.xcassets in Resources */,
+				B39F461219F4E28F00C89290 /* deps in Resources */,
+				B39F460E19F4E28F00C89290 /* deps in Resources */,
 				5143CBFD19791BB800D4B7C0 /* bgSms@2x.png in Resources */,
 				1E34A19819B76CF80035CDE6 /* bgTabBar@2x.png in Resources */,
+				B39F464D19F4E28F00C89290 /* Default.png in Resources */,
 				51E620FD197514690087B49B /* btn_icon1@2x.png in Resources */,
 				B3AAEB6419EF620A003FB7F9 /* defaultLawfirm_samll@2x.png in Resources */,
 				51BEE0CE1969245800566AFF /* tab_recent_sel@2x.png in Resources */,
 				43DABEBA19ED276800CA3FD9 /* 10@2x.png in Resources */,
 				B3AAEB6519EF620A003FB7F9 /* lawfirmPaoPao@2x.png in Resources */,
+				B39F465719F4E28F00C89290 /* unittest.xcconfig in Resources */,
 				51D6989C19A1E11600F7155E /* icon@2x.png in Resources */,
+				B39F465119F4E28F00C89290 /* Icon-Small.png in Resources */,
+				B39F464619F4E28F00C89290 /* NimbusPhotos.bundle in Resources */,
 				51BEE09119690AC000566AFF /* Main_iPhone.storyboard in Resources */,
+				B39F45E419F4E28F00C89290 /* chameleon.js in Resources */,
 				1E34A1B019B77D4E0035CDE6 /* consult_unseleted@2x.png in Resources */,
 				51D700B719EB8AB800CCC80A /* LBSCoreDataInfo.plist in Resources */,
 				1E34A1B519B7821E0035CDE6 /* defaultNOPhoto@2x.png in Resources */,
+				B39F464019F4E28F00C89290 /* deps in Resources */,
+				B39F45EA19F4E28F00C89290 /* CSSTokenizerPrefix in Resources */,
 				B3AAEB8F19EFC502003FB7F9 /* Delete_img.png in Resources */,
 				43DABEC819ED276800CA3FD9 /* 23@2x.png in Resources */,
 				2B2A339619ED6A0B00DAE712 /* messageHighlight@2x.png in Resources */,
@@ -2456,8 +3341,10 @@
 				5143CBEE1979024400D4B7C0 /* LawfirmCell.xib in Resources */,
 				43B334AF19F0BE8C00DBE372 /* searchBG@2x.png in Resources */,
 				B3AAEB9119EFCBA9003FB7F9 /* consult_addImg.png in Resources */,
+				B39F465A19F4E28F00C89290 /* deps in Resources */,
 				43DABED219ED276800CA3FD9 /* 8@2x.png in Resources */,
 				1E34A1A619B778E80035CDE6 /* sms_unseleted@2x.png in Resources */,
+				B39F45E719F4E28F00C89290 /* server.js in Resources */,
 				43B1845919ECB74E00B7B1F6 /* sr_refresh.png in Resources */,
 				43B334C119F0F21300DBE372 /* Default@2x.png in Resources */,
 				43B1862819ECBA4800B7B1F6 /* pinyin.sqlite in Resources */,
@@ -2478,10 +3365,12 @@
 				43DABEBE19ED276800CA3FD9 /* 14@2x.png in Resources */,
 				43B334C219F0F21300DBE372 /* Default@3x.png in Resources */,
 				43DABEBF19ED276800CA3FD9 /* 15@2x.png in Resources */,
+				B39F45E919F4E28F00C89290 /* css.grammar in Resources */,
 				517F0C7A1977E4900044D8E5 /* Default~iphone.png in Resources */,
 				5166D01819738CFF003A0994 /* arrow_right@2x.png in Resources */,
 				43DABED719ED3E6500CA3FD9 /* navBack@2x.png in Resources */,
 				2B2A339319ED6A0B00DAE712 /* callNomal@2x.png in Resources */,
+				B39F45EC19F4E28F00C89290 /* generate in Resources */,
 				43DABEC019ED276800CA3FD9 /* 16@2x.png in Resources */,
 				43DABED119ED276800CA3FD9 /* 7@2x.png in Resources */,
 				43DABE6019ED00F700CA3FD9 /* BMKLawyerPaoPaoView.xib in Resources */,
@@ -2493,19 +3382,24 @@
 				2B2A339419ED6A0B00DAE712 /* consultHighlight@2x.png in Resources */,
 				1E34A1A519B778E80035CDE6 /* sms_seleted@2x.png in Resources */,
 				B3AAEB6319EF620A003FB7F9 /* defaultLawfirm_big@2x.png in Resources */,
+				B39F465419F4E28F00C89290 /* Icon@2x.png in Resources */,
 				43B334BF19F0F21300DBE372 /* Default-568h@2x.png in Resources */,
 				43DABEC119ED276800CA3FD9 /* 17@2x.png in Resources */,
 				51BEE0CD1969245800566AFF /* tab_recent_nor@2x.png in Resources */,
+				B39F465319F4E28F00C89290 /* Icon.png in Resources */,
 				51BD0C7319B064CF006EF8AC /* DetailLawfirmHeaderView.xib in Resources */,
 				51BEE08819690AC000566AFF /* InfoPlist.strings in Resources */,
 				5112D0D31978CEB40039A88F /* icon.png in Resources */,
 				5197EA7919B71600000484A7 /* Sms@2x.png in Resources */,
+				B39F463419F4E28F00C89290 /* deps in Resources */,
 				43DABEC519ED276800CA3FD9 /* 20@2x.png in Resources */,
 				51BEE0CF1969245800566AFF /* tab_setting_nor@2x.png in Resources */,
 				51E620FF197514690087B49B /* btn_icon3@2x.png in Resources */,
+				B39F45B119F4E28F00C89290 /* deps in Resources */,
 				5143CBF31979027B00D4B7C0 /* LawyerCell.xib in Resources */,
 				43B334C019F0F21300DBE372 /* Default-667h@2x.png in Resources */,
 				517C24DB19D6B76300331AE4 /* btnChangecity@2x.png in Resources */,
+				B39F464E19F4E28F00C89290 /* Default@2x.png in Resources */,
 				5143CBF5197908EA00D4B7C0 /* btnconsult@2x.png in Resources */,
 				43B334B119F0E8F300DBE372 /* navTitleBtn@2x.png in Resources */,
 				51BEE0D21969245800566AFF /* tab_tool_sel@2x.png in Resources */,
@@ -2527,17 +3421,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B39F45BB19F4E28F00C89290 /* NICollectionViewCellFactory.m in Sources */,
 				43B184E919ECB91100B7B1F6 /* UIButton+Cache.m in Sources */,
 				B3AAEB9819EFED7A003FB7F9 /* CTAssetsPickerController.m in Sources */,
+				B39F45C519F4E28F00C89290 /* NIDeviceOrientation.m in Sources */,
 				43B1866819ECBC0800B7B1F6 /* AppSoundManager.m in Sources */,
+				B39F45BA19F4E28F00C89290 /* NICollectionViewActions.m in Sources */,
+				B39F45D419F4E28F00C89290 /* NIViewRecycler.m in Sources */,
 				51436E6019A72F720026BE31 /* UIViewController+loading.m in Sources */,
 				43B1842B19ECB74E00B7B1F6 /* ASIInputStream.m in Sources */,
 				43B1842519ECB74E00B7B1F6 /* ASIAuthenticationDialog.m in Sources */,
 				43B1851619ECB91100B7B1F6 /* UrlManager.m in Sources */,
 				43DABE5E19ED00E700CA3FD9 /* BMKLawyerPaoPaoView.m in Sources */,
+				B39F45F119F4E28F00C89290 /* NICSSRuleset.m in Sources */,
 				5167570219A5A39E00672380 /* DetailLawfirmViewController.m in Sources */,
 				43B184FF19ECB91100B7B1F6 /* LanguagesManager.m in Sources */,
+				B39F461419F4E28F00C89290 /* NILauncherPageView.m in Sources */,
+				B39F461319F4E28F00C89290 /* NILauncherButtonView.m in Sources */,
+				B39F464719F4E28F00C89290 /* NIPhotoAlbumScrollView.m in Sources */,
 				43B1843219ECB74E00B7B1F6 /* FUISegmentedControl.m in Sources */,
+				B39F440C19F4A7AE00C89290 /* MoreNewVC.m in Sources */,
+				B39F460019F4E28F00C89290 /* UIView+NIStyleable.m in Sources */,
 				43B185EF19ECBA4800B7B1F6 /* ATBLibs+NSData+Base64.m in Sources */,
 				43B1866D19ECBC0800B7B1F6 /* UINavigationItem+margin.m in Sources */,
 				43B1866B19ECBC0800B7B1F6 /* PRPAlertView.m in Sources */,
@@ -2548,7 +3452,10 @@
 				43B1843719ECB74E00B7B1F6 /* UIFont+FlatUI.m in Sources */,
 				519A219019A700D800248A21 /* AFJSONRequestOperation.m in Sources */,
 				43B185E519ECBA4700B7B1F6 /* ATB_BubbleMessageLabel.m in Sources */,
+				B39F45ED19F4E28F00C89290 /* CSSTokenizer.m in Sources */,
+				B39F45E619F4E28F00C89290 /* README.mdown in Sources */,
 				43B184F119ECB91100B7B1F6 /* UIScrollView+SSToolkitAdditions.m in Sources */,
+				B39F462B19F4E28F00C89290 /* NINetworkTableViewController.m in Sources */,
 				51D698A519A21A0900F7155E /* iToast.m in Sources */,
 				43B1862419ECBA4800B7B1F6 /* ATTimerManager.m in Sources */,
 				43B185F319ECBA4800B7B1F6 /* ATBLibs+UIBarItem.m in Sources */,
@@ -2556,28 +3463,43 @@
 				43B1845019ECB74E00B7B1F6 /* RegexKitLite.m in Sources */,
 				43B184EF19ECB91100B7B1F6 /* UIImage+SSToolkitAdditions.m in Sources */,
 				43B184FB19ECB91100B7B1F6 /* HUDManager.m in Sources */,
+				B39F463C19F4E28F00C89290 /* NIOverviewSwizzling.m in Sources */,
 				43B184EB19ECB91100B7B1F6 /* UIApplication+SSToolkitAdditions.m in Sources */,
+				B39F463619F4E28F00C89290 /* NIDeviceInfo.m in Sources */,
+				B39F45C419F4E28F00C89290 /* NIDebuggingTools.m in Sources */,
+				B39F45BC19F4E28F00C89290 /* NICollectionViewModel.m in Sources */,
+				B39F461F19F4E28F00C89290 /* NICellFactory.m in Sources */,
+				B39F461E19F4E28F00C89290 /* NICellCatalog.m in Sources */,
+				B39F463A19F4E28F00C89290 /* NIOverviewMemoryCacheController.m in Sources */,
 				43B184EE19ECB91100B7B1F6 /* UIDevice+SSToolkitAdditions.m in Sources */,
+				B39F45BD19F4E28F00C89290 /* NIMutableCollectionViewModel.m in Sources */,
 				43B1842E19ECB74E00B7B1F6 /* FUIAlertView.m in Sources */,
 				B3E3991119ECCC4C0033F10B /* SearchSortView.m in Sources */,
 				51F64BD8196F907F00BBD314 /* Network.m in Sources */,
 				519A219319A700D800248A21 /* AFURLConnectionOperation.m in Sources */,
+				B39F45D019F4E28F00C89290 /* NIRuntimeClassModifications.m in Sources */,
 				43B184F019ECB91100B7B1F6 /* UIScreen+SSToolkitAdditions.m in Sources */,
 				43B1842619ECB74E00B7B1F6 /* ASIDataCompressor.m in Sources */,
+				B39F45F919F4E28F00C89290 /* UILabel+NIStyleable.m in Sources */,
 				B3AAEB8C19EFBA4B003FB7F9 /* ImageAddView.m in Sources */,
 				51BEE08E19690AC000566AFF /* AppDelegate.m in Sources */,
+				B39F464A19F4E28F00C89290 /* NIToolbarPhotoViewController.m in Sources */,
 				43B184E119ECB91100B7B1F6 /* NSDictionary+SSToolkitAdditions.m in Sources */,
 				43B1843B19ECB74E00B7B1F6 /* UIProgressView+FlatUI.m in Sources */,
 				B3A5C26919F0FFCD00D4A695 /* UploadImageBC.m in Sources */,
 				5107E2B819766D03005A965C /* InfoDetailViewController.m in Sources */,
+				B39F464919F4E28F00C89290 /* NIPhotoScrubberView.m in Sources */,
 				1E979A3719B66EDA00A0F7BF /* DetailLawyerHeaderView.m in Sources */,
 				43B184F819ECB91100B7B1F6 /* DownloadCache.m in Sources */,
+				B39F45C319F4E28F00C89290 /* NIDataStructures.m in Sources */,
 				43B184E419ECB91100B7B1F6 /* NSNumber+SSToolkitAdditions.m in Sources */,
 				43B185E619ECBA4700B7B1F6 /* ATB_CGContext.m in Sources */,
 				43B1862C19ECBA4800B7B1F6 /* ATStyledLabel.m in Sources */,
 				43B185F419ECBA4800B7B1F6 /* ATBLibs+UIColor.m in Sources */,
+				B39F463919F4E28F00C89290 /* NIOverviewLogger.m in Sources */,
 				238F7B6819F3FE74004BADD5 /* ImageBox.m in Sources */,
 				43B185E819ECBA4800B7B1F6 /* ATB_Math.m in Sources */,
+				B39F45CF19F4E28F00C89290 /* NIPaths.m in Sources */,
 				43B185F819ECBA4800B7B1F6 /* ATColorSpace.c in Sources */,
 				43B1843819ECB74E00B7B1F6 /* UIImage+FlatUI.m in Sources */,
 				43B184F219ECB91100B7B1F6 /* UITableView+SSToolkitAdditions.m in Sources */,
@@ -2585,76 +3507,109 @@
 				43B1852019ECBA0C00B7B1F6 /* BaseNetworkViewController.m in Sources */,
 				43B185E719ECBA4800B7B1F6 /* ATB_Controls.m in Sources */,
 				43B1866A19ECBC0800B7B1F6 /* GCDThread.m in Sources */,
+				B39F45EE19F4E28F00C89290 /* CSSTokens.m in Sources */,
 				5191DC9319EBB072005C0C3A /* testViewController.mm in Sources */,
 				43B1845B19ECB74E00B7B1F6 /* SRRefreshView.m in Sources */,
+				B39F45CB19F4E28F00C89290 /* NINetworkActivity.m in Sources */,
+				B39F45CC19F4E28F00C89290 /* NINonEmptyCollectionTesting.m in Sources */,
 				5107E2B519766882005A965C /* ConsultViewController.m in Sources */,
 				43B1844119ECB74E00B7B1F6 /* HPGrowingTextView.m in Sources */,
+				B39F45C819F4E28F00C89290 /* NIImageUtilities.m in Sources */,
 				5143CBF21979027B00D4B7C0 /* LawyerCell.m in Sources */,
 				517C24D819D6985100331AE4 /* SearchDeatalViewController.m in Sources */,
 				51F64BF0196FDE9A00BBD314 /* QSignalManager.m in Sources */,
+				B39F45CA19F4E28F00C89290 /* NINavigationAppearance.m in Sources */,
 				43B184F519ECB91100B7B1F6 /* AppPropertiesInitialize.m in Sources */,
 				43B1843E19ECB74E00B7B1F6 /* UITabBar+FlatUI.m in Sources */,
+				B39F464819F4E28F00C89290 /* NIPhotoScrollView.m in Sources */,
 				43B1843419ECB74E00B7B1F6 /* FUITextField.m in Sources */,
 				519A217219A6CD0B00248A21 /* DetailLawyerViewController.m in Sources */,
+				B39F45C019F4E28F00C89290 /* NIActions.m in Sources */,
 				43B185EA19ECBA4800B7B1F6 /* ATB_PathFileFunc.m in Sources */,
+				B39F464219F4E28F00C89290 /* NIPagingScrollViewPage.m in Sources */,
 				51D7009F19EB8A2200CCC80A /* LBSLawfirm.m in Sources */,
 				43B185ED19ECBA4800B7B1F6 /* ATBDataBase.m in Sources */,
 				43B1844219ECB74E00B7B1F6 /* HPTextViewInternal.m in Sources */,
 				5184B03419B55051004738FC /* UILabel+StringFrame.m in Sources */,
 				43B1845119ECB74E00B7B1F6 /* MKAnnotationView+WebCache.m in Sources */,
+				B39F45C119F4E28F00C89290 /* NIButtonUtilities.m in Sources */,
+				B39F45F319F4E28F00C89290 /* NIStylesheet.m in Sources */,
+				B39F464119F4E28F00C89290 /* NIPagingScrollView.m in Sources */,
 				43B1845C19ECB74E00B7B1F6 /* SRSlimeView.m in Sources */,
 				2306A42B19ED786E00D6F55F /* SearchView.m in Sources */,
+				B39F45FA19F4E28F00C89290 /* UINavigationBar+NIStyleable.m in Sources */,
 				43B1844A19ECB74E00B7B1F6 /* IQToolbar.m in Sources */,
+				B39F45C719F4E28F00C89290 /* NIFoundationMethods.m in Sources */,
+				B39F45EF19F4E28F00C89290 /* NIChameleonObserver.m in Sources */,
 				519A219519A700D800248A21 /* UIImageView+AFNetworking.m in Sources */,
 				43B1851F19ECBA0C00B7B1F6 /* BaseNetworkViewController+NetRequestManager.m in Sources */,
 				43B1844519ECB74E00B7B1F6 /* IQKeyboardManager.m in Sources */,
 				43B1842A19ECB74E00B7B1F6 /* ASIHTTPRequest.m in Sources */,
+				B39F45F219F4E28F00C89290 /* NIDOM.m in Sources */,
 				43B1842719ECB74E00B7B1F6 /* ASIDataDecompressor.m in Sources */,
+				B39F460F19F4E28F00C89290 /* NIInterapp.m in Sources */,
+				B39F462419F4E28F00C89290 /* NITableViewActions.m in Sources */,
 				43B1862319ECBA4800B7B1F6 /* ATSequenceImageView.m in Sources */,
 				43B1866C19ECBC0800B7B1F6 /* UIFactory.m in Sources */,
 				43B1862619ECBA4800B7B1F6 /* ATPinyin.m in Sources */,
 				43B1843019ECB74E00B7B1F6 /* FUICellBackgroundView.m in Sources */,
 				43B1845619ECB74E00B7B1F6 /* SDWebImagePrefetcher.m in Sources */,
+				B39F461D19F4E28F00C89290 /* NICellBackgrounds.m in Sources */,
 				51D700BD19EB8AB800CCC80A /* LBSRequest.m in Sources */,
 				43B184DE19ECB91100B7B1F6 /* NSArray+SSToolkitAdditions.m in Sources */,
 				51BEE0C11969237700566AFF /* BaseTableViewController.m in Sources */,
 				519A219119A700D800248A21 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				B3A5C26319F0B62300D4A695 /* YGPopupController.m in Sources */,
 				43B1845719ECB74E00B7B1F6 /* UIButton+WebCache.m in Sources */,
+				B39F461519F4E28F00C89290 /* NILauncherView.m in Sources */,
 				43B1844C19ECB74E00B7B1F6 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				51951DCC196932B70010D7F1 /* InfoViewController.m in Sources */,
 				232F838319F0235E006C0E51 /* EXPhotoViewer.m in Sources */,
 				51D700B819EB8AB800CCC80A /* LBSDataBase.m in Sources */,
 				43B184ED19ECB91100B7B1F6 /* UIControl+SSToolkitAdditions.m in Sources */,
+				B39F45FD19F4E28F00C89290 /* UITableView+NIStyleable.m in Sources */,
 				43B1862D19ECBA4800B7B1F6 /* ATTapView.m in Sources */,
 				43B1843D19ECB74E00B7B1F6 /* UIStepper+FlatUI.m in Sources */,
 				519A219419A700D800248A21 /* AFXMLRequestOperation.m in Sources */,
 				51D700BB19EB8AB800CCC80A /* LBSRequest+LBSSearchNearby.m in Sources */,
 				51D700BF19EB8AB800CCC80A /* LBSSharedData.m in Sources */,
 				43B184E319ECB91100B7B1F6 /* NSMutableArray+SSToolkitAdditions.m in Sources */,
+				B39F45D319F4E28F00C89290 /* NIState.m in Sources */,
 				43B1843F19ECB74E00B7B1F6 /* UITableViewCell+FlatUI.m in Sources */,
+				B39F461819F4E28F00C89290 /* NILauncherViewObject.m in Sources */,
+				B39F465C19F4E28F00C89290 /* NIWebController.m in Sources */,
 				B3AAEB9A19EFED7A003FB7F9 /* NSDate+TimeInterval.m in Sources */,
+				B39F45F519F4E28F00C89290 /* NITextField+NIStyleable.m in Sources */,
 				51D700BA19EB8AB800CCC80A /* LBSRental.m in Sources */,
 				43B1842919ECB74E00B7B1F6 /* ASIFormDataRequest.m in Sources */,
 				43B185F519ECBA4800B7B1F6 /* ATBLibs+UIImage.m in Sources */,
+				B39F461719F4E28F00C89290 /* NILauncherViewModel.m in Sources */,
 				43B1861F19ECBA4800B7B1F6 /* ATJumpAnimation.m in Sources */,
+				B39F463719F4E28F00C89290 /* NIOverview.m in Sources */,
 				51E620EF1974C8610087B49B /* CoreDataManage.m in Sources */,
 				519A218D19A700D800248A21 /* AFHTTPClient.m in Sources */,
 				2B288D2B19F00FE200ADAFFE /* CommonEntity.m in Sources */,
 				B3E39B2219ED3D060033F10B /* NITextField.m in Sources */,
 				43B1844D19ECB74E00B7B1F6 /* IQUIWindow+Hierarchy.m in Sources */,
+				B39F462119F4E28F00C89290 /* NIMutableTableViewModel.m in Sources */,
 				43B1861C19ECBA4800B7B1F6 /* ATBookAnimationView.m in Sources */,
+				B39F45F619F4E28F00C89290 /* NIUserInterfaceString.m in Sources */,
 				43B185EC19ECBA4800B7B1F6 /* ATB_StrikeThroughLabel.m in Sources */,
+				B39F45F719F4E28F00C89290 /* UIActivityIndicatorView+NIStyleable.m in Sources */,
 				43B1844B19ECB74E00B7B1F6 /* IQUIView+Hierarchy.m in Sources */,
+				B39F462019F4E28F00C89290 /* NIFormCellCatalog.m in Sources */,
 				51BEE08A19690AC000566AFF /* main.m in Sources */,
 				43B185EB19ECBA4800B7B1F6 /* ATB_SmallTools.m in Sources */,
 				43B184F319ECB91100B7B1F6 /* UIView+SSToolkitAdditions.m in Sources */,
 				519A218E19A700D800248A21 /* AFHTTPRequestOperation.m in Sources */,
+				B39F45F819F4E28F00C89290 /* UIButton+NIStyleable.m in Sources */,
+				B39F45C919F4E28F00C89290 /* NIInMemoryCache.m in Sources */,
 				51E620F51974CD320087B49B /* FindLawyer.xcdatamodeld in Sources */,
 				510A41711969393500C95DB3 /* SearchViewController.m in Sources */,
 				B3A5C26619F0BD3000D4A695 /* PickerAlertTypeManager.m in Sources */,
 				43B1851319ECB91100B7B1F6 /* ShowLocalImgFullScreenManager.m in Sources */,
 				43B184E819ECB91100B7B1F6 /* UIButton+BackgroundImage.m in Sources */,
+				B39F462519F4E28F00C89290 /* NITableViewModel.m in Sources */,
 				43B1842F19ECB74E00B7B1F6 /* FUIButton.m in Sources */,
 				43B184FA19ECB91100B7B1F6 /* DrawLineUIBtn.m in Sources */,
 				43B1850119ECB91100B7B1F6 /* NetRequestManager.m in Sources */,
@@ -2666,20 +3621,30 @@
 				43B1862A19ECBA4800B7B1F6 /* ATPageControl.m in Sources */,
 				43B1861D19ECBA4800B7B1F6 /* ATExplosionAnimation.m in Sources */,
 				43B1842819ECB74E00B7B1F6 /* ASIDownloadCache.m in Sources */,
+				B39F463B19F4E28F00C89290 /* NIOverviewPageView.m in Sources */,
 				51F64BF7196FE91000BBD314 /* NSString+TimeFormat.m in Sources */,
+				B39F45FC19F4E28F00C89290 /* UISearchBar+NIStyleable.m in Sources */,
+				B39F45B719F4E28F00C89290 /* NIBadgeView.m in Sources */,
+				B39F45FF19F4E28F00C89290 /* UIToolbar+NIStyleable.m in Sources */,
 				43B184E619ECB91100B7B1F6 /* NSString+SSToolkitAdditions.m in Sources */,
 				43B1844619ECB74E00B7B1F6 /* IQNSArray+Sort.m in Sources */,
+				B39F45C219F4E28F00C89290 /* NICommonMetrics.m in Sources */,
 				43B1862219ECBA4800B7B1F6 /* ATLayout+UIView.m in Sources */,
 				43B1845819ECB74E00B7B1F6 /* UIImageView+WebCache.m in Sources */,
 				43B184E019ECB91100B7B1F6 /* NSDate+SSToolkitAdditions.m in Sources */,
+				B39F462219F4E28F00C89290 /* NIRadioGroup.m in Sources */,
 				43B1866919ECBC0800B7B1F6 /* AppUIElement.m in Sources */,
 				519A218F19A700D800248A21 /* AFImageRequestOperation.m in Sources */,
 				5107E2AE19765BDF005A965C /* SettingViewController.m in Sources */,
 				43B184E519ECB91100B7B1F6 /* NSObject+SSToolkitAdditions.m in Sources */,
+				B39F45D219F4E28F00C89290 /* NISnapshotRotation.m in Sources */,
+				B39F45CD19F4E28F00C89290 /* NINonRetainingCollections.m in Sources */,
 				43B1861B19ECBA4800B7B1F6 /* NSObject+JsonStringWriter.m in Sources */,
 				43B185EE19ECBA4800B7B1F6 /* ATBLibs+DataContainer.m in Sources */,
+				B39F45B319F4E28F00C89290 /* NSMutableAttributedString+NimbusAttributedLabel.m in Sources */,
 				43B1844319ECB74E00B7B1F6 /* IQBarButtonItem.m in Sources */,
 				51F64C08196FEA6600BBD314 /* NSDate-Utilities.m in Sources */,
+				B39F45F419F4E28F00C89290 /* NIStylesheetCache.m in Sources */,
 				5166D02B1973CE6D003A0994 /* CityListViewController.m in Sources */,
 				5143CBED1979024400D4B7C0 /* LawfirmCell.m in Sources */,
 				43B1862119ECBA4800B7B1F6 /* ATBitmapRGBAData.m in Sources */,
@@ -2691,13 +3656,16 @@
 				43B1844919ECB74E00B7B1F6 /* IQTitleBarButtonItem.m in Sources */,
 				51D700BC19EB8AB800CCC80A /* LBSRequest+LBSSearchRegion.m in Sources */,
 				51BD0C7119B0644C006EF8AC /* DetailLawfirmHeaderView.m in Sources */,
+				B39F45C619F4E28F00C89290 /* NIError.m in Sources */,
 				43B1852119ECBA0C00B7B1F6 /* BaseViewController.m in Sources */,
 				5197EA7E19B728B4000484A7 /* LawyerArticleViewController.m in Sources */,
 				51F64BEE196FDE9A00BBD314 /* NSObject+QFramework.m in Sources */,
 				51EFD8B419A4CB9300832C28 /* SearchLawyerViewController.m in Sources */,
+				B39F45B219F4E28F00C89290 /* NIAttributedLabel.m in Sources */,
 				43B1844F19ECB74E00B7B1F6 /* MyScaleScrollView.m in Sources */,
 				51D4319319C4530C00B6F48B /* ChooseTable.m in Sources */,
 				51D700A319EB8A8800CCC80A /* LawyerArticle.m in Sources */,
+				B39F461619F4E28F00C89290 /* NILauncherViewController.m in Sources */,
 				519A219219A700D800248A21 /* AFPropertyListRequestOperation.m in Sources */,
 				43B185E419ECBA4700B7B1F6 /* ATB_AlertFunc.m in Sources */,
 				43B184E219ECB91100B7B1F6 /* NSFileManager+SSToolkitAdditions.m in Sources */,
@@ -2707,12 +3675,16 @@
 				43B1842C19ECB74E00B7B1F6 /* ASINetworkQueue.m in Sources */,
 				43B184EA19ECB91100B7B1F6 /* UIImageView+Image.m in Sources */,
 				43B184E719ECB91100B7B1F6 /* NSURL+SSToolkitAdditions.m in Sources */,
+				B39F463D19F4E28F00C89290 /* NIOverviewView.m in Sources */,
 				43B185E919ECBA4800B7B1F6 /* ATB_NetworkFunc.m in Sources */,
+				B39F45FE19F4E28F00C89290 /* UITextField+NIStyleable.m in Sources */,
 				43B1844019ECB74E00B7B1F6 /* UIToolbar+FlatUI.m in Sources */,
 				43B1866E19ECBC0800B7B1F6 /* UserInfoModel.m in Sources */,
 				43B1862019ECBA4800B7B1F6 /* ATAudioPlayManager.m in Sources */,
 				43B1850019ECB91100B7B1F6 /* NetItemList.m in Sources */,
 				51E62107197517020087B49B /* InfoCell.m in Sources */,
+				B39F45CE19F4E28F00C89290 /* NIOperations.m in Sources */,
+				B39F45EB19F4E28F00C89290 /* CSSTokens.cpp in Sources */,
 				51F64BEF196FDE9A00BBD314 /* QSignal.m in Sources */,
 				43B1845319ECB74E00B7B1F6 /* SDWebImageDecoder.m in Sources */,
 				43B1843619ECB74E00B7B1F6 /* UIColor+FlatUI.m in Sources */,
@@ -2721,11 +3693,14 @@
 				43B185F119ECBA4800B7B1F6 /* ATBLibs+NSFileManager.m in Sources */,
 				43B1851219ECB91100B7B1F6 /* ShowImgFullScreenManager.m in Sources */,
 				43B1862519ECBA4800B7B1F6 /* ATPinyin+NSString.m in Sources */,
+				B39F45F019F4E28F00C89290 /* NICSSParser.m in Sources */,
 				43B1845419ECB74E00B7B1F6 /* SDWebImageDownloader.m in Sources */,
+				B39F45D119F4E28F00C89290 /* NISDKAvailability.m in Sources */,
 				43B1850219ECB91100B7B1F6 /* NetworkStatusManager.m in Sources */,
 				43B1842D19ECB74E00B7B1F6 /* Reachability.m in Sources */,
 				43B184F419ECB91100B7B1F6 /* UIViewController+SSToolkitAdditions.m in Sources */,
 				43B1845519ECB74E00B7B1F6 /* SDWebImageManager.m in Sources */,
+				B39F462319F4E28F00C89290 /* NIRadioGroupController.m in Sources */,
 				51F64BE2196FD37C00BBD314 /* NetAction.m in Sources */,
 				51D700A019EB8A2200CCC80A /* LBSLawyer.m in Sources */,
 				43B1843C19ECB74E00B7B1F6 /* UISlider+FlatUI.m in Sources */,
@@ -2741,8 +3716,11 @@
 				43B185F919ECBA4800B7B1F6 /* ATUtf8.c in Sources */,
 				43B185F619ECBA4800B7B1F6 /* ATBLibs+UIView.m in Sources */,
 				43B1851519ECB91100B7B1F6 /* UpdataAppModel.m in Sources */,
+				B39F45D519F4E28F00C89290 /* UIResponder+NimbusCore.m in Sources */,
 				43B1845219ECB74E00B7B1F6 /* SDImageCache.m in Sources */,
+				B39F45FB19F4E28F00C89290 /* UIScrollView+NIStyleable.m in Sources */,
 				51D700B919EB8AB800CCC80A /* LBSDataCenter.m in Sources */,
+				B39F463819F4E28F00C89290 /* NIOverviewGraphView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -494,9 +494,7 @@
     
     if ([annotation isKindOfClass:[LBSLawyerLocationAnnotation class]])
     {
-        DetailLawyerViewController *detailLawyerVC = [[DetailLawyerViewController alloc] init];
-        detailLawyerVC.lawyer = annotation.lawyer;
-        [self pushViewController:detailLawyerVC];
+        [self pushDetailLawyerVC:annotation.lawyer];
     }
 }
 
@@ -729,7 +727,7 @@
     lycell.lbName.text = lawyer.name;
     lycell.lblawfirm.text = lawyer.lawfirmName;
     lycell.lbCertificate.text = lawyer.certificateNo;
-    lycell.lbPhone.text = lawyer.mobile ? lawyer.mobile : @"暂无电话";
+    lycell.lbPhone.text = lawyer.tel ? lawyer.tel : @"暂无电话";
     lycell.specialAreaStr = lawyer.specialArea;
 
     [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
@@ -764,9 +762,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
      self.seletedlawyer = [self.listContend objectAtIndex:indexPath.section];
     
-    DetailLawyerViewController *detailLawyerVC = [[DetailLawyerViewController alloc] init];
-    detailLawyerVC.lawyer = _seletedlawyer;
-    [self pushViewController:detailLawyerVC];
+    [self pushDetailLawyerVC:_seletedlawyer];
     /*
     [self performSegueWithIdentifier:@"SearchtoLawyerDetail" sender:self];
      */
@@ -797,6 +793,16 @@
         lable.text = [NSString stringWithFormat:@" 附近共%d位律师",self.listContend.count];
     }
     return lable;
+}
+
+#pragma mark - Push method
+
+- (void)pushDetailLawyerVC:(LBSLawyer*)lawyer
+{
+    DetailLawyerViewController *detailLawyerVC = [[DetailLawyerViewController alloc] init];
+    detailLawyerVC.lawyer = lawyer;
+    detailLawyerVC.showConsultBtn = _fromConsultVC;
+    [self pushViewController:detailLawyerVC];
 }
 
 #pragma mark -UISearchBarDelagat
