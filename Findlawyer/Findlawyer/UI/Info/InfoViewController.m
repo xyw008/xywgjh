@@ -19,6 +19,7 @@
 #import "CommonEntity.h"
 #import "HUDManager.h"
 #import "InfoDetailViewController.h"
+#import "NimbusWebController.h"
 
 #define kCellHeight 35
 
@@ -323,7 +324,8 @@
     
     if (_networkHomePageNewsEntitiesArray.count == indexPath.row)
     {
-        
+        NIWebController *webVC = [[NIWebController alloc] initWithURL:[[NSURL alloc] initWithString:@"http://www.163.com"]];
+        [self.navigationController pushViewController:webVC animated:YES];
     }
     else
     {
