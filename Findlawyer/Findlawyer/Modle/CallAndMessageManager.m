@@ -67,6 +67,14 @@ DEF_SINGLETON(CallAndMessageManager);
             {
                 if ([MFMessageComposeViewController canSendText])
                 {
+                 
+//                    MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
+//                    vc.messageComposeDelegate = self;
+//                    NSArray * array = @[number];
+//                    vc.recipients = array;
+//
+//                    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:vc animated:YES completion:^{
+//                    }];
                     return YES;
                 }
                 else

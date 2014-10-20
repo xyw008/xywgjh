@@ -3873,6 +3873,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				WARNING_CFLAGS = "-Wno-unused-private-field";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3897,6 +3898,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				WARNING_CFLAGS = "-Wno-unused-private-field";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

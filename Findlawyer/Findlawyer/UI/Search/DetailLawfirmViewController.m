@@ -75,6 +75,8 @@
 {
     [super viewDidLoad];
     
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 40, 40) normalImg:[UIImage imageNamed:@"navBack"] highlightedImg:nil target:self action:@selector(backViewController)];
+    
     currentIndex = 0;
     pageSize = 30;
     self.ifhavedload = YES;
@@ -97,6 +99,11 @@
 {
     [HUDManager hideHUD];
     [self removeSignalObserver];
+}
+
+- (void)backViewController
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)loadData
@@ -339,13 +346,11 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
-    UIView  *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, kHeardHeight)];
-    view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
-    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, kHeardHeight)];
+    UIView  *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.width, kHeardHeight)];
+    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, view.width, kHeardHeight)];
+    lable.backgroundColor = HEXCOLOR(0XF0F0F0);
     lable.textAlignment = NSTextAlignmentLeft;
-    lable.backgroundColor = [UIColor clearColor];
-    lable.font = [UIFont boldSystemFontOfSize:15];
+    lable.font = [UIFont boldSystemFontOfSize:12];
     // lable.textColor = [UIColor colorWithRed:0 green:122/255.0 blue:255.0/255.0 alpha:1];
     [view addSubview:lable];
     lable.textColor = HEXCOLOR(0XB6B6B6);
@@ -386,7 +391,7 @@
             
         case LawyerCellOperationType_PhoneCall:
         {
-            [CallAndMessageManager callNumber:cellSelectedLawyer.mobile call:^(NSTimeInterval duration) {
+            [CallAndMessageManager callNumber:cellSelectedLawyer.tel call:^(NSTimeInterval duration) {
                 
             } callCancel:^{
                 
@@ -395,7 +400,7 @@
             break;
         case LawyerCellOperationType_SendMessage:
         {
-            if ([CallAndMessageManager judgeSendMessageNumber:cellSelectedLawyer.mobile])
+            if ([CallAndMessageManager judgeSendMessageNumber:cellSelectedLawyer.tel])
             {
                 MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
 //                vc.messageComposeDelegate = self;

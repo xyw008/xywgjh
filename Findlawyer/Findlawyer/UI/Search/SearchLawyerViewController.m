@@ -88,9 +88,11 @@
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.viewBoundsWidth, 44)];
     self.searchBar.placeholder = @"请输入你要找的律师";
-    if (self.searchKey.length >0) {
+    if (self.searchKey.length >0 && !_isHiddenSearchKey)
+    {
         self.searchBar.text = self.searchKey;
     }
+    
     [self.searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"Search_topBar_bg"] forState:UIControlStateNormal];
     [_searchBar setBackgroundImage:[UIImage imageNamed:@"searchBG"]];
     self.searchBar.delegate = self;
@@ -129,10 +131,7 @@
     self.tableView.hidden = _isShowMapView;
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:_isShowMapView?@"列表":@"地图" action:@selector(sceneChange:)];
    
-    if (self.searchKey.length >0)
-    {
-        self.searchBar.text = self.searchKey;
-    }
+    
     if (_isAddNearbySearch)
     {
         if (_searchLocation.latitude)
@@ -925,7 +924,7 @@
         
         case LawyerCellOperationType_PhoneCall:
         {
-            [CallAndMessageManager callNumber:cellSelectedLawyer.mobile call:^(NSTimeInterval duration) {
+            [CallAndMessageManager callNumber:cellSelectedLawyer.tel call:^(NSTimeInterval duration) {
                 
             } callCancel:^{
                 
@@ -934,11 +933,11 @@
             break;
         case LawyerCellOperationType_SendMessage:
         {
-            if ([CallAndMessageManager judgeSendMessageNumber:cellSelectedLawyer.mobile])
+            if ([CallAndMessageManager judgeSendMessageNumber:cellSelectedLawyer.tel])
             {
                 MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
                 vc.messageComposeDelegate = self;
-                NSArray * array = @[cellSelectedLawyer.mobile];
+                NSArray * array = @[cellSelectedLawyer.tel];
                 vc.recipients = array;
                 // vc.body =@"";
                 [self.parentViewController presentViewController:vc animated:YES completion:nil];

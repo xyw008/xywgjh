@@ -328,7 +328,7 @@ typedef enum
     }
     else if ([view isEqual:_specialtySortView])
     {
-        [self pushSearchLawyerVCWithSearchKey:title];
+        [self pushSearchLawyerVCWithSearchKey:title hiddenSearchKey:YES];
     }
 }
 
@@ -370,7 +370,7 @@ typedef enum
     {
         if (_sortType == SelectSortType_lawyer)//搜索律师
         {
-            [self pushSearchLawyerVCWithSearchKey:textField.text];
+            [self pushSearchLawyerVCWithSearchKey:textField.text hiddenSearchKey:NO];
         }
         else if (_sortType == SelectSortType_lawfirm)//搜索律所
         {
@@ -389,25 +389,29 @@ typedef enum
     SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
      */
     SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
-    vc.searchKey = key;
     vc.strTitle = @"附近律师";
-    vc.isShowMapView = NO;
+    vc.isShowMapView = YES;
     vc.isAddNearbySearch = YES;
     if (hasCoordinate) {
         vc.searchLocation = [self getLawfirmLocationCoordinate2D:key];
+    }
+    else
+    {
+        vc.searchKey = key;
     }
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)pushSearchLawyerVCWithSearchKey:(NSString*)key
+- (void)pushSearchLawyerVCWithSearchKey:(NSString*)key hiddenSearchKey:(BOOL)hidden
 {
 //    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     //        SearchLawyerViewController *vc = (SearchLawyerViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawyer"];
     SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
     vc.strTitle = @"附近律师";
     vc.searchKey = key;
-    vc.isShowMapView = NO;
+    vc.isShowMapView = YES;
+    vc.isHiddenSearchKey = hidden;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
