@@ -18,7 +18,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
+#import "BaseViewController.h"
 #import "NIPreprocessorMacros.h" /* for weak */
 
 /**
@@ -74,7 +74,7 @@
  *
  * @ingroup NimbusWebController
  */
-@interface NIWebController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate>
+@interface NIWebController : BaseViewController <UIWebViewDelegate, UIActionSheetDelegate>
 
 // Designated initializer.
 - (id)initWithRequest:(NSURLRequest *)request;

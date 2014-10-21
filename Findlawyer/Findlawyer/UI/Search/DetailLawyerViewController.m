@@ -19,6 +19,7 @@
 #import "HUDManager.h"
 #import "ConsultInfoVC.h"
 #import "CallAndMessageManager.h"
+#import "NIWebController.h"
 
 #ifndef ProHUD
 #define ProHUD	199
@@ -53,7 +54,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = HEXCOLOR(0XF5F5F5);
     
     self.arChooseItems = [[NSArray alloc]init];
     self.dicLoaed = [[NSMutableDictionary alloc]init];
@@ -273,7 +274,15 @@
     contendsize = CGSizeMake(contendsize.width, contendsize.height +25 );
     self.myScrollView.contentSize = contendsize;
     self.segmentcontrol= [[UISegmentedControl alloc]initWithItems:muar];
-    self.segmentcontrol.frame = CGRectMake(10, CGRectGetMaxY(self.headerview.frame), self.view.width - 10*2, 25);
+    self.segmentcontrol.frame = CGRectMake(0, CGRectGetMaxY(self.headerview.frame), self.view.width, 25);
+    _segmentcontrol.layer.borderColor = CellSeparatorColor.CGColor;
+    _segmentcontrol.layer.borderWidth = 0.5;
+    _segmentcontrol.tintColor = HEXCOLOR(0XF5F5F5);
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:14],NSFontAttributeName ,nil];
+    NSDictionary *dicSelect = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor],NSForegroundColorAttributeName,nil];
+    [_segmentcontrol setTitleTextAttributes:dic forState:UIControlStateNormal];
+    [_segmentcontrol setTitleTextAttributes:dicSelect forState:UIControlStateSelected];
+    
     [self.segmentcontrol addTarget:self action:@selector(segmentChange:) forControlEvents:UIControlEventValueChanged];
     self.segmentcontrol.selectedSegmentIndex = 0;
      self.choosedIndex = 0;
@@ -344,6 +353,9 @@
 //文章类型改变后，要根据ID加载文章列表
 -(void)segmentChange:(UISegmentedControl *)Seg
 {
+    if (self.choosedIndex == Seg.selectedSegmentIndex) {
+        return;
+    }
     self.choosedIndex = Seg.selectedSegmentIndex;
     [self loadarticlistByID];
 }
@@ -508,10 +520,10 @@
         cell = [[UITableViewCell alloc]
                 initWithStyle:UITableViewCellStyleValue1
                 reuseIdentifier:TableSampleIdentifier];
-        CGFloat startX = 4;
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(startX, kTableCellDefaultHeight - .5, cell.width - startX*2, .5)];
-        line.backgroundColor = CellSeparatorColor;
-        [cell.contentView addSubview:line];
+//        CGFloat startX = 4;
+//        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(startX, kTableCellDefaultHeight - .5, cell.width - startX*2, .5)];
+//        line.backgroundColor = CellSeparatorColor;
+//        [cell.contentView addSubview:line];
     }
     NSDictionary * dic = [self.arArtiiclelist objectAtIndex:indexPath.row];
     cell.textLabel.text = dic[@"Title"];
@@ -526,10 +538,19 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     self.seletedArticle = [self.arArtiiclelist objectAtIndex:indexPath.row];
-    LawyerArticleViewController *vc = [[LawyerArticleViewController alloc] init];
-    vc.dicArticle = _seletedArticle;
-    [self pushViewController:vc];
+    
+//    LawyerArticleViewController *vc = [[LawyerArticleViewController alloc] init];
+//    vc.dicArticle = _seletedArticle;
+//    [self pushViewController:vc];
 //    [self performSegueWithIdentifier:@"LawyerToArticle" sender:self];
+    NSString *articleId = [_seletedArticle objectForKey:@"Id"];
+    if (articleId)
+    {
+        NSString *urlStr = [NSString stringWithFormat:@"http://test3.sunlawyers.com/news.aspx?id=%@&islawyer=%d",articleId,[_lawyer.lawerid integerValue]];
+        NIWebController *web = [[NIWebController alloc] initWithURL:[NSURL URLWithString:urlStr]];
+        web.toolbarHidden = YES;
+        [self pushViewController:web];
+    }
 }
 
 #pragma mark -

@@ -324,7 +324,7 @@
     
     if (_networkHomePageNewsEntitiesArray.count == indexPath.row)
     {
-        NIWebController *webVC = [[NIWebController alloc] initWithURL:[[NSURL alloc] initWithString:@"http://www.163.com"]];
+        NIWebController *webVC = [[NIWebController alloc] initWithURL:[[NSURL alloc] initWithString:@"http://test3.sunlawyers.com/list.aspx"]];
         [self.navigationController pushViewController:webVC animated:YES];
     }
     else

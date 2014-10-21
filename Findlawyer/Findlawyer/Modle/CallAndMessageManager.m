@@ -135,30 +135,6 @@ DEF_SINGLETON(CallAndMessageManager);
         DLog(@"sdf");
     }
     */
-    
-
-    /*
-    //^1[3|4|5|8][0-9]\d{4,8}$
-    // NSString *regular = @"^1[3|4|5|8]\\d{9}$";
-    //  NSString *regular = @"^(1[3|4|5|8]\\d{9})|(17[6|7|8]\\d{8})$";
-    NSString *regular = @"^(1[3|4|5|8]\\d{9})|(17[6|7|8]\\d{8})$";
-    
-    NSError *error = nil;
-    NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:regular options:NSRegularExpressionCaseInsensitive error:&error];
-    if (error) {
-        NSLog(@"regular mobile error:%@",error);
-        return NO;
-    }
-    else
-    {
-        NSInteger matches = [regularExpression numberOfMatchesInString:mobile options:0 range:NSMakeRange(0, [mobile length])];
-        if (matches != 0)
-        {
-            return YES;
-        }
-    }
-    return NO;
-     */
 }
 
 
