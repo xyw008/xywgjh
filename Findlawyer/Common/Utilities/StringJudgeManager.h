@@ -9,7 +9,8 @@
 static NSString * const EmailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";                       // 邮箱
 static NSString * const UrlRegex = @"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?"; // url
 static NSString * const MobilePhoneNumRegex = @"^1[3|4|5|8][0-9]\\d{8}$";                                       // 手机
-static NSString * const PhoneNumRegex = @"^[0-9]{3,6}$|^[0-9]{7,8}$|^[0-9]{3}-[0-9]{8}$|^[0-9]{4}-[0-9]{7}$";   // 座机
+//static NSString * const PhoneNumRegex = @"^[0-9]{3,4}$|^[0-9]{7,8}$|^[0-9]{3}-[0-9]{7,8}$|^[0-9]{4}-[0-9]{7,8}$";   // 座机
+static NSString * const PhoneNumRegex = @"^[0-9]{5}$|^[0-9]{3,6}$|^[0-9]{7,8}$|^[0-9]{3,4}(-)?[0-9]{7,8}$|^[0-9]{3}(-)?[0-9]{3}(-)?[0-9]{4}$|^[0-9]{4}(-)?[0-9]{3}(-)?[0-9]{3}$|^[0-9]{3}(-)?[0-9]{4}(-)?[0-9]{3}$";   // 座机
 static NSString * const ID_CardNumRegex = @"^(\\d{15}$|^\\d{18}$|^\\d{17}(\\d|X|x))$";                          // 身份证
 static NSString * const ZipcodeNumRegex = @"^[1-9]\\d{5}$";                                                     // 邮编
 static NSString * const AllSpaceRegex = @"^\\s+$";                                                              // 全都是空格

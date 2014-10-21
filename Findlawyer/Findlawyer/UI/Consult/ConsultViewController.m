@@ -10,6 +10,7 @@
 #import "SearchDeatalViewController.h"
 #import "SearchLawyerViewController.h"
 #import "AppDelegate.h"
+#import "ConsultLawyerSortVC.h"
 
 @interface ConsultViewController ()
 
@@ -74,8 +75,14 @@
         vc.strTitle =@"擅长领域";
         [self.navigationController pushViewController:vc animated:YES];
         */
+        
+        /*
         AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [appdelegate chooseMaintabIndex:1 andType:NSNotFound];
+         */
+        
+        ConsultLawyerSortVC *vc = [[ConsultLawyerSortVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
     
 }

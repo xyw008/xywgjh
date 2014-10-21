@@ -536,8 +536,8 @@
  // 用地理坐标进行百度LBS云搜索
 - (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius IsSearStatus:(BOOL)isSearch
 {
-//    [self showHUDWithTitle:@"搜索中...."];
-    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
+    [self showHUDWithTitle:@"搜索中...."];
+//    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
     __weak  SearchLawyerViewController * weakSelf = self;
     
     [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:searchLawyer searchKye:self.searchKey index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
@@ -579,6 +579,9 @@
                 
 				if (curCnt >= totalItemCount)
 					_noMoreResultsAvail = YES;
+                
+                [self removeProgressHUD];
+                
 				if (request.error)
                     /*
                     [UIView hideHUDWithTitle:LBSUINetWorkError image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
@@ -589,7 +592,10 @@
                     /*
                     [UIView hideHUDWithTitle:LBSUIDataComplete image:nil onView: weakSelf.view tag:HUDTage delay:HUDAutoHideTypeShowTime];
                      */
+                    /*
                     [HUDManager hideHUD];
+                     */
+                    [self removeProgressHUD];
                 }
                 
 				else
@@ -933,15 +939,9 @@
             break;
         case LawyerCellOperationType_SendMessage:
         {
-            if ([CallAndMessageManager judgeSendMessageNumber:cellSelectedLawyer.tel])
-            {
-                MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
-                vc.messageComposeDelegate = self;
-                NSArray * array = @[cellSelectedLawyer.tel];
-                vc.recipients = array;
-                // vc.body =@"";
-                [self.parentViewController presentViewController:vc animated:YES completion:nil];
-            }
+            [CallAndMessageManager sendMessageNumber:cellSelectedLawyer.tel resultBlock:^(MessageSendResultType type) {
+                
+            }];
         }
             break;
         default:

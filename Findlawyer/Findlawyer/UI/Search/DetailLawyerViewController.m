@@ -108,7 +108,7 @@
                 weakSelf.lawyer.mobile = dic [@"Mobile"];
                 [weakSelf configHeaderView];
                 
-                if (!strongSelf->_showConsultBtn)
+                if (strongSelf->_showConsultBtn)
                     [strongSelf initConsultBtn];
                 else
                     [strongSelf configToolview];
@@ -402,15 +402,9 @@
 
 - (void)presentMessageComposeViewControllerWithNumber:(NSString *)number
 {
-    if ([CallAndMessageManager judgeSendMessageNumber:number])
-    {
-        MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
-        vc.messageComposeDelegate = self;
-        NSArray * array = @[number];
-        vc.recipients = array;
-        // vc.body =@"";
-        [self.parentViewController presentViewController:vc animated:YES completion:nil];
-    }
+    [CallAndMessageManager sendMessageNumber:number resultBlock:^(MessageSendResultType type) {
+        
+    }];
 //    if (number.length > 0) {
 //        Class messageClass = (NSClassFromString(@"MFMessageComposeViewController"));
 //        if (messageClass != nil)

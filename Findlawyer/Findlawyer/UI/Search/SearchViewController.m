@@ -169,7 +169,7 @@ typedef enum
 
 - (void)initSpecialtySortView
 {
-    _specialtySortView = [[SearchSortView alloc] initWithFrame:CGRectMake(kSortBetweenSpace, CGRectGetMaxY(_courtSortView.frame) + 2, _sortBgScrollView.width - kSortBetweenSpace*2, 10) title:@"擅长领域" sortNameArray:@[@"刑事辩护",@"婚姻家庭",@"民商经济",@"劳动人事",@"行政诉讼",@"知识产权",@"交通事故",@"房产建筑",@"银行保险",@"金融证券",@"并购上市",@"涉外国际",@"法律顾问"]];
+    _specialtySortView = [[SearchSortView alloc] initWithFrame:CGRectMake(kSortBetweenSpace, CGRectGetMaxY(_courtSortView.frame) + 2, _sortBgScrollView.width - kSortBetweenSpace*2, 10) title:@"擅长领域" sortNameArray:kSpecialtyDomainArray];
     _specialtySortView.delegate = self;
     [_sortBgScrollView addSubview:_specialtySortView];
     _sortBgScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(_specialtySortView.frame));

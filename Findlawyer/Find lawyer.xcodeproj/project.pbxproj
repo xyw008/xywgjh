@@ -474,6 +474,7 @@
 		B3AAEB9819EFED7A003FB7F9 /* CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AAEB9419EFED7A003FB7F9 /* CTAssetsPickerController.m */; };
 		B3AAEB9919EFED7A003FB7F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB9519EFED7A003FB7F9 /* Images.xcassets */; };
 		B3AAEB9A19EFED7A003FB7F9 /* NSDate+TimeInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AAEB9719EFED7A003FB7F9 /* NSDate+TimeInterval.m */; };
+		B3ADC0F919F637AD0026272C /* ConsultLawyerSortVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3ADC0F819F637AD0026272C /* ConsultLawyerSortVC.m */; };
 		B3B083F519EE4FD400BF5BC9 /* Search_topBar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3B083F419EE4FD400BF5BC9 /* Search_topBar_bg@2x.png */; };
 		B3B083F819EE57F500BF5BC9 /* ConsultInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */; };
 		B3B083FD19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B083FC19EE7B5A00BF5BC9 /* BMKLawfirmPaoPaoView.m */; };
@@ -1376,6 +1377,8 @@
 		B3AAEB9519EFED7A003FB7F9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B3AAEB9619EFED7A003FB7F9 /* NSDate+TimeInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeInterval.h"; sourceTree = "<group>"; };
 		B3AAEB9719EFED7A003FB7F9 /* NSDate+TimeInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeInterval.m"; sourceTree = "<group>"; };
+		B3ADC0F719F637AD0026272C /* ConsultLawyerSortVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultLawyerSortVC.h; sourceTree = "<group>"; };
+		B3ADC0F819F637AD0026272C /* ConsultLawyerSortVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultLawyerSortVC.m; sourceTree = "<group>"; };
 		B3B083F419EE4FD400BF5BC9 /* Search_topBar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search_topBar_bg@2x.png"; sourceTree = "<group>"; };
 		B3B083F619EE57F500BF5BC9 /* ConsultInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultInfoVC.h; sourceTree = "<group>"; };
 		B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultInfoVC.m; sourceTree = "<group>"; };
@@ -2094,6 +2097,8 @@
 				5107E2B419766882005A965C /* ConsultViewController.m */,
 				B3B083F619EE57F500BF5BC9 /* ConsultInfoVC.h */,
 				B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */,
+				B3ADC0F719F637AD0026272C /* ConsultLawyerSortVC.h */,
+				B3ADC0F819F637AD0026272C /* ConsultLawyerSortVC.m */,
 			);
 			path = Consult;
 			sourceTree = "<group>";
@@ -3442,6 +3447,7 @@
 				43B1843219ECB74E00B7B1F6 /* FUISegmentedControl.m in Sources */,
 				B39F440C19F4A7AE00C89290 /* MoreNewVC.m in Sources */,
 				B39F460019F4E28F00C89290 /* UIView+NIStyleable.m in Sources */,
+				B3ADC0F919F637AD0026272C /* ConsultLawyerSortVC.m in Sources */,
 				43B185EF19ECBA4800B7B1F6 /* ATBLibs+NSData+Base64.m in Sources */,
 				43B1866D19ECBC0800B7B1F6 /* UINavigationItem+margin.m in Sources */,
 				43B1866B19ECBC0800B7B1F6 /* PRPAlertView.m in Sources */,

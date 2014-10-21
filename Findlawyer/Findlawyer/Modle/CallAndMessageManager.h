@@ -8,8 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum
+{
+    MessageSendResultType_Cancelled,
+    MessageSendResultType_Success,
+    MessageSendResultType_Failed,
+}MessageSendResultType;
+
 typedef void (^CallBlock)(NSTimeInterval duration);
 typedef void (^CallCancelBlock)(void);
+
+typedef void (^MessageBloack)(MessageSendResultType type);
 
 @interface CallAndMessageManager : NSObject
 
@@ -27,12 +36,14 @@ AS_SINGLETON(CallAndMessageManager)
               call:(CallBlock)call
         callCancel:(CallCancelBlock)cancel;
 
+
 /**
- *  检查发送的电话号码
+ *  发短信
  *
  *  @param number 电话号码
+ *  @param result 发短信结果block
  */
-+ (BOOL)judgeSendMessageNumber:(NSString*)number;
++ (void)sendMessageNumber:(NSString*)number resultBlock:(MessageBloack)result;
 
 
 @end

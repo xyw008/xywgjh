@@ -125,8 +125,8 @@
     [_mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     
-     [self addSignalObserver];
-//    [self showMapnode];
+    [self addSignalObserver];
+    [self showMapnode];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -379,8 +379,7 @@
 
 - (void)loadmoreDataSearStatus:(BOOL)isSearch
 {
-//    [self showHUDWithTitle:@"搜索中...."];
-    
+//    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
     self.navigationItem.rightBarButtonItem.enabled = NO;
     __weak SearchDeatalViewController *weakSelf = self;
     
@@ -412,7 +411,7 @@
  // 用地理坐标进行百度LBS云搜索
 - (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius searchKey:(NSString*)searchKey IsSearStatus:(BOOL)isSearch
 {
-    [self showHUDWithTitle:@"搜索中...."];
+    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
 //    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
     __weak  SearchDeatalViewController * weakSelf = self;
     
@@ -460,11 +459,11 @@
                 
 				else if (request.availableItemCount)
                     
-                    [self removeProgressHUD];
+//                    [self removeProgressHUD];
 //                    [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:HUDAutoHideTypeShowTime];
-                     /*
+                
                     [HUDManager hideHUD];
-                      */
+                
 				else
                     /*
                      [self hideHUDWithTitle:LBSUIDataComplete image:nil delay:HUDAutoHideTypeShowTime];
@@ -539,10 +538,10 @@
                     [HUDManager showAutoHideHUDWithToShowStr:LBSUINoMoreData HUDMode:MBProgressHUDModeText];
                 
 				[weakSelf.tableView reloadData];
+                [self showMapnode];// 从新加载地图地图
 
             });
         }
-
     }];
     currentIndex++;
 	[[LBSSharedData sharedData] setCurrentIndex:currentIndex];

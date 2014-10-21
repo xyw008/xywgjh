@@ -33,7 +33,7 @@
 #define ProHUD 199
 #define kHeardHeight 18
 
-@interface DetailLawfirmViewController ()<LawyerCellDelegate>
+@interface DetailLawfirmViewController ()<LawyerCellDelegate,MFMessageComposeViewControllerDelegate>
 {
   	NSUInteger currentIndex;
 	NSUInteger pageSize;
@@ -309,7 +309,6 @@
     lycell.lblawfirm.text = lawyer.lawfirmName;
     lycell.lbCertificate.text = lawyer.certificateNo;
     lycell.specialAreaStr = lawyer.specialArea;
-    DLog(@"mobile %@",lawyer.mobile);
     lycell.lbPhone.text = lawyer.tel ? lawyer.tel : @"暂无电话";
     lycell.delegate = self;
     [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
@@ -400,20 +399,34 @@
             break;
         case LawyerCellOperationType_SendMessage:
         {
-            if ([CallAndMessageManager judgeSendMessageNumber:cellSelectedLawyer.tel])
-            {
-                MFMessageComposeViewController *vc = [[MFMessageComposeViewController alloc] init];
-//                vc.messageComposeDelegate = self;
-                NSArray * array = @[cellSelectedLawyer.mobile];
-                vc.recipients = array;
-                // vc.body =@"";
-                [self.parentViewController presentViewController:vc animated:YES completion:nil];
-            }
+            [CallAndMessageManager sendMessageNumber:cellSelectedLawyer.tel resultBlock:^(MessageSendResultType type) {
+                
+            }];
         }
             break;
         default:
             break;
     }
+}
+
+
+#pragma mark - Message compose view controller delegate
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    
+    if (result == MessageComposeResultCancelled)
+    {
+    }
+    else if (result == MessageComposeResultSent)
+    {
+    }
+    else
+    {
+    }
+    
+    [self.parentViewController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 
@@ -449,7 +462,6 @@
         DetailLawyerViewController *vc = (DetailLawyerViewController *)segue.destinationViewController;
         vc.lawyer = self.seletedlawyer;
     }
-
 }
 
 
