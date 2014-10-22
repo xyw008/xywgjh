@@ -800,7 +800,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-     self.seletedlawyer = [self.listContend objectAtIndex:indexPath.section];
+    self.seletedlawyer = [self.listContend objectAtIndex:indexPath.section];
     
     [self pushDetailLawyerVC:_seletedlawyer];
     /*
@@ -942,13 +942,19 @@
         case LawyerCellOperationType_SpecialAreaSearch:
         {
             UILabel *sepcialAreaLabel = (UILabel *)sender;
-
-            [_searchResults removeAllObjects];
-            self.searchKey = sepcialAreaLabel.text;
-            
-            [self loadmoreDataIsSearStatus:YES];
-
-//            [self loadLocalData];
+            if ([sepcialAreaLabel.text isEqualToString:@"更多"])
+            {
+                self.seletedlawyer = cellSelectedLawyer;
+                [self pushDetailLawyerVC:cellSelectedLawyer];
+            }
+            else
+            {
+                [_searchResults removeAllObjects];
+                self.searchKey = sepcialAreaLabel.text;
+                [self loadmoreDataIsSearStatus:YES];
+                
+//                [self loadLocalData];
+            }
         }
             break;
         case LawyerCellOperationType_Consult:
