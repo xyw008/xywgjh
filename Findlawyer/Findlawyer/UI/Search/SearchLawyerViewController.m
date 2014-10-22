@@ -209,7 +209,7 @@
     {
         LBSLawyer *lawyer = [self.listContend objectAtIndex:0];
         CLLocationCoordinate2D coor = lawyer.coordinate;
-        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(0.01f,0.01f));
+        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
         BMKCoordinateRegion adjustedRegion = [_mapView regionThatFits:viewRegion];
         [_mapView setRegion:adjustedRegion animated:YES];
       //  [_mapView setCenterCoordinate:coor];
@@ -223,7 +223,7 @@
         CLLocationCoordinate2D coor;
         coor.latitude = delegate.userlocation.coordinate.latitude;
         coor.longitude = delegate.userlocation.coordinate.longitude;
-        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(0.05f,0.05f));
+        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
         BMKCoordinateRegion adjustedRegion = [_mapView regionThatFits:viewRegion];
         
         [_mapView setRegion:adjustedRegion animated:YES];
@@ -950,6 +950,7 @@
             else
             {
                 [_searchResults removeAllObjects];
+                
                 self.searchKey = sepcialAreaLabel.text;
                 [self loadmoreDataIsSearStatus:YES];
                 

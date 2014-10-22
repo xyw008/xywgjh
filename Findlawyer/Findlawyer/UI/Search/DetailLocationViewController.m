@@ -57,7 +57,7 @@
     {
         _lawfirm = (LBSLawfirm *)self.LBSLocation;
         CLLocationCoordinate2D coor = _lawfirm.coordinate;
-        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(0.05f,0.05f));
+        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
         BMKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
         _lawfirm.isShowMapLawfirmAnnotationPaopaoView = YES;
         [self.mapView setRegion:adjustedRegion animated:YES];
@@ -69,7 +69,7 @@
     {
         _lawyer = (LBSLawyer *)self.LBSLocation;
         CLLocationCoordinate2D coor = _lawyer.coordinate;
-        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(0.05f,0.05f));
+        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
         BMKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
         _lawyer.isShowMapLawyerAnnotationPaopaoView = YES;
         [self.mapView setRegion:adjustedRegion animated:YES];
