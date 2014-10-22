@@ -465,6 +465,7 @@
 		B3A5C26319F0B62300D4A695 /* YGPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A5C26219F0B62300D4A695 /* YGPopupController.m */; };
 		B3A5C26619F0BD3000D4A695 /* PickerAlertTypeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A5C26519F0BD3000D4A695 /* PickerAlertTypeManager.m */; };
 		B3A5C26919F0FFCD00D4A695 /* UploadImageBC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A5C26819F0FFCD00D4A695 /* UploadImageBC.m */; };
+		B3AA99A819F7885F00A0DC1E /* home_moreNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AA99A719F7885F00A0DC1E /* home_moreNew@2x.png */; };
 		B3AAEB6319EF620A003FB7F9 /* defaultLawfirm_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB6019EF620A003FB7F9 /* defaultLawfirm_big@2x.png */; };
 		B3AAEB6419EF620A003FB7F9 /* defaultLawfirm_samll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB6119EF620A003FB7F9 /* defaultLawfirm_samll@2x.png */; };
 		B3AAEB6519EF620A003FB7F9 /* lawfirmPaoPao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3AAEB6219EF620A003FB7F9 /* lawfirmPaoPao@2x.png */; };
@@ -1365,6 +1366,7 @@
 		B3A5C26519F0BD3000D4A695 /* PickerAlertTypeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerAlertTypeManager.m; sourceTree = "<group>"; };
 		B3A5C26719F0FFCD00D4A695 /* UploadImageBC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadImageBC.h; sourceTree = "<group>"; };
 		B3A5C26819F0FFCD00D4A695 /* UploadImageBC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImageBC.m; sourceTree = "<group>"; };
+		B3AA99A719F7885F00A0DC1E /* home_moreNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_moreNew@2x.png"; sourceTree = "<group>"; };
 		B3AAEB6019EF620A003FB7F9 /* defaultLawfirm_big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "defaultLawfirm_big@2x.png"; sourceTree = "<group>"; };
 		B3AAEB6119EF620A003FB7F9 /* defaultLawfirm_samll@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "defaultLawfirm_samll@2x.png"; sourceTree = "<group>"; };
 		B3AAEB6219EF620A003FB7F9 /* lawfirmPaoPao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lawfirmPaoPao@2x.png"; sourceTree = "<group>"; };
@@ -1712,6 +1714,7 @@
 		43B1842419ECB74E00B7B1F6 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				B3AA99A419F7878D00A0DC1E /* Home */,
 				43B334C319F1001F00DBE372 /* setting */,
 				43B334B219F0F01900DBE372 /* appCommon */,
 				43B334B019F0E8F300DBE372 /* navTitleBtn@2x.png */,
@@ -3111,6 +3114,14 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		B3AA99A419F7878D00A0DC1E /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B3AA99A719F7885F00A0DC1E /* home_moreNew@2x.png */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		B3AAEB5F19EF620A003FB7F9 /* lawfirm */ = {
 			isa = PBXGroup;
 			children = (
@@ -3342,6 +3353,7 @@
 				43DABEBC19ED276800CA3FD9 /* 12@2x.png in Resources */,
 				51E62100197514690087B49B /* btn_icon4@2x.png in Resources */,
 				43DABEC219ED276800CA3FD9 /* 18@2x.png in Resources */,
+				B3AA99A819F7885F00A0DC1E /* home_moreNew@2x.png in Resources */,
 				5184B03119B537FB004738FC /* rightArrow@2x.png in Resources */,
 				5143CBEE1979024400D4B7C0 /* LawfirmCell.xib in Resources */,
 				43B334AF19F0BE8C00DBE372 /* searchBG@2x.png in Resources */,

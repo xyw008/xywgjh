@@ -123,7 +123,8 @@
                 weakSelf.lawfirm.detailaddress = dic [@"Address"];
                 weakSelf.lawfirm.detail = dic [@"Detail"];
                 weakSelf.lawfirm.mailBox = dic [@"Mail"];
-                NSArray *arlist = [dic[@"PhotoUrlNameList"]componentsSeparatedByString:@"|"];
+                NSArray *arlist = [dic[@"PhotoUrlNameList"] componentsSeparatedByString:@"|"];
+//                NSArray *arlist = [dic[@"P_UpName"] componentsSeparatedByString:@"|"];
                 
                 if (weakSelf.lawfirm.arImageUrlstrs.count >0)
                 {
