@@ -209,7 +209,7 @@
     {
         LBSLawyer *lawyer = [self.listContend objectAtIndex:0];
         CLLocationCoordinate2D coor = lawyer.coordinate;
-        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(0.05f,0.05f));
+        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(0.01f,0.01f));
         BMKCoordinateRegion adjustedRegion = [_mapView regionThatFits:viewRegion];
         [_mapView setRegion:adjustedRegion animated:YES];
       //  [_mapView setCenterCoordinate:coor];
