@@ -35,7 +35,7 @@
 #import "CallAndMessageManager.h"
 
 #define HUDTage 999
-#define kRadius 200000
+#define kRadius kTotalRadius
 
 @interface SearchLawyerViewController ()<MFMessageComposeViewControllerDelegate, LawyerCellDelegate>
 

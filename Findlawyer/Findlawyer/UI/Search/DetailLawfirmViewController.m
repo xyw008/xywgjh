@@ -32,6 +32,7 @@
 
 #define ProHUD 199
 #define kHeardHeight 18
+#define kRadius kTotalRadius
 
 @interface DetailLawfirmViewController ()<LawyerCellDelegate,MFMessageComposeViewControllerDelegate>
 {
@@ -233,7 +234,7 @@
 {
   
     __weak  DetailLawfirmViewController * weakSelf = self;
-    [[LBSDataCenter defaultCenter] loadDataWithNearby:self.lawfirm.coordinate radius:20000 searchtype:searchLawyer searchKye:self.lawfirm.name index:currentIndex     pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
+    [[LBSDataCenter defaultCenter] loadDataWithNearby:self.lawfirm.coordinate radius:kRadius searchtype:searchLawyer searchKye:self.lawfirm.name index:currentIndex     pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
         if (dataModel)
 		{
             LBSLawyer *lawyer = [[LBSLawyer alloc]initWithDataModel:dataModel];

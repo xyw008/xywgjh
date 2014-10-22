@@ -27,7 +27,7 @@
 #import "HUDManager.h"
 
 #define HUDTage 999
-#define kRadius 200000
+#define kRadius kTotalRadius
 #define kHeardHeight 18
 
 
