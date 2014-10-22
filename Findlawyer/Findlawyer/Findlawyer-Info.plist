@@ -32,6 +32,8 @@
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>只有开启定位服务，你才能正常使用律寻</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<true/>
 	<key>UIMainStoryboardFile</key>
 	<string>Main_iPhone</string>
 	<key>UIMainStoryboardFile~ipad</key>

@@ -9,7 +9,7 @@
 #import "BaseViewController.h"
 #import "BMapKit.h"
 
-@interface SearchLawyerViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,BMKMapViewDelegate,UISearchBarDelegate>
+@interface SearchLawyerViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,BMKMapViewDelegate, BMKLocationServiceDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic)  UISearchBar *searchBar;
 //@property (nonatomic,strong) BMKMapView * mapView;
