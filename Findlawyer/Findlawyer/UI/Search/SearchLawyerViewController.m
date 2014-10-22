@@ -569,6 +569,8 @@
  // 用地理坐标进行百度LBS云搜索
 - (void)loadDataWithLocation:(CLLocationCoordinate2D)location radius:(NSUInteger)radius IsSearStatus:(BOOL)isSearch
 {
+    [_mapView setCenterCoordinate:location animated:YES];
+    
     [self showHUDWithTitle:@"搜索中...."];
 //    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
     __weak  SearchLawyerViewController * weakSelf = self;
@@ -942,9 +944,11 @@
             UILabel *sepcialAreaLabel = (UILabel *)sender;
 
             [_searchResults removeAllObjects];
-            
             self.searchKey = sepcialAreaLabel.text;
-            [self loadLocalData];
+            
+            [self loadmoreDataIsSearStatus:NO];
+
+//            [self loadLocalData];
         }
             break;
         case LawyerCellOperationType_Consult:

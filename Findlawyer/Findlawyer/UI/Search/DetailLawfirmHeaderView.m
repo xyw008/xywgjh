@@ -62,6 +62,16 @@
             startX += box.width + kBetweenSpace;
         }
     }
+    else
+    {
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:_scPhoto
+                                                         attribute:NSLayoutAttributeHeight
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:nil
+                                                         attribute:NSLayoutAttributeNotAnAttribute
+                                                        multiplier:1
+                                                          constant:0]];
+    }
     _leftBtn.hidden = imagelist.count > 3 ? NO:YES;
     _rightBtn.hidden = _leftBtn.hidden;
  
@@ -72,8 +82,6 @@
     _lbDetail.text = newDetail;
     
     self.height = CGRectGetMaxY(_lbDetail.frame) + 10;
-    [self layoutSubviews];
-    
 }
 
 - (CGSize)caculate:(NSString *)string
