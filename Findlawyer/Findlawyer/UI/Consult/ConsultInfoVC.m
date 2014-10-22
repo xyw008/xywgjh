@@ -99,7 +99,7 @@
     
     _selectTypeLB = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 95, 22)];
     _selectTypeLB.textAlignment = NSTextAlignmentRight;
-    _selectTypeLB.text = @"纠纷类型:";
+    _selectTypeLB.text = @"咨询类型:";
     _selectTypeLB.font = SP15Font;
     [_selectTypeBgView addSubview:_selectTypeLB];
 

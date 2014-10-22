@@ -58,7 +58,7 @@
     //不包含
     if (!containsThisImg)
     {
-        NSData *imageData = UIImageJPEGRepresentation(img ,0.1);
+        NSData *imageData = UIImageJPEGRepresentation(img ,0.3);
         NSString *suffix = [NSString stringWithFormat:@"imgage%d.jpeg",_imgId];
         [imageData writeToFile:[self getImageTempPath:suffix] atomically:YES];
         
