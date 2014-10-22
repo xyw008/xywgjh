@@ -946,7 +946,7 @@
             [_searchResults removeAllObjects];
             self.searchKey = sepcialAreaLabel.text;
             
-            [self loadmoreDataIsSearStatus:NO];
+            [self loadmoreDataIsSearStatus:YES];
 
 //            [self loadLocalData];
         }
