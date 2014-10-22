@@ -253,6 +253,11 @@
     {
         return 60;
     }
+    //最后更多的新闻
+    if (indexPath.row == _networkHomePageNewsEntitiesArray.count)
+    {
+        return 44;
+    }
     return kCellHeight;
 }
 
@@ -290,14 +295,14 @@
          if (!cell) {
              cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:moreIdentifier];
              CGFloat width = 80;
-             UILabel *moreLB = [[UILabel alloc] initWithFrame:CGRectMake((cell.width - width)/2 - 4, 0, width, kCellHeight)];
+             UILabel *moreLB = [[UILabel alloc] initWithFrame:CGRectMake((cell.width - width)/2 - 4, 0, width, 44)];
              moreLB.text = @"更多新闻";
              moreLB.textColor = [UIColor grayColor];
              moreLB.textAlignment = NSTextAlignmentCenter;
              moreLB.font = SP16Font;
              [cell.contentView addSubview:moreLB];
 //             [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
-             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(moreLB.frame), 12, 7, 12)];
+             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(moreLB.frame), 16, 7, 12)];
              imgView.image = [UIImage imageNamed:@"home_moreNew"];
              [cell.contentView addSubview:imgView];
          }
