@@ -20,6 +20,7 @@
 #define kEdgeSpace 10
 #define kCancelBtnStr @"   取消"
 #define kConfirmBtnStr @"确定   "
+#define kDefaultBtnText @"请选择"
 
 #define kGetAskIdRequestTag 1000
 
@@ -31,6 +32,7 @@
     
     UILabel             *_selectTypeLB;//选择咨询类型显示Label
     UIView              *_selectTypeBgView;//选择咨询类型的背景视图
+    UIButton            *_selectBtn;//选择咨询类型btn
     
     UILabel             *_textViewPlaceholderLB;
     UITextView          *_textView;//咨询问题输入视图
@@ -97,19 +99,19 @@
     
     _selectTypeLB = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 95, 22)];
     _selectTypeLB.textAlignment = NSTextAlignmentRight;
-    _selectTypeLB.text = @"咨询类型:";
+    _selectTypeLB.text = @"纠纷类型:";
     _selectTypeLB.font = SP15Font;
     [_selectTypeBgView addSubview:_selectTypeLB];
 
     UIColor *borderColor = ATColorRGBMake(159, 159, 159);
-    UIButton *selectBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_selectTypeLB.frame) + 4, _selectTypeLB.frameOriginY + 3, 66, 18)];
-    selectBtn.layer.borderColor = borderColor.CGColor;
-    selectBtn.layer.borderWidth = 0.5;
-    [selectBtn setTitleColor:borderColor forState:UIControlStateNormal];
-    [selectBtn setTitle:@"请选择" forState:UIControlStateNormal];
-    selectBtn.titleLabel.font = SP15Font;
-    [selectBtn addTarget:self action:@selector(selectTypeBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
-    [_selectTypeBgView addSubview:selectBtn];
+    _selectBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_selectTypeLB.frame) + 4, _selectTypeLB.frameOriginY + 3, 66, 18)];
+    _selectBtn.layer.borderColor = borderColor.CGColor;
+    _selectBtn.layer.borderWidth = 0.5;
+    [_selectBtn setTitleColor:borderColor forState:UIControlStateNormal];
+    [_selectBtn setTitle:kDefaultBtnText forState:UIControlStateNormal];
+    _selectBtn.titleLabel.font = SP15Font;
+    [_selectBtn addTarget:self action:@selector(selectTypeBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
+    [_selectTypeBgView addSubview:_selectBtn];
 }
 
 - (void)initTextViewAndSendBtn
@@ -219,7 +221,10 @@
     }
     else
     {
-        _selectTypeLB.text = _wantSelectStr;
+//        _selectTypeLB.text = _wantSelectStr;
+        CGSize size = [_wantSelectStr stringSizeWithFont:_selectBtn.titleLabel.font];
+        [_selectBtn setTitle:_wantSelectStr forState:UIControlStateNormal];
+        _selectBtn.width = size.width + 10;
         [_popupController hideAnimatied:YES];
     }
 }
@@ -287,7 +292,7 @@
     {
         if (_askId)
         {
-            if ([_selectTypeLB.text isEqualToString:@"咨询类型:"])
+            if ([_selectTypeLB.text isEqualToString:kDefaultBtnText])
             {
                 [self showHUDInfoByString:@"请选择咨询类型"];
                 return;
@@ -298,7 +303,7 @@
                 _willSaveAskInfo = NO;
                 
                 //擅长领域ID，是所在数组index + 1
-                NSString *askTypeId = [NSString stringWithFormat:@"%d",([_typeArray indexOfObject:_selectTypeLB.text] + 1)];
+                NSString *askTypeId = [NSString stringWithFormat:@"%d",([_typeArray indexOfObject:_selectBtn.titleLabel.text] + 1)];
                 NSNumber *typeId = [[NSNumber alloc] initWithInteger:[askTypeId integerValue]];
                 NSDictionary *parm = @{@"askId":_askId,@"askTypeId":typeId,@"content":_textView.text};
                 
