@@ -197,7 +197,7 @@
     if (picker.showsCancelButton)
     {
         self.navigationItem.rightBarButtonItem =
-        [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil)
+        [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"取消", nil)
                                          style:UIBarButtonItemStylePlain
                                         target:self
                                         action:@selector(dismiss:)];
@@ -206,7 +206,7 @@
 
 - (void)localize
 {
-    self.title = NSLocalizedString(@"Photos", nil);
+    self.title = NSLocalizedString(@"照片", nil);
 }
 
 - (void)setupGroup
@@ -521,7 +521,7 @@
 - (void)setupButtons
 {
     self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
+    [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"确定", nil)
                                      style:UIBarButtonItemStylePlain
                                     target:self
                                     action:@selector(finishPickingAssets:)];

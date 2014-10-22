@@ -61,6 +61,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     _typeArray = kSpecialtyDomainArray;
     _willSaveAskInfo = NO;
     _allPhotoUploadSuccess = YES;
@@ -70,6 +71,8 @@
     [self initTextViewAndSendBtn];
     [self setNetworkRequestStatusBlocks];
     [self getNetworkData];
+    
+    self.title = [NSString stringWithFormat:@"咨询 - %@",_lawyerItem.name];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -104,7 +107,7 @@
     [_selectTypeBgView addSubview:_selectTypeLB];
 
     UIColor *borderColor = ATColorRGBMake(159, 159, 159);
-    _selectBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_selectTypeLB.frame) + 4, _selectTypeLB.frameOriginY + 3, 66, 18)];
+    _selectBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_selectTypeLB.frame) + 4, _selectTypeLB.frameOriginY, 80, 23)];
     _selectBtn.layer.borderColor = borderColor.CGColor;
     _selectBtn.layer.borderWidth = 0.5;
     [_selectBtn setTitleColor:borderColor forState:UIControlStateNormal];
@@ -131,7 +134,7 @@
     
     CGFloat btnWidht = 220;
     _sendInfoBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.width/2 - btnWidht/2, [self getSendBtnOriginY], btnWidht, 32)];
-    [_sendInfoBtn setTitle:@"发送消息" forState:UIControlStateNormal];
+    [_sendInfoBtn setTitle:@"发送咨询" forState:UIControlStateNormal];
     [_sendInfoBtn addTarget:self action:@selector(sendInfoBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
     _sendInfoBtn.layer.cornerRadius = 2;
     _sendInfoBtn.backgroundColor = ATColorRGBMake(20, 139, 230);
@@ -224,7 +227,7 @@
 //        _selectTypeLB.text = _wantSelectStr;
         CGSize size = [_wantSelectStr stringSizeWithFont:_selectBtn.titleLabel.font];
         [_selectBtn setTitle:_wantSelectStr forState:UIControlStateNormal];
-        _selectBtn.width = size.width + 10;
+        _selectBtn.width = size.width + 20;
         [_popupController hideAnimatied:YES];
     }
 }
