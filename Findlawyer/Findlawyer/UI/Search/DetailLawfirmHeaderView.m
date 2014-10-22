@@ -11,7 +11,11 @@
 #import "EXPhotoViewer.h"
 #import "ImageBox.h"
 
+#define kBetweenSpace 5
+#define kImageWidth (_scPhoto.width - kBetweenSpace*3)/4
+
 @implementation DetailLawfirmHeaderView
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,67 +28,52 @@
 }
 - (void)awakeFromNib
 {
-   //self.frame = CGRectMake(0, 0, 320, 600);
-}
-
-
-- (void) configViewWithmainImage:(NSURL *)mainimageurl introimagelist:(NSArray *)imagelist Count:(NSNumber *)count adress:(NSString *)adress phone:(NSString *)phone netAdress:(NSString *)netadress fax:(NSString *)fax detailInfo: (NSString *)detailinfo
-{
-    [self.mainImg setImageWithURL:mainimageurl placeholderImage:[UIImage imageNamed:@"defualtLawfirm"]];
-
     self.scPhoto.pagingEnabled = NO;
     self.scPhoto.bounces = NO;
     self.scPhoto.showsHorizontalScrollIndicator = NO;
     self.scPhoto.showsVerticalScrollIndicator = NO;
-    
-    CGSize imagesize;
-    
-   if (imagelist.count < 3 && imagelist.count >0 )
-    {
-       imagesize = CGSizeMake(258.0/imagelist.count, self.scPhoto.frame.size.height);
-    }
-    else if (imagelist.count >=3)
-    {
-        imagesize = CGSizeMake(258.0/3, self.scPhoto.frame.size.height);
-    }
-    self.scPhoto.contentSize = CGSizeMake(imagesize.width*imagelist.count, imagesize.height);
-    
-    // Add images into scroll view
-    for (int i=0; i<imagelist.count; i++)
-    {
-//        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*imagesize.width+5, 0, imagesize.width-10,
-        
-        ImageBox *box = [[ImageBox alloc] initWithFrame:CGRectMake(i*imagesize.width+5, 0, imagesize.width-10, imagesize.height) image:nil delegate:nil needDeleteBtn:NO];
-        [box.imgView setImageWithURL:[NSURL URLWithString:[imagelist objectAtIndex:i]] placeholderImage:[UIImage imageNamed:@"defualtLawfirm"]];
-        [self.scPhoto addSubview:box];
-    }
- 
- 
-    // Add images into scroll view
-    
-    
+}
+
+- (void) configViewWithmainImage:(NSURL *)mainimageurl introimagelist:(NSArray *)imagelist Count:(NSNumber *)count adress:(NSString *)adress phone:(NSString *)phone netAdress:(NSString *)netadress fax:(NSString *)fax detailInfo: (NSString *)detailinfo
+{
+
+    [self.mainImg setImageWithURL:mainimageurl placeholderImage:[UIImage imageNamed:@"defualtLawfirm"]];
+
     self.lbCount.text = [NSString stringWithFormat:@"%d",[count integerValue]];
     self.lbAdress.text = adress;
     self.lbPhone.text = phone;
     self.lbNetAdress.text = netadress;
     self.lbFax.text = fax;
-  //  [self.lbDetail removeFromSuperview];
-   // self.lbDetail.numberOfLines = 0;
-    self.lbDetail.text = @"";
-    CGSize size = [self caculate:detailinfo];
-    self.frame = CGRectMake(0, 0, 320,  (size.height > 25 ? 274:271)+size.height+10);
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(83.0f,  (size.height > 25 ? 274:271), size.width,  (size.height > 25 ? size.height:25))];
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor grayColor];
-    label.numberOfLines = 0;
-    label.lineBreakMode = NSLineBreakByWordWrapping;
-    label.adjustsFontSizeToFitWidth = YES;
-    label.text  = detailinfo;
-    label.baselineAdjustment = UIBaselineAdjustmentAlignBaselines;
-    label.font = [UIFont systemFontOfSize:14];
-    [self addSubview:label];
-
+    
+    if ([imagelist isAbsoluteValid])
+    {
+        CGSize imagesize = CGSizeMake(kImageWidth, _scPhoto.height);
+        self.scPhoto.contentSize = CGSizeMake((imagesize.width + kBetweenSpace)*imagelist.count - kBetweenSpace, imagesize.height);
+//        self.scPhoto.contentSize = CGSizeMake((imagesize.width + kBetweenSpace)*10 - kBetweenSpace, imagesize.height);
+        _scPhoto.backgroundColor = [UIColor clearColor];
+        
+        CGFloat startX = 0;
+        for (int i=0; i<imagelist.count; i++)
+        {
+            ImageBox *box = [[ImageBox alloc] initWithFrame:CGRectMake(startX, 0, imagesize.width, imagesize.height) image:nil delegate:nil needDeleteBtn:NO];
+            [box.imgView setImageWithURL:[NSURL URLWithString:[imagelist objectAtIndex:i]] placeholderImage:[UIImage imageNamed:@"defualtLawfirm"]];
+            [self.scPhoto addSubview:box];
+            startX += box.width + kBetweenSpace;
+        }
+    }
+    _leftBtn.hidden = imagelist.count > 3 ? NO:YES;
+    _rightBtn.hidden = _leftBtn.hidden;
+ 
+    NSString *newDetail = [NSString stringWithFormat:@"                %@",detailinfo];
+    
+    CGSize size = [newDetail sizeWithFont:_lbDetail.font constrainedToWidth:_lbDetail.width];
+    _lbDetail.height = MAX(size.height, 17);
+    _lbDetail.text = newDetail;
+    
+    self.height = CGRectGetMaxY(_lbDetail.frame) + 10;
+    [self layoutSubviews];
+    
 }
 
 - (CGSize)caculate:(NSString *)string
@@ -105,12 +94,32 @@
 
 
 
-- (IBAction)turntoLeft:(id)sender {
-    
+- (IBAction)turntoLeft:(id)sender
+{
+
+    CGPoint point = CGPointMake(0, 0);
+    if (_scPhoto.contentOffset.x > 0 && _scPhoto.contentOffset.x < kImageWidth + kBetweenSpace)
+    {
+        
+    }
+    if (_scPhoto.contentOffset.x >= kImageWidth + kBetweenSpace)
+    {
+        point = CGPointMake(_scPhoto.contentOffset.x - kImageWidth - kBetweenSpace, _scPhoto.contentOffset.y);
+    }
+    [_scPhoto setContentOffset:point animated:YES];
 }
 
-- (IBAction)turntoRight:(id)sender {
-    
+- (IBAction)turntoRight:(id)sender
+{
+    CGPoint point = CGPointMake(_scPhoto.contentOffset.x + kImageWidth + kBetweenSpace, _scPhoto.contentOffset.y);
+    if (_scPhoto.contentOffset.x > _scPhoto.contentSize.width - kImageWidth)
+    {
+        if (_scPhoto.contentOffset.x < _scPhoto.contentSize.width)
+        {
+            point = CGPointMake(_scPhoto.contentOffset.x - kImageWidth, _scPhoto.contentOffset.y);
+        }
+    }
+    [_scPhoto setContentOffset:point animated:YES];
 }
 
 

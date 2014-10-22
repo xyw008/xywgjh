@@ -289,12 +289,17 @@
          cell = [tableView dequeueReusableCellWithIdentifier:moreIdentifier];
          if (!cell) {
              cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:moreIdentifier];
-             UILabel *moreLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, cell.width, kCellHeight)];
+             CGFloat width = 80;
+             UILabel *moreLB = [[UILabel alloc] initWithFrame:CGRectMake((cell.width - width)/2 - 4, 0, width, kCellHeight)];
              moreLB.text = @"更多新闻";
+             moreLB.textColor = [UIColor grayColor];
              moreLB.textAlignment = NSTextAlignmentCenter;
-             moreLB.font = SP15Font;
+             moreLB.font = SP16Font;
              [cell.contentView addSubview:moreLB];
-             [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
+//             [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
+             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(moreLB.frame), 12, 7, 12)];
+             imgView.image = [UIImage imageNamed:@"home_moreNew"];
+             [cell.contentView addSubview:imgView];
          }
      }
      else
