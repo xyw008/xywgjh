@@ -33,11 +33,12 @@
 
 @interface SearchDeatalViewController ()
 {
-  	NSUInteger currentIndex;
-	NSUInteger pageSize;
-	NSUInteger totalItemCount;
+  	NSUInteger          currentIndex;
+	NSUInteger          pageSize;
+	NSUInteger          totalItemCount;
     
-    BMKMapView *_mapView;
+    BMKMapView          *_mapView;
+    BMKLocationService  *_locService;
 }
 
 @property (assign, atomic) BOOL loading;
@@ -63,6 +64,14 @@
         _isShowMapView = YES;
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [self removeSignalObserver];
+    
+    [_locService stopUserLocationService];
+    _locService.delegate = nil;
 }
 
 - (void)initialize
@@ -107,6 +116,9 @@
     [_mapView keepAutoresizingInFull];
     [self.view addSubview:_mapView];
     
+    // 开启地图定位
+    [self startUserLocationService];
+    
     //判断是显示地图还是列表
     _mapView.hidden = !_isShowMapView;
     self.tableView.hidden = _isShowMapView;
@@ -140,6 +152,19 @@
     [self removeProgressHUD];
     [super viewWillDisappear:animated];
 }
+
+// 开启地图定位
+- (void)startUserLocationService
+{
+    _locService = [[BMKLocationService alloc]init];
+    _locService.delegate = self;
+    [_locService startUserLocationService];
+    
+    _mapView.showsUserLocation = NO;                        // 先关闭显示的定位图层
+    _mapView.userTrackingMode = BMKUserTrackingModeNone;    // 设置定位的状态
+    _mapView.showsUserLocation = YES;                       // 显示定位图层
+}
+
 // 设置地图中心位置，加载地图标注
 - (void) showMapnode
 {
@@ -368,11 +393,15 @@
     
 }
 
-- (void)mapView:(BMKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+- (void)didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
-    
+    [_mapView updateLocationData:userLocation];
 }
 
+- (void)didFailToLocateUserWithError:(NSError *)error
+{
+    DLog(@"定位失败");
+}
 
 // 搜索加载数据
 #pragma mark - DataModle
@@ -738,11 +767,6 @@
 
 #pragma mark -
 
-
-- (void)dealloc
-{
-    [self removeSignalObserver];
-}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
