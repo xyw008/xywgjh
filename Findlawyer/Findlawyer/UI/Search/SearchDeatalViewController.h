@@ -12,7 +12,7 @@
 
 @interface SearchDeatalViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,BMKMapViewDelegate, BMKLocationServiceDelegate, UISearchBarDelegate>
 
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, strong) UISearchBar *searchBar;
 //@property (nonatomic,strong) BMKMapView * mapView;
 @property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,strong) NSString * strTitle; //VC Titile

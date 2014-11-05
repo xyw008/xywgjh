@@ -96,7 +96,7 @@
     self.title = self.strTitle;
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.viewBoundsWidth, 44)];
-    self.searchBar.placeholder = @"请输入你要找的律师";
+    self.searchBar.placeholder = @"请输入您要找的律师";
     if (self.searchKey.length >0 && !_isHiddenSearchKey)
     {
         self.searchBar.text = self.searchKey;
@@ -112,8 +112,9 @@
     self.listContend  = [[NSMutableArray alloc]init];
     
     CGRect subviewframe = CGRectMake(0, CGRectGetMaxY(_searchBar.frame), self.viewBoundsWidth, self.viewBoundsHeight - CGRectGetMaxY(_searchBar.frame));
-    self.bgSearchView = [[UIView alloc]initWithFrame:subviewframe];
-    self.bgSearchView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
+    self.bgSearchView = [UIButton buttonWithType:UIButtonTypeCustom];
+    _bgSearchView.frame = subviewframe;
+    _bgSearchView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
     
     self.tableView = [[UITableView alloc]initWithFrame:subviewframe];
     [_tableView keepAutoresizingInFull];

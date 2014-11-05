@@ -87,18 +87,26 @@
     currentIndex = 0;
     pageSize = 30;
    
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.viewBoundsWidth, 44)];
+    self.searchBar.placeholder = @"请输入您要找的律师事务所名";
+    if ([_searchKey isAbsoluteValid])
+    {
+        self.searchBar.text = _searchKey;
+    }
     [self.searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"Search_topBar_bg"] forState:UIControlStateNormal];
     [_searchBar setBackgroundImage:[UIImage imageNamed:@"searchBG"]];
     self.searchBar.delegate = self;
+    [self.view addSubview:_searchBar];
     
     self.allLawyerEntityArray = [NSMutableArray array];
     self.searchResults =[[NSMutableArray alloc]init];
     self.listContend  = [[NSMutableArray alloc]init];
     
     CGRect subviewframe = CGRectMake(0, CGRectGetMaxY(_searchBar.frame), self.viewBoundsWidth, self.viewBoundsHeight - CGRectGetMaxY(_searchBar.frame));
-    self.bgSearchView = [[UIView alloc]initWithFrame:subviewframe];
+    self.bgSearchView = [UIButton buttonWithType:UIButtonTypeCustom];
+    _bgSearchView.frame = subviewframe;
+    _bgSearchView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
     
-    self.bgSearchView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
     self.tableView = [[UITableView alloc]initWithFrame:subviewframe];
    //先注册自定义的LawfirmCell以便重用
    [self.tableView registerNib:[UINib nibWithNibName:@"LawfirmCell" bundle:nil] forCellReuseIdentifier:@"LawfirmCell"];
