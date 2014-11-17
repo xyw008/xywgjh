@@ -20,6 +20,7 @@
 #import "HUDManager.h"
 #import "InfoDetailViewController.h"
 #import "NimbusWebController.h"
+#import "CycleScrollView.h"
 
 #define kCellHeight 35
 
@@ -194,14 +195,17 @@
     
     [self.titileview addSubview:bgAD];
     
+    /*
     UIImageView *imgAD =[[UIImageView alloc]initWithFrame:CGRectMake(10, 5 , self.view.frame.size.width-10*2, 80)];
     imgAD.image = [UIImage imageNamed:@"lawfirmSmal"];
     imgAD.layer.masksToBounds = YES;
     imgAD.layer.cornerRadius = 5;
     imgAD.layer.borderColor = [[UIColor groupTableViewBackgroundColor]CGColor];
-//    [bgAD addSubview:imgAD];
-   
-  //  return self.titileview;
+    [bgAD addSubview:imgAD];
+     */
+    
+    CycleScrollView *cycleScrollView = [[CycleScrollView alloc] initWithFrame:bgAD.bounds viewContentMode:ViewShowStyle_None delegate:nil localImgNames:@[@"lawfirmSmal"/*, @"InviteTable"*/] isAutoScroll:NO isCanZoom:NO];
+    [bgAD addSubview:cycleScrollView];
 }
 
 - (void)clicked:(UIButton *)sender
@@ -210,6 +214,7 @@
     {
 //        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
 //        SearchLawyerViewController *vc = (SearchLawyerViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawyer"];
+        
         SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
         vc.strTitle = @"附近律师";
         vc.searchKey = @"";
@@ -218,7 +223,6 @@
     }
     else if (sender.tag == 1)
     {
-        
 //        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
 //        SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
         

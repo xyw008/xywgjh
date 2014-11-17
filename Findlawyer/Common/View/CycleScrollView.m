@@ -287,8 +287,20 @@
 
 - (int)validPageValue:(NSInteger)value
 {
-    if(value < 0) value = _totalPages - 1;
-    if(value > _totalPages - 1) value = 0;
+    if (_totalPages > 2)
+    {
+        if(value < 0) value = _totalPages - 1;
+        if(value > _totalPages - 1) value = 0;
+    }
+    else if (_totalPages == 2)
+    {
+        if(value < 0) value = _totalPages - 1;
+        if(value > _totalPages - 1) value = 0;
+    }
+    else
+    {
+        value = 0;
+    }
     
     return value;
 }
