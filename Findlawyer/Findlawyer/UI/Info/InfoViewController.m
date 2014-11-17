@@ -144,7 +144,7 @@
 
 - (void)customTitleView
 {
-    self.titileview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 10+60 *2 +20*2+5+90+10)];
+    self.titileview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10+60 *2 +20*2+5+90+10)];
     
     CGRect frame;
     CGRect lframe;
@@ -199,7 +199,7 @@
     imgAD.layer.masksToBounds = YES;
     imgAD.layer.cornerRadius = 5;
     imgAD.layer.borderColor = [[UIColor groupTableViewBackgroundColor]CGColor];
-    [bgAD addSubview:imgAD];
+//    [bgAD addSubview:imgAD];
    
   //  return self.titileview;
 }
