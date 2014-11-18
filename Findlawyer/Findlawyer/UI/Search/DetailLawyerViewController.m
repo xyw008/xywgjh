@@ -482,7 +482,7 @@
             [self callNumber:self.lawyer.tel];
             break;
         case ToolBtnTouchType_Sms:
-            [self presentMessageComposeViewControllerWithNumber:self.lawyer.tel];
+            [self presentMessageComposeViewControllerWithNumber:self.lawyer.mobile];
             break;
         default:
             break;
