@@ -9,7 +9,7 @@
 #import "InfoDetailViewController.h"
 #import "BaseNetworkViewController+NetRequestManager.h"
 
-@interface InfoDetailViewController ()
+@interface InfoDetailViewController () <UIWebViewDelegate>
 {
     NSInteger _newsId;
     
@@ -100,8 +100,15 @@
 
 - (void)initialization
 {
-    _webView = InsertWebView(self.view, self.view.bounds, nil, 1000);
+    _webView = InsertWebView(self.view, self.view.bounds, self, 1000);
     [_webView keepAutoresizingInFull];
+}
+
+#pragma mark - UIWebViewDelegate methods
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    
 }
 
 @end

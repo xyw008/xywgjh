@@ -222,6 +222,7 @@
 		43DABED219ED276800CA3FD9 /* 8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43DABEB819ED276800CA3FD9 /* 8@2x.png */; };
 		43DABED319ED276800CA3FD9 /* 9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43DABEB919ED276800CA3FD9 /* 9@2x.png */; };
 		43DABED719ED3E6500CA3FD9 /* navBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43DABED619ED3E6500CA3FD9 /* navBack@2x.png */; };
+		43E09D611A1A176400DDBCD2 /* CycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E09D601A1A176400DDBCD2 /* CycleScrollView.m */; };
 		5107E2AE19765BDF005A965C /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5107E2AC19765BDF005A965C /* SettingViewController.m */; };
 		5107E2B519766882005A965C /* ConsultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5107E2B419766882005A965C /* ConsultViewController.m */; };
 		5107E2B819766D03005A965C /* InfoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5107E2B719766D03005A965C /* InfoDetailViewController.m */; };
@@ -851,6 +852,8 @@
 		43DABEB819ED276800CA3FD9 /* 8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "8@2x.png"; sourceTree = "<group>"; };
 		43DABEB919ED276800CA3FD9 /* 9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "9@2x.png"; sourceTree = "<group>"; };
 		43DABED619ED3E6500CA3FD9 /* navBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBack@2x.png"; sourceTree = "<group>"; };
+		43E09D5F1A1A176400DDBCD2 /* CycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleScrollView.h; sourceTree = "<group>"; };
+		43E09D601A1A176400DDBCD2 /* CycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleScrollView.m; sourceTree = "<group>"; };
 		5107E2AC19765BDF005A965C /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		5107E2AD19765BDF005A965C /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		5107E2B319766882005A965C /* ConsultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultViewController.h; sourceTree = "<group>"; };
@@ -1578,6 +1581,7 @@
 		43B1841E19ECB74E00B7B1F6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				43E09D5E1A1A176400DDBCD2 /* View */,
 				43B1865719ECBC0800B7B1F6 /* AppSmallUtils.h */,
 				43B1865819ECBC0800B7B1F6 /* AppSmallUtils.m */,
 				43B1865919ECBC0800B7B1F6 /* AppSoundManager.h */,
@@ -1999,6 +2003,15 @@
 				43DABEB919ED276800CA3FD9 /* 9@2x.png */,
 			);
 			path = mapAnnotations;
+			sourceTree = "<group>";
+		};
+		43E09D5E1A1A176400DDBCD2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				43E09D5F1A1A176400DDBCD2 /* CycleScrollView.h */,
+				43E09D601A1A176400DDBCD2 /* CycleScrollView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		5107E2B21976686A005A965C /* Consult */ = {
@@ -3434,6 +3447,7 @@
 				51F64BF7196FE91000BBD314 /* NSString+TimeFormat.m in Sources */,
 				B39F45B719F4E28F00C89290 /* NIBadgeView.m in Sources */,
 				43B184E619ECB91100B7B1F6 /* NSString+SSToolkitAdditions.m in Sources */,
+				43E09D611A1A176400DDBCD2 /* CycleScrollView.m in Sources */,
 				43B1844619ECB74E00B7B1F6 /* IQNSArray+Sort.m in Sources */,
 				B39F45C219F4E28F00C89290 /* NICommonMetrics.m in Sources */,
 				43B1862219ECBA4800B7B1F6 /* ATLayout+UIView.m in Sources */,

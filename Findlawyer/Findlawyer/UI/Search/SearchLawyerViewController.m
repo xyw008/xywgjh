@@ -46,6 +46,8 @@
     
     BMKMapView          *_mapView;
     BMKLocationService  *_locService;
+    
+    BOOL                _isLocationSuccess;
 }
 
 @property (assign, atomic) BOOL loading;
@@ -524,6 +526,14 @@
 - (void)didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
     [_mapView updateLocationData:userLocation];
+    
+    if (!_isLocationSuccess)
+    {
+        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(userLocation.location.coordinate, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
+        [_mapView setRegion:viewRegion animated:YES];
+        
+        _isLocationSuccess = !_isLocationSuccess;
+    }
 }
 
 - (void)didFailToLocateUserWithError:(NSError *)error
