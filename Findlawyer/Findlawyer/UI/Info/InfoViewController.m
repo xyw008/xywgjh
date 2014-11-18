@@ -24,7 +24,7 @@
 
 #define kCellHeight 35
 
-@interface InfoViewController () <NetRequestDelegate>
+@interface InfoViewController () <NetRequestDelegate, CycleScrollViewDelegate>
 {
     UIView * rigitemTitleView;
     
@@ -204,8 +204,13 @@
     [bgAD addSubview:imgAD];
      */
     
-    CycleScrollView *cycleScrollView = [[CycleScrollView alloc] initWithFrame:bgAD.bounds viewContentMode:ViewShowStyle_None delegate:nil localImgNames:@[@"lawfirmSmal"/*, @"InviteTable"*/] isAutoScroll:NO isCanZoom:NO];
+    CycleScrollView *cycleScrollView = [[CycleScrollView alloc] initWithFrame:bgAD.bounds viewContentMode:ViewShowStyle_None delegate:self localImgNames:@[@"lawfirmSmal"/*, @"InviteTable", @"lawyerMapAnnotationUserHeaderDefault.", @"http://mail4u.tnu.edu.tw/~n39607015/pg2/homework/07.files/image014.jpg"*/] isAutoScroll:YES isCanZoom:YES];
     [bgAD addSubview:cycleScrollView];
+}
+
+- (void)didClickPage:(CycleScrollView *)csView atIndex:(NSInteger)index
+{
+    DLog(@"click index = %d",index);
 }
 
 - (void)clicked:(UIButton *)sender
