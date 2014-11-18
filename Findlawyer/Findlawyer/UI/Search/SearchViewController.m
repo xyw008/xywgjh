@@ -266,6 +266,7 @@ typedef enum
 {
     searchTF.text = nil;
     [searchTF resignFirstResponder];
+    self.tabBarController.selectedIndex = 0;
 }
 
 /**
