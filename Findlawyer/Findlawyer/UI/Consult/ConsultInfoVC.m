@@ -295,7 +295,7 @@
     {
         if (_askId)
         {
-            if ([_selectTypeLB.text isEqualToString:kDefaultBtnText])
+            if ([_selectBtn.titleLabel.text isEqualToString:kDefaultBtnText])
             {
                 [self showHUDInfoByString:@"请选择咨询类型"];
                 return;
