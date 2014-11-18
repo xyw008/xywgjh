@@ -145,7 +145,9 @@
 
 - (void)customTitleView
 {
-    self.titileview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10+60 *2 +20*2+5+90+10)];
+    CGSize bannerSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.width * 0.3);
+    
+    self.titileview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10+60 *2 +20*2+5 + bannerSize.height + 10)];
     
     CGRect frame;
     CGRect lframe;
@@ -190,27 +192,14 @@
         frame.origin.y += 60+20 ;
     }
  
-    UIView *bgAD = [[UIView alloc]initWithFrame:CGRectMake(0,10+ 60 *2  +20*2+5 , self.view.frame.size.width , 90)];
-    bgAD.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    UIView *bgAD = [[UIView alloc]initWithFrame:CGRectMake(0,10+ 60 *2  +20*2+5, bannerSize.width, bannerSize.height)];
+    bgAD.backgroundColor = [UIColor clearColor];
     
     [self.titileview addSubview:bgAD];
     
-    /*
-    UIImageView *imgAD =[[UIImageView alloc]initWithFrame:CGRectMake(10, 5 , self.view.frame.size.width-10*2, 80)];
-    imgAD.image = [UIImage imageNamed:@"lawfirmSmal"];
-    imgAD.layer.masksToBounds = YES;
-    imgAD.layer.cornerRadius = 5;
-    imgAD.layer.borderColor = [[UIColor groupTableViewBackgroundColor]CGColor];
-    [bgAD addSubview:imgAD];
-     */
-    
-    CycleScrollView *cycleScrollView = [[CycleScrollView alloc] initWithFrame:bgAD.bounds viewContentMode:ViewShowStyle_None delegate:self localImgNames:@[@"lawfirmSmal"/*, @"InviteTable", @"lawyerMapAnnotationUserHeaderDefault.", @"http://mail4u.tnu.edu.tw/~n39607015/pg2/homework/07.files/image014.jpg"*/] isAutoScroll:YES isCanZoom:YES];
+    CycleScrollView *cycleScrollView = [[CycleScrollView alloc] initWithFrame:CGRectInset(bgAD.bounds, 5, 0) viewContentMode:ViewShowStyle_None delegate:self localImgNames:@[@"lawfirmSmal"/*, @"InviteTable", @"lawyerMapAnnotationUserHeaderDefault.", @"http://mail4u.tnu.edu.tw/~n39607015/pg2/homework/07.files/image014.jpg"*/] isAutoScroll:YES isCanZoom:YES];
+    [cycleScrollView setRadius:5];
     [bgAD addSubview:cycleScrollView];
-}
-
-- (void)didClickPage:(CycleScrollView *)csView atIndex:(NSInteger)index
-{
-    DLog(@"click index = %d",index);
 }
 
 - (void)clicked:(UIButton *)sender
@@ -408,6 +397,13 @@
             }
         }
     }
+}
+
+#pragma mark - CycleScrollViewDelegate methods
+
+- (void)didClickPage:(CycleScrollView *)csView atIndex:(NSInteger)index
+{
+    DLog(@"click index = %d",index);
 }
 
 @end
