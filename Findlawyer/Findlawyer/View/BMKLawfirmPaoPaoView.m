@@ -43,8 +43,8 @@
 //        }
         
         _lawfirmAddressLabel.text = [NSString stringWithFormat:@"%@",lawfirmEntity.address];
+//        _lawfirmAddressLabel.text = [NSString stringWithFormat:@"%@测试测试试测试试测试试测试试测试",lawfirmEntity.address];
         _lawyerNumLabel.text = [NSString stringWithFormat:@"执业人数: %@",lawfirmEntity.memberCount];
-        
     }
 }
 

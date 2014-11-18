@@ -59,8 +59,8 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="深圳地王大厦万象城" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yH2-kW-NAv">
-                    <rect key="frame" x="124" y="27" width="169" height="36"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="深圳地王大厦万象城深圳地王大厦万象城" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yH2-kW-NAv">
+                    <rect key="frame" x="124" y="28" width="169" height="36"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -92,7 +92,7 @@
                 <constraint firstItem="eTx-in-7Sv" firstAttribute="top" secondItem="3pi-fv-W2j" secondAttribute="top" constant="8" id="maD-Je-QYm"/>
                 <constraint firstAttribute="trailing" secondItem="yH2-kW-NAv" secondAttribute="trailing" constant="7" id="mjT-XG-h6O"/>
                 <constraint firstItem="faM-Yp-ICS" firstAttribute="top" secondItem="3pi-fv-W2j" secondAttribute="top" constant="13" id="ndv-Cy-vIN"/>
-                <constraint firstItem="yH2-kW-NAv" firstAttribute="top" secondItem="eTx-in-7Sv" secondAttribute="bottom" id="qgm-H1-8RW"/>
+                <constraint firstItem="yH2-kW-NAv" firstAttribute="top" secondItem="eTx-in-7Sv" secondAttribute="bottom" constant="1" id="qgm-H1-8RW"/>
                 <constraint firstItem="tSd-ED-XXK" firstAttribute="leading" secondItem="eTx-in-7Sv" secondAttribute="trailing" constant="5" id="tmD-fB-vec"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

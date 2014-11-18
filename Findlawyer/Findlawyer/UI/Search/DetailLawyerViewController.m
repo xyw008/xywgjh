@@ -322,7 +322,7 @@
 {
     _toolview = [ToolView loadFromNib];
     _toolview.frame = CGRectMake(0, CGRectGetMaxY(_myScrollView.frame), self.view.width, _toolview.height);
-    [_toolview configViewWithPhone:self.lawyer.tel];
+    [_toolview configViewWithPhone:self.lawyer.mobile];
     _toolview.delegate = self;
     [_toolview keepAutoresizingInFull];
     [self.view addSubview:_toolview];
