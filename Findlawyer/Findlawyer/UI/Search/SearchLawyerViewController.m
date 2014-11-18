@@ -248,6 +248,23 @@
 			[annotations addObject:locationAnnotation];
 		}
         
+        /**
+         @ 修改描述     加多搜索视图选择法院周边 点击进来 情况的判断。标注律所的图标
+         @ 修改人       leo
+         @ 修改时间     2014-11-18
+         @ 修改开始
+         */
+
+        if (_searchLocation.latitude)
+        {
+            LBSLawyer *lawyer = [[LBSLawyer alloc] init];
+            lawyer.coordinate = _searchLocation;
+            
+            LBSLawyerLocationAnnotation *locationAnnotation = [[LBSLawyerLocationAnnotation alloc] initWithLawyer:lawyer];
+            [annotations addObject:locationAnnotation];
+        }
+        // 修改结束
+        
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[_mapView addAnnotations:annotations];
 		});
@@ -470,6 +487,32 @@
             newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:theAnnotation reuseIdentifier:AnnotationViewID];
         }
         
+        /**
+         @ 修改描述     加多搜索视图选择法院周边 点击进来 情况的判断。标注律所的图标
+         @ 修改人       leo
+         @ 修改时间     2014-11-18
+         @ 修改开始
+         */
+        
+        //开始修改
+        if (_searchLocation.latitude && theAnnotation.lawyer.lawerid == nil)
+        {
+            newAnnotationView.image = [UIImage imageNamed:@"court"];;
+        }
+        else
+        {
+            newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawyer] + 1];
+            
+            // paopao视图
+            BMKLawyerPaoPaoView *paopaoView = [BMKLawyerPaoPaoView loadFromNib];
+            
+            // 加载paopao视图的数据
+            [paopaoView loadViewData:theAnnotation.lawyer];
+            newAnnotationView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
+            
+        }
+        
+        /*
         newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawyer] + 1];
         
         // paopao视图
@@ -478,6 +521,12 @@
         // 加载paopao视图的数据
         [paopaoView loadViewData:theAnnotation.lawyer];
         newAnnotationView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
+        */
+        
+        
+        
+        //结束修改
+        
         
         /*
         // 设置颜色

@@ -51,7 +51,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="执业人数：288" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sra-G1-yDM">
-                    <rect key="frame" x="87" y="63" width="206" height="19"/>
+                    <rect key="frame" x="87" y="64" width="206" height="19"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="19" id="8f4-hw-lEw"/>
                     </constraints>
@@ -85,10 +85,10 @@
                 <constraint firstItem="faM-Yp-ICS" firstAttribute="leading" secondItem="3pi-fv-W2j" secondAttribute="leading" constant="7" id="HTy-uG-Fe5"/>
                 <constraint firstItem="4dC-Fc-0sw" firstAttribute="leading" secondItem="faM-Yp-ICS" secondAttribute="trailing" constant="6" id="Qqa-QS-RFV"/>
                 <constraint firstItem="yH2-kW-NAv" firstAttribute="leading" secondItem="4dC-Fc-0sw" secondAttribute="trailing" constant="2" id="RS2-jN-ZrQ"/>
+                <constraint firstItem="Sra-G1-yDM" firstAttribute="top" secondItem="yH2-kW-NAv" secondAttribute="bottom" id="SE8-QZ-CXd"/>
                 <constraint firstItem="Sra-G1-yDM" firstAttribute="leading" secondItem="faM-Yp-ICS" secondAttribute="trailing" constant="6" id="VQR-gH-mGo"/>
                 <constraint firstItem="eTx-in-7Sv" firstAttribute="leading" secondItem="faM-Yp-ICS" secondAttribute="trailing" constant="6" id="ZlG-1j-UWg"/>
                 <constraint firstItem="4dC-Fc-0sw" firstAttribute="top" secondItem="eTx-in-7Sv" secondAttribute="bottom" id="bOh-sx-QqM"/>
-                <constraint firstItem="Sra-G1-yDM" firstAttribute="top" secondItem="4dC-Fc-0sw" secondAttribute="bottom" constant="17" id="gfF-ca-fXg"/>
                 <constraint firstItem="eTx-in-7Sv" firstAttribute="top" secondItem="3pi-fv-W2j" secondAttribute="top" constant="8" id="maD-Je-QYm"/>
                 <constraint firstAttribute="trailing" secondItem="yH2-kW-NAv" secondAttribute="trailing" constant="7" id="mjT-XG-h6O"/>
                 <constraint firstItem="faM-Yp-ICS" firstAttribute="top" secondItem="3pi-fv-W2j" secondAttribute="top" constant="13" id="ndv-Cy-vIN"/>
@@ -112,7 +112,7 @@
                 <outlet property="lawyerNumLabel" destination="Sra-G1-yDM" id="6lV-ja-TV1"/>
                 <outlet property="lawyfirmHeaderImageView" destination="faM-Yp-ICS" id="csK-iF-4hD"/>
             </connections>
-            <point key="canvasLocation" x="278" y="430.5"/>
+            <point key="canvasLocation" x="123" y="427.5"/>
         </view>
     </objects>
     <resources>

@@ -323,10 +323,12 @@ typedef enum
  */
 - (void)SearchSortView:(SearchSortView*)view didTouchIndex:(NSInteger)index didBtnTitle:(NSString*)title
 {
+    //法院周边
     if ([view isEqual:_courtSortView])
     {
         [self pushSearchDeatalVCWithSearchKey:title hasCoordinate:YES];
     }
+    //删除领域
     else if ([view isEqual:_specialtySortView])
     {
         [self pushSearchLawyerVCWithSearchKey:title hiddenSearchKey:YES];
