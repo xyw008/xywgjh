@@ -221,6 +221,11 @@
     }
     else
     {
+        if (_searchLocation.latitude) {
+            [self loadAnnotationWithArray:[[NSArray alloc] init]];
+        }
+        
+        
         /*
         AppDelegate *delegate =(AppDelegate *) [UIApplication sharedApplication].delegate;
         CLLocationCoordinate2D coor;
@@ -827,9 +832,8 @@
     lycell.lbName.text = lawyer.name;
     lycell.lblawfirm.text = lawyer.lawfirmName;
     lycell.lbCertificate.text = lawyer.certificateNo;
-    lycell.lbPhone.text = lawyer.tel ? lawyer.tel : @"暂无电话";
+    lycell.lbPhone.text = lawyer.mobile ? lawyer.mobile : @"暂无电话";
     lycell.specialAreaStr = lawyer.specialArea;
-
     [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
 }
 
@@ -1028,7 +1032,7 @@
         
         case LawyerCellOperationType_PhoneCall:
         {
-            [CallAndMessageManager callNumber:cellSelectedLawyer.tel call:^(NSTimeInterval duration) {
+            [CallAndMessageManager callNumber:cellSelectedLawyer.mobile call:^(NSTimeInterval duration) {
                 
             } callCancel:^{
                 
@@ -1037,7 +1041,7 @@
             break;
         case LawyerCellOperationType_SendMessage:
         {
-            [CallAndMessageManager sendMessageNumber:cellSelectedLawyer.tel resultBlock:^(MessageSendResultType type) {
+            [CallAndMessageManager sendMessageNumber:cellSelectedLawyer.mobile resultBlock:^(MessageSendResultType type) {
                 
             }];
         }

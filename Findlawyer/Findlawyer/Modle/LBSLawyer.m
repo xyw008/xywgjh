@@ -81,8 +81,8 @@ double calculateDist(double lon1,double lat1,
             self.city = STRING_UN_NSNULL(dataModel[@"city"]);
             self.district = STRING_UN_NSNULL(dataModel[@"district"]);
             self.tel = STRING_UN_NSNULL(dataModel[@"Tel"]);
+            self.mobile = STRING_UN_NSNULL(dataModel[@"Mobile"]);
         }
-    
     }
     
 	return self;
