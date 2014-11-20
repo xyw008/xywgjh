@@ -46,6 +46,8 @@
     
     BMKMapView          *_mapView;
     BMKLocationService  *_locService;
+    
+    BOOL                _isLocationSuccess;
 }
 
 @property (assign, atomic) BOOL loading;
@@ -219,6 +221,11 @@
     }
     else
     {
+        if (_searchLocation.latitude) {
+            [self loadAnnotationWithArray:[[NSArray alloc] init]];
+        }
+        
+        
         /*
         AppDelegate *delegate =(AppDelegate *) [UIApplication sharedApplication].delegate;
         CLLocationCoordinate2D coor;
@@ -245,6 +252,23 @@
 			LBSLawyerLocationAnnotation *locationAnnotation = [[LBSLawyerLocationAnnotation alloc] initWithLawyer:lawyer];
 			[annotations addObject:locationAnnotation];
 		}
+        
+        /**
+         @ 修改描述     加多搜索视图选择法院周边 点击进来 情况的判断。标注律所的图标
+         @ 修改人       leo
+         @ 修改时间     2014-11-18
+         @ 修改开始
+         */
+
+        if (_searchLocation.latitude)
+        {
+            LBSLawyer *lawyer = [[LBSLawyer alloc] init];
+            lawyer.coordinate = _searchLocation;
+            
+            LBSLawyerLocationAnnotation *locationAnnotation = [[LBSLawyerLocationAnnotation alloc] initWithLawyer:lawyer];
+            [annotations addObject:locationAnnotation];
+        }
+        // 修改结束
         
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[_mapView addAnnotations:annotations];
@@ -468,6 +492,32 @@
             newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:theAnnotation reuseIdentifier:AnnotationViewID];
         }
         
+        /**
+         @ 修改描述     加多搜索视图选择法院周边 点击进来 情况的判断。标注律所的图标
+         @ 修改人       leo
+         @ 修改时间     2014-11-18
+         @ 修改开始
+         */
+        
+        //开始修改
+        if (_searchLocation.latitude && theAnnotation.lawyer.lawerid == nil)
+        {
+            newAnnotationView.image = [UIImage imageNamed:@"court"];;
+        }
+        else
+        {
+            newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawyer] + 1];
+            
+            // paopao视图
+            BMKLawyerPaoPaoView *paopaoView = [BMKLawyerPaoPaoView loadFromNib];
+            
+            // 加载paopao视图的数据
+            [paopaoView loadViewData:theAnnotation.lawyer];
+            newAnnotationView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
+            
+        }
+        
+        /*
         newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawyer] + 1];
         
         // paopao视图
@@ -476,6 +526,12 @@
         // 加载paopao视图的数据
         [paopaoView loadViewData:theAnnotation.lawyer];
         newAnnotationView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
+        */
+        
+        
+        
+        //结束修改
+        
         
         /*
         // 设置颜色
@@ -524,6 +580,14 @@
 - (void)didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
     [_mapView updateLocationData:userLocation];
+    
+    if (!_isLocationSuccess)
+    {
+        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(userLocation.location.coordinate, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
+        [_mapView setRegion:viewRegion animated:YES];
+        
+        _isLocationSuccess = !_isLocationSuccess;
+    }
 }
 
 - (void)didFailToLocateUserWithError:(NSError *)error
@@ -768,9 +832,8 @@
     lycell.lbName.text = lawyer.name;
     lycell.lblawfirm.text = lawyer.lawfirmName;
     lycell.lbCertificate.text = lawyer.certificateNo;
-    lycell.lbPhone.text = lawyer.tel ? lawyer.tel : @"暂无电话";
+    lycell.lbPhone.text = lawyer.mobile ? lawyer.mobile : @"暂无电话";
     lycell.specialAreaStr = lawyer.specialArea;
-
     [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
 }
 
@@ -969,7 +1032,7 @@
         
         case LawyerCellOperationType_PhoneCall:
         {
-            [CallAndMessageManager callNumber:cellSelectedLawyer.tel call:^(NSTimeInterval duration) {
+            [CallAndMessageManager callNumber:cellSelectedLawyer.mobile call:^(NSTimeInterval duration) {
                 
             } callCancel:^{
                 
@@ -978,7 +1041,7 @@
             break;
         case LawyerCellOperationType_SendMessage:
         {
-            [CallAndMessageManager sendMessageNumber:cellSelectedLawyer.tel resultBlock:^(MessageSendResultType type) {
+            [CallAndMessageManager sendMessageNumber:cellSelectedLawyer.mobile resultBlock:^(MessageSendResultType type) {
                 
             }];
         }

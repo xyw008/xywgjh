@@ -322,7 +322,7 @@
 {
     _toolview = [ToolView loadFromNib];
     _toolview.frame = CGRectMake(0, CGRectGetMaxY(_myScrollView.frame), self.view.width, _toolview.height);
-    [_toolview configViewWithPhone:self.lawyer.tel];
+    [_toolview configViewWithPhone:self.lawyer.mobile];
     _toolview.delegate = self;
     [_toolview keepAutoresizingInFull];
     [self.view addSubview:_toolview];
@@ -479,10 +479,10 @@
         }
             break;
         case ToolBtnTouchType_Call:
-            [self callNumber:self.lawyer.tel];
+            [self callNumber:self.lawyer.mobile];
             break;
         case ToolBtnTouchType_Sms:
-            [self presentMessageComposeViewControllerWithNumber:self.lawyer.tel];
+            [self presentMessageComposeViewControllerWithNumber:self.lawyer.mobile];
             break;
         default:
             break;

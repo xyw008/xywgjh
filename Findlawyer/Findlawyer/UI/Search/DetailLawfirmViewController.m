@@ -186,7 +186,7 @@
 - (void)loadLocalData
 {
     __weak  DetailLawfirmViewController * weakSelf = self;
-    [[LBSDataCenter defaultCenter] loadDataWithRegionSearchkey:self.lawfirm.name searchtype:searchLawyer index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, id dataModel) {
+    [[LBSDataCenter defaultCenter] loadDataWithRegionSearchkey:[NSString stringWithFormat:@"%@",self.lawfirm.lfid] searchtype:searchLawyer index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, id dataModel) {
         if (dataModel)
 		{
             // 得到数据后，放到此律所的律师列表里
@@ -213,11 +213,11 @@
                 }
                 
 				else
+                {
 //                    [UIView hideHUDWithTitle:@"加载完毕"image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
-                    [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
-                
+//                    [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
+                }
 				[weakSelf.tableView reloadData];
-                
             });
         }
         
@@ -226,7 +226,7 @@
 	[[LBSSharedData sharedData] setCurrentIndex:currentIndex];
     
   
-    
+
 }
 
 // 另一个加载律师列表的接口，但好像没什么效果
@@ -311,7 +311,7 @@
     lycell.lblawfirm.text = lawyer.lawfirmName;
     lycell.lbCertificate.text = lawyer.certificateNo;
     lycell.specialAreaStr = lawyer.specialArea;
-    lycell.lbPhone.text = lawyer.tel ? lawyer.tel : @"暂无电话";
+    lycell.lbPhone.text = lawyer.mobile ? lawyer.mobile : @"暂无电话";
     lycell.delegate = self;
     [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
 }
@@ -392,7 +392,7 @@
             
         case LawyerCellOperationType_PhoneCall:
         {
-            [CallAndMessageManager callNumber:cellSelectedLawyer.tel call:^(NSTimeInterval duration) {
+            [CallAndMessageManager callNumber:cellSelectedLawyer.mobile call:^(NSTimeInterval duration) {
                 
             } callCancel:^{
                 
@@ -401,7 +401,7 @@
             break;
         case LawyerCellOperationType_SendMessage:
         {
-            [CallAndMessageManager sendMessageNumber:cellSelectedLawyer.tel resultBlock:^(MessageSendResultType type) {
+            [CallAndMessageManager sendMessageNumber:cellSelectedLawyer.mobile resultBlock:^(MessageSendResultType type) {
                 
             }];
         }

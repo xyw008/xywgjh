@@ -650,14 +650,19 @@
     NSString *format;
     
     if (photosSelected && videoSelected)
+    {
         format = NSLocalizedString(@"%d Items Selected", nil);
-    
+    }
     else if (photosSelected)
-        format = (indexPaths.count > 1) ? NSLocalizedString(@"%d Photos Selected", nil) : NSLocalizedString(@"%d Photo Selected", nil);
-
+    {
+//        format = (indexPaths.count > 1) ? NSLocalizedString(@"%d Photos Selected", nil) : NSLocalizedString(@"%d Photo Selected", nil);
+        format = (indexPaths.count > 1) ? NSLocalizedString(@"选中%d张", nil) : NSLocalizedString(@"选中%d张", nil);
+    }
     else if (videoSelected)
-        format = (indexPaths.count > 1) ? NSLocalizedString(@"%d Videos Selected", nil) : NSLocalizedString(@"%d Video Selected", nil);
-    
+    {
+//        format = (indexPaths.count > 1) ? NSLocalizedString(@"%d Videos Selected", nil) : NSLocalizedString(@"%d Video Selected", nil);
+        format = (indexPaths.count > 1) ? NSLocalizedString(@"选中%d个视频", nil) : NSLocalizedString(@"选中%d个视频", nil);
+    }
     self.title = [NSString stringWithFormat:format, indexPaths.count];
 }
 

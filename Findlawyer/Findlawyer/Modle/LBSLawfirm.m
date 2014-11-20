@@ -57,7 +57,13 @@ double calculateLantitudeLongitudeDist(double lon1,double lat1,
             self.arImageUrlstrs = [[NSMutableArray alloc]init];
             self.lfid = @([STRING_UN_NSNULL(dataModel[@"LF_id"]) integerValue]);
             self.name = STRING_UN_NSNULL(dataModel[@"title"]);
-            self.address = STRING_UN_NSNULL(dataModel[@"address"]);
+            if ([dataModel.allKeys containsObject:@"address"])
+            {
+                self.address = STRING_UN_NSNULL(dataModel[@"address"]);
+            }else
+            {
+                self.address = @" ";
+            }
             id location = dataModel[@"location"];
             self.memberCount = dataModel[@"sum"];
             if (location) {
