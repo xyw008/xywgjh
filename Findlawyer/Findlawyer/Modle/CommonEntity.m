@@ -23,3 +23,21 @@
 }
 
 @end
+
+////////////////////////////////////////////////////
+
+@implementation HomePageBannerEntity
+
+- (id)initWithDict:(NSDictionary *)dict
+{
+    self = [super init];
+    if (self)
+    {
+        self.bannerId = [[dict objectForKey:@"Id"] integerValue];
+        self.imgUrlStr = [dict objectForKey:@"imgUrl"];
+        self.newsUrlStr = [dict objectForKey:@"webUrl"];
+    }
+    return self;
+}
+
+@end

@@ -21,14 +21,17 @@
 #import "InfoDetailViewController.h"
 #import "NimbusWebController.h"
 #import "CycleScrollView.h"
+#import "GCDThread.h"
 
 #define kCellHeight 35
 
 @interface InfoViewController () <NetRequestDelegate, CycleScrollViewDelegate>
 {
-    UIView * rigitemTitleView;
+    UIView          *_rigitemTitleView;
+    CycleScrollView *_cycleScrollView;
     
     NSMutableArray *_networkHomePageNewsEntitiesArray;
+    NSMutableArray *_networkHomePageBannerEntitiesArray;
 }
 @property (nonatomic,strong)UIButton  *btnCity ;
 
@@ -102,9 +105,9 @@
 
 - (void)customNavigationRightBtnViewByTitle:(NSString *)titile
 {
-    if (rigitemTitleView) {
+    if (_rigitemTitleView) {
         
-        rigitemTitleView = nil;
+        _rigitemTitleView = nil;
        self.navigationItem.rightBarButtonItem = nil;
     }
     // add title label
@@ -129,18 +132,18 @@
     img_view.frame = img_frame;
     
     // add title view
-    rigitemTitleView = [[UIView alloc] initWithFrame:CGRectMake(0,
+    _rigitemTitleView = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                                   0,
                                                                   title_label.frame.size.width + img_view.frame.size.width + 10,
                                                                   MAX(title_label.frame.size.height, img_view.frame.size.height))];
-    [rigitemTitleView addSubview:title_label];
-    [rigitemTitleView addSubview:img_view];
+    [_rigitemTitleView addSubview:title_label];
+    [_rigitemTitleView addSubview:img_view];
     
     // add tap gesture
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedRightButtonView:)];
-    [rigitemTitleView addGestureRecognizer:tapGesture];
+    [_rigitemTitleView addGestureRecognizer:tapGesture];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rigitemTitleView];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_rigitemTitleView];
 }
 
 - (void)customTitleView
@@ -197,9 +200,9 @@
     
     [self.titileview addSubview:bgAD];
     
-    CycleScrollView *cycleScrollView = [[CycleScrollView alloc] initWithFrame:CGRectInset(bgAD.bounds, 5, 0) viewContentMode:ViewShowStyle_None delegate:self localImgNames:@[@"lawfirmSmal"/*, @"InviteTable", @"lawyerMapAnnotationUserHeaderDefault.", @"http://mail4u.tnu.edu.tw/~n39607015/pg2/homework/07.files/image014.jpg"*/] isAutoScroll:YES isCanZoom:YES];
-    [cycleScrollView setRadius:5];
-    [bgAD addSubview:cycleScrollView];
+    _cycleScrollView = [[CycleScrollView alloc] initWithFrame:CGRectInset(bgAD.bounds, 5, 0) viewContentMode:ViewShowStyle_None delegate:self localImgNames:nil isAutoScroll:YES isCanZoom:NO];
+    [_cycleScrollView setRadius:5];
+    [bgAD addSubview:_cycleScrollView];
 }
 
 - (void)clicked:(UIButton *)sender
@@ -247,11 +250,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row ==0)
+    if (indexPath.row == 0)
     {
         return 60;
     }
-    //最后更多的新闻
+    // 最后更多的新闻
     if (indexPath.row == _networkHomePageNewsEntitiesArray.count)
     {
         return 44;
@@ -338,13 +341,28 @@
     else
     {
         HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
+        NSString *urlStr = [NSString stringWithFormat:@"http://test3.sunlawyers.com/News.aspx?id=%d&islawyer=0",entity.newsId];
+        NIWebController *web = [[NIWebController alloc] initWithURL:[NSURL URLWithString:urlStr]];
+        /*
         InfoDetailViewController *newsDetailVC = [[InfoDetailViewController alloc] initWithNewsId:entity.newsId];
         newsDetailVC.hidesBottomBarWhenPushed = YES;
+         */
         
-        [self.navigationController pushViewController:newsDetailVC animated:YES];
+        [self.navigationController pushViewController:web animated:YES];
     }
 }
 
+- (void)reloadCycleScrollViewData
+{
+    NSMutableArray *imgUrlStrArray = [NSMutableArray arrayWithCapacity:_networkHomePageBannerEntitiesArray.count];
+    for (HomePageBannerEntity *entity in _networkHomePageBannerEntitiesArray)
+    {
+        [imgUrlStrArray addObject:entity.imgUrlStr];
+    }
+    
+    _cycleScrollView.imageDataSourceArray = imgUrlStrArray;
+    [_cycleScrollView configureUI];
+}
 
 #pragma mark -
 
@@ -363,7 +381,7 @@
 
 - (void)getNetworkData
 {
-    NSURL *url = [UrlManager getRequestUrlByMethodName:@"GetTop5MainNewsList"];
+    NSURL *url = [UrlManager getRequestUrlByMethodName:@"InitLoadData"];
     
     [[NetRequestManager sharedInstance] sendRequest:url parameterDic:nil requestTag:1000 delegate:self userInfo:nil];
 }
@@ -373,7 +391,9 @@
 - (void)netRequest:(NetRequest *)request successWithInfoObj:(id)infoObj
 {
     [self parseNetworkDataWithDic:infoObj];
+    
     [self.tableView reloadData];
+    [self reloadCycleScrollViewData];
 }
 
 - (void)netRequest:(NetRequest *)request failedWithError:(NSError *)error
@@ -385,6 +405,19 @@
 {
     if ([dic isAbsoluteValid])
     {
+        // banner
+        NSArray *bannerList = [dic objectForKey:@"AD"];
+        if ([bannerList isAbsoluteValid])
+        {
+            _networkHomePageBannerEntitiesArray = [NSMutableArray arrayWithCapacity:bannerList.count];
+            for (NSDictionary *oneBannerDic in bannerList)
+            {
+                HomePageBannerEntity *entity = [HomePageBannerEntity initWithDict:oneBannerDic];
+                
+                [_networkHomePageBannerEntitiesArray addObject:entity];
+            }
+        }
+        // news list
         NSArray *newsList = [dic objectForKey:@"MainNews"];
         if ([newsList isAbsoluteValid])
         {
@@ -403,7 +436,10 @@
 
 - (void)didClickPage:(CycleScrollView *)csView atIndex:(NSInteger)index
 {
-    DLog(@"click index = %d",index);
+    HomePageBannerEntity *entity = _networkHomePageBannerEntitiesArray[index];
+    NIWebController *web = [[NIWebController alloc] initWithURL:[NSURL URLWithString:entity.newsUrlStr]];
+    
+    [self.navigationController pushViewController:web animated:YES];
 }
 
 @end
