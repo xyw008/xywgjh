@@ -296,7 +296,7 @@
          if (!cell) {
              cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:moreIdentifier];
              CGFloat width = 80;
-             UILabel *moreLB = [[UILabel alloc] initWithFrame:CGRectMake((cell.width - width)/2 - 4, 0, width, 44)];
+             UILabel *moreLB = [[UILabel alloc] initWithFrame:CGRectMake((tableView.width - width)/2 - 10, 0, width, 44)];
              moreLB.text = @"更多新闻";
              moreLB.textColor = [UIColor grayColor];
              moreLB.textAlignment = NSTextAlignmentCenter;

@@ -246,7 +246,7 @@ typedef enum
         _chooseBgView = [[UIView alloc] initWithFrame:self.view.bounds];
         _chooseBgView.backgroundColor = [UIColor clearColor];
         ChooseTable *chooseTable = [ChooseTable loadFromNib];
-        chooseTable.frameOriginX = 30;
+        chooseTable.frameOriginX = IPHONE_WIDTH > 320 ? 65 * IPHONE_WIDTH / 320 : 30 ;
         chooseTable.delegate = self;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideChooseBgView:)];
