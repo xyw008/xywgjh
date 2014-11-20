@@ -68,7 +68,17 @@
             [self creatImageBox:img];
         }
     }
-    [self changeAddBtnOrigin];
+    //如果一次传最大的图片数量进来
+    if (imgArray.count == _maxAllImageNum)
+    {
+        _addImgBtn.origin = [self getImageBoxFrameForIndex:imgArray.count - 1].origin;
+        [self changeSelfHeight];
+    }
+    else
+    {
+        [self changeAddBtnOrigin];
+    }
+    
 }
 
 /**
@@ -150,14 +160,22 @@
  */
 - (void)ImageBoxWantDeleteImg:(ImageBox*)box
 {
+    if ([_delegate respondsToSelector:@selector(ImageAddView:deleteImg:)]) {
+        [_delegate ImageAddView:self deleteImg:box.imgView.image];
+    }
+    
     int startI = box.tag - kImgBoxStartTag;
     [box removeFromSuperview];
     [_imageBoxArray removeObject:box];
-    
+
     for (int i=startI; i<_imageBoxArray.count; i++)
     {
-        ImageBox *box = [_imageBoxArray objectAtIndex:i];
-        box.origin = [self getImageBoxFrameForIndex:i].origin;
+        ImageBox *obj = [_imageBoxArray objectAtIndex:i];
+        obj.origin = [self getImageBoxFrameForIndex:i].origin;
+        
+        //删除后tag 要减去1
+        obj.tag = obj.tag - 1;
+        [_imageBoxArray replaceObjectAtIndex:i withObject:obj];
     }
     [self changeAddBtnOrigin];
 }

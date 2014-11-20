@@ -31,10 +31,10 @@
             deleteIV.image = [UIImage imageNamed:@"Delete_img"];
             [self addSubview:deleteIV];
             
-            CGFloat btnWidth = 30;
+            CGFloat btnWidth = 28;
             UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             deleteBtn.backgroundColor = [UIColor clearColor];
-            deleteBtn.frame = CGRectMake(self.width - btnWidth, 0, btnWidth, btnWidth);
+            deleteBtn.frame = CGRectMake(self.width - 24, -7, btnWidth + 8, btnWidth);
 //            [deleteBtn setBackgroundImage:[UIImage imageNamed:@"Delete_img"] forState:UIControlStateNormal];
             [deleteBtn addTarget:self action:@selector(deleteBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:deleteBtn];

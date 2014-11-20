@@ -12,9 +12,27 @@
 
 @protocol ImageAddViewDelegate <NSObject>
 
+/**
+ *  点击添加图片按钮触发
+ *
+ *  @param addView self
+ */
 - (void)ImageAddViewWantAddImage:(ImageAddView*)addView;
 
+/**
+ *  改变高度触发
+ *
+ *  @param addView self
+ */
 - (void)ImageAddViewMyHeightHasChange:(ImageAddView *)addView;
+
+/**
+ *  删除图片触发
+ *
+ *  @param addView self
+ *  @param img     删除的图片
+ */
+- (void)ImageAddView:(ImageAddView *)addView deleteImg:(UIImage*)img;
 
 @end
 

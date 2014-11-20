@@ -308,9 +308,11 @@
                 //擅长领域ID，是所在数组index + 1
                 NSString *askTypeId = [NSString stringWithFormat:@"%d",([_typeArray indexOfObject:_selectBtn.titleLabel.text] + 1)];
                 NSNumber *typeId = [[NSNumber alloc] initWithInteger:[askTypeId integerValue]];
-                NSDictionary *parm = @{@"askId":_askId,@"askTypeId":typeId,@"content":_textView.text};
                 
-                [self sendRequest:[BaseNetworkViewController getRequestURLStr:NetConsultInfoRequestType_PostSaveAskInfo] parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostSaveAskInfo];
+                DLog(@"succeed str = %@",[_uploadImageBC getSucceedReultStr]);
+                NSDictionary *parm = @{@"askId":_askId,@"askTypeId":typeId,@"content":_textView.text,@"PhotoSaves":[_uploadImageBC getSucceedReultStr]};
+                
+//                [self sendRequest:[BaseNetworkViewController getRequestURLStr:NetConsultInfoRequestType_PostSaveAskInfo] parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostSaveAskInfo];
             }
             else
             {
@@ -353,6 +355,11 @@
     UIActionSheet *menu = [[UIActionSheet alloc] initWithTitle:@"上传图片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照上传",@"从相册上传", nil];
     menu.actionSheetStyle = UIActionSheetStyleAutomatic;
     [menu showInView:self.view];
+}
+
+- (void)ImageAddView:(ImageAddView *)addView deleteImg:(UIImage*)img
+{
+    [_uploadImageBC deleteImg:img];
 }
 
 #pragma mark - UIActionSheetDelegate

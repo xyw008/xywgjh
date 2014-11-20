@@ -383,7 +383,7 @@
 
 - (void)parseNetworkDataWithDic:(NSDictionary *)dic
 {
-    if ([dic isAbsoluteValid])
+    if ([dic isSafeObject] && [dic isAbsoluteValid])
     {
         NSArray *newsList = [dic objectForKey:@"MainNews"];
         if ([newsList isAbsoluteValid])
