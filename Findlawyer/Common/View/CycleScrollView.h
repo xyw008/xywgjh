@@ -22,9 +22,11 @@ typedef enum
 
 @interface CycleScrollView : UIView <UIScrollViewDelegate>
 
+@property (nonatomic, strong)    NSArray             *imageDataSourceArray; // 图片名或者图片URL数组
+
 @property (nonatomic, readonly)  UIScrollView        *scrollView;
-@property (nonatomic, readonly)  UIPageControl       *pageControl;      // default is show
-@property (nonatomic, assign)    NSInteger           currentPage;       // default is 0
+@property (nonatomic, readonly)  UIPageControl       *pageControl;          // default is show
+@property (nonatomic, assign)    NSInteger           currentPage;           // default is 0
 @property (nonatomic, assign, setter = setDelegate:) id<CycleScrollViewDelegate> delegate;
 
 /**
@@ -54,6 +56,15 @@ typedef enum
     imgUrlsStrArray:(NSArray *)urlsStrArray
        isAutoScroll:(BOOL)YesOrNo
           isCanZoom:(BOOL)canZoom;
+
+/**
+ @ 方法描述    配置UI,当图片数组发生改变时可调用此方法刷新界面
+ @ 输入参数    无
+ @ 返回值      void
+ @ 创建人      龚俊慧
+ @ 创建时间    2014-11-20
+ */
+- (void)configureUI;
 
 /**
  @ 方法描述    ScrollView滚动到指定下标

@@ -15,3 +15,13 @@
 @property (nonatomic, strong) NSString *newsDescStr;
 
 @end
+
+////////////////////////////////////////////////////
+
+@interface HomePageBannerEntity : NetItem
+
+@property (nonatomic, assign) NSInteger bannerId;
+@property (nonatomic, strong) NSString *imgUrlStr;
+@property (nonatomic, strong) NSString *newsUrlStr;
+
+@end

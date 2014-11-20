@@ -15,9 +15,10 @@
 
 @interface CycleScrollView ()
 {
+    BOOL _isShouldAutoScroll;    // 是否应该自动滚动
+    
     NSInteger _totalPages;
     
-    NSArray *_imageDataSourceArray;
     NSMutableArray *_curImageDataSourceArray;
     
     BOOL _isAutoScroll;
@@ -45,17 +46,12 @@
     if (self)
     {
         self.delegate = delegate;
-        _imageDataSourceArray = urlsStrArray;
+        self.imageDataSourceArray = urlsStrArray;
         _viewContentMode = contenMode;
         _isAutoScroll = YesOrNo;
         _isCanZoom = canZoom;
         
-        if([_imageDataSourceArray isAbsoluteValid])
-        {
-            [self setup];
-            [self loadData];
-            [self setAutoScroll];
-        }
+        [self configureUI];
     }
     return self;
 }
@@ -66,24 +62,48 @@
     if (self)
     {
         self.delegate = delegate;
-        _imageDataSourceArray = names;
+        self.imageDataSourceArray = names;
         _viewContentMode = contenMode;
         _isAutoScroll = YesOrNo;
         _isCanZoom = canZoom;
         
-        if([_imageDataSourceArray isAbsoluteValid])
-        {
-            [self setup];
-            [self loadData];
-            [self setAutoScroll];
-        }
+        [self configureUI];
     }
     return self;
+}
+
+- (void)configureUI
+{
+    if([_imageDataSourceArray isAbsoluteValid])
+    {
+        _isShouldAutoScroll = _isAutoScroll;
+        
+        [self setup];
+        [self loadData];
+        [self setAutoScroll];
+    }
+    else
+    {
+        _isShouldAutoScroll = NO;
+        
+        if (_scrollView)
+        {
+            [_scrollView removeFromSuperview];
+            _scrollView = nil;
+        }
+        if (_pageControl)
+        {
+            [_pageControl removeFromSuperview];
+            _pageControl = nil;
+        }
+    }
 }
 
 - (void)setup
 {
     // Initialization code
+    if (_scrollView) [_scrollView removeFromSuperview];
+    
     _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(self.bounds.size.width * 3, self.bounds.size.height);
@@ -91,6 +111,9 @@
     _scrollView.contentOffset = CGPointMake(self.bounds.size.width, 0);
     _scrollView.pagingEnabled = YES;
     [self addSubview:_scrollView];
+    
+    // pageControl
+    if (_pageControl) [_pageControl removeFromSuperview];
     
     CGRect rect = self.bounds;
     rect.origin.y = rect.size.height - 30;
@@ -100,6 +123,12 @@
     
     [self addSubview:_pageControl];
     
+    // 初始化值
+    [self initializationValues];
+}
+
+- (void)initializationValues
+{
     // 默认从第0页开始
     _currentPage = 0;
     _totalPages = _imageDataSourceArray.count;
@@ -110,7 +139,7 @@
 // ImageDataSourceStr: 图片名或者图片URL
 - (UIView *)getOnceSubviewOfScrollViewWithCurImageDataSourceStr:(NSString *)dataSource
 {
-    if ([dataSource isAbsoluteValid])
+    if (dataSource && [dataSource isSafeObject])
     {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
 
@@ -197,14 +226,14 @@
     if (_isAutoScroll)
     {
         [GCDThread enqueueBackground:^{
-            while (YES)
+            while (_isShouldAutoScroll)
             {
                 [NSThread sleepForTimeInterval:AutoScrollIntervalTime];
 
                 [GCDThread enqueueForeground:^{
-                    
-//                    DLog(@" %d == %@",_currentPage,NSStringFromCGPoint(_scrollView.contentOffset));
-                    
+                    /*
+                    DLog(@" %d == %@",_currentPage,NSStringFromCGPoint(_scrollView.contentOffset));
+                    */
                     [_scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width * 2, 0) animated:YES];
                 }];
             }
@@ -231,7 +260,9 @@
 
 - (void)loadData
 {
-//    _pageControl.currentPage = _currentPage;
+    /*
+    _pageControl.currentPage = _currentPage;
+     */
     _pageControl.currentPage = [self validPageValue:_currentPage];
     
     // 从scrollView上移除所有的subview
