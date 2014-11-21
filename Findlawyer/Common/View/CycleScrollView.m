@@ -148,7 +148,7 @@
         {
             NSURL *url = [NSURL URLWithString:dataSource];
             
-            [imageView gjh_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"shangpinxiangqing-morentupian"] imageShowStyle:_viewContentMode options:SDWebImageCacheMemoryOnly success:nil failure:nil];
+            [imageView gjh_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"shangpinxiangqing-morentupian"] imageShowStyle:_viewContentMode options:SDWebImageProgressiveDownload success:nil failure:nil];
             
             if (_isCanZoom)
             {
