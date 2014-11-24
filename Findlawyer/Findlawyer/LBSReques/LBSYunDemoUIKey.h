@@ -50,15 +50,14 @@
 #ifndef	LBSUINetWorkError
 //#define LBSUINetWorkError @"网络不给力:("
 #define LBSUINetWorkError @"亲，网络不给力！"
-
 #endif
 
 #ifndef	LBSUINoMoreData
 //#define LBSUINoMoreData @"没有满足条件的信息:("
 #define LBSUINoMoreData @"亲，没有满足条件的信息！"
-
-
 #endif
+
+#define LBSUILocationError @"定位失败,请到系统设置中开启定位服务"
 
 #ifndef	LBSUIDataComplete
 //#define LBSUIDataComplete @"加载完毕:)"

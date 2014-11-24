@@ -20,7 +20,7 @@
         _lawfirmNameLabel.text = lawyerEntity.lawfirmName;
         _certificateNoLabel.text = [NSString stringWithFormat:@"执业证号:%@",lawyerEntity.certificateNo];
         _specialAreaLabel.text = [NSString stringWithFormat:@"擅长领域:%@",lawyerEntity.specialArea];
-        _distanceLabel.text = [NSString stringWithFormat:@"%.0f米",lawyerEntity.distance];
+        _distanceLabel.text = lawyerEntity.distance > 0 ? [NSString stringWithFormat:@"%.0f米",lawyerEntity.distance] : nil;
     }
 }
 

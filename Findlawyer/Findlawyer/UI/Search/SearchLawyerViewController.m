@@ -144,23 +144,9 @@
     _mapView.hidden = !_isShowMapView;
     self.tableView.hidden = _isShowMapView;
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:_isShowMapView?@"列表":@"地图" action:@selector(sceneChange:)];
-   
     
-    if (_isAddNearbySearch)
-    {
-        if (_searchLocation.latitude)
-        {
-            [self loadDataWithLocation:_searchLocation radius:kRadius IsSearStatus:YES];
-        }
-        else
-        {
-            [self loadLocalData];
-        }
-    }
-    else
-    {
-        [self loadmoreDataIsSearStatus:NO];
-    }
+    // 请求数据
+    [self loadmoreDataIsSearStatus:NO];
     // [self loadLocalData];
 }
 
@@ -208,6 +194,8 @@
         [_mapView removeAnnotations:array];
     }
     
+    // 以法院为中心搜索的时候地图定位到法院的位置,否则定位到用户当前的坐标位置,不用搜索到的数据设置地图中心
+    /*
     if (self.listContend.count > 0)
     {
         LBSLawyer *lawyer = [self.listContend objectAtIndex:0];
@@ -224,28 +212,28 @@
         if (_searchLocation.latitude) {
             [self loadAnnotationWithArray:[[NSArray alloc] init]];
         }
-        
-        
-        /*
-        AppDelegate *delegate =(AppDelegate *) [UIApplication sharedApplication].delegate;
-        CLLocationCoordinate2D coor;
-        coor.latitude = delegate.userlocation.coordinate.latitude;
-        coor.longitude = delegate.userlocation.coordinate.longitude;
-        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
-        BMKCoordinateRegion adjustedRegion = [_mapView regionThatFits:viewRegion];
-        
-        [_mapView setRegion:adjustedRegion animated:YES];
-         */
     }
+     */
+    
+    if (_searchLocation.latitude)
+    {
+        BMKCoordinateRegion mapRegion = BMKCoordinateRegionMake(_searchLocation, BMKCoordinateSpanMake(kMapShowSpan, kMapShowSpan));
+        [_mapView setRegion:mapRegion animated:YES];
+    }
+    
+    [self loadAnnotationWithArray:_listContend];
 }
 
 //根据地图数据 配置地图标注
 - (void)loadAnnotationWithArray:(NSArray *)information
 {
-	if (information == nil) return;
+    /*
+	if (![information isAbsoluteValid]) return;
+     */
     
 	NSArray *retainedInforation = information;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
 		NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[retainedInforation count]];
         
 		for (LBSLawyer *lawyer in retainedInforation) {
@@ -271,7 +259,10 @@
         // 修改结束
         
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[_mapView addAnnotations:annotations];
+            if ([annotations isAbsoluteValid])
+            {
+                [_mapView addAnnotations:annotations];
+            }
 		});
 	});
 	
@@ -492,6 +483,8 @@
             newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:theAnnotation reuseIdentifier:AnnotationViewID];
         }
         
+        newAnnotationView.annotation = theAnnotation;
+        
         /**
          @ 修改描述     加多搜索视图选择法院周边 点击进来 情况的判断。标注律所的图标
          @ 修改人       leo
@@ -527,11 +520,8 @@
         [paopaoView loadViewData:theAnnotation.lawyer];
         newAnnotationView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
         */
-        
-        
-        
+
         //结束修改
-        
         
         /*
         // 设置颜色
@@ -571,6 +561,7 @@
 {
     LBSLawyerLocationAnnotation *annotation = view.annotation;
     
+    // 过滤掉用户当前位置泡泡视图的点击
     if ([annotation isKindOfClass:[LBSLawyerLocationAnnotation class]])
     {
         [self pushDetailLawyerVC:annotation.lawyer];
@@ -581,7 +572,8 @@
 {
     [_mapView updateLocationData:userLocation];
     
-    if (!_isLocationSuccess)
+    // 以法院为中心搜索的时候地图定位到法院的位置,否则定位到用户当前的坐标位置
+    if (!_isLocationSuccess && !_searchLocation.latitude)
     {
         BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(userLocation.location.coordinate, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
         [_mapView setRegion:viewRegion animated:YES];
@@ -607,24 +599,42 @@
     
       // 添加请求
     [[LBSRequestManager defaultManager] addRequest:[[LBSRequest alloc] initWithURL:[NSURL URLWithString:kLBSRequestUpdateLocation]] locationUpdateComplete:^(CLLocation *location) {
+ 
         if (location)
         {
-              //得到地理坐标后，进行百度LBS云搜索
+            // 得到地理坐标后，进行百度LBS云搜索
             [[LBSSharedData sharedData] setCurrentCoordinate2D:location.coordinate];
-            [weakSelf loadDataWithLocation:location.coordinate radius:kRadius IsSearStatus:isSearch];
+            
+            // 如果法院坐标有值就用法院的坐标去搜索
+            if (_searchLocation.latitude)
+            {
+                [weakSelf loadDataWithLocation:_searchLocation radius:kRadius IsSearStatus:isSearch];
+            }
+            else
+            {
+                [weakSelf loadDataWithLocation:location.coordinate radius:kRadius IsSearStatus:isSearch];
+            }
         }
         else
         {
             // 没有坐标则显示定位失败
-            //  [iToast make:@"定位失败:(" duration:750];
             self.navigationItem.rightBarButtonItem.enabled = YES;
-//            [UIView hideHUDWithTitle:@"定位失败!" image:nil onView: weakSelf.view tag:HUDTage delay:1];
-            [HUDManager showAutoHideHUDWithToShowStr:@"定位失败" HUDMode:MBProgressHUDModeText];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"reload data now.");
 
             });
+            
+            [[LBSSharedData sharedData] setCurrentCoordinate2D:CLLocationCoordinate2DMake(0, 0)];
+            // 如果法院坐标有值就用法院的坐标去搜索
+            if (_searchLocation.latitude)
+            {
+                [weakSelf loadDataWithLocation:_searchLocation radius:kRadius IsSearStatus:isSearch];
+            }
+            else
+            {
+                [HUDManager showAutoHideHUDWithToShowStr:LBSUILocationError HUDMode:MBProgressHUDModeText];
+            }
         }
     }];
     return;
