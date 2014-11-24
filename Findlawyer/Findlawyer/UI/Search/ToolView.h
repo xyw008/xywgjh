@@ -20,6 +20,11 @@ typedef enum
 @interface ToolView : UIView
 
 @property (weak, nonatomic) IBOutlet UILabel *lbPhone;
+@property (strong, nonatomic) IBOutlet UIButton *CallBtn;
+@property (strong, nonatomic) IBOutlet UIButton *SmsBtn;
+@property (strong, nonatomic) IBOutlet UIButton *ConsultBtn;
+
+
 - (IBAction)btnCall:(id)sender;//打电话
 - (IBAction)btnConsult:(id)sender; //咨询
 - (IBAction)btnSms:(id)sender; // 发短信

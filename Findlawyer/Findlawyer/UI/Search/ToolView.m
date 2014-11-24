@@ -8,6 +8,8 @@
 
 #import "ToolView.h"
 
+
+
 @implementation ToolView
 
 - (id)initWithFrame:(CGRect)frame
@@ -26,6 +28,22 @@
     {
         self.lbPhone.text = phone;
     }
+}
+
+- (void)setFrame:(CGRect)frame
+{
+    self.frame = frame;
+    
+    [self newToolLayout];
+}
+
+- (void)newToolLayout
+{
+    //7:_lbPhoneLB 和咨询按钮间距离 12:smsbtn 和right的距离
+    CGFloat btnTotalWeight = self.width - CGRectGetMaxX(_lbPhone.frame) - 7 - 12;
+    CGFloat btnBetweenSpace = (btnTotalWeight - _CallBtn.width * 3)/2;
+    _CallBtn.frameOriginX = CGRectGetMaxX(_ConsultBtn.frame) + btnBetweenSpace;
+    _SmsBtn.frameOriginX = CGRectGetMaxX(_CallBtn.frame);
 }
 
 /*
