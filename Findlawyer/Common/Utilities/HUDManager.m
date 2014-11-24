@@ -59,7 +59,8 @@ static MBProgressHUD *HUD;
         HUD.customView = customImgView;
     }
    
-    HUD.labelText = showStr;
+    HUD.detailsLabelFont = [UIFont systemFontOfSize:15];
+    HUD.detailsLabelText = showStr;
 //    HUD.color = [UIColor blackColor];
     
 //    HUD.taskInProgress = YES;

@@ -148,7 +148,7 @@
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     
     [self addSignalObserver];
-    [self showMapnode];
+//    [self showMapnode];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -178,11 +178,14 @@
 // 设置地图中心位置，加载地图标注
 - (void) showMapnode
 {
-    NSArray * array = [NSArray arrayWithArray:[_mapView annotations]];
-    if (array.count >0) {
+    if ([_mapView.annotations isAbsoluteValid])
+    {
+        NSArray * array = [NSArray arrayWithArray:[_mapView annotations]];
         [_mapView removeAnnotations:array];
     }
     
+    // 地图定位到用户当前的坐标位置,不用搜索到的数据设置地图中心
+    /*
     if (self.listContend.count >0) {
         
         LBSLawfirm *lawyerfirm = [self.listContend objectAtIndex:0];
@@ -193,34 +196,33 @@
     
         [self loadAnnotationWithArray:self.listContend];
     }
-    else
-    {
-        /*
-        AppDelegate *delegate =(AppDelegate *) [UIApplication sharedApplication].delegate;
-        CLLocationCoordinate2D coor;
-        coor.latitude = delegate.userlocation.coordinate.latitude;
-        coor.longitude= delegate.userlocation.coordinate.longitude;
-        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(coor, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
-        BMKCoordinateRegion adjustedRegion = [_mapView regionThatFits:viewRegion];
-        [_mapView setRegion:adjustedRegion animated:YES];
-         */
-    }
+     */
+    
+    [self loadAnnotationWithArray:_listContend];
 }
 
 //根据地图数据 配置地图标注
 
 - (void)loadAnnotationWithArray:(NSArray *)information
 {
-	if (information.count == 0) return;
+    /*
+	if (![information isAbsoluteValid]) return;
+     */
+    
 	NSArray *retainedInforation = information;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
 		NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[retainedInforation count]];
+        
 		for (LBSLawfirm *lawyerfirm in retainedInforation) {
 			LBSLocationAnnotation *locationAnnotation = [[LBSLocationAnnotation alloc] initWithLawfirm:lawyerfirm];
 			[annotations addObject:locationAnnotation];
 		}
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[_mapView addAnnotations:annotations];
+            if ([annotations isAbsoluteValid])
+            {
+                [_mapView addAnnotations:annotations];
+            }
 		});
 	});
 	
@@ -351,6 +353,7 @@
             newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:theAnnotation reuseIdentifier:AnnotationViewID];
         }
         
+        newAnnotationView.annotation = theAnnotation;
         newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawfirm] + 1];
         
         // paopao视图
@@ -391,11 +394,16 @@
 
 - (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view
 {
-    LBSLocationAnnotation *locationAnnotation = view.annotation;
-    DetailLawfirmViewController * vc = [[DetailLawfirmViewController alloc] init];
-    vc.lawfirmid = [locationAnnotation.lawfirm.lfid integerValue];
-    vc.lawfirm = locationAnnotation.lawfirm;
-    [self pushViewController:vc];
+    LBSLocationAnnotation *annotation = view.annotation;
+    
+    // 过滤掉用户当前位置泡泡视图的点击
+    if ([annotation isKindOfClass:[LBSLocationAnnotation class]])
+    {
+        DetailLawfirmViewController * vc = [[DetailLawfirmViewController alloc] init];
+        vc.lawfirmid = [annotation.lawfirm.lfid integerValue];
+        vc.lawfirm = annotation.lawfirm;
+        [self pushViewController:vc];
+    }
 }
 
 - (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view
@@ -440,10 +448,11 @@
         }
         else
         {    // 没有坐标则显示定位失败
-//            [self hideHUDWithTitle:@"定位失败!" image:nil delay:HUDAutoHideTypeShowTime];
-            [HUDManager showAutoHideHUDWithToShowStr:@"定位失败" HUDMode:MBProgressHUDModeText];
+            [HUDManager showAutoHideHUDWithToShowStr:LBSUILocationError HUDMode:MBProgressHUDModeText];
             
             self.navigationItem.rightBarButtonItem.enabled = YES;
+            
+            [[LBSSharedData sharedData] setCurrentCoordinate2D:CLLocationCoordinate2DMake(0, 0)];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"reload data now.");

@@ -19,6 +19,7 @@
 double calculateDist(double lon1,double lat1,
                                        double lon2,double lat2)
 {
+    /*
 	double er = 6378137;
 	double radlat1 = PI*lat1/180.0f;
 	double radlat2 = PI*lat2/180.0f;
@@ -44,6 +45,16 @@ double calculateDist(double lon1,double lat1,
 	double theta = acos((er*er+er*er-d*d)/(2*er*er));
 	double dist  = theta*er;
 	return dist;
+    */
+    
+    // 标注点和用户当前的位置点
+    CLLocation *annotatiaonCllocation = [[CLLocation alloc] initWithLatitude:lat1 longitude:lon1];
+    CLLocation *userCllocation = [[CLLocation alloc] initWithLatitude:lat2 longitude:lon2];
+    
+    // 2点间的直线距离
+    double distance = [annotatiaonCllocation distanceFromLocation:userCllocation];
+    
+    return distance;
 }
 - (id)initWithDataModel:(NSDictionary *)dataModel
 {

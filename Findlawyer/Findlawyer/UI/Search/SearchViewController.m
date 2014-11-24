@@ -394,7 +394,7 @@ typedef enum
     SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
     vc.strTitle = @"附近律师";
     vc.isShowMapView = YES;
-    vc.isAddNearbySearch = YES;
+//    vc.isAddNearbySearch = YES;
     if (hasCoordinate) {
         vc.searchLocation = [self getLawfirmLocationCoordinate2D:key];
     }

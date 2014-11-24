@@ -312,7 +312,7 @@
                 DLog(@"succeed str = %@",[_uploadImageBC getSucceedReultStr]);
                 NSDictionary *parm = @{@"askId":_askId,@"askTypeId":typeId,@"content":_textView.text,@"PhotoSaves":[_uploadImageBC getSucceedReultStr]};
                 
-//                [self sendRequest:[BaseNetworkViewController getRequestURLStr:NetConsultInfoRequestType_PostSaveAskInfo] parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostSaveAskInfo];
+                [self sendRequest:[BaseNetworkViewController getRequestURLStr:NetConsultInfoRequestType_PostSaveAskInfo] parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostSaveAskInfo];
             }
             else
             {

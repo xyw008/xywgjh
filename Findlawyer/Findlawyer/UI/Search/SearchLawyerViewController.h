@@ -21,7 +21,7 @@
 
 @property (nonatomic,assign) BOOL isHiddenSearchKey;//判断是否在searchbar显示传输过来的搜索key
 @property (nonatomic,assign) CLLocationCoordinate2D searchLocation; // 搜索制定地址的坐标
-@property (nonatomic,assign) BOOL isAddNearbySearch;                // 判断是否是地址附件搜索（如：福田区法院附件搜索律所）,默认:NO
+//@property (nonatomic,assign) BOOL isAddNearbySearch;                // 判断是否是地址附件搜索（如：福田区法院附件搜索律所）,默认:NO
 
 @property (nonatomic,assign)BOOL fromConsultVC;//来自咨询页面
 
