@@ -326,12 +326,13 @@ typedef enum
     //法院周边
     if ([view isEqual:_courtSortView])
     {
-        [self pushSearchDeatalVCWithSearchKey:title hasCoordinate:YES];
+//        [self pushSearchLawyerVCWithSearchKey:title hasCoordinate:YES];
+        [self pushSearchLawyerVCWithSearchKey:title hiddenSearchKey:NO hasCoordinate:YES];
     }
-    //删除领域
+    //擅长领域
     else if ([view isEqual:_specialtySortView])
     {
-        [self pushSearchLawyerVCWithSearchKey:title hiddenSearchKey:YES];
+        [self pushSearchLawyerVCWithSearchKey:title hiddenSearchKey:YES hasCoordinate:NO];
     }
 }
 
@@ -354,9 +355,9 @@ typedef enum
     _chooseBgView.hidden = YES;
     
     //改变scrollView contentSize 和 隐藏_specialtySortView
-    CGFloat maxY = index==0 ? CGRectGetMaxY(_specialtySortView.frame):CGRectGetMaxY(_courtSortView.frame);
-    _sortBgScrollView.contentSize = CGSizeMake(0, maxY);
-    _specialtySortView.hidden = index==0?NO:YES;
+//    CGFloat maxY = index==0 ? CGRectGetMaxY(_specialtySortView.frame):CGRectGetMaxY(_courtSortView.frame);
+//    _sortBgScrollView.contentSize = CGSizeMake(0, maxY);
+//    _specialtySortView.hidden = index==0?NO:YES;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -373,11 +374,13 @@ typedef enum
     {
         if (_sortType == SelectSortType_lawyer)//搜索律师
         {
-            [self pushSearchLawyerVCWithSearchKey:textField.text hiddenSearchKey:NO];
+//            [self pushSearchLawyerVCWithSearchKey:textField.text hiddenSearchKey:NO];
+            [self pushSearchLawyerVCWithSearchKey:textField.text hiddenSearchKey:NO hasCoordinate:NO];
         }
         else if (_sortType == SelectSortType_lawfirm)//搜索律所
         {
-            [self pushSearchDeatalVCWithSearchKey:textField.text hasCoordinate:NO];
+//            [self pushSearchDeatalVCWithSearchKey:textField.text hasCoordinate:NO];
+            [self pushSearchDeatalVCWithSearchKey:textField.text];
         }
     }
     return YES;
@@ -385,17 +388,22 @@ typedef enum
 
 
 #pragma mark - push method
-- (void)pushSearchDeatalVCWithSearchKey:(NSString*)key hasCoordinate:(BOOL)hasCoordinate
+//指定坐标
+- (void)pushSearchDeatalVCWithSearchKey:(NSString*)key
 {
+    SearchDeatalViewController *vc = [[SearchDeatalViewController alloc] init];
+    vc.strTitle = @"附件律所";
+    vc.isShowMapView = YES;
+    vc.searchKey = key;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    
     /*
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-    SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
-     */
     SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
     vc.strTitle = @"附近律师";
     vc.isShowMapView = YES;
-//    vc.isAddNearbySearch = YES;
-    if (hasCoordinate) {
+    if (hasCoordinate)
+    {
         vc.searchLocation = [self getLawfirmLocationCoordinate2D:key];
     }
     else
@@ -404,17 +412,32 @@ typedef enum
     }
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+     */
 }
 
-- (void)pushSearchLawyerVCWithSearchKey:(NSString*)key hiddenSearchKey:(BOOL)hidden
+/**
+ *  进入律师搜索页面
+ *
+ *  @param key           搜索的key
+ *  @param hidden        是否在下个视图隐藏搜索的key
+ *  @param hasCoordinate 是否已经有指定坐标
+ */
+- (void)pushSearchLawyerVCWithSearchKey:(NSString*)key hiddenSearchKey:(BOOL)hidden hasCoordinate:(BOOL)hasCoordinate
 {
 //    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     //        SearchLawyerViewController *vc = (SearchLawyerViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawyer"];
     SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
     vc.strTitle = @"附近律师";
-    vc.searchKey = key;
     vc.isShowMapView = YES;
     vc.isHiddenSearchKey = hidden;
+    if (hasCoordinate)
+    {
+        vc.searchLocation = [self getLawfirmLocationCoordinate2D:key];
+    }
+    else
+    {
+        vc.searchKey = key;
+    }
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

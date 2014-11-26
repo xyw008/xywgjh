@@ -134,10 +134,21 @@
     self.tableView.hidden = _isShowMapView;
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:_isShowMapView?@"列表":@"地图" action:@selector(sceneChange:)];
     
-    self.title = self.strTitle;;
+    self.title = self.strTitle;
     self.searchBar.placeholder = @"请输入你要找的律师事务所名称";
     
-    [self loadmoreDataSearStatus:NO];
+    /**
+     *
+     */
+    
+//    [self loadmoreDataSearStatus:NO];
+    
+    
+    if (_searchKey.length > 0)
+        [self loadLocalData];
+    else
+        [self loadmoreDataSearStatus:NO];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
