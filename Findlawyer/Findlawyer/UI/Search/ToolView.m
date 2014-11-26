@@ -32,7 +32,7 @@
 
 - (void)setFrame:(CGRect)frame
 {
-    self.frame = frame;
+    [super setFrame:frame];
     
     [self newToolLayout];
 }

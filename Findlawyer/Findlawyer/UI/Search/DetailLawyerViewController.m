@@ -96,7 +96,8 @@
     NetReturnType ret = [[Network sharedNetwork]loadlawyerInfoWithID:[self.lawyer.lawerid integerValue] completion:^(NSInteger result, NSString *message, NSDictionary * userInfo) {
         
         STRONGSELF
-        if (result) {
+        if (result)
+        {
             if (userInfo)
             {
                 NSArray * contents = userInfo[@"Lawyer"];
@@ -122,11 +123,10 @@
 //                [HUDManager showAutoHideHUDWithToShowStr:@"加载完毕" HUDMode:MBProgressHUDModeText];
             }
         }
-
         else
         {
 //           [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
-//            [HUDManager showAutoHideHUDWithToShowStr:@"加载完毕" HUDMode:MBProgressHUDModeText];
+//           [HUDManager showAutoHideHUDWithToShowStr:@"加载完毕" HUDMode:MBProgressHUDModeText];
         }
     }];
                          
