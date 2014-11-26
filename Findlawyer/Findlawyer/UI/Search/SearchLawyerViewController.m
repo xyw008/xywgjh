@@ -146,7 +146,14 @@
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:_isShowMapView?@"列表":@"地图" action:@selector(sceneChange:)];
     
     // 请求数据
-    [self loadmoreDataIsSearStatus:NO];
+    if ([_searchKey isAbsoluteValid])
+    {
+        [self loadmoreDataIsSearStatus:YES];
+    }
+    else
+    {
+        [self loadmoreDataIsSearStatus:NO];
+    }
     // [self loadLocalData];
 }
 

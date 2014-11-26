@@ -136,19 +136,15 @@
     
     self.title = self.strTitle;
     self.searchBar.placeholder = @"请输入你要找的律师事务所名称";
-    
-    /**
-     *
-     */
-    
-//    [self loadmoreDataSearStatus:NO];
-    
-    
-    if (_searchKey.length > 0)
-        [self loadLocalData];
+   
+    if ([_searchKey isAbsoluteValid])
+    {
+        [self loadmoreDataSearStatus:YES];
+    }
     else
+    {
         [self loadmoreDataSearStatus:NO];
-    
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated

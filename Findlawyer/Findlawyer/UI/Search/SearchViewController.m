@@ -383,6 +383,11 @@ typedef enum
             [self pushSearchDeatalVCWithSearchKey:textField.text];
         }
     }
+    if (_chooseBgView)
+    {
+        _chooseBgView.hidden = YES;
+    }
+    
     return YES;
 }
 
