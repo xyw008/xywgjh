@@ -11,19 +11,27 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="联系电话" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-rl-jdQ">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系电话" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-rl-jdQ">
                     <rect key="frame" x="8" y="5" width="92" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="9X1-tv-HvP"/>
+                        <constraint firstAttribute="width" constant="92" id="FUg-X3-b1p"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="138235789456" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ehu-wX-9fb">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="138235789456" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ehu-wX-9fb">
                     <rect key="frame" x="8" y="22" width="111" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="111" id="ImD-VY-wyb"/>
+                        <constraint firstAttribute="height" constant="15" id="Nzg-Gt-agg"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q4X-ua-Ilm">
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q4X-ua-Ilm">
                     <rect key="frame" x="194" y="5" width="46" height="30"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <state key="normal" image="call.png">
@@ -33,8 +41,12 @@
                         <action selector="btnCall:" destination="iN0-l3-epB" eventType="touchUpInside" id="p1T-Kx-WXa"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0U3-UJ-KFR">
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0U3-UJ-KFR">
                     <rect key="frame" x="126" y="5" width="46" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="0Xw-QC-FJP"/>
+                        <constraint firstAttribute="width" constant="46" id="jKP-sC-rTf"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <state key="normal" image="consult.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -43,7 +55,7 @@
                         <action selector="btnConsult:" destination="iN0-l3-epB" eventType="touchUpInside" id="dsH-nL-Lvq"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nz1-eM-Fcu">
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nz1-eM-Fcu">
                     <rect key="frame" x="262" y="5" width="46" height="30"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <state key="normal" image="Sms.png">
@@ -55,6 +67,19 @@
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.41000000000000003" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="0U3-UJ-KFR" firstAttribute="width" secondItem="Q4X-ua-Ilm" secondAttribute="width" id="730-EJ-kqa"/>
+                <constraint firstItem="Q4X-ua-Ilm" firstAttribute="top" secondItem="nz1-eM-Fcu" secondAttribute="top" id="G9q-lx-0Ta"/>
+                <constraint firstItem="Q4X-ua-Ilm" firstAttribute="height" secondItem="nz1-eM-Fcu" secondAttribute="height" id="Kpg-Dl-DkG"/>
+                <constraint firstItem="Ehu-wX-9fb" firstAttribute="top" secondItem="CRw-rl-jdQ" secondAttribute="bottom" constant="2" id="MDL-hk-JgU"/>
+                <constraint firstItem="0U3-UJ-KFR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="blg-Ch-Aif"/>
+                <constraint firstItem="Q4X-ua-Ilm" firstAttribute="width" secondItem="nz1-eM-Fcu" secondAttribute="width" id="iXx-qH-VCA"/>
+                <constraint firstItem="CRw-rl-jdQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="mH6-qs-f1Q"/>
+                <constraint firstItem="CRw-rl-jdQ" firstAttribute="leading" secondItem="Ehu-wX-9fb" secondAttribute="leading" id="nAx-WY-Qrq"/>
+                <constraint firstItem="0U3-UJ-KFR" firstAttribute="height" secondItem="Q4X-ua-Ilm" secondAttribute="height" id="yCb-Cm-eMg"/>
+                <constraint firstItem="0U3-UJ-KFR" firstAttribute="top" secondItem="Q4X-ua-Ilm" secondAttribute="top" id="ymk-jg-Q9m"/>
+                <constraint firstItem="CRw-rl-jdQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="yqB-BU-7q5"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

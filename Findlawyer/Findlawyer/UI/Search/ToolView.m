@@ -30,20 +30,39 @@
     }
 }
 
-- (void)setFrame:(CGRect)frame
+- (void)awakeFromNib
 {
-    [super setFrame:frame];
+    [super awakeFromNib];
     
-    [self newToolLayout];
+    CGFloat btnTotalWeight = IPHONE_WIDTH - CGRectGetMaxX(_lbPhone.frame);
+    CGFloat btnBetweenSpace = (btnTotalWeight - _CallBtn.width * 3) / 4;
+    
+    [_lbPhone mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_ConsultBtn.mas_left).with.offset(-btnBetweenSpace);
+    }];
+    [_ConsultBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_CallBtn.mas_left).with.offset(-btnBetweenSpace);
+    }];
+    [_CallBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_SmsBtn.mas_left).with.offset(-btnBetweenSpace);
+    }];
 }
 
 - (void)newToolLayout
 {
+    /*
     //7:_lbPhoneLB 和咨询按钮间距离 12:smsbtn 和right的距离
-    CGFloat btnTotalWeight = self.width - CGRectGetMaxX(_lbPhone.frame) - 7 - 12;
-    CGFloat btnBetweenSpace = (btnTotalWeight - _CallBtn.width * 3)/2;
+    CGFloat btnTotalWeight = self.width - CGRectGetMaxX(_lbPhone.frame);
+    CGFloat btnBetweenSpace = (btnTotalWeight - _CallBtn.width * 3) / 4;
+    
+    _ConsultBtn.frameOriginX = CGRectGetMaxX(_lbPhone.frame) + btnBetweenSpace;
     _CallBtn.frameOriginX = CGRectGetMaxX(_ConsultBtn.frame) + btnBetweenSpace;
-    _SmsBtn.frameOriginX = CGRectGetMaxX(_CallBtn.frame);
+    _SmsBtn.frameOriginX = CGRectGetMaxX(_CallBtn.frame) + btnBetweenSpace;
+    
+    _ConsultBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _CallBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    _SmsBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+     */
 }
 
 /*
