@@ -7,6 +7,7 @@
 //
 
 #import "BMKLawyerPaoPaoView.h"
+#import "GCDThread.h"
 
 @implementation BMKLawyerPaoPaoView
 
@@ -14,7 +15,17 @@
 {
     if (lawyerEntity)
     {
-        [_lawyerHeaderImageView gjh_setImageWithURL:lawyerEntity.mainImageURL placeholderImage:[UIImage imageNamed:@"lawyerMapAnnotationUserHeaderDefault"] imageShowStyle:ImageShowStyle_None success:nil failure:nil];
+        [_lawyerHeaderImageView gjh_setImageWithURL:lawyerEntity.mainImageURL placeholderImage:[UIImage imageNamed:@"lawyerMapAnnotationUserHeaderDefault"] imageShowStyle:ImageShowStyle_None options:SDWebImageCacheMemoryOnly success:^(UIImage *image) {
+            
+            [GCDThread enqueueForeground:^{
+                
+                UIImage *newImage = [image imageCroppedToRect:CGRectMake(0, 0, 150, 150)];
+                _lawyerHeaderImageView.image = newImage;
+            }];
+            
+        } failure:^(NSError *error) {
+            
+        }];
         
         _lawyerNameLabel.text = [NSString stringWithFormat:@"%@律师",lawyerEntity.name];
         _lawfirmNameLabel.text = lawyerEntity.lawfirmName;

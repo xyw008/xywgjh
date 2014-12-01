@@ -92,8 +92,11 @@ double calculateLantitudeLongitudeDist(double lon1,double lat1,
         
             if (dataModel[@"cover_url"])
             {
+                /*
                 NSDictionary * dic = (NSDictionary *)dataModel[@"cover_url"];
                 self.mainImageURL = [NSURL URLWithString:dic[@"mid"]];
+                 */
+                self.mainImageURL = [NSURL URLWithString:dataModel[@"cover_url"]];
             }
             self.city = STRING_UN_NSNULL(dataModel[@"city"]);
   

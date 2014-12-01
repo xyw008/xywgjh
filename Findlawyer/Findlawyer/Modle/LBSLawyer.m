@@ -86,8 +86,11 @@ double calculateDist(double lon1,double lat1,
                                                                 [[LBSSharedData sharedData] currentCoordinate2D].latitude);
             if (dataModel[@"LawyerPhotoURL"])
             {
+                /*
                 NSDictionary * dic = (NSDictionary *)dataModel[@"LawyerPhotoURL"];
                 self.mainImageURL = [NSURL URLWithString:dic[@"mid"]];
+                 */
+                self.mainImageURL = [NSURL URLWithString:dataModel[@"LawyerPhotoURL"]];
             }
             self.city = STRING_UN_NSNULL(dataModel[@"city"]);
             self.district = STRING_UN_NSNULL(dataModel[@"district"]);
