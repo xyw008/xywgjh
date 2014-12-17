@@ -97,5 +97,5 @@
 
 #define kSpecialtyDomainArray       @[@"刑事辩护",@"婚姻家庭",@"民商经济",@"劳动人事",@"行政诉讼",@"知识产权",@"交通事故",@"房产建筑",@"银行保险",@"金融证券",@"并购上市",@"涉外国际",@"法律顾问"] //擅长领域（顺序不能乱，其所在数组idnex + 1 就是此领域的 ID）
 
-#define kTotalRadius    2000
+#define kTotalRadius    200000
 #define kMapShowSpan    0.01    // 地图显示的跨度比例尺
