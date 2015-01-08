@@ -40,30 +40,7 @@
             [weakSelf showHUDInfoByType:HUDInfoType_Loading];
         };
         
-        self.failedBlock = ^(NetRequest *request, NSError *error)
-        {
-            if (error.code == MyHTTPCodeType_DataSourceNotFound)
-            {
-                [weakSelf showHUDInfoByString:[LanguagesManager getStr:All_DataSourceNotFoundKey]];
-            }
-            else
-            {
-//                [weakSelf showHUDInfoByType:HUDInfoType_Failed];
-                
-                if (error.localizedDescription)
-                {
-                    [weakSelf showHUDInfoByString:error.localizedDescription];
-                }
-                else
-                {
-                    [weakSelf showHUDInfoByString:OperationFailure];
-                    
-                    // 给主view赋值状态背景图(点击重新刷新的图)
-                    [weakSelf setLoadFailureStatusView];
-                }
-
-            }
-        };
+        [self setDefaultNetFailedBlock];
     }
     return self;
 }
@@ -71,6 +48,10 @@
 - (void)dealloc
 {
     [self clearDelegate];
+    /*
+    // 自动的登录相关
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:didLoginSuccessNotificationKey object:nil];
+     */
 }
 
 - (void)viewDidLoad
@@ -83,6 +64,16 @@
     // 请求网络数据
     [self getNetworkData];
      */
+    /*
+    // 自动的登录相关
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLoginSuccessAction) name:didLoginSuccessNotificationKey object:nil];
+     */
+}
+
+// 有的类需要登录后才能请求服务器数据(此方法会在自动弹出登录界面并且登录成功后调用以再次发起推出登录界面控制器的网络请求)
+- (void)didLoginSuccessAction
+{
+    [self getNetworkData];
 }
 
 #pragma mark - 设置网络背景状态图
@@ -163,6 +154,71 @@
 //    NSAssert(NO, @"%s - 子类没有实现此方法",__PRETTY_FUNCTION__);
 }
 
+// 设置默认的失败后执行的代码块
+- (void)setDefaultNetFailedBlock;
+{
+    WEAKSELF
+    self.failedBlock = ^(NetRequest *request, NSError *error)
+    {
+        [weakSelf setDefaultNetFailedBlockImplementationWithNetRequest:request error:error otherExecuteBlock:nil];
+    };
+}
+
+- (void)setDefaultNetFailedBlockImplementationWithNetRequest:(NetRequest *)request error:(NSError *)error otherExecuteBlock:(void (^)(void))otherBlock
+{
+    [self setDefaultNetFailedBlockImplementationWithNetRequest:request error:error isAddFailedActionView:YES otherExecuteBlock:otherBlock];
+}
+
+- (void)setDefaultNetFailedBlockImplementationWithNetRequest:(NetRequest *)request error:(NSError *)error isAddFailedActionView:(BOOL)isAddActionView otherExecuteBlock:(void (^)(void))otherBlock
+{
+    // 无数据
+    if (error.code == MyHTTPCodeType_DataSourceNotFound)
+    {
+        [self showHUDInfoByString:[LanguagesManager getStr:All_DataSourceNotFoundKey]];
+    }
+    // 未登录或登录过期
+    else if (error.code == 8888)
+    {
+        [self showHUDInfoByString:@"未登录或登录已过期,请重新登录"];
+        
+        // 自动跳入登录页面
+        /*
+        LoginAndRegisterVC *login = [LoginAndRegisterVC loadFromNib];
+        UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:login];
+        [self presentViewController:loginNav
+               modalTransitionStyle:UIModalTransitionStyleCoverVertical
+                         completion:^{
+                             
+                         }];
+         */
+    }
+    else
+    {
+        /*
+         [weakSelf showHUDInfoByType:HUDInfoType_Failed];
+         */
+        if (error.localizedDescription)
+        {
+            [self showHUDInfoByString:error.localizedDescription];
+        }
+        else
+        {
+            [self showHUDInfoByString:OperationFailure];
+        }
+        
+        // 设置主view的状态背景图(点击重新刷新的图)
+        if (isAddActionView)
+        {
+            [self setLoadFailureStatusView];
+        }
+    }
+    
+    if (otherBlock)
+    {
+        otherBlock();
+    }
+}
+
 - (void)getNetworkData
 {
     // do nothing
@@ -183,6 +239,20 @@
 {
     [self sendRequest:urlMethodName parameterDic:parameterDic requestHeaders:headers requestMethodType:methodType requestTag:tag delegate:self];
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ @ 方法描述    发送必须带header的请求(如果没有登录,header就会为nil,那么就会自动跳转到登录页面)
+ @ 创建人      龚俊慧
+ @ 创建时间    2014-10-21
+ */
+- (void)sendMustWithTokenHeadersRequest:(NSString *)urlMethodName parameterDic:(NSDictionary *)parameterDic requestHeaders:(NSDictionary *)headers requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo
+{
+    // 待实现...
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 - (void)sendRequest:(NSString *)urlMethodName parameterDic:(NSDictionary *)parameterDic requestHeaders:(NSDictionary *)headers requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate
 {

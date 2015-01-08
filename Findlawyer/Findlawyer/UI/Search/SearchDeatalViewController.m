@@ -78,7 +78,7 @@
 
 - (void)initialize
 {
-    [super initialize];
+//    [super initialize];
 
 }
 - (void)viewDidLoad

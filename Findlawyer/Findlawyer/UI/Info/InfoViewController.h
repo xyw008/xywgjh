@@ -7,6 +7,7 @@
 //
 
 #import "BaseTableViewController.h"
+#import "BaseNetworkViewController.h"
 
 @interface InfoViewController : BaseTableViewController
 
