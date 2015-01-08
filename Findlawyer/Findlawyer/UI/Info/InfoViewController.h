@@ -10,5 +10,4 @@
 
 @interface InfoViewController : BaseTableViewController
 
-@property (nonatomic,strong)UIView *titileview;
 @end

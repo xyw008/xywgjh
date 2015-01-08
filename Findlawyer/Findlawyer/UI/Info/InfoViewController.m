@@ -25,6 +25,13 @@
 
 #define kCellHeight 35
 
+#define LineBtnCount    3   // 一行平台btn的数量
+#define BtnWidth        50  // 平台btn的宽度
+#define BtnHeight       50  // 平台btn的高度
+#define LabelHeight     20  // 平台名label的高度
+#define BetweenHorizontalBtnAndBtnSpace ((self.view.boundsWidth - LineBtnCount * BtnWidth) / (LineBtnCount + 1)) // 横向btn和btn之间的间隙
+#define BetweenVerticalBtnAndLabelSpace 10         // 纵向btn和label之间的间隙
+
 @interface InfoViewController () <NetRequestDelegate, CycleScrollViewDelegate>
 {
     UIView          *_rigitemTitleView;
@@ -77,9 +84,7 @@
         [self customNavigationRightBtnViewByTitle:currentcity];
     }
 
-    [self customTitleView];
-    self.tableView.tableHeaderView = self.titileview;
-
+    self.tableView.tableHeaderView = [self tabHeaderView];
     [self.tableView reloadData];
     
     // 请求网络数据
@@ -146,68 +151,98 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_rigitemTitleView];
 }
 
-- (void)customTitleView
+- (UIView *)tabHeaderView
 {
-    CGSize bannerSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.width * 0.3);
+    NSArray *textsArray = @[@"附近律师",@"周边律所", @"我要咨询", @"待定1"];
+    NSArray *imagesNameArray = @[@"btn_icon2", @"btn_icon1", @"btn_icon3", @"btn_icon4"];
     
-    self.titileview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10+60 *2 +20*2+5 + bannerSize.height + 10)];
+    UIView *bgView = InsertView(nil, CGRectMake(0, 0, self.view.boundsWidth, 0));
+    NSInteger itemCount = textsArray.count;
     
-    CGRect frame;
-    CGRect lframe;
+    int lineCount;          // 总共有多少行
+    int lastLineItemCount;  // 最后一行的btn数量
     
-    NSString *texts[] = {@"附近律师",@"周边律所", @"我要咨询", @"待定1", @"待定2", @"待定3"};
-    
-    NSString *images[] = {@"btn_icon2", @"btn_icon1", @"btn_icon3", @"btn_icon4", @"btn_icon5", @"btn_icon5"};
-    
-    NSString *cimages[] = {@"btn_icon2", @"btn_icon1", @"btn_icon3", @"btn_icon4", @"btn_icon5", @"btn_icon5"};
-    
-    int index = 0;
-    frame.origin = CGPointMake(35, 10);
-    frame.size = CGSizeMake(60, 60);
-    
-    for ( int i = 0; i < 1; i++ ) {
-        for ( int j = 0; j < 3; j++ ) {
-            
-            UIImage *image = [UIImage imageNamed:images[index]];
-           // frame.size = image.size;
-            UIButton *button = [[UIButton alloc] initWithFrame:frame];
-            [button setImage:image forState:UIControlStateNormal];
-            [button setImage:[UIImage imageNamed:cimages[index]] forState:UIControlStateHighlighted];
-            [self.titileview addSubview:button];
-            button.tag = index++;
-            [button addTarget:self action:@selector(clicked:) forControlEvents:UIControlEventTouchUpInside];
-            
-            lframe = frame;
-            lframe.origin.x -= 15;
-            lframe.origin.y += frame.size.height + 2;
-            lframe.size.height = 16;
-            lframe.size.width += 30;
-            UILabel *label = [[UILabel alloc] initWithFrame:lframe];
-            label.text = texts[index-1];
-            label.font = [UIFont boldSystemFontOfSize:13.0];
-            label.backgroundColor = [UIColor clearColor];
-            label.textColor = [UIColor blackColor];
-            label.textAlignment = NSTextAlignmentCenter;
-            [self.titileview addSubview:label];
-            frame.origin.x += 60 +35;
-        }
-        frame.origin.x = 35;
-        frame.origin.y += 60+20 ;
+    if (0 == itemCount % LineBtnCount)
+    {
+        lineCount = itemCount / LineBtnCount;
+        lastLineItemCount = LineBtnCount;
     }
- 
-    UIView *bgAD = [[UIView alloc]initWithFrame:CGRectMake(0,10+ 60 *2  +20*2+5, bannerSize.width, bannerSize.height)];
-    bgAD.backgroundColor = [UIColor clearColor];
+    else
+    {
+        lineCount = itemCount / LineBtnCount + 1;
+        lastLineItemCount = itemCount % LineBtnCount;
+    }
     
-    [self.titileview addSubview:bgAD];
+    int tempBtnTag = 1000;
+    UIView *currentView = nil;
     
-    _cycleScrollView = [[CycleScrollView alloc] initWithFrame:CGRectInset(bgAD.bounds, 5, 0) viewContentMode:ViewShowStyle_None delegate:self localImgNames:nil isAutoScroll:YES isCanZoom:NO];
-    [_cycleScrollView setRadius:5];
-    [bgAD addSubview:_cycleScrollView];
+    // 行的循环
+    for (int i = 0; i < lineCount; i++)
+    {
+        // 列的循环
+        // 不是最后一行
+        if (i != (lineCount - 1))
+        {
+            for (int k = 0; k < LineBtnCount; k++)
+            {
+                NSString *imageNameStr = imagesNameArray[tempBtnTag - 1000];
+                NSString *titleStr = textsArray[tempBtnTag - 1000];
+                
+                UIButton *tempBtn = InsertImageButton(bgView, CGRectMake(k * (BtnWidth + BetweenHorizontalBtnAndBtnSpace) + BetweenHorizontalBtnAndBtnSpace, i * (BtnHeight + LabelHeight + BetweenVerticalBtnAndLabelSpace) + 10, BtnWidth, BtnHeight),
+                                                      tempBtnTag,
+                                                      [UIImage imageNamed:imageNameStr],
+                                                      nil,
+                                                      self,
+                                                      @selector(clicked:));
+                
+                currentView = InsertLabel(bgView, CGRectMake(tempBtn.frameOriginX - 5, CGRectGetMaxY(tempBtn.frame) + 0, tempBtn.boundsWidth + 10, LabelHeight),
+                                          NSTextAlignmentCenter,
+                                          titleStr,
+                                          SP13Font,
+                                          [UIColor blackColor],
+                                          NO);
+                
+                tempBtnTag++;
+            }
+        }
+        else
+        {
+            for (int k = 0; k < lastLineItemCount; k++)
+            {
+                NSString *imageNameStr = imagesNameArray[tempBtnTag - 1000];
+                NSString *titleStr = textsArray[tempBtnTag - 1000];
+                
+                UIButton *tempBtn = InsertImageButton(bgView, CGRectMake(k * (BtnWidth + BetweenHorizontalBtnAndBtnSpace) + BetweenHorizontalBtnAndBtnSpace, i * (BtnHeight + LabelHeight + BetweenVerticalBtnAndLabelSpace) + 10, BtnWidth, BtnHeight),
+                                                      tempBtnTag,
+                                                      [UIImage imageNamed:imageNameStr],
+                                                      nil,
+                                                      self,
+                                                      @selector(clicked:));
+                
+                currentView = InsertLabel(bgView, CGRectMake(tempBtn.frameOriginX - 5, CGRectGetMaxY(tempBtn.frame) + 0, tempBtn.boundsWidth + 10, LabelHeight),
+                                          NSTextAlignmentCenter,
+                                          titleStr,
+                                          SP13Font,
+                                          [UIColor blackColor],
+                                          NO);
+                
+                tempBtnTag++;
+            }
+        }
+    }
+    
+    _cycleScrollView = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(currentView.frame) + 10, bgView.boundsWidth, 150) viewContentMode:ViewShowStyle_None delegate:self localImgNames:nil isAutoScroll:YES isCanZoom:NO];
+    [bgView addSubview:_cycleScrollView];
+    
+    bgView.boundsHeight = CGRectGetMaxY(_cycleScrollView.frame);
+    
+    return bgView;
 }
 
 - (void)clicked:(UIButton *)sender
 {
-    if (sender.tag == 0)
+    NSInteger tag = sender.tag - 1000;
+    if (tag == 0)
     {
 //        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
 //        SearchLawyerViewController *vc = (SearchLawyerViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawyer"];
@@ -218,7 +253,7 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    else if (sender.tag == 1)
+    else if (tag == 1)
     {
 //        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
 //        SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
@@ -230,7 +265,7 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    else if (sender.tag == 2)
+    else if (tag == 2)
     {
         AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [appdelegate chooseMaintabIndex:2 andType:sender.tag];
