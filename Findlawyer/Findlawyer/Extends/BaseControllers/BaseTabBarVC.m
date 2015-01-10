@@ -65,7 +65,7 @@
         {
             case 0:
             {
-                title = @"新闻";
+                title = @"首页";
                 
                 normalImage = [UIImage imageNamed:@"tab_news_normal"];
                 selectedImage = [UIImage imageNamed:@"tab_news_selected"];
@@ -73,7 +73,7 @@
                 break;
             case 1:
             {
-                title = @"图片";
+                title = @"搜索";
                 
                 normalImage = [UIImage imageNamed:@"tab_image_normal"];
                 selectedImage = [UIImage imageNamed:@"tab_image_selected"];
@@ -81,7 +81,7 @@
                 break;
             case 2:
             {
-                title = @"视频";
+                title = @"我的法宝";
                 
                 normalImage = [UIImage imageNamed:@"tab_video_normal"];
                 selectedImage = [UIImage imageNamed:@"tab_video_selected"];
@@ -89,7 +89,7 @@
                 break;
             case 3:
             {
-                title = @"论坛";
+                title = @"更多";
                 
                 normalImage = [UIImage imageNamed:@"tab_bbs_normal"];
                 selectedImage = [UIImage imageNamed:@"tab_bbs_selected"];

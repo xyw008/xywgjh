@@ -299,20 +299,20 @@
 //配置每一个文章类型下的文章列表
 - (void)configTableview
 {
-    if (self.tableView)
+    if (_tableView)
     {
 //        self.tableView.frame =CGRectMake(0, CGRectGetMaxY(self.segmentcontrol.frame), _myScrollView.width, self.arArtiiclelist.count * kTableCellDefaultHeight);
         
         _tableView.height = self.arArtiiclelist.count * kTableCellDefaultHeight;
-        [self.tableView reloadData];
+        [_tableView reloadData];
     }
     else
     {
-        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(_segmentcontrol.frameOriginX, CGRectGetMaxY(self.segmentcontrol.frame), _segmentcontrol.width, self.arArtiiclelist.count * kTableCellDefaultHeight) style:UITableViewStylePlain];
-        self.tableView.dataSource = self;
-        self.tableView.delegate  = self;
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(_segmentcontrol.frameOriginX, CGRectGetMaxY(self.segmentcontrol.frame), _segmentcontrol.width, self.arArtiiclelist.count * kTableCellDefaultHeight) style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate  = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.myScrollView addSubview:self.tableView];
+        [self.myScrollView addSubview:_tableView];
     }
     self.myScrollView.contentSize = CGSizeMake(self.view.width, self.headerview.height + 10 +self.segmentcontrol.height + _tableView.contentSize.height +10);;
    

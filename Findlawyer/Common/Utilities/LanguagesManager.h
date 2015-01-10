@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define LocalizedStr(key) [LanguagesManager getStr:key]
+
 static NSString * const LanguageTypeDidChangedNotificationKey = @"LanguageTypeDidChangedNotificationKey";
 
 @interface LanguagesManager : NSObject
@@ -20,6 +22,16 @@ static NSString * const LanguageTypeDidChangedNotificationKey = @"LanguageTypeDi
 + (NSString *)getStr:(NSString *)key alter:(NSString *)alternate;
 
 @end
+
+// 所有模块
+static NSString * const All_DataSourceNotFoundKey              = @"All_DataSourceNotFound";
+static NSString * const All_Confirm                            = @"All_Confirm";
+static NSString * const All_Cancel                             = @"All_Cancel";
+static NSString * const All_PickFromCamera                     = @"All_PickFromCamera";
+static NSString * const All_PickFromAlbum                      = @"All_PickFromAlbum";
+static NSString * const All_SaveToAlbum                        = @"All_SaveToAlbum";
+static NSString * const All_SaveSuccess                        = @"All_SaveSuccess";
+static NSString * const All_OperationFailure                   = @"All_OperationFailure";
 
 // 登陆&注册
 static NSString * const Login_NoUserShowInfoKey                = @"Login_NoUserShowInfo";
@@ -70,7 +82,4 @@ static NSString * const NavTitle_AddressManagerKey             = @"NavTitle_Addr
 static NSString * const NavTitle_AddAddressKey                 = @"NavTitle_AddAddress";
 static NSString * const NavTitle_PreferentialKey               = @"NavTitle_Preferential";
 static NSString * const NavTitle_FAQKey                        = @"NavTitle_FAQ";
-
-// 所有模块
-static NSString * const All_DataSourceNotFoundKey              = @"All_DataSourceNotFound";
 

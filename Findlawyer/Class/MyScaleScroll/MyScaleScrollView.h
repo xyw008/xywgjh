@@ -16,4 +16,7 @@
 
 //@property (nonatomic, assign) UIImage *image;
 
+/// 以center为中心点放大或缩小scroll
+- (void)zoomToPointInRootView:(CGPoint)center;
+
 @end

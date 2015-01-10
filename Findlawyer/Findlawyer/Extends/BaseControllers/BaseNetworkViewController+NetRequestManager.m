@@ -22,6 +22,7 @@
                            
                            // 主页新闻
                            @"GetMainNewsInfo",          // 获取主页新闻详情
+                           @"InitLoadData",
                            
                            @"GetAskId",
                            @"AddAskPhoto",              // 上传图片

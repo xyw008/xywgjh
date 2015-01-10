@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 Kevin. All rights reserved.
 //
 
-#import "BaseTableViewController.h"
+#import "BaseViewController.h"
 
-@interface SettingViewController : BaseTableViewController
+@interface SettingViewController : BaseViewController
 
 @end

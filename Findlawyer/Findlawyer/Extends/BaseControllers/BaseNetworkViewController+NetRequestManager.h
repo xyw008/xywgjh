@@ -12,6 +12,7 @@ typedef enum
 {
     // 主页新闻
     NetHomePageNewsRequestType_GetMainNewsDetail                       = 0, // 获取主页新闻详情(GET)
+    NetHomePageNewsRequestType_GetMainNewsList                            , // 获取主页新闻列表(GET)
     
     NetConsultInfoRequestType_GetAskId                                    , // 获取咨询系统分配ID (GET)
     NetConsultInfoRequestType_PostPhoto                                   , // 上传咨询图片 (POST)

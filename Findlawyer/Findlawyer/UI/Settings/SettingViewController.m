@@ -32,7 +32,7 @@
     [super viewDidLoad];
     
     [self setTabShowData];
-    [self.tableView reloadData];
+    [self initialization];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,6 +50,14 @@
     
     _tabShowDataCellTitleArray = [NSArray arrayWithObjects:section_OneTitleArray, nil];
     _tabShowDataCellImageArray = [NSArray arrayWithObjects:section_OneImageArray, nil];
+}
+
+- (void)initialization
+{
+    [self setupTableViewWithFrame:self.view.bounds
+                            style:UITableViewStylePlain
+                  registerNibName:nil
+                  reuseIdentifier:nil];
 }
 
 - (NSString *)getOneCellTitleWithIndexPath:(NSIndexPath *)indexPath
@@ -80,6 +88,11 @@
     NSArray *titleArray = _tabShowDataCellTitleArray[section];
     
     return titleArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 45;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

@@ -67,6 +67,20 @@
     [self zoomToRect:zoomRect animated:YES];
 }
 
+- (void)zoomToPointInRootView:(CGPoint)center
+{
+    if (isScaled == YES)
+    {
+        [self zoomToPointInRootView:center atScale:1];
+    }
+    else
+    {
+        [self zoomToPointInRootView:center atScale:2];
+    }
+    isScaled = !isScaled;
+}
+
+
 #pragma mark -
 #pragma mark === UIScrollView Delegate ===
 #pragma mark -
@@ -138,12 +152,12 @@
         if (isScaled == YES)
         {
             [self zoomToPointInRootView:point atScale:1];
-            isScaled = NO;
-        }else
+        }
+        else
         {
             [self zoomToPointInRootView:point atScale:2];
-            isScaled = YES;
         }
+        isScaled = !isScaled;
     }
 }
         

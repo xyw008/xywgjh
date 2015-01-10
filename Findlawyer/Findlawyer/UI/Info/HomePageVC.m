@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 Kevin. All rights reserved.
 //
 
-#import "InfoViewController.h"
+#import "HomePageVC.h"
 #import "CityListViewController.h"
 #import "QSignalManager.h"
 #import "FileManager.h"
@@ -21,6 +21,8 @@
 #import "InfoDetailViewController.h"
 #import "NimbusWebController.h"
 #import "CycleScrollView.h"
+#import "HomePageNewsCell.h"
+#import "BaseNetworkViewController+NetRequestManager.h"
 #import "GCDThread.h"
 
 #define kCellHeight 35
@@ -32,7 +34,7 @@
 #define BetweenHorizontalBtnAndBtnSpace ((self.view.boundsWidth - LineBtnCount * BtnWidth) / (LineBtnCount + 1)) // 横向btn和btn之间的间隙
 #define BetweenVerticalBtnAndLabelSpace 10         // 纵向btn和label之间的间隙
 
-@interface InfoViewController () <NetRequestDelegate, CycleScrollViewDelegate>
+@interface HomePageVC () <NetRequestDelegate, CycleScrollViewDelegate>
 {
     UIView          *_rigitemTitleView;
     CycleScrollView *_cycleScrollView;
@@ -44,7 +46,7 @@
 
 @end
 
-@implementation InfoViewController
+@implementation HomePageVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,7 +59,7 @@
 
 - (void)initialize
 {
-    [super initialize];
+//    [super initialize];
     [self addSignalObserver];
 }
 
@@ -84,12 +86,16 @@
         [self customNavigationRightBtnViewByTitle:currentcity];
     }
 
-    self.tableView.tableHeaderView = [self tabHeaderView];
-    [self.tableView reloadData];
+    [self setupTableViewWithFrame:self.view.bounds
+                            style:UITableViewStylePlain
+                  registerNibName:NSStringFromClass([HomePageNewsCell class])
+                  reuseIdentifier:@"HomePageNewsCell"];
+    
+    _tableView.tableHeaderView = [self tabHeaderView];
+    [_tableView reloadData];
     
     // 请求网络数据
     [self getNetworkData];
-
 }
 
 - (void)clickNavBarTitleBtn:(UIButton *)sender
@@ -314,7 +320,7 @@
      UITableViewCell *cell = nil;
      if (indexPath.row == 0)
      {
-         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+         cell = [tableView dequeueReusableCellWithIdentifier:@"HomePageNewsCell" forIndexPath:indexPath];
          [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
          
          HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
@@ -414,26 +420,26 @@
 
 #pragma mark - custom methods
 
+- (void)setNetworkRequestStatusBlocks
+{
+    WEAKSELF
+    [self setNetSuccessBlock:^(NetRequest *request, id successInfoObj) {
+        STRONGSELF
+        if (NetHomePageNewsRequestType_GetMainNewsList == request.tag)
+        {
+            [strongSelf parseNetworkDataWithDic:successInfoObj];
+            
+            [strongSelf->_tableView reloadData];
+            [strongSelf reloadCycleScrollViewData];
+        }
+    }];
+}
+
 - (void)getNetworkData
 {
-    NSURL *url = [UrlManager getRequestUrlByMethodName:@"InitLoadData"];
-    
-    [[NetRequestManager sharedInstance] sendRequest:url parameterDic:nil requestTag:1000 delegate:self userInfo:nil];
-}
-
-#pragma mark - NetRequestDelegate methods
-
-- (void)netRequest:(NetRequest *)request successWithInfoObj:(id)infoObj
-{
-    [self parseNetworkDataWithDic:infoObj];
-    
-    [self.tableView reloadData];
-    [self reloadCycleScrollViewData];
-}
-
-- (void)netRequest:(NetRequest *)request failedWithError:(NSError *)error
-{
-    [HUDManager showAutoHideHUDWithToShowStr:LoadFailed HUDMode:MBProgressHUDModeText];
+    [self sendRequest:[[self class] getRequestURLStr:NetHomePageNewsRequestType_GetMainNewsList]
+         parameterDic:nil
+           requestTag:NetHomePageNewsRequestType_GetMainNewsList];
 }
 
 - (void)parseNetworkDataWithDic:(NSDictionary *)dic

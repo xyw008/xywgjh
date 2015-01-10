@@ -109,15 +109,15 @@
     _bgSearchView.frame = subviewframe;
     _bgSearchView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
     
-    self.tableView = [[UITableView alloc]initWithFrame:subviewframe];
+    _tableView = [[UITableView alloc]initWithFrame:subviewframe];
    //先注册自定义的LawfirmCell以便重用
-   [self.tableView registerNib:[UINib nibWithNibName:@"LawfirmCell" bundle:nil] forCellReuseIdentifier:@"LawfirmCell"];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.tableFooterView = [[UIView alloc ]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 15)];
+   [_tableView registerNib:[UINib nibWithNibName:@"LawfirmCell" bundle:nil] forCellReuseIdentifier:@"LawfirmCell"];
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.tableFooterView = [[UIView alloc ]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 15)];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView keepAutoresizingInFull];
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:_tableView];
 
     // 开始时先加上地图，但先让地图隐藏，列表显示
     _mapView = [[BMKMapView alloc] initWithFrame:subviewframe];
@@ -131,7 +131,7 @@
     
     //判断是显示地图还是列表
     _mapView.hidden = !_isShowMapView;
-    self.tableView.hidden = _isShowMapView;
+    _tableView.hidden = _isShowMapView;
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:_isShowMapView?@"列表":@"地图" action:@selector(sceneChange:)];
     
     self.title = self.strTitle;
@@ -259,13 +259,13 @@
         if (!_isShowMapView)
         {
             _mapView.hidden = YES;
-            self.tableView.hidden = NO;
+            _tableView.hidden = NO;
         }
         else
         {
-            if (self.tableView)
+            if (_tableView)
             {
-                self.tableView.hidden = YES;
+                _tableView.hidden = YES;
                 _mapView.hidden = NO;
                 
                 [self showMapnode];
@@ -479,8 +479,8 @@
     
     [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
 //    [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
-    __weak  SearchDeatalViewController * weakSelf = self;
-    
+   
+    WEAKSELF
     [[LBSDataCenter defaultCenter] loadDataWithNearby:location radius:radius searchtype:SearchHouse searchKye:searchKey index:currentIndex     pageSize:pageSize pieceComplete:^(LBSRequest *request, NSDictionary *dataModel) {
         if (dataModel)
 		{
@@ -500,7 +500,8 @@
         }
 		else
 		{
-           self.navigationItem.rightBarButtonItem.enabled = YES;
+            STRONGSELF
+            self.navigationItem.rightBarButtonItem.enabled = YES;
             
             weakSelf.listContend = !isSearch ? weakSelf.allLawyerEntityArray : weakSelf.searchResults;
             
@@ -539,7 +540,7 @@
                 }
                 
                 
-				[weakSelf.tableView reloadData];//从新加载列表
+				[strongSelf->_tableView reloadData];//从新加载列表
                 [self showMapnode];// 从新加载地图地图
             
             });
@@ -554,8 +555,7 @@
 //    [self showHUDWithTitle:@"搜索中...."];
     [HUDManager showHUDWithToShowStr:@"搜索中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0 userInteractionEnabled:YES];
     
-     __weak  SearchDeatalViewController * weakSelf = self;
-    
+     WEAKSELF
     [[LBSDataCenter defaultCenter] loadDataWithRegionSearchkey:self.searchKey searchtype:SearchHouse index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, id dataModel) {
         if (dataModel)
 		{
@@ -574,6 +574,7 @@
         }
 		else
 		{
+            STRONGSELF
             weakSelf.listContend = weakSelf.searchResults;
             
             // 排序
@@ -606,7 +607,7 @@
                      */
                     [HUDManager showAutoHideHUDWithToShowStr:LBSUINoMoreData HUDMode:MBProgressHUDModeText];
                 
-				[weakSelf.tableView reloadData];
+				[strongSelf->_tableView reloadData];
                 [self showMapnode];// 从新加载地图地图
 
             });

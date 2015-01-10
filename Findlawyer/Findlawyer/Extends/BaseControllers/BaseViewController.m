@@ -8,12 +8,30 @@
 
 #import "BaseViewController.h"
 #import "HUDManager.h"
+#import "InterfaceHUDManager.h"
+#import "LanguagesManager.h"
+#import "CTAssetsPickerController.h"
 
-@interface BaseViewController ()
+@interface BaseViewController () <UINavigationControllerDelegate, CTAssetsPickerControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UIScrollViewDelegate>
+{
+    PickPhotoFinishHandle _pickPhotoFinishHandle;
+    PickPhotoCancelHandle _pickPhotoCancelHandle;
+    BOOL                  _isCropped;
+    
+    UIButton              *_footerRefreshBtn;
+}
 
 @end
 
 @implementation BaseViewController
+
+- (void)dealloc
+{
+    // 注销本地语言切换通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:LanguageTypeDidChangedNotificationKey
+                                                  object:nil];
+}
 
 - (void)loadView
 {
@@ -35,7 +53,7 @@
 {
     [super viewDidLoad];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:HEXCOLOR(0X037AFF) size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:HEXCOLOR(0X1E93DC) size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
     
     if (IOS7)
     {
@@ -67,11 +85,28 @@
      [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
      */
     
+    // 注册本地语言切换通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setPageLocalizableText)
+                                                 name:LanguageTypeDidChangedNotificationKey
+                                               object:nil];
+    
     // 设置界面本地的所有文字显示(涉及多语言)
     [self setPageLocalizableText];
     
+    /**
+     *o2o返回键放在了低栏,这里屏蔽掉(默认是调用@selector(backViewController))
+     */
     // 返回Btn
-    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navBack"] highlightedImg:nil action:@selector(backViewController)];
+    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left
+                                 normalImg:[UIImage imageNamed:@"Return_btn_3.png"]
+                            highlightedImg:[UIImage imageNamed:@"Return_btn_4.png"]
+                                    action:NULL];
+    
+    // 加此代码可以在自定义leftBarButtonItem之后还保持IOS7以上系统自带的滑动返回效果
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
+    {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -81,7 +116,7 @@
     if (IOS7)
     {
         [self setNeedsStatusBarAppearanceUpdate];
-//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
 }
 
@@ -89,11 +124,21 @@
 {
     [self hideHUD];
     
+    /*
+     * @捕捉设置给leftBarButtonItem的回调方法
+     *
+     if (![[self.navigationController viewControllers] containsObject:self])
+     {
+     // the view has been removed from the navigation stack, back is probably the cause
+     // this will be slow with a large stack however.
+     [self backViewController];
+     }
+     */
+    
     [super viewWillDisappear:animated];
 }
 
 ////////////////////////////////////////////////////////////////////////////
-
 
 - (float)subViewsOriginY
 {
@@ -172,20 +217,86 @@
     backgroundStatusImgView.image = backgroundImage;
 }
 
+- (void)setupTableViewWithFrame:(CGRect)frame style:(UITableViewStyle)style registerNibName:(NSString *)nibName reuseIdentifier:(NSString *)identifier
+{
+    _tableView = InsertTableView(nil, frame, self, self, style);
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.backgroundColor = [UIColor clearColor];
+    if ([nibName isAbsoluteValid] && [identifier isAbsoluteValid])
+    {
+        [_tableView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellReuseIdentifier:identifier];
+    }
+    
+    [self.view addSubview:_tableView];
+}
+
+- (void)setupTabFooterRefreshStatusView:(UITableView *)tableView action:(SEL)action
+{
+    UIView *bgView = InsertView(nil, CGRectMake(0, 0, tableView.boundsWidth, 55));
+    bgView.backgroundColor = [UIColor whiteColor];
+    
+    _footerRefreshBtn = InsertImageButtonWithTitle(bgView,
+                                                   CGRectMake(10, 10, bgView.boundsWidth - 10 * 2, 55 - 10 * 2),
+                                                   1000,
+                                                   nil,
+                                                   nil,
+                                                   nil,
+                                                   UIEdgeInsetsZero,
+                                                   SP13Font,
+                                                   [UIColor grayColor],
+                                                   self,
+                                                   action);
+    _footerRefreshBtn.backgroundColor = [UIColor whiteColor];
+    [_footerRefreshBtn addBorderToViewWitBorderColor:[UIColor grayColor]
+                                         borderWidth:0.5];
+    [_footerRefreshBtn setRadius:4];
+    
+    // 设置默认显示类型
+    [self setupTabFooterRefreshStatusViewShowType:TabFooterRefreshStatusViewType_Loading];
+    
+    tableView.tableFooterView = bgView;
+}
+
+- (void)setupTabFooterRefreshStatusViewShowType:(TabFooterRefreshStatusViewType)type
+{
+    if (TabFooterRefreshStatusViewType_LoadMore == type)
+    {
+        [_footerRefreshBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_footerRefreshBtn setTitle:@"加载更多" forState:UIControlStateNormal];
+        _footerRefreshBtn.userInteractionEnabled = YES;
+    }
+    else if (TabFooterRefreshStatusViewType_Loading == type)
+    {
+        [_footerRefreshBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [_footerRefreshBtn setTitle:@"正在加载..." forState:UIControlStateNormal];
+        _footerRefreshBtn.userInteractionEnabled = NO;
+    }
+    else if (TabFooterRefreshStatusViewType_NoMoreData == type)
+    {
+        [_footerRefreshBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [_footerRefreshBtn setTitle:@"已无更多数据" forState:UIControlStateNormal];
+        _footerRefreshBtn.userInteractionEnabled = NO;
+    }
+}
+
 - (void)showHUDInfoByType:(HUDInfoType)type
 {
     switch (type)
     {
         case HUDInfoType_Success:
         {
-            [HUDManager showAutoHideHUDWithToShowStr:OperationSuccess HUDMode:MBProgressHUDModeText];
-//            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:OperationSuccess showType:HUDOperationSuccess];
+            /*
+            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:OperationSuccess showType:HUDOperationSuccess];
+             */
+            [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:OperationSuccess];
         }
             break;
         case HUDInfoType_Failed:
         {
-            [HUDManager showAutoHideHUDWithToShowStr:OperationFailure HUDMode:MBProgressHUDModeText];
-//            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:OperationFailure showType:HUDOperationFailed];
+            /*
+            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:OperationFailure showType:HUDOperationFailed];
+             */
+            [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:OperationFailure];
         }
             break;
         case HUDInfoType_Loading:
@@ -195,8 +306,10 @@
             break;
             case HUDInfoType_NoConnectionNetwork:
         {
-            [HUDManager showAutoHideHUDWithToShowStr:NoConnectionNetwork HUDMode:MBProgressHUDModeText];
-//            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:NoConnectionNetwork showType:HUDOperationFailed];
+            /*
+            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:NoConnectionNetwork showType:HUDOperationFailed];
+             */
+            [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:NoConnectionNetwork];
         }
             break;
         default:
@@ -206,7 +319,10 @@
 
 - (void)showHUDInfoByString:(NSString *)str
 {
+    /*
     [HUDManager showAutoHideHUDWithToShowStr:str HUDMode:MBProgressHUDModeText];
+     */
+    [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:str];
 }
 
 - (void)hideHUD
@@ -218,11 +334,11 @@
 {
     if (BarbuttonItemPosition_Left == position)
     {
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 40, 40) normalImg:normalImg highlightedImg:highlightedImg target:self action:action];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 30, 30) normalImg:normalImg highlightedImg:highlightedImg target:self action:action];
     }
     else
     {
-        self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 40, 40) normalImg:normalImg highlightedImg:highlightedImg target:self action:action];
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 30, 30) normalImg:normalImg highlightedImg:highlightedImg target:self action:action];
     }
 }
 
@@ -230,12 +346,82 @@
 {
     if (BarbuttonItemPosition_Left == position)
     {
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 50, 40) tag:8888 normalImg:nil highlightedImg:nil title:title target:self action:action];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 50, 30) tag:8888 normalImg:nil highlightedImg:nil title:title target:self action:action];
     }
     else
     {
-        self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 50, 40) tag:8888 normalImg:nil highlightedImg:nil title:title target:self action:action];
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 50, 30) tag:8888 normalImg:nil highlightedImg:nil title:title target:self action:action];
     }
+}
+
+- (void)pickSinglePhotoFromCameraOrAlbumByIsCropped:(BOOL)isCropped cancelHandle:(PickPhotoCancelHandle)cancelHandle finishPickingHandle:(PickPhotoFinishHandle)finishHandle
+{
+    _pickPhotoFinishHandle = [finishHandle copy];
+    _pickPhotoCancelHandle = [cancelHandle copy];
+    _isCropped = isCropped;
+    
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:LocalizedStr(All_Cancel) destructiveButtonTitle:nil otherButtonTitles:LocalizedStr(All_PickFromCamera), LocalizedStr(All_PickFromAlbum), nil];
+    
+    [sheet showInView:self.view];
+}
+
+- (void)pickPhotoFromAlbumWithMaxNumberOfSelection:(NSInteger)maxNumber isCropped:(BOOL)isCropped cancelHandle:(PickPhotoCancelHandle)cancelHandle finishPickingHandle:(PickPhotoFinishHandle)finishHandle
+{
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+    {
+        _pickPhotoFinishHandle = [finishHandle copy];
+        _pickPhotoCancelHandle = [cancelHandle copy];
+        
+        if (1 == maxNumber)
+        {
+            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            imagePicker.delegate = self;
+            imagePicker.allowsEditing = isCropped;
+            [imagePicker.navigationBar setBackgroundImage:[UIImage imageWithColor:Common_ThemeColor size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
+            
+            [self presentViewController:imagePicker modalTransitionStyle:UIModalTransitionStyleCoverVertical completion:^{
+                
+            }];
+        }
+        else
+        {
+            CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+            picker.maximumNumberOfSelection = maxNumber;
+            picker.assetsFilter = [ALAssetsFilter allAssets];
+            picker.delegate = self;
+            picker.showsCancelButton = YES;
+            [picker.navigationBar setBackgroundImage:[UIImage imageWithColor:Common_ThemeColor size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
+            
+            [self presentViewController:picker modalTransitionStyle:UIModalTransitionStyleCoverVertical completion:nil];
+        }
+    }
+}
+
+- (void)pickPhotoFromCameraByIsCropped:(BOOL)isCropped cancelHandle:(PickPhotoCancelHandle)cancelHandle finishPickingHandle:(PickPhotoFinishHandle)finishHandle
+{
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        _pickPhotoFinishHandle = [finishHandle copy];
+        _pickPhotoCancelHandle = [cancelHandle copy];
+        
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.delegate = self;
+        imagePicker.allowsEditing = isCropped;
+        [imagePicker.navigationBar setBackgroundImage:[UIImage imageWithColor:Common_ThemeColor size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
+        
+        [self presentViewController:imagePicker modalTransitionStyle:UIModalTransitionStyleCoverVertical completion:^{
+            
+        }];
+    }
+}
+
+- (void)clearPickPhotoCallBackHandle
+{
+    _pickPhotoFinishHandle = nil;
+    _pickPhotoCancelHandle = nil;
+    _isCropped = NO;
 }
 
 #pragma mark - 设置基本属性
@@ -247,7 +433,7 @@
 
 - (void)setNavigationItemTitle:(NSString *)titleStr
 {
-    [self setNavigationItemTitle:titleStr titleFont:[UIFont boldSystemFontOfSize:17] titleColor:[UIColor whiteColor]];
+    [self setNavigationItemTitle:titleStr titleFont:[UIFont boldSystemFontOfSize:NavTitleFontSize] titleColor:[UIColor blackColor]];
 }
 
 - (void)setNavigationItemTitle:(NSString *)title titleFont:(UIFont *)font titleColor:(UIColor *)color
@@ -295,80 +481,115 @@
     }
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - UITableViewDataSource & UITableViewDelegate methods
 
-- (void)initialize
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Do any additional setup in subClass.
+    return 0;
 }
 
-- (void)setLeftBarbuttonTitle:(NSString *)titile
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:titile
-                                                                   style:UIBarButtonItemStyleBordered
-                                                                  target:self
-                                                                  action:@selector(backToPrevious)];
-    self.navigationItem.leftBarButtonItem = backButton;
+    return 0;
 }
 
-- (void)backToPrevious
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    return 0.0;
 }
 
-- (void)showNodataIndicatorWithText:(NSString *)text image:(UIImage *)image
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self hideNodataIndicator];
+    return nil;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // do nothing
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+{
+    /*
+    if (UIImagePickerControllerSourceTypeCamera == picker.sourceType)
+    {
+        UIImageWriteToSavedPhotosAlbum(image, nil, NULL, NULL);
+    }
+    */
     
-    if (text)
-    {
-        self.nodataLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 21)];
-        self.nodataLabel.backgroundColor = [UIColor clearColor];
-        self.nodataLabel.textColor = [UIColor grayColor];
-        self.nodataLabel.text = text;
-        self.nodataLabel.textAlignment = NSTextAlignmentCenter;
-        self.nodataLabel.font = [UIFont systemFontOfSize:15.0];
-        [self.view addSubview:self.nodataLabel];
-        
-        [self.nodataLabel sizeToFit];
-        CGRect frame = self.nodataLabel.frame;
-        frame.origin = CGPointMake((self.view.frame.size.width - frame.size.width)/2.0, (self.view.frame.size.height - frame.size.height)/2.0);
-        self.nodataLabel.frame = frame;
-    }
+    [self dismissViewControllerAnimated:YES completion:nil];
     
-    if (image)
+     if (_pickPhotoFinishHandle) _pickPhotoFinishHandle(@[image]);
+    [self clearPickPhotoCallBackHandle];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    if (_pickPhotoCancelHandle) _pickPhotoCancelHandle();
+    [self clearPickPhotoCallBackHandle];
+}
+
+#pragma mark - CTAssetsPickerControllerDelegate
+
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
+{
+    NSMutableArray *selectedImageArray = [NSMutableArray arrayWithCapacity:assets.count];
+    
+    for (ALAsset *asset in assets)
     {
-        self.nodataIcon = [[UIImageView alloc] initWithImage:image];
-        [self.view addSubview:self.nodataIcon];
-        
-        [self.nodataIcon sizeToFit];
-        CGFloat offset = (text ? 21 : 0);
-        CGRect frame = self.nodataIcon.frame;
-        frame.origin = CGPointMake((self.view.frame.size.width - frame.size.width)/2.0, (self.view.frame.size.height - frame.size.height)/2.0 - offset);
-        self.nodataIcon.frame = frame;
+        UIImage *selectedImage = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
+        [selectedImageArray addObject:selectedImage];
+    }
+    if (_pickPhotoFinishHandle) _pickPhotoFinishHandle(selectedImageArray);
+    
+    [self clearPickPhotoCallBackHandle];
+}
+
+- (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker
+{
+    if (_pickPhotoCancelHandle) _pickPhotoCancelHandle();
+    
+    [self clearPickPhotoCallBackHandle];
+}
+
+#pragma mark - CTAssetsPickerControllerDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *butTitleStr = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if ([butTitleStr isEqualToString:LocalizedStr(All_PickFromCamera)])
+    {
+        [self pickPhotoFromCameraByIsCropped:_isCropped
+                                cancelHandle:_pickPhotoCancelHandle
+                         finishPickingHandle:_pickPhotoFinishHandle];
+    }
+    else if ([butTitleStr isEqualToString:LocalizedStr(All_PickFromAlbum)])
+    {
+        [self pickPhotoFromAlbumWithMaxNumberOfSelection:1
+                                               isCropped:_isCropped
+                                            cancelHandle:_pickPhotoCancelHandle
+                                     finishPickingHandle:_pickPhotoFinishHandle];
     }
 }
 
-- (void)hideNodataIndicator
-{
-    if (self.nodataLabel)
-    {
-        [self.nodataLabel removeFromSuperview];
-        self.nodataLabel = nil;
-    }
-    
-    if (self.nodataIcon)
-    {
-        [self.nodataIcon removeFromSuperview];
-        self.nodataIcon = nil;
-    }
-}
+#pragma mark - UIScrollViewDelegate methods
 
-
-- (void)didReceiveMemoryWarning
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    if (scrollView == _tableView)
+    {
+        // 滚动到了最底部
+        float value = fabsf(scrollView.contentOffset.y - (scrollView.contentSize.height - _tableView.boundsHeight));
+        if (value < 0.5)
+        {
+            if (_tabScrollToBottomOperationHandle) _tabScrollToBottomOperationHandle(scrollView);
+        }
+    }
 }
 
 @end

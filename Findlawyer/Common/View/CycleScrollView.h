@@ -22,11 +22,12 @@ typedef enum
 
 @interface CycleScrollView : UIView <UIScrollViewDelegate>
 
-@property (nonatomic, strong)    NSArray             *imageDataSourceArray; // 图片名或者图片URL数组
+@property (nonatomic, strong)    NSArray             *imageDataSourceArray;     // 图片名或者图片URL数组
 
 @property (nonatomic, readonly)  UIScrollView        *scrollView;
-@property (nonatomic, readonly)  UIPageControl       *pageControl;          // default is show
-@property (nonatomic, assign)    NSInteger           currentPage;           // default is 0
+@property (nonatomic, readonly)  UIPageControl       *pageControl;              // default is show
+@property (nonatomic, assign)    NSInteger           currentPage;               // default is 0
+@property (nonatomic, assign)    BOOL                canBeLongPressToSaveImage; // 是否允许长按保存图片 default is YES
 @property (nonatomic, assign, setter = setDelegate:) id<CycleScrollViewDelegate> delegate;
 
 /**
@@ -81,6 +82,7 @@ typedef enum
 
 @optional
 - (void)didClickPage:(CycleScrollView *)csView atIndex:(NSInteger)index;
+- (void)didScrollToPage:(CycleScrollView *)csView atPage:(NSInteger)page;
 
 @end
 

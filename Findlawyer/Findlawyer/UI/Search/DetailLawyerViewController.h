@@ -14,7 +14,6 @@
 
 
 @property (nonatomic, strong)UIScrollView *myScrollView;// 用来添加各种界面后可以滚动
-@property (nonatomic, strong)UITableView *tableView;
 
 //@property (nonatomic,strong)UIView * bgSegmentcontrol;
 @property (strong,nonatomic)UISegmentedControl * segmentcontrol; // 用来显示文章类型列表

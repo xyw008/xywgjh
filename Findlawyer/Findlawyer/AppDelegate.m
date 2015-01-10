@@ -9,37 +9,54 @@
 #import "AppDelegate.h"
 #import "ACETelPrompt.h"
 #import "AppPropertiesInitialize.h"
+#import "BaseTabBarVC.h"
+#import "HomePageVC.h"
+#import "SearchViewController.h"
+#import "ConsultViewController.h"
+#import "SettingViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     _mapManager = [[BMKMapManager alloc]init];
     BOOL ret = [_mapManager start:@"1kL57f4WT8aD1HUXoV9umUGW" generalDelegate:self];
-	if (!ret) {
-		NSLog(@"manager start failed!");
-	}
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
     self.locationmanage = [[CLLocationManager alloc] init];
     self.locationmanage .delegate = self;
-
     self.locationmanage .desiredAccuracy = kCLLocationAccuracyBest;
     
     if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 8.0) {
-            [self.locationmanage requestAlwaysAuthorization];
+        [self.locationmanage requestAlwaysAuthorization];
     }
     
-    
-    if( ([[[UIDevice currentDevice] systemVersion] doubleValue]>=7.0))
-    {
-      [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-    }
-    
+    // 进行应用程序一系列属性的初始化设置
     [AppPropertiesInitialize startAppPropertiesInitialize];
     
-//   [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:79/255.0 green:180/255.0 blue:255.0/255.0 alpha:1]];
+    HomePageVC *homePage = [[HomePageVC alloc] init];
+    UINavigationController *homePageNav = [[UINavigationController alloc] initWithRootViewController:homePage];
     
-   // [navigationController.navigationBar setTranslucent:NO];//默认带有一定透明效果，可以使用以下方法去除系统效果
+    SearchViewController *search = [[SearchViewController alloc] init];
+    UINavigationController *searchNav = [[UINavigationController alloc] initWithRootViewController:search];
+    
+    ConsultViewController *consult = [[ConsultViewController alloc] init];
+    UINavigationController *consultNav = [[UINavigationController alloc] initWithRootViewController:consult];
+    
+    SettingViewController *setting = [[SettingViewController alloc] init];
+    UINavigationController *settingNav = [[UINavigationController alloc] initWithRootViewController:setting];
+    
+    BaseTabBarVC *baseTabBarController = [[BaseTabBarVC alloc] init];
+    baseTabBarController.viewControllers = @[homePageNav, searchNav, consultNav, settingNav];
+    
+    self.window.rootViewController = baseTabBarController;
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
     
     return YES;
 }
