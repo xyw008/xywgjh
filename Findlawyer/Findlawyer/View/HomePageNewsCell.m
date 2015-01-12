@@ -8,7 +8,13 @@
 
 #import "HomePageNewsCell.h"
 
+@interface HomePageNewsCell ()
+
+@end
+
 @implementation HomePageNewsCell
+
+static CGFloat defaultCellHeight = 0;
 
 - (void)awakeFromNib {
     // Initialization code
@@ -18,6 +24,16 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
++ (CGFloat)getCellHeight
+{
+    if (0 == defaultCellHeight)
+    {
+        HomePageNewsCell *cell = [self loadFromNib];
+        defaultCellHeight = cell.boundsHeight;
+    }
+    return defaultCellHeight;
 }
 
 @end

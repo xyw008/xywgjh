@@ -8,27 +8,26 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="KGk-i7-Jjw" customClass="HomePageNewsCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" tag="1000" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lawyerMapAnnotationUserHeaderDefault..png" translatesAutoresizingMaskIntoConstraints="NO" id="YtQ-HT-J3Q">
-                        <rect key="frame" x="5" y="8" width="60" height="45"/>
+                        <rect key="frame" x="10" y="15" width="60" height="49"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="X63-NJ-UZL"/>
-                            <constraint firstAttribute="height" constant="45" id="mwd-gT-17w"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" tag="1002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="描述描述描述描述描述描述描述描述描述描述描述描述" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7M-GF-JSH">
-                        <rect key="frame" x="70" y="26" width="212" height="27"/>
+                        <rect key="frame" x="80" y="33" width="202" height="31"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                         <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Scz-Az-fc6">
-                        <rect key="frame" x="70" y="8" width="212" height="18"/>
+                        <rect key="frame" x="80" y="15" width="202" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="rqs-KZ-mJJ"/>
                         </constraints>
@@ -40,15 +39,17 @@
                 <constraints>
                     <constraint firstItem="Scz-Az-fc6" firstAttribute="width" secondItem="q7M-GF-JSH" secondAttribute="width" id="1W4-WQ-fcS"/>
                     <constraint firstItem="YtQ-HT-J3Q" firstAttribute="bottom" secondItem="q7M-GF-JSH" secondAttribute="bottom" id="1bB-vH-CkS"/>
-                    <constraint firstItem="YtQ-HT-J3Q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="37n-Gw-QOH"/>
+                    <constraint firstItem="YtQ-HT-J3Q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="37n-Gw-QOH"/>
+                    <constraint firstAttribute="bottom" secondItem="YtQ-HT-J3Q" secondAttribute="bottom" constant="15" id="4hD-qg-eL1"/>
                     <constraint firstItem="q7M-GF-JSH" firstAttribute="top" secondItem="Scz-Az-fc6" secondAttribute="bottom" id="BMs-Zk-VqN"/>
                     <constraint firstAttribute="trailing" secondItem="Scz-Az-fc6" secondAttribute="trailing" constant="5" id="Mt8-hu-1FQ"/>
-                    <constraint firstItem="Scz-Az-fc6" firstAttribute="leading" secondItem="YtQ-HT-J3Q" secondAttribute="trailing" constant="5" id="mkk-Me-4te"/>
+                    <constraint firstItem="Scz-Az-fc6" firstAttribute="leading" secondItem="YtQ-HT-J3Q" secondAttribute="trailing" constant="10" id="mkk-Me-4te"/>
                     <constraint firstItem="Scz-Az-fc6" firstAttribute="leading" secondItem="q7M-GF-JSH" secondAttribute="leading" id="uhB-xF-dHK"/>
-                    <constraint firstItem="YtQ-HT-J3Q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="xWa-RD-nyo"/>
+                    <constraint firstItem="YtQ-HT-J3Q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="xWa-RD-nyo"/>
                     <constraint firstItem="YtQ-HT-J3Q" firstAttribute="top" secondItem="Scz-Az-fc6" secondAttribute="top" id="zvE-zz-tuh"/>
                 </constraints>
             </tableViewCellContentView>
+            <point key="canvasLocation" x="291" y="393"/>
         </tableViewCell>
     </objects>
     <resources>

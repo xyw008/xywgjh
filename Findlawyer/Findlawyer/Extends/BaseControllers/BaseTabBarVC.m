@@ -54,8 +54,8 @@
     for (int i = 0; i < items.count; i++)
     {
         UITabBarItem *aItem = [items objectAtIndex:i];
-        [aItem setTitleTextAttributes:@{UITextAttributeTextColor: HEXCOLOR(0X306CC5)} forState:UIControlStateSelected];
-        [aItem setTitleTextAttributes:@{UITextAttributeTextColor: HEXCOLOR(0X4F555F)} forState:UIControlStateNormal];
+        [aItem setTitleTextAttributes:@{NSForegroundColorAttributeName: Common_ThemeColor} forState:UIControlStateSelected];
+        [aItem setTitleTextAttributes:@{NSForegroundColorAttributeName: Common_GrayColor} forState:UIControlStateNormal];
         
         NSString *title = nil;
         UIImage *normalImage = nil;
@@ -67,32 +67,32 @@
             {
                 title = @"首页";
                 
-                normalImage = [UIImage imageNamed:@"tab_news_normal"];
-                selectedImage = [UIImage imageNamed:@"tab_news_selected"];
+                normalImage = [UIImage imageNamed:@"tab_Home_Normal"];
+                selectedImage = [UIImage imageNamed:@"tab_Home_Highlight"];
             }
                 break;
             case 1:
             {
                 title = @"搜索";
                 
-                normalImage = [UIImage imageNamed:@"tab_image_normal"];
-                selectedImage = [UIImage imageNamed:@"tab_image_selected"];
+                normalImage = [UIImage imageNamed:@"tab_Search_Normal"];
+                selectedImage = [UIImage imageNamed:@"tab_Search_Highlight"];
             }
                 break;
             case 2:
             {
                 title = @"我的法宝";
                 
-                normalImage = [UIImage imageNamed:@"tab_video_normal"];
-                selectedImage = [UIImage imageNamed:@"tab_video_selected"];
+                normalImage = [UIImage imageNamed:@"tab_Fabao_Normal"];
+                selectedImage = [UIImage imageNamed:@"tab_Fabao_Highlight"];
             }
                 break;
             case 3:
             {
                 title = @"更多";
                 
-                normalImage = [UIImage imageNamed:@"tab_bbs_normal"];
-                selectedImage = [UIImage imageNamed:@"tab_bbs_selected"];
+                normalImage = [UIImage imageNamed:@"tab_Setting_Normal"];
+                selectedImage = [UIImage imageNamed:@"tab_Setting_Highlight"];
             }
                 break;
                 

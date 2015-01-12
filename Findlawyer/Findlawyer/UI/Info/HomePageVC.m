@@ -24,8 +24,9 @@
 #import "HomePageNewsCell.h"
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "GCDThread.h"
+#import "GJHSlideSwitchView.h"
 
-#define kCellHeight 35
+#define kCellHeight 40
 
 #define LineBtnCount    3   // 一行平台btn的数量
 #define BtnWidth        50  // 平台btn的宽度
@@ -38,6 +39,8 @@
 {
     UIView          *_rigitemTitleView;
     CycleScrollView *_cycleScrollView;
+    
+    GJHSlideSwitchView *_sliderSwitchView;
     
     NSMutableArray *_networkHomePageNewsEntitiesArray;
     NSMutableArray *_networkHomePageBannerEntitiesArray;
@@ -159,8 +162,8 @@
 
 - (UIView *)tabHeaderView
 {
-    NSArray *textsArray = @[@"附近律师",@"周边律所", @"我要咨询", @"待定1"];
-    NSArray *imagesNameArray = @[@"btn_icon2", @"btn_icon1", @"btn_icon3", @"btn_icon4"];
+    NSArray *textsArray = @[@"附近律师",@"周边律所", @"我要咨询"];
+    NSArray *imagesNameArray = @[@"fujinlvshi", @"zhoubianlvsuo", @"woyaozixun"];
     
     UIView *bgView = InsertView(nil, CGRectMake(0, 0, self.view.boundsWidth, 0));
     NSInteger itemCount = textsArray.count;
@@ -201,11 +204,11 @@
                                                       self,
                                                       @selector(clicked:));
                 
-                currentView = InsertLabel(bgView, CGRectMake(tempBtn.frameOriginX - 5, CGRectGetMaxY(tempBtn.frame) + 0, tempBtn.boundsWidth + 10, LabelHeight),
+                currentView = InsertLabel(bgView, CGRectMake(tempBtn.frameOriginX - 5, CGRectGetMaxY(tempBtn.frame) + 10, tempBtn.boundsWidth + 10, LabelHeight),
                                           NSTextAlignmentCenter,
                                           titleStr,
                                           SP13Font,
-                                          [UIColor blackColor],
+                                          Common_GrayColor,
                                           NO);
                 
                 tempBtnTag++;
@@ -225,11 +228,11 @@
                                                       self,
                                                       @selector(clicked:));
                 
-                currentView = InsertLabel(bgView, CGRectMake(tempBtn.frameOriginX - 5, CGRectGetMaxY(tempBtn.frame) + 0, tempBtn.boundsWidth + 10, LabelHeight),
+                currentView = InsertLabel(bgView, CGRectMake(tempBtn.frameOriginX - 5, CGRectGetMaxY(tempBtn.frame) + 10, tempBtn.boundsWidth + 10, LabelHeight),
                                           NSTextAlignmentCenter,
                                           titleStr,
                                           SP13Font,
-                                          [UIColor blackColor],
+                                          Common_GrayColor,
                                           NO);
                 
                 tempBtnTag++;
@@ -250,9 +253,6 @@
     NSInteger tag = sender.tag - 1000;
     if (tag == 0)
     {
-//        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-//        SearchLawyerViewController *vc = (SearchLawyerViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawyer"];
-        
         SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
         vc.strTitle = @"附近律师";
         vc.searchKey = @"";
@@ -261,9 +261,6 @@
     }
     else if (tag == 1)
     {
-//        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-//        SearchDeatalViewController *vc = (SearchDeatalViewController*)[storyboard instantiateViewControllerWithIdentifier:@"SearchDetailLawfirm"];
-        
         SearchDeatalViewController *vc = [[SearchDeatalViewController alloc] init];
         vc.searchKey = @"";
         vc.strTitle = @"周边律所";
@@ -288,12 +285,21 @@
 
 #pragma mark -UITableViewDelegate UITabevieDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _networkHomePageNewsEntitiesArray.count + 1;
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0)
     {
-        return 60;
+        return [HomePageNewsCell getCellHeight];
     }
     // 最后更多的新闻
     if (indexPath.row == _networkHomePageNewsEntitiesArray.count)
@@ -303,14 +309,26 @@
     return kCellHeight;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 1;
+    return kDefaultSlideSwitchViewHeight;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return _networkHomePageNewsEntitiesArray.count + 1;
+    if (!_sliderSwitchView)
+    {
+        _sliderSwitchView = [[GJHSlideSwitchView alloc] initWithFrame:CGRectMake(0, 0, _tableView.boundsWidth, kDefaultSlideSwitchViewHeight) titlesArray:@[@"头条", @"法制", @"律界", @"实务"]];
+        _sliderSwitchView.tabItemNormalColor = HEXCOLOR(0X6D6D6D);
+        _sliderSwitchView.tabItemSelectedColor = Common_ThemeColor;
+        _sliderSwitchView.shadowImage = [UIImage imageWithColor:Common_ThemeColor size:CGSizeMake(1, 1)];
+        _sliderSwitchView.isTabItemEqualWidthInFullScreenWidth = YES;
+        _sliderSwitchView.backgroundColor = [UIColor whiteColor];
+        [_sliderSwitchView.topScrollView addLineWithPosition:ViewDrawLinePostionType_Bottom lineColor:HEXCOLOR(0XE7E7E7) lineWidth:1];
+        
+        [_sliderSwitchView buildUI];
+    }
+    return _sliderSwitchView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -326,6 +344,12 @@
          HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
          UILabel *titleLabel = (UILabel *)[cell viewWithTag:1001];
          UILabel *descLabel = (UILabel *)[cell viewWithTag:1002];
+         
+         titleLabel.font = SP15Font;
+         titleLabel.textColor = Common_BlackColor;
+         
+         descLabel.font = SP12Font;
+         descLabel.textColor = Common_GrayColor;
          
          titleLabel.text = entity.newsTitleStr;
          descLabel.text = entity.newsDescStr;
@@ -343,7 +367,7 @@
              moreLB.textAlignment = NSTextAlignmentCenter;
              moreLB.font = SP16Font;
              [cell.contentView addSubview:moreLB];
-//             [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
+
              UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(moreLB.frame), 16, 7, 12)];
              imgView.image = [UIImage imageNamed:@"home_moreNew"];
              [cell.contentView addSubview:imgView];
@@ -359,6 +383,9 @@
              cell.textLabel.font = [UIFont boldSystemFontOfSize:12];
              cell.textLabel.textColor = [UIColor blackColor];
              cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+             cell.textLabel.font = SP12Font;
+             cell.textLabel.textColor = Common_GrayColor;
+             
              [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
          }
          cell.textLabel.text = entity.newsTitleStr;

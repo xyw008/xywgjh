@@ -10,4 +10,6 @@
 
 @interface HomePageNewsCell : UITableViewCell
 
++ (CGFloat)getCellHeight;
+
 @end

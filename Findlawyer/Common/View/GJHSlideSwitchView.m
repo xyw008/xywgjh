@@ -10,9 +10,9 @@
 
 static CGFloat kHeightOfTopScrollView = 0.0f;           // 会根据文字和图片自动调整
 static const CGFloat kWidthOfButtonMargin = 20.0f;
-static const CGFloat kFontSizeOfTabButton = 14.0f;
+static const CGFloat kFontSizeOfTabButton = 16.0f;
 static const NSUInteger kTagOfRightSideButton = 999;
-static const CGFloat kHeightOfShadowImageView = 3.0f;
+static const CGFloat kHeightOfShadowImageView = 2.0f;
 
 @implementation GJHSlideSwitchView
 
