@@ -14,6 +14,7 @@
 #import "SearchViewController.h"
 #import "ConsultViewController.h"
 #import "SettingViewController.h"
+#import "SearchVC.h"
 
 @implementation AppDelegate
 
@@ -41,7 +42,7 @@
     HomePageVC *homePage = [[HomePageVC alloc] init];
     UINavigationController *homePageNav = [[UINavigationController alloc] initWithRootViewController:homePage];
     
-    SearchViewController *search = [[SearchViewController alloc] init];
+    SearchVC *search = [[SearchVC alloc] init];
     UINavigationController *searchNav = [[UINavigationController alloc] initWithRootViewController:search];
     
     ConsultViewController *consult = [[ConsultViewController alloc] init];

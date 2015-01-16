@@ -52,6 +52,9 @@
 		2BD9CCE01A64198800DA8DD1 /* tab_Setting_Highlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BD9CCD01A64198800DA8DD1 /* tab_Setting_Highlight@3x.png */; };
 		2BD9CCE11A64198800DA8DD1 /* tab_Setting_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BD9CCD11A64198800DA8DD1 /* tab_Setting_Normal@2x.png */; };
 		2BD9CCE21A64198800DA8DD1 /* tab_Setting_Normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BD9CCD21A64198800DA8DD1 /* tab_Setting_Normal@3x.png */; };
+		2BDA69481A66B4D400094487 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BDA69471A66B4D400094487 /* SearchVC.m */; };
+		2BDA694D1A66B95700094487 /* SearchItemCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BDA694B1A66B95700094487 /* SearchItemCollectionCell.m */; };
+		2BDA694E1A66B95700094487 /* SearchItemCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BDA694C1A66B95700094487 /* SearchItemCollectionCell.xib */; };
 		2BDE0AD91A60F785003EA0C4 /* InterfaceHUDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BDE0AD81A60F785003EA0C4 /* InterfaceHUDManager.m */; };
 		2BDE0AE21A60F7AE003EA0C4 /* GJHAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BDE0ADB1A60F7AE003EA0C4 /* GJHAlertView.m */; };
 		2BDE0AE31A60F7AE003EA0C4 /* GJHSlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BDE0ADD1A60F7AE003EA0C4 /* GJHSlideSwitchView.m */; };
@@ -552,6 +555,11 @@
 		2BD9CCD01A64198800DA8DD1 /* tab_Setting_Highlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_Setting_Highlight@3x.png"; sourceTree = "<group>"; };
 		2BD9CCD11A64198800DA8DD1 /* tab_Setting_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_Setting_Normal@2x.png"; sourceTree = "<group>"; };
 		2BD9CCD21A64198800DA8DD1 /* tab_Setting_Normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_Setting_Normal@3x.png"; sourceTree = "<group>"; };
+		2BDA69461A66B4D400094487 /* SearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
+		2BDA69471A66B4D400094487 /* SearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
+		2BDA694A1A66B95700094487 /* SearchItemCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchItemCollectionCell.h; sourceTree = "<group>"; };
+		2BDA694B1A66B95700094487 /* SearchItemCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchItemCollectionCell.m; sourceTree = "<group>"; };
+		2BDA694C1A66B95700094487 /* SearchItemCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchItemCollectionCell.xib; sourceTree = "<group>"; };
 		2BDE0AD71A60F785003EA0C4 /* InterfaceHUDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterfaceHUDManager.h; sourceTree = "<group>"; };
 		2BDE0AD81A60F785003EA0C4 /* InterfaceHUDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterfaceHUDManager.m; sourceTree = "<group>"; };
 		2BDE0ADA1A60F7AE003EA0C4 /* GJHAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJHAlertView.h; sourceTree = "<group>"; };
@@ -1487,6 +1495,16 @@
 			path = Tab;
 			sourceTree = "<group>";
 		};
+		2BDA69491A66B6B900094487 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2BDA694A1A66B95700094487 /* SearchItemCollectionCell.h */,
+				2BDA694B1A66B95700094487 /* SearchItemCollectionCell.m */,
+				2BDA694C1A66B95700094487 /* SearchItemCollectionCell.xib */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		43B1839A19ECB74E00B7B1F6 /* Class */ = {
 			isa = PBXGroup;
 			children = (
@@ -2202,6 +2220,8 @@
 				51D4318D19C44F7600B6F48B /* ChooseTable.xib */,
 				510A416F1969393500C95DB3 /* SearchViewController.h */,
 				510A41701969393500C95DB3 /* SearchViewController.m */,
+				2BDA69461A66B4D400094487 /* SearchVC.h */,
+				2BDA69471A66B4D400094487 /* SearchVC.m */,
 				517C24D919D6987400331AE4 /* SearchDeatalViewController.h */,
 				517C24D719D6985100331AE4 /* SearchDeatalViewController.m */,
 				51EFD8B219A4CB9300832C28 /* SearchLawyerViewController.h */,
@@ -3160,6 +3180,7 @@
 		B3E3990E19ECCBEA0033F10B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2BDA69491A66B6B900094487 /* Search */,
 				B3E3990F19ECCC4C0033F10B /* SearchSortView.h */,
 				B3E3991019ECCC4C0033F10B /* SearchSortView.m */,
 				2306A42919ED786E00D6F55F /* SearchView.h */,
@@ -3274,6 +3295,7 @@
 				5143CC0519791F6800D4B7C0 /* bgbtn@2x.png in Resources */,
 				2BD9CCBD1A640DE700DA8DD1 /* fujinlvshi@3x.png in Resources */,
 				B3AAEB9919EFED7A003FB7F9 /* Images.xcassets in Resources */,
+				2BDA694E1A66B95700094487 /* SearchItemCollectionCell.xib in Resources */,
 				51D4319019C4502900B6F48B /* bgChoose@2x.png in Resources */,
 				B39F465519F4E28F00C89290 /* lib.xcconfig in Resources */,
 				5112D0D51978CEB40039A88F /* icon120.png in Resources */,
@@ -3457,6 +3479,7 @@
 			files = (
 				B39F45BB19F4E28F00C89290 /* NICollectionViewCellFactory.m in Sources */,
 				43B184E919ECB91100B7B1F6 /* UIButton+Cache.m in Sources */,
+				2BDA694D1A66B95700094487 /* SearchItemCollectionCell.m in Sources */,
 				B3AAEB9819EFED7A003FB7F9 /* CTAssetsPickerController.m in Sources */,
 				B39F45C519F4E28F00C89290 /* NIDeviceOrientation.m in Sources */,
 				43B1866819ECBC0800B7B1F6 /* AppSoundManager.m in Sources */,
@@ -3684,6 +3707,7 @@
 				51D700BC19EB8AB800CCC80A /* LBSRequest+LBSSearchRegion.m in Sources */,
 				43D1A82C1A26D3F7001E881B /* MASViewConstraint.m in Sources */,
 				51BD0C7119B0644C006EF8AC /* DetailLawfirmHeaderView.m in Sources */,
+				2BDA69481A66B4D400094487 /* SearchVC.m in Sources */,
 				B39F45C619F4E28F00C89290 /* NIError.m in Sources */,
 				43B1852119ECBA0C00B7B1F6 /* BaseViewController.m in Sources */,
 				5197EA7E19B728B4000484A7 /* LawyerArticleViewController.m in Sources */,
