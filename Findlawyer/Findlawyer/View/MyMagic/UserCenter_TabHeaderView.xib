@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UserCenter_TabHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="105"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AZr-qb-peG">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="105"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eis-8J-Uqe">
+                            <rect key="frame" x="22" y="21" width="63" height="63"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="63" id="Ni6-x6-nkh"/>
+                                <constraint firstAttribute="width" constant="63" id="wz8-pV-ZGM"/>
+                            </constraints>
+                            <state key="normal" backgroundImage="weidenglutouxiang.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="clickUserHeaderImageBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="cvR-Kx-FmG"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AlexKung" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BrJ-Wj-Jgl">
+                            <rect key="frame" x="111" y="22" width="199" height="26"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="26" id="9rP-Tn-uT9"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13888888888" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Otl-0o-Wol">
+                            <rect key="frame" x="111" y="53" width="199" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="15" id="dwT-Qq-QmN"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="广东工业大学" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5BO-Oq-j1W">
+                            <rect key="frame" x="111" y="71" width="199" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="15" id="TE0-1K-PR4"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="BrJ-Wj-Jgl" firstAttribute="top" secondItem="AZr-qb-peG" secondAttribute="top" constant="22" id="1tD-zh-tCM"/>
+                        <constraint firstItem="Otl-0o-Wol" firstAttribute="leading" secondItem="5BO-Oq-j1W" secondAttribute="leading" id="4Gj-E5-MR8"/>
+                        <constraint firstItem="BrJ-Wj-Jgl" firstAttribute="trailing" secondItem="Otl-0o-Wol" secondAttribute="trailing" id="7VA-n8-4Uf"/>
+                        <constraint firstItem="Otl-0o-Wol" firstAttribute="top" secondItem="BrJ-Wj-Jgl" secondAttribute="bottom" constant="5" id="FuS-kG-3Ha"/>
+                        <constraint firstItem="5BO-Oq-j1W" firstAttribute="top" secondItem="Otl-0o-Wol" secondAttribute="bottom" constant="3" id="Kwp-eA-p7O"/>
+                        <constraint firstAttribute="height" constant="105" id="PIh-Wh-OmX"/>
+                        <constraint firstItem="Eis-8J-Uqe" firstAttribute="leading" secondItem="AZr-qb-peG" secondAttribute="leading" constant="22" id="TS2-jY-GKx"/>
+                        <constraint firstAttribute="centerY" secondItem="Eis-8J-Uqe" secondAttribute="centerY" id="bzL-9e-NH2"/>
+                        <constraint firstAttribute="trailing" secondItem="BrJ-Wj-Jgl" secondAttribute="trailing" constant="10" id="jnT-1g-jCw"/>
+                        <constraint firstItem="Otl-0o-Wol" firstAttribute="trailing" secondItem="5BO-Oq-j1W" secondAttribute="trailing" id="mFD-mg-NMD"/>
+                        <constraint firstItem="BrJ-Wj-Jgl" firstAttribute="leading" secondItem="Otl-0o-Wol" secondAttribute="leading" id="qoX-fo-O1r"/>
+                        <constraint firstItem="BrJ-Wj-Jgl" firstAttribute="leading" secondItem="Eis-8J-Uqe" secondAttribute="trailing" constant="26" id="xOi-2r-2eT"/>
+                    </constraints>
+                </view>
+                <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SrN-uv-l0w">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="105"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎来到法宝" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCd-Kr-Xer">
+                            <rect key="frame" x="115" y="25" width="90" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iKC-hg-1Ni">
+                            <rect key="frame" x="123" y="51" width="75" height="35"/>
+                            <color key="backgroundColor" red="0.54061418920000004" green="0.81628315500000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="75" id="Wmw-ii-CMB"/>
+                                <constraint firstAttribute="height" constant="35" id="ij2-aR-rUq"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="登录/注册">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="clickLoginAndRegisterBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="c2G-2Z-bQu"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="iKC-hg-1Ni" firstAttribute="centerX" secondItem="xCd-Kr-Xer" secondAttribute="centerX" id="9rr-JJ-W4v"/>
+                        <constraint firstAttribute="height" constant="105" id="HeB-gx-raF"/>
+                        <constraint firstItem="iKC-hg-1Ni" firstAttribute="top" secondItem="xCd-Kr-Xer" secondAttribute="bottom" constant="8" id="mtB-1o-xck"/>
+                        <constraint firstItem="xCd-Kr-Xer" firstAttribute="top" secondItem="SrN-uv-l0w" secondAttribute="top" constant="25" id="zCa-xN-E8f"/>
+                        <constraint firstAttribute="centerX" secondItem="xCd-Kr-Xer" secondAttribute="centerX" id="zPZ-UR-1dx"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="SrN-uv-l0w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0Xc-8z-o91"/>
+                <constraint firstAttribute="trailing" secondItem="SrN-uv-l0w" secondAttribute="trailing" id="K9y-bP-OWY"/>
+                <constraint firstItem="SrN-uv-l0w" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="bQa-4k-s96"/>
+                <constraint firstItem="AZr-qb-peG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jW7-YV-mCx"/>
+                <constraint firstAttribute="trailing" secondItem="AZr-qb-peG" secondAttribute="trailing" id="r54-5c-idk"/>
+                <constraint firstItem="AZr-qb-peG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="rhf-O3-nbq"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="addressLabel" destination="5BO-Oq-j1W" id="ueE-ZR-6Wp"/>
+                <outlet property="loginAndRegisterBtn" destination="iKC-hg-1Ni" id="Yv0-I1-asd"/>
+                <outlet property="mobilePhoneNumLabel" destination="Otl-0o-Wol" id="mzw-RR-hDJ"/>
+                <outlet property="notLoginBGView" destination="SrN-uv-l0w" id="lHQ-O1-X19"/>
+                <outlet property="userHeaderImageBtn" destination="Eis-8J-Uqe" id="xs0-F9-BfX"/>
+                <outlet property="userInfoBGView" destination="AZr-qb-peG" id="ecZ-HA-5rh"/>
+                <outlet property="userNameLabel" destination="BrJ-Wj-Jgl" id="EMM-aH-XP8"/>
+                <outlet property="welcomeLabel" destination="xCd-Kr-Xer" id="MEc-GE-i6J"/>
+            </connections>
+            <point key="canvasLocation" x="325" y="124.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="weidenglutouxiang.png" width="63" height="63"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

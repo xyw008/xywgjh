@@ -45,11 +45,14 @@
 
 - (void)setTabShowData
 {
-    NSArray *section_OneTitleArray = [NSArray arrayWithObjects:@"扫码二维码,下载律寻APP", @"喜欢律寻?打分鼓励下吧", nil];
-    NSArray *section_OneImageArray = [NSArray arrayWithObjects:@"saoyisao", @"xihuan", nil];
+    NSArray *section_OneTitleArray = [NSArray arrayWithObjects:@"扫码二维码,下载律寻APP", nil];
+    NSArray *section_OneImageArray = [NSArray arrayWithObjects:@"saoyisao", nil];
     
-    _tabShowDataCellTitleArray = [NSArray arrayWithObjects:section_OneTitleArray, nil];
-    _tabShowDataCellImageArray = [NSArray arrayWithObjects:section_OneImageArray, nil];
+    NSArray *section_TwoTitleArray = [NSArray arrayWithObjects:@"喜欢律寻?打分鼓励下吧", nil];
+    NSArray *section_TwoImageArray = [NSArray arrayWithObjects:@"xihuan", nil];
+    
+    _tabShowDataCellTitleArray = [NSArray arrayWithObjects:section_OneTitleArray, section_TwoTitleArray, nil];
+    _tabShowDataCellImageArray = [NSArray arrayWithObjects:section_OneImageArray, section_TwoImageArray, nil];
 }
 
 - (void)initialization
@@ -97,12 +100,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 15;
+    return CellSeparatorSpace;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return 0.1;
+    return [UIView new];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -117,8 +120,8 @@
         cell.backgroundColor = [UIColor whiteColor];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
-        cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
-        cell.textLabel.textColor = [UIColor blackColor];
+        cell.textLabel.font = SP15Font;
+        cell.textLabel.textColor = Common_BlackColor;
     }
     
     NSString *imageNameStr = [self getOneCellImageNameWithIndexPath:indexPath];

@@ -224,6 +224,19 @@
 		43B334C219F0F21300DBE372 /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334BE19F0F21300DBE372 /* Default@3x.png */; };
 		43B334C619F1001F00DBE372 /* saoyisao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334C419F1001F00DBE372 /* saoyisao@2x.png */; };
 		43B334C719F1001F00DBE372 /* xihuan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334C519F1001F00DBE372 /* xihuan@2x.png */; };
+		43CEA80C1A6A106B0001CCA3 /* SearchCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CEA80A1A6A106B0001CCA3 /* SearchCollectionHeaderView.m */; };
+		43CEA80D1A6A106B0001CCA3 /* SearchCollectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43CEA80B1A6A106B0001CCA3 /* SearchCollectionHeaderView.xib */; };
+		43CEA8101A6A12890001CCA3 /* gouXuan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CEA80F1A6A12880001CCA3 /* gouXuan@2x.png */; };
+		43CEA8141A6A2F9C0001CCA3 /* SearchCollectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CEA8121A6A2F9C0001CCA3 /* SearchCollectionFooterView.m */; };
+		43CEA8151A6A2F9C0001CCA3 /* SearchCollectionFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43CEA8131A6A2F9C0001CCA3 /* SearchCollectionFooterView.xib */; };
+		43CEA8191A6A37DD0001CCA3 /* gouXuan_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CEA8161A6A37DD0001CCA3 /* gouXuan_Selected@2x.png */; };
+		43CEA81A1A6A37DD0001CCA3 /* gouXuan_Selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CEA8171A6A37DD0001CCA3 /* gouXuan_Selected@3x.png */; };
+		43CEA81B1A6A37DD0001CCA3 /* gouXuan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CEA8181A6A37DD0001CCA3 /* gouXuan@3x.png */; };
+		43CEA81E1A6A40620001CCA3 /* MyMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CEA81D1A6A40620001CCA3 /* MyMagic.m */; };
+		43CEA8231A6A41860001CCA3 /* UserCenter_TabHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CEA8211A6A41860001CCA3 /* UserCenter_TabHeaderView.m */; };
+		43CEA8241A6A41860001CCA3 /* UserCenter_TabHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43CEA8221A6A41860001CCA3 /* UserCenter_TabHeaderView.xib */; };
+		43CEA8281A6A45C00001CCA3 /* MyMagicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CEA8261A6A45C00001CCA3 /* MyMagicCell.m */; };
+		43CEA8291A6A45C00001CCA3 /* MyMagicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43CEA8271A6A45C00001CCA3 /* MyMagicCell.xib */; };
 		43D1A8271A26D3F7001E881B /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D1A8111A26D3F7001E881B /* MASCompositeConstraint.m */; };
 		43D1A8281A26D3F7001E881B /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D1A8141A26D3F7001E881B /* MASConstraint.m */; };
 		43D1A8291A26D3F7001E881B /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D1A8161A26D3F7001E881B /* MASConstraintMaker.m */; };
@@ -903,6 +916,24 @@
 		43B334BE19F0F21300DBE372 /* Default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@3x.png"; sourceTree = "<group>"; };
 		43B334C419F1001F00DBE372 /* saoyisao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saoyisao@2x.png"; sourceTree = "<group>"; };
 		43B334C519F1001F00DBE372 /* xihuan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xihuan@2x.png"; sourceTree = "<group>"; };
+		43CEA8091A6A106B0001CCA3 /* SearchCollectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCollectionHeaderView.h; sourceTree = "<group>"; };
+		43CEA80A1A6A106B0001CCA3 /* SearchCollectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionHeaderView.m; sourceTree = "<group>"; };
+		43CEA80B1A6A106B0001CCA3 /* SearchCollectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCollectionHeaderView.xib; sourceTree = "<group>"; };
+		43CEA80F1A6A12880001CCA3 /* gouXuan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gouXuan@2x.png"; sourceTree = "<group>"; };
+		43CEA8111A6A2F9C0001CCA3 /* SearchCollectionFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCollectionFooterView.h; sourceTree = "<group>"; };
+		43CEA8121A6A2F9C0001CCA3 /* SearchCollectionFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionFooterView.m; sourceTree = "<group>"; };
+		43CEA8131A6A2F9C0001CCA3 /* SearchCollectionFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCollectionFooterView.xib; sourceTree = "<group>"; };
+		43CEA8161A6A37DD0001CCA3 /* gouXuan_Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gouXuan_Selected@2x.png"; sourceTree = "<group>"; };
+		43CEA8171A6A37DD0001CCA3 /* gouXuan_Selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gouXuan_Selected@3x.png"; sourceTree = "<group>"; };
+		43CEA8181A6A37DD0001CCA3 /* gouXuan@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gouXuan@3x.png"; sourceTree = "<group>"; };
+		43CEA81C1A6A40620001CCA3 /* MyMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMagic.h; sourceTree = "<group>"; };
+		43CEA81D1A6A40620001CCA3 /* MyMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMagic.m; sourceTree = "<group>"; };
+		43CEA8201A6A41860001CCA3 /* UserCenter_TabHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCenter_TabHeaderView.h; sourceTree = "<group>"; };
+		43CEA8211A6A41860001CCA3 /* UserCenter_TabHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCenter_TabHeaderView.m; sourceTree = "<group>"; };
+		43CEA8221A6A41860001CCA3 /* UserCenter_TabHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCenter_TabHeaderView.xib; sourceTree = "<group>"; };
+		43CEA8251A6A45C00001CCA3 /* MyMagicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMagicCell.h; sourceTree = "<group>"; };
+		43CEA8261A6A45C00001CCA3 /* MyMagicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMagicCell.m; sourceTree = "<group>"; };
+		43CEA8271A6A45C00001CCA3 /* MyMagicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyMagicCell.xib; sourceTree = "<group>"; };
 		43D1A8101A26D3F7001E881B /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		43D1A8111A26D3F7001E881B /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
 		43D1A8121A26D3F7001E881B /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
@@ -1501,6 +1532,12 @@
 				2BDA694A1A66B95700094487 /* SearchItemCollectionCell.h */,
 				2BDA694B1A66B95700094487 /* SearchItemCollectionCell.m */,
 				2BDA694C1A66B95700094487 /* SearchItemCollectionCell.xib */,
+				43CEA8091A6A106B0001CCA3 /* SearchCollectionHeaderView.h */,
+				43CEA80A1A6A106B0001CCA3 /* SearchCollectionHeaderView.m */,
+				43CEA80B1A6A106B0001CCA3 /* SearchCollectionHeaderView.xib */,
+				43CEA8111A6A2F9C0001CCA3 /* SearchCollectionFooterView.h */,
+				43CEA8121A6A2F9C0001CCA3 /* SearchCollectionFooterView.m */,
+				43CEA8131A6A2F9C0001CCA3 /* SearchCollectionFooterView.xib */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1767,6 +1804,7 @@
 		43B1842419ECB74E00B7B1F6 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				43CEA80E1A6A12880001CCA3 /* Search */,
 				B3AA99A419F7878D00A0DC1E /* Home */,
 				43B334C319F1001F00DBE372 /* setting */,
 				43B334B219F0F01900DBE372 /* appCommon */,
@@ -2118,6 +2156,30 @@
 			path = setting;
 			sourceTree = "<group>";
 		};
+		43CEA80E1A6A12880001CCA3 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				43CEA8161A6A37DD0001CCA3 /* gouXuan_Selected@2x.png */,
+				43CEA8171A6A37DD0001CCA3 /* gouXuan_Selected@3x.png */,
+				43CEA8181A6A37DD0001CCA3 /* gouXuan@3x.png */,
+				43CEA80F1A6A12880001CCA3 /* gouXuan@2x.png */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		43CEA81F1A6A412F0001CCA3 /* MyMagic */ = {
+			isa = PBXGroup;
+			children = (
+				43CEA8201A6A41860001CCA3 /* UserCenter_TabHeaderView.h */,
+				43CEA8211A6A41860001CCA3 /* UserCenter_TabHeaderView.m */,
+				43CEA8221A6A41860001CCA3 /* UserCenter_TabHeaderView.xib */,
+				43CEA8251A6A45C00001CCA3 /* MyMagicCell.h */,
+				43CEA8261A6A45C00001CCA3 /* MyMagicCell.m */,
+				43CEA8271A6A45C00001CCA3 /* MyMagicCell.xib */,
+			);
+			path = MyMagic;
+			sourceTree = "<group>";
+		};
 		43D1A80F1A26D3F7001E881B /* Masonry */ = {
 			isa = PBXGroup;
 			children = (
@@ -2208,6 +2270,8 @@
 				B3B083F719EE57F500BF5BC9 /* ConsultInfoVC.m */,
 				B3ADC0F719F637AD0026272C /* ConsultLawyerSortVC.h */,
 				B3ADC0F819F637AD0026272C /* ConsultLawyerSortVC.m */,
+				43CEA81C1A6A40620001CCA3 /* MyMagic.h */,
+				43CEA81D1A6A40620001CCA3 /* MyMagic.m */,
 			);
 			path = Consult;
 			sourceTree = "<group>";
@@ -3180,6 +3244,7 @@
 		B3E3990E19ECCBEA0033F10B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				43CEA81F1A6A412F0001CCA3 /* MyMagic */,
 				2BDA69491A66B6B900094487 /* Search */,
 				B3E3990F19ECCC4C0033F10B /* SearchSortView.h */,
 				B3E3991019ECCC4C0033F10B /* SearchSortView.m */,
@@ -3298,6 +3363,7 @@
 				2BDA694E1A66B95700094487 /* SearchItemCollectionCell.xib in Resources */,
 				51D4319019C4502900B6F48B /* bgChoose@2x.png in Resources */,
 				B39F465519F4E28F00C89290 /* lib.xcconfig in Resources */,
+				43CEA81B1A6A37DD0001CCA3 /* gouXuan@3x.png in Resources */,
 				5112D0D51978CEB40039A88F /* icon120.png in Resources */,
 				2BD9CCDD1A64198800DA8DD1 /* tab_Search_Normal@2x.png in Resources */,
 				51BEE0D01969245800566AFF /* tab_setting_sel@2x.png in Resources */,
@@ -3356,7 +3422,9 @@
 				43DABE9919ED1C3600CA3FD9 /* lawyerMapAnnotationUserHeaderDefault.@2x.png in Resources */,
 				B39F45BE19F4E28F00C89290 /* deps in Resources */,
 				2BD9CCD51A64198800DA8DD1 /* tab_Fabao_Normal@2x.png in Resources */,
+				43CEA8191A6A37DD0001CCA3 /* gouXuan_Selected@2x.png in Resources */,
 				5112D0DB1978D2970039A88F /* tab1_nor@2x.png in Resources */,
+				43CEA8241A6A41860001CCA3 /* UserCenter_TabHeaderView.xib in Resources */,
 				2BD9CCE11A64198800DA8DD1 /* tab_Setting_Normal@2x.png in Resources */,
 				51BEE09C19690AC000566AFF /* Images.xcassets in Resources */,
 				B39F461219F4E28F00C89290 /* deps in Resources */,
@@ -3411,12 +3479,17 @@
 				1E34A1B619B7821E0035CDE6 /* defualtLawfirm@2x.png in Resources */,
 				43DABEC319ED276800CA3FD9 /* 19@2x.png in Resources */,
 				43DABEBB19ED276800CA3FD9 /* 11@2x.png in Resources */,
+				43CEA8101A6A12890001CCA3 /* gouXuan@2x.png in Resources */,
 				43DABECB19ED276800CA3FD9 /* 26@2x.png in Resources */,
+				43CEA8151A6A2F9C0001CCA3 /* SearchCollectionFooterView.xib in Resources */,
 				2BD9CCE01A64198800DA8DD1 /* tab_Setting_Highlight@3x.png in Resources */,
 				1E34A1B419B7821E0035CDE6 /* defaultlawyer@2x.png in Resources */,
 				43DABECF19ED276800CA3FD9 /* 5@2x.png in Resources */,
 				51BEE0D11969245800566AFF /* tab_tool_nor@2x.png in Resources */,
+				43CEA8291A6A45C00001CCA3 /* MyMagicCell.xib in Resources */,
 				1E34A1AF19B77D4E0035CDE6 /* consult_seleted@2x.png in Resources */,
+				43CEA81A1A6A37DD0001CCA3 /* gouXuan_Selected@3x.png in Resources */,
+				43CEA80D1A6A106B0001CCA3 /* SearchCollectionHeaderView.xib in Resources */,
 				43DABEBE19ED276800CA3FD9 /* 14@2x.png in Resources */,
 				43B334C219F0F21300DBE372 /* Default@3x.png in Resources */,
 				43DABEBF19ED276800CA3FD9 /* 15@2x.png in Resources */,
@@ -3519,7 +3592,9 @@
 				43B184EF19ECB91100B7B1F6 /* UIImage+SSToolkitAdditions.m in Sources */,
 				43B184FB19ECB91100B7B1F6 /* HUDManager.m in Sources */,
 				B39F463C19F4E28F00C89290 /* NIOverviewSwizzling.m in Sources */,
+				43CEA8281A6A45C00001CCA3 /* MyMagicCell.m in Sources */,
 				43B184EB19ECB91100B7B1F6 /* UIApplication+SSToolkitAdditions.m in Sources */,
+				43CEA8141A6A2F9C0001CCA3 /* SearchCollectionFooterView.m in Sources */,
 				B39F463619F4E28F00C89290 /* NIDeviceInfo.m in Sources */,
 				B39F45C419F4E28F00C89290 /* NIDebuggingTools.m in Sources */,
 				B39F45BC19F4E28F00C89290 /* NICollectionViewModel.m in Sources */,
@@ -3649,6 +3724,7 @@
 				B39F462119F4E28F00C89290 /* NIMutableTableViewModel.m in Sources */,
 				43B1861C19ECBA4800B7B1F6 /* ATBookAnimationView.m in Sources */,
 				43B185EC19ECBA4800B7B1F6 /* ATB_StrikeThroughLabel.m in Sources */,
+				43CEA8231A6A41860001CCA3 /* UserCenter_TabHeaderView.m in Sources */,
 				43B1844B19ECB74E00B7B1F6 /* IQUIView+Hierarchy.m in Sources */,
 				B39F462019F4E28F00C89290 /* NIFormCellCatalog.m in Sources */,
 				51BEE08A19690AC000566AFF /* main.m in Sources */,
@@ -3745,6 +3821,7 @@
 				43B185F119ECBA4800B7B1F6 /* ATBLibs+NSFileManager.m in Sources */,
 				2BDE0AE41A60F7AE003EA0C4 /* UIRefreshTabView.m in Sources */,
 				43B1851219ECB91100B7B1F6 /* ShowImgFullScreenManager.m in Sources */,
+				43CEA81E1A6A40620001CCA3 /* MyMagic.m in Sources */,
 				43B1862519ECBA4800B7B1F6 /* ATPinyin+NSString.m in Sources */,
 				43B1845419ECB74E00B7B1F6 /* SDWebImageDownloader.m in Sources */,
 				B39F45D119F4E28F00C89290 /* NISDKAvailability.m in Sources */,
@@ -3762,6 +3839,7 @@
 				43B1843A19ECB74E00B7B1F6 /* UIPopoverController+FlatUI.m in Sources */,
 				43B1843319ECB74E00B7B1F6 /* FUISwitch.m in Sources */,
 				43B184EC19ECB91100B7B1F6 /* UIColor+SSToolkitAdditions.m in Sources */,
+				43CEA80C1A6A106B0001CCA3 /* SearchCollectionHeaderView.m in Sources */,
 				43B1843919ECB74E00B7B1F6 /* UINavigationBar+FlatUI.m in Sources */,
 				43B1843119ECB74E00B7B1F6 /* FUIPopoverBackgroundView.m in Sources */,
 				43D1A82B1A26D3F7001E881B /* MASViewAttribute.m in Sources */,

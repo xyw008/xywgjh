@@ -433,7 +433,7 @@
 
 - (void)setNavigationItemTitle:(NSString *)titleStr
 {
-    [self setNavigationItemTitle:titleStr titleFont:[UIFont boldSystemFontOfSize:NavTitleFontSize] titleColor:[UIColor blackColor]];
+    [self setNavigationItemTitle:titleStr titleFont:[UIFont boldSystemFontOfSize:NavTitleFontSize] titleColor:[UIColor whiteColor]];
 }
 
 - (void)setNavigationItemTitle:(NSString *)title titleFont:(UIFont *)font titleColor:(UIColor *)color

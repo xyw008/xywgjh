@@ -85,6 +85,9 @@
                 
                 normalImage = [UIImage imageNamed:@"tab_Fabao_Normal"];
                 selectedImage = [UIImage imageNamed:@"tab_Fabao_Highlight"];
+                
+                aItem.badgeValue = @"12";
+
             }
                 break;
             case 3:

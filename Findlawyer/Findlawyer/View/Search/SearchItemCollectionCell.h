@@ -10,4 +10,8 @@
 
 @interface SearchItemCollectionCell : UICollectionViewCell
 
++ (CGSize)getCellSize;
+
+- (void)setTitleStr:(NSString *)title;
+
 @end

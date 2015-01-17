@@ -15,6 +15,7 @@
 #import "ConsultViewController.h"
 #import "SettingViewController.h"
 #import "SearchVC.h"
+#import "MyMagic.h"
 
 @implementation AppDelegate
 
@@ -45,14 +46,19 @@
     SearchVC *search = [[SearchVC alloc] init];
     UINavigationController *searchNav = [[UINavigationController alloc] initWithRootViewController:search];
     
+    /*
     ConsultViewController *consult = [[ConsultViewController alloc] init];
     UINavigationController *consultNav = [[UINavigationController alloc] initWithRootViewController:consult];
+    */
     
+    MyMagic *myMagic = [[MyMagic alloc] init];
+    UINavigationController *myMagicNav = [[UINavigationController alloc] initWithRootViewController:myMagic];
+
     SettingViewController *setting = [[SettingViewController alloc] init];
     UINavigationController *settingNav = [[UINavigationController alloc] initWithRootViewController:setting];
     
     BaseTabBarVC *baseTabBarController = [[BaseTabBarVC alloc] init];
-    baseTabBarController.viewControllers = @[homePageNav, searchNav, consultNav, settingNav];
+    baseTabBarController.viewControllers = @[homePageNav, searchNav, myMagicNav, settingNav];
     
     self.window.rootViewController = baseTabBarController;
     

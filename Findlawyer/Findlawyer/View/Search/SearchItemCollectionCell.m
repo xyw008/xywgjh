@@ -16,6 +16,8 @@
 
 @implementation SearchItemCollectionCell
 
+static CGSize defaultCellSize = {0,0};
+
 - (void)awakeFromNib
 {
     [self setup];
@@ -25,21 +27,20 @@
 
 - (void)configureViewsProperties
 {
-//    UIView *background = [[UIView alloc] init];
-//    background.backgroundColor = [UIColor whiteColor];
-//    self.backgroundView = background;
-//    
-//    UIView *selectedBackground = [[UIView alloc] init];
-//    selectedBackground.backgroundColor = Common_ThemeColor;
-//    self.selectedBackgroundView = selectedBackground;
+    self.backgroundColor = [UIColor whiteColor];
+    
+    UIView *background = [[UIView alloc] init];
+    background.backgroundColor = [UIColor whiteColor];
+    self.backgroundView = background;
+    
+    UIView *selectedBackground = [[UIView alloc] init];
+    selectedBackground.backgroundColor = Common_ThemeColor;
+    self.selectedBackgroundView = selectedBackground;
+    
+    [self setRadius:self.boundsHeight / 2];
     
     _titleLabel.textColor = Common_BlackColor;
     _titleLabel.highlightedTextColor = [UIColor whiteColor];
-    
-    
-    
-//    [_titleBtn setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
-//    [_titleBtn setBackgroundImage:[UIImage imageWithColor:Common_ThemeColor size:CGSizeMake(1, 1)] forState:UIControlStateSelected];
 }
 
 - (void)setup
@@ -48,11 +49,22 @@
     [self configureViewsProperties];
 }
 
-- (void)setSelected:(BOOL)selected
+- (void)setTitleStr:(NSString *)title
 {
-    [super setSelected:selected];
+    _titleLabel.text = title;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
++ (CGSize)getCellSize
+{
+    if (CGSizeEqualToSize(defaultCellSize, CGSizeMake(0, 0)))
+    {
+        CGFloat width = (IPHONE_WIDTH - 10 * 4) / 3;
+        defaultCellSize = CGSizeMake(width, 30);
+    }
     
-    _titleLabel.backgroundColor = selected ? Common_ThemeColor : [UIColor whiteColor];
+    return defaultCellSize;
 }
 
 @end

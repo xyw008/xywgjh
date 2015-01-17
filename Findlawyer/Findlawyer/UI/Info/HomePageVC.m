@@ -62,14 +62,12 @@
 
 - (void)initialize
 {
-//    [super initialize];
     [self addSignalObserver];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-  //   self.navigationController.navigationBar.translucent = YES;
     
     UIImageView *imgview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithCustomView:imgview];
@@ -339,7 +337,7 @@
      if (indexPath.row == 0)
      {
          cell = [tableView dequeueReusableCellWithIdentifier:@"HomePageNewsCell" forIndexPath:indexPath];
-         [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
+         [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:CellSeparatorColor lineWidth:1];
          
          HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
          UILabel *titleLabel = (UILabel *)[cell viewWithTag:1001];
@@ -386,7 +384,7 @@
              cell.textLabel.font = SP12Font;
              cell.textLabel.textColor = Common_GrayColor;
              
-             [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:HEXCOLOR(0XD9D9D9) lineWidth:1];
+             [cell addLineWithPosition:ViewDrawLinePostionType_Bottom startPointOffset:5 endPointOffset:5 lineColor:CellSeparatorColor lineWidth:1];
          }
          cell.textLabel.text = entity.newsTitleStr;
      }

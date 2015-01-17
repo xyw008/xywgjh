@@ -31,15 +31,15 @@
 #define SP10Font                            [UIFont systemFontOfSize:10.0]      // TAB的子标题
 
 // 常规文字颜色
-#define Common_BlackColor                HEXCOLOR(0X111111)                  // 黑色    适用范围:TAB的主标题
-#define Common_GrayColor                HEXCOLOR(0X535353)                  // 灰色    适用范围:TAB的子标题
+#define Common_BlackColor                   HEXCOLOR(0X111111)                  // 黑色    适用范围:TAB的主标题
+#define Common_GrayColor                    HEXCOLOR(0X535353)                  // 灰色    适用范围:TAB的子标题
 #define Common_InkBlackColor                HEXCOLOR(0X545D61)                  // 墨黑色  适用范围:TAB未选中状态的主标题
 #define Common_InkGreenColor                HEXCOLOR(0X7A97A1)                  // 墨绿色  适用范围:...
 #define Common_LiteBlueColor                HEXCOLOR(0X169DCE)                  // 浅蓝色  适用范围:TAB选中状态的主标题
 #define Common_OrangeColor                  HEXCOLOR(0XFF8C00)                  // 橙黄色  适用范围:产品详情页 价格、选择按钮选中边框、购物车按钮等的颜色
 
-#define PageBackgroundColor                 HEXCOLOR(0XE8EEF0)                  // 灰蓝色  viewController的背景色
-#define CellSeparatorColor                  HEXCOLOR(0XC7D2D6)                  // 灰白色  tabViewCell的间隔线
+#define PageBackgroundColor                 HEXCOLOR(0XF4F4F4)                  // 灰蓝色  viewController的背景色
+#define CellSeparatorColor                  HEXCOLOR(0XD9D9D9)                  // 灰白色  tabViewCell的间隔线
 
 #define Common_LiteWhiteGrayColor           HEXCOLOR(0XB5C4C9)                  // 浅灰白色 适用范围:订单详情页面 小标题、时间、购买件数
 
@@ -97,7 +97,7 @@
 //小得预览占位图片（logo）
 #define kSmallPreviewImage                  [UIImage imageNamed:@"dingdanxiangqing_shangpibtupian_morentupian"]
 
-#define kSpecialtyDomainArray       @[@"刑事辩护",@"婚姻家庭",@"民商经济",@"劳动人事",@"行政诉讼",@"知识产权",@"交通事故",@"房产建筑",@"银行保险",@"金融证券",@"并购上市",@"涉外国际",@"法律顾问"] //擅长领域（顺序不能乱，其所在数组idnex + 1 就是此领域的 ID）
+#define kSpecialtyDomainArray       @[@"刑事辩护",@"婚姻家庭",@"民商经济",@"劳动人事",@"行政诉讼",@"知识产权",@"交通事故",@"房产建筑",@"银行保险",@"金融证券",@"并购上市",@"涉外国际",@"法律顾问"] // 擅长领域（顺序不能乱,其所在数组idnex + 1 就是此领域的 ID）
 
 #define kTotalRadius    200000
 #define kMapShowSpan    0.01    // 地图显示的跨度比例尺
