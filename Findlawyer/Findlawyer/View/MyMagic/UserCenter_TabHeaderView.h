@@ -14,8 +14,6 @@ typedef NS_ENUM(NSInteger, UserCenterTabHeaderViewOperationType)
 {
     /// 点击用户头像
     UserCenterTabHeaderViewOperationType_UserHeaderImageBtn = 0,
-    /// 查看所有订单
-    UserCenterTabHeaderViewOperationType_CheckAllOrder,
     /// 登录/注册
     UserCenterTabHeaderViewOperationType_LoginAndRegister,
 };

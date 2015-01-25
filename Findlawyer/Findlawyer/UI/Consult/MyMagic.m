@@ -9,13 +9,15 @@
 #import "MyMagic.h"
 #import "UserCenter_TabHeaderView.h"
 #import "MyMagicCell.h"
+#import "LoginVC.h"
 
 static NSString * const cellIdentifier_userInfoHeader   = @"cellIdentifier_userInfoHeader";
 static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMagicCell";
 
 @interface MyMagic ()
 {
-    
+    NSArray                     *_tabShowDataCellTitleArray;
+    NSArray                     *_tabShowDataCellImageArray;
 }
 
 @end
@@ -31,6 +33,7 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
                             highlightedImg:nil
                                     action:NULL];
     
+    [self setTabShowData];
     [self initialization];
 }
 
@@ -39,6 +42,34 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
     // Dispose of any resources that can be recreated.
 }
 #pragma mark - custom methods
+
+- (void)setTabShowData
+{
+    NSArray *section_OneTitleArray = [NSArray arrayWithObjects:@"资讯推送", nil];
+    NSArray *section_OneImageArray = [NSArray arrayWithObjects:@"zixuntuisong", nil];
+    
+    NSArray *section_TwoTitleArray = [NSArray arrayWithObjects:@"我的咨询", nil];
+    NSArray *section_TwoImageArray = [NSArray arrayWithObjects:@"wodezixun", nil];
+    
+    _tabShowDataCellTitleArray = [NSArray arrayWithObjects:section_OneTitleArray, section_TwoTitleArray, nil];
+    _tabShowDataCellImageArray = [NSArray arrayWithObjects:section_OneImageArray, section_TwoImageArray, nil];
+}
+
+- (NSString *)getOneCellTitleWithIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *titleArray = _tabShowDataCellTitleArray[indexPath.section];
+    NSString *titleStr = titleArray[indexPath.row];
+    
+    return titleStr;
+}
+
+- (NSString *)getOneCellImageNameWithIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *imageNameArray = _tabShowDataCellImageArray[indexPath.section];
+    NSString *imageNameStr = imageNameArray[indexPath.row];
+    
+    return imageNameStr;
+}
 
 - (void)setPageLocalizableText
 {
@@ -78,22 +109,20 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
     
     // tab header view
     UserCenter_TabHeaderView *headerView = [UserCenter_TabHeaderView loadFromNib];
-    headerView.viewType = UserCenterHeaderViewType_Logined;
+    headerView.viewType = UserCenterHeaderViewType_NotLogin;
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     WEAKSELF
     [headerView setOperationHandle:^(UserCenter_TabHeaderView *view, UserCenterTabHeaderViewOperationType type, id sender) {
         
-        if (type == UserCenterTabHeaderViewOperationType_CheckAllOrder)
-        {
-            
-        }
-        else if (type == UserCenterTabHeaderViewOperationType_UserHeaderImageBtn)
+        if (type == UserCenterTabHeaderViewOperationType_UserHeaderImageBtn)
         {
             
         }
         else if (type == UserCenterTabHeaderViewOperationType_LoginAndRegister)
         {
-            
+            LoginVC *login = [LoginVC loadFromNib];
+            UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:login];
+            [weakSelf presentViewController:loginNav modalTransitionStyle:UIModalTransitionStyleCoverVertical completion:nil];
         }
     }];
     _tableView.tableHeaderView = headerView;
@@ -108,11 +137,17 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return _tabShowDataCellTitleArray.count + 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (_tabShowDataCellTitleArray.count != section)
+    {
+        NSArray *titleArray = _tabShowDataCellTitleArray[section];
+        
+        return titleArray.count;
+    }
     return 1;
 }
 
@@ -143,19 +178,30 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (0 == indexPath.section)
+    if (_tabShowDataCellTitleArray.count != indexPath.section)
     {
         MyMagicCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier_MyMagicCell];
         
-        return cell;
-    }
-    else if (1 == indexPath.section)
-    {
-        MyMagicCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier_MyMagicCell];
+        NSString *imageNameStr = [self getOneCellImageNameWithIndexPath:indexPath];
+        NSString *titleStr = [self getOneCellTitleWithIndexPath:indexPath];
+        
+        cell.theImageView.image = [UIImage imageNamed:imageNameStr];
+        cell.titleLabel.text = titleStr;
+        
+        if (indexPath.section == 0)
+        {
+            [cell setBadgeOneValue:@"288"];
+            [cell setBadgeTwoValue:@"36"];
+        }
+        else
+        {
+            [cell setBadgeOneValue:@"1"];
+            [cell setBadgeTwoValue:@"4"];
+        }
         
         return cell;
     }
-    else if (2 == indexPath.section)
+    else
     {
         static NSString *cellIdentifier_logout = @"cellIdentifier_logout";
         

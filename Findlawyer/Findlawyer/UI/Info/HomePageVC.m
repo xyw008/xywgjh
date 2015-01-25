@@ -25,6 +25,7 @@
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "GCDThread.h"
 #import "GJHSlideSwitchView.h"
+#import "AppPropertiesInitialize.h"
 
 #define kCellHeight 40
 
@@ -69,7 +70,12 @@
 {
     [super viewDidLoad];
     
-    UIImageView *imgview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
+    // 进行应用程序一系列属性的初始化设置
+    [AppPropertiesInitialize startAppPropertiesInitialize];
+    
+    UIImageView *imgview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fabao"]];
+    imgview.contentMode = UIViewContentModeCenter;
+    imgview.boundsWidth += 10;
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithCustomView:imgview];
     self.navigationItem.leftBarButtonItem = leftBarBtn;
     
@@ -276,9 +282,10 @@
 
 - (void)pressedRightButtonView:(id)sender
 {
-//    CityListViewController * cityListVC = [[CityListViewController alloc]init];
-//    [self.navigationController pushViewController:cityListVC animated:YES];
-    [self performSegueWithIdentifier:@"TocityLIst" sender:self];
+    CityListViewController * cityListVC = [[CityListViewController alloc]init];
+    UINavigationController *cityListNav = [[UINavigationController alloc] initWithRootViewController:cityListVC];
+    
+    [self presentViewController:cityListNav modalTransitionStyle:UIModalTransitionStyleCoverVertical completion:nil];
 }
 
 #pragma mark -UITableViewDelegate UITabevieDataSource

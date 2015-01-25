@@ -15,7 +15,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *userHeaderImageBtn;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *mobilePhoneNumLabel;
+/*
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+ */
 
 // 未登录相关
 @property (weak, nonatomic) IBOutlet UIView *notLoginBGView;
@@ -49,7 +51,7 @@ static CGFloat defaultViewHeight = 0;
     _userInfoBGView.backgroundColor = HEXCOLOR(0XF5FAFD);
     _userNameLabel.textColor = blackColor;
     _mobilePhoneNumLabel.textColor = Common_ThemeColor;
-    _addressLabel.textColor = HEXCOLOR(0X4F5256);
+    // _addressLabel.textColor = HEXCOLOR(0X4F5256);
     
     _notLoginBGView.backgroundColor = HEXCOLOR(0XF5FAFD);
     _notLoginBGView.alpha = 1;

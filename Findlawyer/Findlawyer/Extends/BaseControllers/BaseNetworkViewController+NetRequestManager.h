@@ -11,12 +11,17 @@
 typedef enum
 {
     // 主页新闻
-    NetHomePageNewsRequestType_GetMainNewsDetail                       = 0, // 获取主页新闻详情(GET)
-    NetHomePageNewsRequestType_GetMainNewsList                            , // 获取主页新闻列表(GET)
+    NetHomePageNewsRequestType_GetMainNewsDetail          = 0, // 获取主页新闻详情(GET)
+    NetHomePageNewsRequestType_GetMainNewsList               , // 获取主页新闻列表(GET)
     
-    NetConsultInfoRequestType_GetAskId                                    , // 获取咨询系统分配ID (GET)
-    NetConsultInfoRequestType_PostPhoto                                   , // 上传咨询图片 (POST)
-    NetConsultInfoRequestType_PostSaveAskInfo                             , // 上传咨询信息 (POST)
+    NetConsultInfoRequestType_GetAskId                       , // 获取咨询系统分配ID (GET)
+    NetConsultInfoRequestType_PostPhoto                      , // 上传咨询图片 (POST)
+    NetConsultInfoRequestType_PostSaveAskInfo                , // 上传咨询信息 (POST)
+    
+    // 用户中心
+    NetUserCenterRequestType_Register                        , // 注册
+    NetUserCenterRequestType_Login                           , // 登录
+    NetUserCenterRequestType_GetVerificationCode             , // 获取验证码
     
 } NetRequestType;
 

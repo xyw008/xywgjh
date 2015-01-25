@@ -95,8 +95,6 @@
     currentIndex = 0;
     pageSize = 30;
     
-    self.title = self.strTitle;
-    
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.viewBoundsWidth, 44)];
     self.searchBar.placeholder = @"请输入您要找的律师";
     if (self.searchKey.length >0 && !_isHiddenSearchKey)
@@ -104,8 +102,8 @@
         self.searchBar.text = self.searchKey;
     }
     
-    [self.searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"Search_topBar_bg"] forState:UIControlStateNormal];
-    [_searchBar setBackgroundImage:[UIImage imageNamed:@"searchBG"]];
+    [self.searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"sousuo_2"] forState:UIControlStateNormal];
+    [_searchBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(1, 1)]];
     self.searchBar.delegate = self;
     [self.view addSubview:_searchBar];
     
@@ -121,7 +119,7 @@
     _tableView = [[UITableView alloc]initWithFrame:subviewframe];
     [_tableView keepAutoresizingInFull];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.backgroundColor = HEXCOLOR(0XF0F0F0);
+    _tableView.backgroundColor = [UIColor whiteColor];
     
     //先注册自定义的LawyerCell以便重用
     [_tableView registerNib:[UINib nibWithNibName:@"LawyerCell" bundle:nil] forCellReuseIdentifier:@"LawyerCell"];
@@ -178,6 +176,13 @@
     [HUDManager hideHUD];
     [self removeProgressHUD];
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - custom methods
+
+- (void)setPageLocalizableText
+{
+    [self setNavigationItemTitle:_strTitle ];
 }
 
 // 开启地图定位
@@ -310,7 +315,7 @@
 }
 
 // 处理cell 中各种BUtton 发出的通知
-
+/*
 - (void)receiveSignal:(QSignal *)signal
 {
     if ([signal.name isEqualToString:SignalCellShowMap]&& [self isViewLoaded])
@@ -342,6 +347,7 @@
         [self consult];
     }
 }
+*/
 
 // 显示地图
 - (void)showMap
@@ -828,6 +834,11 @@
 	//[[LBSSharedData sharedData] setCurrentIndex:currentIndex];
 }
 
+- (LBSLawyer *)curDataWithIndex:(NSInteger)index
+{
+    return index < _listContend.count ? _listContend[index] : nil;
+}
+
 #pragma mark - UITableViewDatasource And UITableViewDelegate
 
 
@@ -841,23 +852,9 @@
     return 1;
 }
 
-// 用自定义cell 显示每个律师数据
-- (void)configureLawyerCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    LawyerCell *lycell = (LawyerCell *)cell;
-    lycell.cellindexPath = indexPath;
-    LBSLawyer *lawyer = [self.listContend objectAtIndex:indexPath.section];
-    lycell.lbName.text = lawyer.name;
-    lycell.lblawfirm.text = lawyer.lawfirmName;
-    lycell.lbCertificate.text = lawyer.certificateNo;
-    lycell.lbPhone.text = lawyer.mobile ? lawyer.mobile : @"暂无电话";
-    lycell.specialAreaStr = lawyer.specialArea;
-    [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   return 140;
+   return [LawyerCell getCellHeight];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -874,7 +871,7 @@
         cell.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     }
      */
-    [self configureLawyerCell:cell atIndexPath:indexPath];
+    [cell loadCellShowDataWithItemEntity:[self curDataWithIndex:indexPath.section]];
     
     return cell;
 }
@@ -882,12 +879,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.seletedlawyer = [self.listContend objectAtIndex:indexPath.section];
+    self.seletedlawyer = [self curDataWithIndex:indexPath.section   ];
     
     [self pushDetailLawyerVC:_seletedlawyer];
-    /*
-    [self performSegueWithIdentifier:@"SearchtoLawyerDetail" sender:self];
-     */
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -898,7 +892,7 @@
     }
     else
     {
-        return CellSeparatorSpace;
+        return 0;
     }
 }
 

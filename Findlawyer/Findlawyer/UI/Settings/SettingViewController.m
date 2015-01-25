@@ -31,6 +31,11 @@
 {
     [super viewDidLoad];
     
+    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left
+                                 normalImg:nil
+                            highlightedImg:nil
+                                    action:NULL];
+    
     [self setTabShowData];
     [self initialization];
 }
@@ -42,6 +47,11 @@
 }
 
 #pragma mark - custom methods
+
+- (void)setPageLocalizableText
+{
+    [self setNavigationItemTitle:@"更多"];
+}
 
 - (void)setTabShowData
 {
@@ -119,6 +129,12 @@
         cell.backgroundView = nil;
         cell.backgroundColor = [UIColor whiteColor];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        [cell addLineWithPosition:ViewDrawLinePostionType_Top
+                        lineColor:CellSeparatorColor
+                        lineWidth:LineWidth];
+        [cell addLineWithPosition:ViewDrawLinePostionType_Bottom
+                        lineColor:CellSeparatorColor
+                        lineWidth:LineWidth];
         
         cell.textLabel.font = SP15Font;
         cell.textLabel.textColor = Common_BlackColor;

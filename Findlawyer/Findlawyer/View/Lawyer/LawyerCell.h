@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FlatUIKit.h"
+#import "LBSLawyer.h"
 
 typedef NS_ENUM(NSInteger, LawyerCellOperationType)
 {
@@ -43,6 +44,9 @@ typedef NS_ENUM(NSInteger, LawyerCellOperationType)
 - (IBAction)consult:(id)sender;
 - (IBAction)call:(id)sender;
 - (IBAction)btnSendSms:(id)sender;
+
++ (CGFloat)getCellHeight;
+- (void)loadCellShowDataWithItemEntity:(LBSLawyer *)entity;
 
 @end
 

@@ -38,7 +38,7 @@
     }
     
     // 进行应用程序一系列属性的初始化设置
-    [AppPropertiesInitialize startAppPropertiesInitialize];
+    // [AppPropertiesInitialize startAppPropertiesInitialize];
     
     HomePageVC *homePage = [[HomePageVC alloc] init];
     UINavigationController *homePageNav = [[UINavigationController alloc] initWithRootViewController:homePage];

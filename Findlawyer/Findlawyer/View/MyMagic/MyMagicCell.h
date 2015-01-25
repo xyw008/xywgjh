@@ -10,6 +10,12 @@
 
 @interface MyMagicCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *theImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 + (CGFloat)getCellHeight;
+
+- (void)setBadgeOneValue:(NSString *)value;
+- (void)setBadgeTwoValue:(NSString *)value;
 
 @end

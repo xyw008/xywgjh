@@ -20,26 +20,17 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbSpecialAreaThreeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lbSpecialAreaMoreLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *distanceBtn;
+
 @end
 
 @implementation LawyerCell
 
+static CGFloat defaultCellHeight = 0;
+
 - (void)awakeFromNib
 {
-    for (UIView *view in self.contentView.subviews)
-    {
-        if ([view isKindOfClass:[FUIButton class]])
-        {
-            FUIButton *theBtn = (FUIButton *)view;
-            theBtn.buttonColor = HEXCOLOR(0xEAE6E2);
-            theBtn.highlightedColor = HEXCOLOR(0x3FA6AC);
-        }
-        else if ([view isKindOfClass:[UILabel class]] && view.tag >= 1000)
-        {
-            view.userInteractionEnabled = YES;
-            [view addTarget:self action:@selector(clickSpecialAreaLabel:)];
-        }
-    }
+    [self setup];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -47,6 +38,48 @@
     [super setSelected:selected animated:animated];
     
     // Configure the view for the selected state
+}
+
+#pragma mark - custom methods
+
+- (void)configureViewsProperties
+{
+    for (UIView *view in self.contentView.subviews)
+    {
+        if ([view isKindOfClass:[FUIButton class]])
+        {
+            FUIButton *theBtn = (FUIButton *)view;
+            theBtn.buttonColor = PageBackgroundColor;
+            theBtn.highlightedColor = Common_ThemeColor;
+        }
+        else if ([view isKindOfClass:[UILabel class]])
+        {
+            if (view.tag >= 1000)
+            {
+                UILabel *specialAreaLabel = (UILabel *)view;
+                
+                specialAreaLabel.userInteractionEnabled = YES;
+                specialAreaLabel.textColor = Common_ThemeColor;
+                [specialAreaLabel addTarget:self action:@selector(clickSpecialAreaLabel:)];
+            }
+            else
+            {
+                UILabel *otherLabel = (UILabel *)view;
+                
+                otherLabel.textColor = Common_GrayColor;
+            }
+        }
+    }
+    
+    _lbName.textColor = Common_ThemeColor;
+    
+    [_distanceBtn setTitleColor:Common_GrayColor forState:UIControlStateNormal];
+}
+
+- (void)setup
+{
+    // 设置属性
+    [self configureViewsProperties];
 }
 
 - (void)setSpecialAreaStr:(NSString *)specialAreaStr
@@ -137,5 +170,29 @@
 //    [self sendSignal:[QSignal signalWithName:SignalCellSendSms userInfo:@{@"cellindexPath": self.cellindexPath}]];
 }
 
+//////////////////////////////////////////////////////////////////////
+
++ (CGFloat)getCellHeight
+{
+    if (0 == defaultCellHeight)
+    {
+        LawyerCell *cell = [self loadFromNib];
+        defaultCellHeight = cell.boundsHeight;
+    }
+    return defaultCellHeight;
+}
+
+- (void)loadCellShowDataWithItemEntity:(LBSLawyer *)entity
+{
+    [self.imgIntroduct setImageWithURL:entity.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
+
+    self.lbName.text = entity.name;
+    self.lblawfirm.text = entity.lawfirmName;
+    self.lbCertificate.text = entity.certificateNo;
+    self.lbPhone.text = entity.mobile ? entity.mobile : @"暂无电话";
+    self.specialAreaStr = entity.specialArea;
+    
+    [_distanceBtn setTitle:[NSString stringWithFormat:@"%.0lf米", entity.distance] forState:UIControlStateNormal];
+}
 
 @end

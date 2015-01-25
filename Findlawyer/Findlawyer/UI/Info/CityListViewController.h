@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 Kevin. All rights reserved.
 //
 
-#import "BaseTableViewController.h"
+#import "BaseViewController.h"
 
-@interface CityListViewController : BaseTableViewController
+@interface CityListViewController : BaseViewController
 
 - (IBAction)returntolastview:(id)sender;
 

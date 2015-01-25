@@ -18,7 +18,7 @@
     PickPhotoCancelHandle _pickPhotoCancelHandle;
     BOOL                  _isCropped;
     
-    UIButton              *_footerRefreshBtn;
+    UIView                *_footerRefreshView;
 }
 
 @end
@@ -53,7 +53,7 @@
 {
     [super viewDidLoad];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:HEXCOLOR(0X1E93DC) size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:Common_ThemeColor size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
     
     if (IOS7)
     {
@@ -98,9 +98,9 @@
      */
     // 返回Btn
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left
-                                 normalImg:[UIImage imageNamed:@"Return_btn_3.png"]
-                            highlightedImg:[UIImage imageNamed:@"Return_btn_4.png"]
-                                    action:NULL];
+                                 normalImg:[UIImage imageNamed:@"nav_back"]
+                            highlightedImg:[UIImage imageNamed:@"nav_back"]
+                                    action:@selector(backViewController)];
     
     // 加此代码可以在自定义leftBarButtonItem之后还保持IOS7以上系统自带的滑动返回效果
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
@@ -235,47 +235,59 @@
     UIView *bgView = InsertView(nil, CGRectMake(0, 0, tableView.boundsWidth, 55));
     bgView.backgroundColor = [UIColor whiteColor];
     
-    _footerRefreshBtn = InsertImageButtonWithTitle(bgView,
-                                                   CGRectMake(10, 10, bgView.boundsWidth - 10 * 2, 55 - 10 * 2),
-                                                   1000,
-                                                   nil,
-                                                   nil,
-                                                   nil,
-                                                   UIEdgeInsetsZero,
-                                                   SP13Font,
-                                                   [UIColor grayColor],
-                                                   self,
-                                                   action);
-    _footerRefreshBtn.backgroundColor = [UIColor whiteColor];
-    [_footerRefreshBtn addBorderToViewWitBorderColor:[UIColor grayColor]
-                                         borderWidth:0.5];
-    [_footerRefreshBtn setRadius:4];
+    UIButton *footerRefreshBtn = InsertImageButtonWithTitle(bgView,
+                                                            CGRectMake(10, 10, bgView.boundsWidth - 10 * 2, 55 - 10 * 2),
+                                                            1000,
+                                                            nil,
+                                                            nil,
+                                                            nil,
+                                                            UIEdgeInsetsZero,
+                                                            SP13Font,
+                                                            [UIColor grayColor],
+                                                            self,
+                                                            action);
+    footerRefreshBtn.backgroundColor = [UIColor whiteColor];
+    [footerRefreshBtn addBorderToViewWitBorderColor:[UIColor grayColor]
+                                        borderWidth:0.5];
+    [footerRefreshBtn setRadius:4];
+    
+    tableView.tableFooterView = bgView;
+    _footerRefreshView = bgView;
     
     // 设置默认显示类型
     [self setupTabFooterRefreshStatusViewShowType:TabFooterRefreshStatusViewType_Loading];
-    
-    tableView.tableFooterView = bgView;
 }
 
 - (void)setupTabFooterRefreshStatusViewShowType:(TabFooterRefreshStatusViewType)type
 {
+    UIButton *footerRefreshBtn = (UIButton *)[_footerRefreshView viewWithTag:1000];
+    
     if (TabFooterRefreshStatusViewType_LoadMore == type)
     {
-        [_footerRefreshBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_footerRefreshBtn setTitle:@"加载更多" forState:UIControlStateNormal];
-        _footerRefreshBtn.userInteractionEnabled = YES;
+        [footerRefreshBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [footerRefreshBtn setTitle:@"加载更多" forState:UIControlStateNormal];
+        footerRefreshBtn.userInteractionEnabled = YES;
     }
     else if (TabFooterRefreshStatusViewType_Loading == type)
     {
-        [_footerRefreshBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [_footerRefreshBtn setTitle:@"正在加载..." forState:UIControlStateNormal];
-        _footerRefreshBtn.userInteractionEnabled = NO;
+        [footerRefreshBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [footerRefreshBtn setTitle:@"正在加载..." forState:UIControlStateNormal];
+        footerRefreshBtn.userInteractionEnabled = NO;
     }
     else if (TabFooterRefreshStatusViewType_NoMoreData == type)
     {
-        [_footerRefreshBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [_footerRefreshBtn setTitle:@"已无更多数据" forState:UIControlStateNormal];
-        _footerRefreshBtn.userInteractionEnabled = NO;
+        [footerRefreshBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [footerRefreshBtn setTitle:@"已无更多数据" forState:UIControlStateNormal];
+        footerRefreshBtn.userInteractionEnabled = NO;
+    }
+    
+    if (_tableView.contentSize.height >= _tableView.boundsHeight)
+    {
+        _tableView.tableFooterView = _footerRefreshView;
+    }
+    else
+    {
+        _tableView.tableFooterView = nil;
     }
 }
 
@@ -346,11 +358,11 @@
 {
     if (BarbuttonItemPosition_Left == position)
     {
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 50, 30) tag:8888 normalImg:nil highlightedImg:nil title:title target:self action:action];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, [title stringSizeWithFont:SP15Font].width + 10, 30) tag:8888 normalImg:nil highlightedImg:nil title:title target:self action:action];
     }
     else
     {
-        self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, 50, 30) tag:8888 normalImg:nil highlightedImg:nil title:title target:self action:action];
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonItemWithFrame:CGRectMake(0, 0, [title stringSizeWithFont:SP15Font].width + 10, 30) tag:8888 normalImg:nil highlightedImg:nil title:title target:self action:action];
     }
 }
 

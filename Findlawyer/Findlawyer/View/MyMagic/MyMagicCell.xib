@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,21 +15,24 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lPh-gg-gto">
-                        <rect key="frame" x="10" y="2" width="40" height="40"/>
+                        <rect key="frame" x="10" y="10" width="25" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="JYr-KG-CnY"/>
-                            <constraint firstAttribute="height" constant="40" id="SLh-V9-rBS"/>
+                            <constraint firstAttribute="width" constant="25" id="JYr-KG-CnY"/>
+                            <constraint firstAttribute="height" constant="25" id="SLh-V9-rBS"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="资讯推送" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpz-zG-pQg">
-                        <rect key="frame" x="58" y="13" width="60" height="18"/>
+                        <rect key="frame" x="45" y="13" width="60" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IgU-dd-aN3">
-                        <rect key="frame" x="128" y="15" width="14" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IgU-dd-aN3">
+                        <rect key="frame" x="115" y="14" width="14" height="17"/>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="tNo-Xd-1zJ"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -49,7 +52,7 @@
                     <constraint firstItem="lPh-gg-gto" firstAttribute="centerY" secondItem="qpz-zG-pQg" secondAttribute="centerY" id="V9O-xw-fpO"/>
                     <constraint firstAttribute="trailing" secondItem="CTz-Jz-K1Q" secondAttribute="trailing" constant="10" id="hMW-m1-t2y"/>
                     <constraint firstItem="lPh-gg-gto" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="vVp-w2-GUw"/>
-                    <constraint firstItem="qpz-zG-pQg" firstAttribute="leading" secondItem="lPh-gg-gto" secondAttribute="trailing" constant="8" id="x8x-db-Mzc"/>
+                    <constraint firstItem="qpz-zG-pQg" firstAttribute="leading" secondItem="lPh-gg-gto" secondAttribute="trailing" constant="10" id="x8x-db-Mzc"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

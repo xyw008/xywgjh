@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -28,7 +28,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AlexKung" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BrJ-Wj-Jgl">
-                            <rect key="frame" x="111" y="22" width="199" height="26"/>
+                            <rect key="frame" x="111" y="30" width="199" height="26"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="26" id="9rP-Tn-uT9"/>
                             </constraints>
@@ -37,18 +37,9 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13888888888" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Otl-0o-Wol">
-                            <rect key="frame" x="111" y="53" width="199" height="15"/>
+                            <rect key="frame" x="111" y="61" width="199" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="15" id="dwT-Qq-QmN"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="广东工业大学" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5BO-Oq-j1W">
-                            <rect key="frame" x="111" y="71" width="199" height="15"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="15" id="TE0-1K-PR4"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -57,16 +48,13 @@
                     </subviews>
                     <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="BrJ-Wj-Jgl" firstAttribute="top" secondItem="AZr-qb-peG" secondAttribute="top" constant="22" id="1tD-zh-tCM"/>
-                        <constraint firstItem="Otl-0o-Wol" firstAttribute="leading" secondItem="5BO-Oq-j1W" secondAttribute="leading" id="4Gj-E5-MR8"/>
+                        <constraint firstItem="BrJ-Wj-Jgl" firstAttribute="top" secondItem="AZr-qb-peG" secondAttribute="top" constant="30" id="1tD-zh-tCM"/>
                         <constraint firstItem="BrJ-Wj-Jgl" firstAttribute="trailing" secondItem="Otl-0o-Wol" secondAttribute="trailing" id="7VA-n8-4Uf"/>
                         <constraint firstItem="Otl-0o-Wol" firstAttribute="top" secondItem="BrJ-Wj-Jgl" secondAttribute="bottom" constant="5" id="FuS-kG-3Ha"/>
-                        <constraint firstItem="5BO-Oq-j1W" firstAttribute="top" secondItem="Otl-0o-Wol" secondAttribute="bottom" constant="3" id="Kwp-eA-p7O"/>
                         <constraint firstAttribute="height" constant="105" id="PIh-Wh-OmX"/>
                         <constraint firstItem="Eis-8J-Uqe" firstAttribute="leading" secondItem="AZr-qb-peG" secondAttribute="leading" constant="22" id="TS2-jY-GKx"/>
                         <constraint firstAttribute="centerY" secondItem="Eis-8J-Uqe" secondAttribute="centerY" id="bzL-9e-NH2"/>
                         <constraint firstAttribute="trailing" secondItem="BrJ-Wj-Jgl" secondAttribute="trailing" constant="10" id="jnT-1g-jCw"/>
-                        <constraint firstItem="Otl-0o-Wol" firstAttribute="trailing" secondItem="5BO-Oq-j1W" secondAttribute="trailing" id="mFD-mg-NMD"/>
                         <constraint firstItem="BrJ-Wj-Jgl" firstAttribute="leading" secondItem="Otl-0o-Wol" secondAttribute="leading" id="qoX-fo-O1r"/>
                         <constraint firstItem="BrJ-Wj-Jgl" firstAttribute="leading" secondItem="Eis-8J-Uqe" secondAttribute="trailing" constant="26" id="xOi-2r-2eT"/>
                     </constraints>
@@ -80,11 +68,11 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iKC-hg-1Ni">
-                            <rect key="frame" x="123" y="51" width="75" height="35"/>
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iKC-hg-1Ni">
+                            <rect key="frame" x="111" y="51" width="100" height="35"/>
                             <color key="backgroundColor" red="0.54061418920000004" green="0.81628315500000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="75" id="Wmw-ii-CMB"/>
+                                <constraint firstAttribute="width" constant="100" id="Wmw-ii-CMB"/>
                                 <constraint firstAttribute="height" constant="35" id="ij2-aR-rUq"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -121,7 +109,6 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="addressLabel" destination="5BO-Oq-j1W" id="ueE-ZR-6Wp"/>
                 <outlet property="loginAndRegisterBtn" destination="iKC-hg-1Ni" id="Yv0-I1-asd"/>
                 <outlet property="mobilePhoneNumLabel" destination="Otl-0o-Wol" id="mzw-RR-hDJ"/>
                 <outlet property="notLoginBGView" destination="SrN-uv-l0w" id="lHQ-O1-X19"/>

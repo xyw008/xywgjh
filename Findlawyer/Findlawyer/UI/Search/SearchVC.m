@@ -10,16 +10,32 @@
 #import "SearchItemCollectionCell.h"
 #import "SearchCollectionHeaderView.h"
 #import "SearchCollectionFooterView.h"
+#import "SearchLawyerViewController.h"
+#import "SearchDeatalViewController.h"
+#import "NITextField.h"
+
+#define kNoLimitStr @"不限"
 
 static NSString * const cellIdentifier_collecitonViewCell   = @"cellIdentifier_collecitonViewCell";
 static NSString * const cellIdentifier_collecitonViewHeader = @"cellIdentifier_collecitonViewHeader";
 static NSString * const cellIdentifier_collecitonViewFooter = @"cellIdentifier_collecitonViewFooter";
 
-@interface SearchVC () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+typedef NS_ENUM(NSInteger, TheSearchType)
+{
+    /// 律师
+    TheSearchType_lawyer = 0,
+    /// 律所
+    TheSearchType_lawfirm,
+};
+
+@interface SearchVC () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate>
 {
     NSArray          *_searchShowDataArray;
     
     UICollectionView *_collectionView;
+    
+    NITextField      *_serachTextField;
+    TheSearchType    _searchType;
 }
 
 @end
@@ -68,12 +84,90 @@ static NSString * const cellIdentifier_collecitonViewFooter = @"cellIdentifier_c
     _collectionView.backgroundColor = [UIColor whiteColor];
     [_collectionView keepAutoresizingInFull];
     
+    [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    
     [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([SearchItemCollectionCell class]) bundle:nil] forCellWithReuseIdentifier:cellIdentifier_collecitonViewCell];
     
     [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([SearchCollectionHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:cellIdentifier_collecitonViewHeader];
     [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([SearchCollectionFooterView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:cellIdentifier_collecitonViewFooter];
     
     [self.view addSubview:_collectionView];
+    
+    // search bar
+    [self configureNavSearchBar];
+}
+
+- (void)configureNavSearchBar
+{
+    UIImageView *imgview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fabao"]];
+    imgview.contentMode = UIViewContentModeCenter;
+    imgview.boundsWidth += 10;
+    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithCustomView:imgview];
+    self.navigationItem.leftBarButtonItem = leftBarBtn;
+    
+    // bg view
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH - 40 * 2, self.navigationController.navigationBar.boundsHeight - 8 * 2)];
+    titleView.backgroundColor = HEXCOLOR(0X1481CA);
+    [titleView setRadius:5];
+    
+    // 搜索类型btn
+    UIButton *searchTypeBtn = InsertImageButtonWithTitle(titleView,
+                               CGRectMake(0, 0, 50, titleView.boundsHeight),
+                               1000,
+                               nil,
+                               nil,
+                               @"律师",
+                               UIEdgeInsetsMake(0, -32, 0, 0),
+                               SP14Font,
+                               [UIColor whiteColor],
+                               self,
+                               @selector(clickSearchType:));
+    [searchTypeBtn setImage:[UIImage imageNamed:@"xialajiantou"] forState:UIControlStateNormal];
+    searchTypeBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 31, 0, 0);
+    _searchType = TheSearchType_lawyer;
+    
+    // 搜索框
+    _serachTextField = [[NITextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(searchTypeBtn.frame), 0, titleView.boundsWidth - CGRectGetMaxX(searchTypeBtn.frame), titleView.boundsHeight)];
+    _serachTextField.delegate = self;
+    _serachTextField.font = SP14Font;
+    _serachTextField.placeholderTextColor = [UIColor whiteColor];
+    _serachTextField.textColor = [UIColor whiteColor];
+    _serachTextField.returnKeyType = UIReturnKeySearch;
+    _serachTextField.placeholder = @"请输入名称";
+    [titleView addSubview:_serachTextField];
+    
+    /*
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(CGRectGetMaxX(leftBtn.frame), 0, searchBarBgView.boundsWidth - CGRectGetMaxX(leftBtn.frame), searchBarBgView.boundsHeight)];
+    searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(1, 1)];
+    [searchBar setSearchFieldBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(1, searchBarBgView.boundsHeight)] forState:UIControlStateNormal];
+    // searchBar.showsCancelButton = YES;
+    searchBar.placeholder = @"请输入名称";
+    
+    // Get the instance of the UITextField of the search bar
+    UITextField *searchField = [searchBar valueForKey:@"_searchField"];
+    
+    // Change search bar text color
+    searchField.textColor = [UIColor redColor];
+    
+    // Change the search bar placeholder text color
+    [searchField setValue:[UIColor blueColor] forKeyPath:@"_placeholderLabel.textColor"];
+    
+    // [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
+    [searchBarBgView addSubview:searchBar];
+     */
+    
+    // cancel button
+    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right
+                            barButtonTitle:@"取消"
+                                    action:@selector(clickNavCancelBtn:)];
+
+    self.navigationItem.titleView = titleView;
+}
+
+- (void)clickSearchType:(UIButton *)sender
+{
+    
 }
 
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate methods
@@ -149,21 +243,32 @@ static NSString * const cellIdentifier_collecitonViewFooter = @"cellIdentifier_c
     return CGSizeZero;
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *indexPaths = [collectionView indexPathsForSelectedItems];
+
+    for (NSIndexPath *path in indexPaths)
+    {
+        if (indexPath.section == path.section && indexPath.item == path.item)
+        {
+            return NO;
+        }
+    }
+    return YES;
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *indexPaths = [collectionView indexPathsForSelectedItems];
     
-    if ([indexPaths isAbsoluteValid])
+    for (NSIndexPath *path in indexPaths)
     {
-        for (NSIndexPath *path in indexPaths)
+        if (path.section == indexPath.section)
         {
-            if (path.section == indexPath.section)
-            {
-                [collectionView deselectItemAtIndexPath:path animated:YES];
-            }
+            [collectionView deselectItemAtIndexPath:path animated:YES];
         }
     }
-    
+
     [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
 }
 
@@ -187,7 +292,34 @@ static NSString * const cellIdentifier_collecitonViewFooter = @"cellIdentifier_c
 
 - (void)clickSearchBtn:(UIButton *)sender
 {
+    NSArray *indexPaths = [_collectionView indexPathsForSelectedItems];
+
+    SearchLawyerViewController *searchLawyer = [[SearchLawyerViewController alloc] init];
     
+    for (NSIndexPath *indexPath in indexPaths)
+    {
+        // 法院或商圈周边的选中项
+        if (0 == indexPath.section)
+        {
+            NSString *selectedSearchKeyStr = [[self getLawfirmArray] objectAtIndex:indexPath.item];
+            if (![selectedSearchKeyStr isEqualToString:kNoLimitStr])
+            {
+                CLLocationCoordinate2D location = [self getLawfirmLocationCoordinate2D:selectedSearchKeyStr];
+                
+                searchLawyer.searchLocation = location;
+            }
+        }
+        // 擅长领域的选中项
+        else if (1 == indexPath.section)
+        {
+            NSString *selectedSearchKeyStr = kSpecialtyDomainArray[indexPath.item];
+            
+            searchLawyer.searchKey = ![selectedSearchKeyStr isEqualToString:kNoLimitStr] ? selectedSearchKeyStr : nil;
+        }
+    }
+    
+    searchLawyer.hidesBottomBarWhenPushed = YES;
+    [self pushViewController:searchLawyer];
 }
 
 #pragma mark - Lawfirm Data Soucre
@@ -213,7 +345,8 @@ static NSString * const cellIdentifier_collecitonViewFooter = @"cellIdentifier_c
 
 - (NSArray*)getLawfirmArray
 {
-    return @[@"福田区法院",
+    return @[@"不限",
+             @"福田区法院",
              @"南山区法院",
              @"罗湖区法院",
              @"盐田区法院",
@@ -260,6 +393,71 @@ static NSString * const cellIdentifier_collecitonViewFooter = @"cellIdentifier_c
         return CLLocationCoordinate2DMake([[loaction objectAtIndex:1] doubleValue], [[loaction objectAtIndex:0] doubleValue]);
     }
     return CLLocationCoordinate2DMake(22.526431, 114.060687);
+}
+
+#pragma mark - push method
+
+// 指定坐标
+- (void)pushSearchDeatalVCWithSearchKey:(NSString *)key
+{
+    SearchDeatalViewController *vc = [[SearchDeatalViewController alloc] init];
+    vc.strTitle = @"律所";
+    vc.isShowMapView = YES;
+    vc.searchKey = key;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self pushViewController:vc];
+}
+
+/**
+ *  进入律师搜索页面
+ *
+ *  @param key           搜索的key
+ *  @param hidden        是否在下个视图隐藏搜索的key
+ *  @param hasCoordinate 是否已经有指定坐标
+ */
+- (void)pushSearchLawyerVCWithSearchKey:(NSString *)key
+{
+    SearchLawyerViewController *vc = [[SearchLawyerViewController alloc] init];
+    vc.strTitle = @"律师";
+    vc.isShowMapView = YES;
+    vc.isHiddenSearchKey = NO;
+    vc.searchKey = key;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self pushViewController:vc];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)clickNavCancelBtn:(UIButton *)sender
+{
+    [_serachTextField setText:nil];
+    [_serachTextField resignFirstResponder];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    if (![textField hasText])
+    {
+        [self showHUDInfoByString:@"请输入搜索名称"];
+    }
+    else
+    {
+        // 搜索律师
+        if (_searchType == TheSearchType_lawyer)
+        {
+            [self pushSearchLawyerVCWithSearchKey:textField.text];
+        }
+        // 搜索律所
+        else if (_searchType == TheSearchType_lawfirm)
+        {
+            [self pushSearchDeatalVCWithSearchKey:textField.text];
+        }
+    }
+    
+    
+    return YES;
 }
 
 @end

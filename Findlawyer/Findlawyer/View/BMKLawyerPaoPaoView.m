@@ -11,6 +11,34 @@
 
 @implementation BMKLawyerPaoPaoView
 
+- (void)awakeFromNib
+{
+    [self setup];
+}
+
+- (void)configureViewsProperties
+{
+    for (UIView *subView in self.subviews)
+    {
+        if ([subView isKindOfClass:[UILabel class]])
+        {
+            UILabel *label = (UILabel *)subView;
+            
+            label.textColor = Common_GrayColor;
+        }
+    }
+    
+    _lawyerNameLabel.textColor = Common_ThemeColor;
+}
+
+- (void)setup
+{
+    // 设置属性
+    [self configureViewsProperties];
+}
+
+//////////////////////////////////////////////////////////////////////
+
 - (void)loadViewData:(LBSLawyer *)lawyerEntity
 {
     if (lawyerEntity)
@@ -19,7 +47,7 @@
             
             [GCDThread enqueueForeground:^{
                 
-                UIImage *newImage = [image imageCroppedToRect:CGRectMake(0, 0, 150, 150)];
+                UIImage *newImage = [image imageCroppedToRect:CGRectMake(0, 0, 150, 174)];
                 _lawyerHeaderImageView.image = newImage;
             }];
             

@@ -54,8 +54,8 @@
     for (int i = 0; i < items.count; i++)
     {
         UITabBarItem *aItem = [items objectAtIndex:i];
-        [aItem setTitleTextAttributes:@{NSForegroundColorAttributeName: Common_ThemeColor} forState:UIControlStateSelected];
-        [aItem setTitleTextAttributes:@{NSForegroundColorAttributeName: Common_GrayColor} forState:UIControlStateNormal];
+        [aItem setTitleTextAttributes:@{UITextAttributeTextColor: HEXCOLOR(0X306CC5)} forState:UIControlStateSelected];
+        [aItem setTitleTextAttributes:@{UITextAttributeTextColor: HEXCOLOR(0X4F555F)} forState:UIControlStateNormal];
         
         NSString *title = nil;
         UIImage *normalImage = nil;
@@ -85,9 +85,6 @@
                 
                 normalImage = [UIImage imageNamed:@"tab_Fabao_Normal"];
                 selectedImage = [UIImage imageNamed:@"tab_Fabao_Highlight"];
-                
-                aItem.badgeValue = @"12";
-
             }
                 break;
             case 3:
