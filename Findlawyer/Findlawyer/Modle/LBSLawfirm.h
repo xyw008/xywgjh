@@ -15,12 +15,12 @@
 @property (strong,nonatomic)  NSNumber *lfid;
 @property (strong, nonatomic) NSNumber * memberCount;
 @property (strong,nonatomic)  NSMutableArray *arImageUrlstrs;
-@property (strong, nonatomic) UIImage  *mainImage;           // 律所缩略图
-@property (strong, nonatomic) NSURL    *mainImageURL;   // 律所缩略图的url
+@property (strong, nonatomic) UIImage  *mainImage;          // 律所缩略图
+@property (strong, nonatomic) NSURL    *mainImageURL;       // 律所缩略图的url
 @property (strong, nonatomic) NSString *name;               // 律所名称
 @property (strong, nonatomic) NSString *detail;             // 具体详细
 @property (strong, nonatomic) NSString *address;            // 具体地址
-@property (strong, nonatomic) NSString *detailaddress;     // 具体详细地址
+@property (strong, nonatomic) NSString *detailaddress;      // 具体详细地址
 @property (strong, nonatomic) NSString *district;           // 律所地区
 @property (strong, nonatomic) NSString *city;               // 律所城市
 @property (strong, nonatomic) NSString *tel;                // 电话

@@ -23,6 +23,6 @@
 @property (strong, nonatomic) CLLocationManager *locationmanage;;
 @property (strong,nonatomic ) CLLocation *userlocation;
 
-- (void)chooseMaintabIndex:(NSInteger)index andType:(NSInteger)type;
+- (void)chooseMaintabIndex:(NSInteger)index;
 
 @end

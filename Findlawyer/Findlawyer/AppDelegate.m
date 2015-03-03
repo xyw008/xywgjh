@@ -97,7 +97,7 @@
 }
 
 
-- (void)chooseMaintabIndex:(NSInteger)index andType:(NSInteger)type;
+- (void)chooseMaintabIndex:(NSInteger)index
 {
     
     if ([self.window.rootViewController isKindOfClass:[UITabBarController class]]) // 如果是属于TabBarController，说明已经进入主界面了

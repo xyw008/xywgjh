@@ -30,6 +30,9 @@ typedef enum
     /// 1个月
     CacheNetDataTimeType_OneMonth  = 60 * 60 * 24 * 30,
     
+    /// 永远
+    CacheNetDataTimeType_Forever   = UINT64_MAX
+    
 }CacheNetDataTimeType;
 
 

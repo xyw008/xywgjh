@@ -8,6 +8,8 @@
 
 #import "AppPropertiesInitialize.h"
 
+static NSString * const kRecipesStoreName = @"Recipes.sqlite";
+
 @implementation AppPropertiesInitialize
 
 + (void)startAppPropertiesInitialize
@@ -30,6 +32,9 @@
     
     // 本地化语言
     [LanguagesManager initialize];
+    
+    // 初始化coreData库
+    [MagicalRecord setupCoreDataStackWithStoreNamed:kRecipesStoreName];
     
     // ...
 }

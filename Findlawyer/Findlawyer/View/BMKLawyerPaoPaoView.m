@@ -18,6 +18,8 @@
 
 - (void)configureViewsProperties
 {
+    self.autoresizingMask = UIViewAutoresizingNone;
+
     for (UIView *subView in self.subviews)
     {
         if ([subView isKindOfClass:[UILabel class]])

@@ -8,12 +8,14 @@
 
 #import "CustomBMKAnnotationView.h"
 
-@implementation CustomBMKAnnotationView
+@interface CustomBMKAnnotationView ()
 {
     UILabel *titleLabel;
 }
 
-@synthesize title = _title;
+@end
+
+@implementation CustomBMKAnnotationView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -30,10 +32,12 @@
     
     if (self)
     {
-        titleLabel = InsertLabel(self, CGRectMake(4, 4, self.boundsWidth - 8, self.boundsHeight - 8), NSTextAlignmentCenter, nil, [UIFont boldSystemFontOfSize:9], [UIColor whiteColor], NO);
-        titleLabel.numberOfLines = 2;
-//        titleLabel.backgroundColor = [UIColor greenColor];
-//        titleLabel.text = @"香洲百货";
+        self.image = [UIImage imageNamed:@"map_Annotation"];
+        
+        titleLabel = InsertLabel(self, CGRectMake(4, 2, self.boundsWidth - 8, self.boundsHeight - 8), NSTextAlignmentCenter, nil, SP10Font, [UIColor whiteColor], NO);
+        titleLabel.numberOfLines = 1;
+        // titleLabel.backgroundColor = [UIColor greenColor];
+        // titleLabel.text = @"香洲百货";
     }
     return self;
 }
@@ -47,14 +51,5 @@
 {
     return titleLabel.text;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

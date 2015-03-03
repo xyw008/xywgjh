@@ -11,6 +11,6 @@
 @interface CustomBMKAnnotationView : BMKPinAnnotationView
 
 /// annotationView显示的标题
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, copy) NSString *title;
 
 @end

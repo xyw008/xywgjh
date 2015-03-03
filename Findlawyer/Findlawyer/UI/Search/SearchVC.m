@@ -13,8 +13,12 @@
 #import "SearchLawyerViewController.h"
 #import "SearchDeatalViewController.h"
 #import "NITextField.h"
+#import "KxMenu.h"
 
-#define kNoLimitStr @"不限"
+#define kNoLimitStr         @"不限"
+
+#define kSearchTypeLawyer   @"律师"
+#define kSearchTypeLawfirm  @"律师事务所"
 
 static NSString * const cellIdentifier_collecitonViewCell   = @"cellIdentifier_collecitonViewCell";
 static NSString * const cellIdentifier_collecitonViewHeader = @"cellIdentifier_collecitonViewHeader";
@@ -34,6 +38,7 @@ typedef NS_ENUM(NSInteger, TheSearchType)
     
     UICollectionView *_collectionView;
     
+    UIButton         *_searchTypeBtn;
     NITextField      *_serachTextField;
     TheSearchType    _searchType;
 }
@@ -112,23 +117,23 @@ typedef NS_ENUM(NSInteger, TheSearchType)
     [titleView setRadius:5];
     
     // 搜索类型btn
-    UIButton *searchTypeBtn = InsertImageButtonWithTitle(titleView,
-                               CGRectMake(0, 0, 50, titleView.boundsHeight),
-                               1000,
-                               nil,
-                               nil,
-                               @"律师",
-                               UIEdgeInsetsMake(0, -32, 0, 0),
-                               SP14Font,
-                               [UIColor whiteColor],
-                               self,
-                               @selector(clickSearchType:));
-    [searchTypeBtn setImage:[UIImage imageNamed:@"xialajiantou"] forState:UIControlStateNormal];
-    searchTypeBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 31, 0, 0);
+    _searchTypeBtn = InsertImageButtonWithTitle(titleView,
+                       CGRectMake(0, 0, 50, titleView.boundsHeight),
+                       1000,
+                       nil,
+                       nil,
+                       @"律师",
+                       UIEdgeInsetsMake(0, -32, 0, 0),
+                       SP14Font,
+                       [UIColor whiteColor],
+                       self,
+                       @selector(clickSearchType:));
+    [_searchTypeBtn setImage:[UIImage imageNamed:@"xialajiantou"] forState:UIControlStateNormal];
+    _searchTypeBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 31, 0, 0);
     _searchType = TheSearchType_lawyer;
     
     // 搜索框
-    _serachTextField = [[NITextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(searchTypeBtn.frame), 0, titleView.boundsWidth - CGRectGetMaxX(searchTypeBtn.frame), titleView.boundsHeight)];
+    _serachTextField = [[NITextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_searchTypeBtn.frame), 0, titleView.boundsWidth - CGRectGetMaxX(_searchTypeBtn.frame), titleView.boundsHeight)];
     _serachTextField.delegate = self;
     _serachTextField.font = SP14Font;
     _serachTextField.placeholderTextColor = [UIColor whiteColor];
@@ -167,7 +172,41 @@ typedef NS_ENUM(NSInteger, TheSearchType)
 
 - (void)clickSearchType:(UIButton *)sender
 {
+    NSArray *menuItems =
+    @[
+      [KxMenuItem menuItem:kSearchTypeLawyer
+                     image:nil
+                    target:self
+                    action:@selector(pushMenuItem:)],
+      
+      [KxMenuItem menuItem:kSearchTypeLawfirm
+                     image:nil
+                    target:self
+                    action:@selector(pushMenuItem:)],
+      ];
     
+    KxMenuItem *first = menuItems[0];
+    first.alignment = NSTextAlignmentLeft;
+    
+    [KxMenu showMenuInView:self.navigationController.view
+                  fromRect:CGRectMake(50, 0, 60, CGRectGetMaxY(self.navigationItem.titleView.frame) + 20)
+                 menuItems:menuItems];
+}
+
+- (void)pushMenuItem:(KxMenuItem *)sender
+{
+    if ([sender.title isEqualToString:kSearchTypeLawyer])
+    {
+        _searchType = TheSearchType_lawyer;
+        
+        [_searchTypeBtn setTitle:kSearchTypeLawyer forState:UIControlStateNormal];
+    }
+    else
+    {
+        _searchType = TheSearchType_lawfirm;
+        
+        [_searchTypeBtn setTitle:@"律所" forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate methods
@@ -318,6 +357,7 @@ typedef NS_ENUM(NSInteger, TheSearchType)
         }
     }
     
+    searchLawyer.strTitle = @"附近律师";
     searchLawyer.hidesBottomBarWhenPushed = YES;
     [self pushViewController:searchLawyer];
 }

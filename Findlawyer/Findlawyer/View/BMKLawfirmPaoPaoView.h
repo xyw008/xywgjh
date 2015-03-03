@@ -26,10 +26,7 @@
 /// 律所人数
 @property (nonatomic, weak) IBOutlet UILabel *lawyerNumLabel;
 
-
-
 /// 加载数据
 - (void)loadViewData:(LBSLawfirm *)lawfirmEntity;
-
 
 @end

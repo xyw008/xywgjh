@@ -25,6 +25,7 @@
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "GCDThread.h"
 #import "GJHSlideSwitchView.h"
+#import "NIAttributedLabel.h"
 #import "AppPropertiesInitialize.h"
 
 #define kCellHeight 40
@@ -79,9 +80,22 @@
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithCustomView:imgview];
     self.navigationItem.leftBarButtonItem = leftBarBtn;
     
-    UIImage *middleBtnBGImage = [UIImage imageNamed:@"navTitleBtn"];
+    NIAttributedLabel *jumpSearchLabel = [[NIAttributedLabel alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH - 40 * 2, self.navigationController.navigationBar.boundsHeight - 8 * 2)];
+    jumpSearchLabel.font = SP14Font;
+    jumpSearchLabel.textColor = [UIColor whiteColor];
+    jumpSearchLabel.text = @"律师名/律师事务所名";
+    jumpSearchLabel.verticalTextAlignment = NIVerticalTextAlignmentMiddle;
+    [jumpSearchLabel insertImage:[UIImage imageNamed:@"fangdajing"] atIndex:0 margins:UIEdgeInsetsMake(0, 0, 0, 0) verticalTextAlignment:NIVerticalTextAlignmentMiddle];
+    jumpSearchLabel.backgroundColor = HEXCOLOR(0X1481CA);
+    [jumpSearchLabel setRadius:5];
+    [jumpSearchLabel addTarget:self action:@selector(jumpToSearchController)];
+    self.navigationItem.titleView = jumpSearchLabel;
+    
+    /*
+    UIImage *middleBtnBGImage = [UIImage imageNamed:@"zhuyesousuo"];
     UIButton *middleBtn = InsertImageButton(nil, CGRectMake(0, 0, middleBtnBGImage.size.width, middleBtnBGImage.size.height), 1000, middleBtnBGImage, middleBtnBGImage, self, @selector(clickNavBarTitleBtn:));
     self.navigationItem.titleView = middleBtn;
+    */
     
     NSString * currentcity = [FileManager currentCity];
     if (currentcity.length == 0)
@@ -105,10 +119,10 @@
     [self getNetworkData];
 }
 
-- (void)clickNavBarTitleBtn:(UIButton *)sender
+- (void)jumpToSearchController
 {
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [appdelegate chooseMaintabIndex:1 andType:sender.tag];
+    [appdelegate chooseMaintabIndex:1];
 }
 
 - (void)receiveSignal:(QSignal *)signal
@@ -275,7 +289,7 @@
     else if (tag == 2)
     {
         AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        [appdelegate chooseMaintabIndex:2 andType:sender.tag];
+        [appdelegate chooseMaintabIndex:1];
     }
 
 }
@@ -471,7 +485,13 @@
 {
     [self sendRequest:[[self class] getRequestURLStr:NetHomePageNewsRequestType_GetMainNewsList]
          parameterDic:nil
-           requestTag:NetHomePageNewsRequestType_GetMainNewsList];
+       requestHeaders:nil
+    requestMethodType:RequestMethodType_GET
+           requestTag:NetHomePageNewsRequestType_GetMainNewsList
+             delegate:self
+             userInfo:nil
+       netCachePolicy:NetUseCacheFirstWhenCacheValidAndAskServerAgain
+         cacheSeconds:CacheNetDataTimeType_Forever];
 }
 
 - (void)parseNetworkDataWithDic:(NSDictionary *)dic

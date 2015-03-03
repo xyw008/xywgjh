@@ -33,6 +33,8 @@
 #import "HUDManager.h"
 #import "UIViewController+loading.h"
 #import "CallAndMessageManager.h"
+#import "CustomBMKAnnotationView.h"
+#import "GCDThread.h"
 
 #define HUDTage 999
 #define kRadius kTotalRadius
@@ -102,9 +104,9 @@
         self.searchBar.text = self.searchKey;
     }
     
-    [self.searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"sousuo_2"] forState:UIControlStateNormal];
+    [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"sousuo_2"] forState:UIControlStateNormal];
     [_searchBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(1, 1)]];
-    self.searchBar.delegate = self;
+    _searchBar.delegate = self;
     [self.view addSubview:_searchBar];
     
     self.allLawyerEntityArray = [NSMutableArray array];
@@ -244,14 +246,16 @@
      */
     
 	NSArray *retainedInforation = information;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+	
+    [GCDThread enqueueForeground:^{
         
-		NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[retainedInforation count]];
+        NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[retainedInforation count]];
         
-		for (LBSLawyer *lawyer in retainedInforation) {
-			LBSLawyerLocationAnnotation *locationAnnotation = [[LBSLawyerLocationAnnotation alloc] initWithLawyer:lawyer];
-			[annotations addObject:locationAnnotation];
-		}
+        for (LBSLawyer *lawyer in retainedInforation)
+        {
+            LBSLawyerLocationAnnotation *locationAnnotation = [[LBSLawyerLocationAnnotation alloc] initWithLawyer:lawyer];
+            [annotations addObject:locationAnnotation];
+        }
         
         /**
          @ 修改描述     加多搜索视图选择法院周边 点击进来 情况的判断。标注律所的图标
@@ -259,7 +263,7 @@
          @ 修改时间     2014-11-18
          @ 修改开始
          */
-
+        
         if (_searchLocation.latitude)
         {
             LBSLawyer *lawyer = [[LBSLawyer alloc] init];
@@ -270,14 +274,11 @@
         }
         // 修改结束
         
-		dispatch_async(dispatch_get_main_queue(), ^{
-            if ([annotations isAbsoluteValid])
-            {
-                [_mapView addAnnotations:annotations];
-            }
-		});
-	});
-	
+        if ([annotations isAbsoluteValid])
+        {
+            [_mapView addAnnotations:annotations];
+        }
+    }];
 }
 
 // 列表和地图模式切换
@@ -408,11 +409,6 @@
     
 }
 
-- (void)conusult
-{
-    
-}
-
 //发送短信
 
 #pragma mark - Present message compose view controller
@@ -483,17 +479,17 @@
     if ([annotation isKindOfClass:[LBSLawyerLocationAnnotation class]])
     {
         LBSLawyerLocationAnnotation *theAnnotation = (LBSLawyerLocationAnnotation *)annotation;
-//        DLog("space is %f - %@",theAnnotation.lawyer.distance, theAnnotation.lawyer.lawfirmName);
+        // DLog("space is %f - %@",theAnnotation.lawyer.distance, theAnnotation.lawyer.lawfirmName);
         
         // 生成重用标示identifier
         NSString *AnnotationViewID = @"renameMark";
         
         // 检查是否有重用的缓存
-        BMKAnnotationView* newAnnotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
+        CustomBMKAnnotationView *newAnnotationView = (CustomBMKAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
         
         if (newAnnotationView == nil)
         {
-            newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:theAnnotation reuseIdentifier:AnnotationViewID];
+            newAnnotationView = [[CustomBMKAnnotationView alloc] initWithAnnotation:theAnnotation reuseIdentifier:AnnotationViewID];
         }
         
         newAnnotationView.annotation = theAnnotation;
@@ -508,11 +504,12 @@
         //开始修改
         if (_searchLocation.latitude && theAnnotation.lawyer.lawerid == nil)
         {
-            newAnnotationView.image = [UIImage imageNamed:@"court"];;
+            newAnnotationView.image = [UIImage imageNamed:@"court"];
         }
         else
         {
-            newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawyer] + 1];
+            // newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawyer] + 1];
+            newAnnotationView.title = [NSString stringWithFormat:@"%d", [_listContend indexOfObject:theAnnotation.lawyer] + 1];
             
             // paopao视图
             BMKLawyerPaoPaoView *paopaoView = [BMKLawyerPaoPaoView loadFromNib];

@@ -25,13 +25,15 @@
 #import "UIViewController+loading.h"
 #import "BMKLawfirmPaoPaoView.h"
 #import "HUDManager.h"
+#import "CustomBMKAnnotationView.h"
+#import "GCDThread.h"
 
 #define HUDTage 999
 #define kRadius kTotalRadius
 #define kHeardHeight 18
 
 
-@interface SearchDeatalViewController ()
+@interface SearchDeatalViewController () <LawFirmCellDelegate>
 {
   	NSUInteger          currentIndex;
 	NSUInteger          pageSize;
@@ -95,9 +97,9 @@
     {
         self.searchBar.text = _searchKey;
     }
-    [self.searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"Search_topBar_bg"] forState:UIControlStateNormal];
-    [_searchBar setBackgroundImage:[UIImage imageNamed:@"searchBG"]];
-    self.searchBar.delegate = self;
+    [_searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"sousuo_2"] forState:UIControlStateNormal];
+    [_searchBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(1, 1)]];
+    _searchBar.delegate = self;
     [self.view addSubview:_searchBar];
     
     self.allLawyerEntityArray = [NSMutableArray array];
@@ -134,7 +136,6 @@
     _tableView.hidden = _isShowMapView;
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:_isShowMapView?@"列表":@"地图" action:@selector(sceneChange:)];
     
-    self.title = self.strTitle;
     self.searchBar.placeholder = @"请输入你要找的律师事务所名称";
    
     if ([_searchKey isAbsoluteValid])
@@ -168,6 +169,11 @@
     [HUDManager hideHUD];
     [self removeProgressHUD];
     [super viewWillDisappear:animated];
+}
+
+- (void)setPageLocalizableText
+{
+    [self setNavigationItemTitle:_strTitle];
 }
 
 // 开启地图定位
@@ -217,22 +223,22 @@
      */
     
 	NSArray *retainedInforation = information;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    
+	[GCDThread enqueueForeground:^{
         
-		NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[retainedInforation count]];
+        NSMutableArray *annotations = [[NSMutableArray alloc] initWithCapacity:[retainedInforation count]];
         
-		for (LBSLawfirm *lawyerfirm in retainedInforation) {
-			LBSLocationAnnotation *locationAnnotation = [[LBSLocationAnnotation alloc] initWithLawfirm:lawyerfirm];
-			[annotations addObject:locationAnnotation];
-		}
-		dispatch_async(dispatch_get_main_queue(), ^{
-            if ([annotations isAbsoluteValid])
-            {
-                [_mapView addAnnotations:annotations];
-            }
-		});
-	});
-	
+        for (LBSLawfirm *lawyerfirm in retainedInforation)
+        {
+            LBSLocationAnnotation *locationAnnotation = [[LBSLocationAnnotation alloc] initWithLawfirm:lawyerfirm];
+            [annotations addObject:locationAnnotation];
+        }
+        
+        if ([annotations isAbsoluteValid])
+        {
+            [_mapView addAnnotations:annotations];
+        }
+    }];
 }
 // 列表和地图模式切换
 - (IBAction)sceneChange:(id)sender {
@@ -347,21 +353,23 @@
     if ([annotation isKindOfClass:[LBSLocationAnnotation class]])
     {
         LBSLocationAnnotation *theAnnotation = (LBSLocationAnnotation *)annotation;
-        //        DLog("space is %f - %@",theAnnotation.lawyer.distance, theAnnotation.lawyer.lawfirmName);
+        // DLog("space is %f - %@",theAnnotation.lawyer.distance, theAnnotation.lawyer.lawfirmName);
         
         // 生成重用标示identifier
         NSString *AnnotationViewID = @"renameMark";
         
         // 检查是否有重用的缓存
-        BMKAnnotationView* newAnnotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
+        CustomBMKAnnotationView *newAnnotationView = (CustomBMKAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
         
         if (newAnnotationView == nil)
         {
-            newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:theAnnotation reuseIdentifier:AnnotationViewID];
+            newAnnotationView = [[CustomBMKAnnotationView alloc] initWithAnnotation:theAnnotation reuseIdentifier:AnnotationViewID];
         }
         
         newAnnotationView.annotation = theAnnotation;
-        newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawfirm] + 1];
+        
+        // newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawfirm] + 1];
+        newAnnotationView.title = [NSString stringWithFormat:@"%d", [_listContend indexOfObject:theAnnotation.lawfirm] + 1];
         
         // paopao视图
         BMKLawfirmPaoPaoView *paopaoView = [BMKLawfirmPaoPaoView loadFromNib];
@@ -651,19 +659,19 @@
 //	currentIndex++;
 //	[[LBSSharedData sharedData] setCurrentIndex:currentIndex];
 
-
 }
 
-
+- (LBSLawfirm *)curDataWithIndex:(NSInteger)index
+{
+    return index < _listContend.count ? _listContend[index] : nil;
+}
 
 #pragma mark - UITableViewDatasource And UITableViewDelegate
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -671,35 +679,18 @@
     return self.listContend.count;
 }
 
-
-// 用自定义cell显示每个律所数据
-- (void)configureLawfirmCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    LawfirmCell *lfcell = (LawfirmCell *)cell;// 自定义LawfirmCell
-    LBSLawfirm *lawfirm = [self.listContend objectAtIndex:indexPath.row];
-    lfcell.lbName.text = lawfirm.name;
-    lfcell.lbAddress.text = lawfirm.address;
-    lfcell.lbMembercount.text = [NSString stringWithFormat:@"%@",lawfirm.memberCount];
-    [lfcell.imgIntroduct setImageWithURL:lawfirm.mainImageURL placeholderImage:[UIImage imageNamed:@"defualtLawfirm"]];
-    lfcell.cellindexPath = indexPath;
-    lfcell.lineView.hidden = NO;
-    if (indexPath.row + 1 == self.listContend.count) {
-        lfcell.lineView.hidden = YES;
-    }
-}
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 95;
-    
+    return [LawfirmCell getCellHeight];
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell  = [tableView dequeueReusableCellWithIdentifier:@"LawfirmCell"];
-    [cell addLineWithPosition:ViewDrawLinePostionType_Bottom lineColor:HEXCOLOR(0XE7E6E5) lineWidth:1];
+    LawfirmCell *cell  = [tableView dequeueReusableCellWithIdentifier:@"LawfirmCell"];
+    cell.delegate = self;
     
-    [self configureLawfirmCell:cell atIndexPath:indexPath];
+    [cell loadCellShowDataWithItemEntity:[self curDataWithIndex:indexPath.row]];
+    
     return cell;
 }
 
@@ -837,6 +828,41 @@
     }
 }
 
+#pragma mark - LawFirmCellDelegate methods
 
+- (void)LawFirmCell:(LawfirmCell *)cell didClickOperationBtnWithType:(LawFirmCellOperationType)type sender:(id)sender
+{
+    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+    LBSLawfirm *lawFirm = [self curDataWithIndex:indexPath.row];;
+    
+    switch (type)
+    {
+        case LawFirmCellOperationType_MapLocation:
+        {
+            // 切换视图
+            [self sceneChange:nil];
+            
+            // 设置地图annotation-paopao视图的弹出
+            [self clearLawyersShowMapPaopaoViewStatus];
+            lawFirm.isShowMapLawfirmAnnotationPaopaoView = YES;
+            
+            [self showMapnode];
+        }
+            break;
+        case LawFirmCellOperationType_OpenUrl:
+        {
+            
+        }
+            break;
+        case LawFirmCellOperationType_PhoneCall:
+        {
+           
+        }
+            break;
+       
+        default:
+            break;
+    }
+}
 
 @end

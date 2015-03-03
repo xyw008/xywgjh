@@ -8,42 +8,49 @@
 
 #import "BMKLawfirmPaoPaoView.h"
 
-
-
-
 @implementation BMKLawfirmPaoPaoView
 
+- (void)awakeFromNib
+{
+    [self setup];
+}
+
+- (void)configureViewsProperties
+{
+    self.autoresizingMask = UIViewAutoresizingNone;
+    
+    for (UIView *subView in self.subviews)
+    {
+        if ([subView isKindOfClass:[UILabel class]])
+        {
+            UILabel *label = (UILabel *)subView;
+            
+            label.textColor = Common_GrayColor;
+        }
+    }
+    
+    _lawfirmNameLabel.textColor = Common_ThemeColor;
+}
+
+- (void)setup
+{
+    // 设置属性
+    [self configureViewsProperties];
+}
 
 - (void)loadViewData:(LBSLawfirm *)lawfirmEntity
 {
     if(lawfirmEntity)
     {
-        [_lawyfirmHeaderImageView gjh_setImageWithURL:lawfirmEntity.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultLawfirm_samll.png"] imageShowStyle:ImageShowStyle_None success:nil failure:nil];
+        UIImage *placeholderImage = [UIImage imageNamed:@"defaultLawfirm_samll.png"];
+        CGSize size = _lawyfirmHeaderImageView.boundsSize;
+        
+        [_lawyfirmHeaderImageView gjh_setImageWithURL:lawfirmEntity.mainImageURL placeholderImage:[placeholderImage resize:size] imageShowStyle:ImageShowStyle_None success:nil failure:nil];
         
         _lawfirmNameLabel.text = lawfirmEntity.name;
         _distanceLabel.text = [NSString stringWithFormat:@"%d米",lawfirmEntity.distance];
         
-//        CGSize size = [lawfirmEntity.address sizeWithFont:_lawfirmAddressLabel.font constrainedToWidth:_lawfirmAddressLabel.width];
-//        
-//        //改变地址Label的高度和Y,执业人数Label的Y
-//        if (size.height > 19)
-//        {
-//            _lawfirmAddressLabel.height = 37;
-//            DLog(@"max y  = %f",CGRectGetMaxY(_lawfirmNameLabel.frame));
-//            _lawfirmAddressLabel.frameOriginY -= 7;
-//            _lawyerNumLabel.frameOriginY -= 6;
-////            _lawfirmAddressLabel.frameOriginY = CGRectGetMaxY(_lawfirmNameLabel.frame);
-////            _lawyerNumLabel.frameOriginY = CGRectGetMaxY(_lawfirmAddressLabel.frame);
-//        }
-//        else
-//        {
-//            _lawfirmAddressLabel.height = 19;
-//            _lawfirmAddressLabel.frameOriginY = CGRectGetMaxY(_lawfirmNameLabel.frame) + 7;
-//            _lawyerNumLabel.frameOriginY = CGRectGetMaxY(_lawfirmAddressLabel.frame) + 6;
-//        }
-        
-        _lawfirmAddressLabel.text = [NSString stringWithFormat:@"%@",lawfirmEntity.address];
-//        _lawfirmAddressLabel.text = [NSString stringWithFormat:@"%@测试测试试测试试测试试测试试测试",lawfirmEntity.address];
+        _lawfirmAddressLabel.text = [NSString stringWithFormat:@"地址: %@",lawfirmEntity.address];
         _lawyerNumLabel.text = [NSString stringWithFormat:@"执业人数: %@",lawfirmEntity.memberCount];
     }
 }

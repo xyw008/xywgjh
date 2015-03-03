@@ -11,8 +11,8 @@
             <rect key="frame" x="0.0" y="0.0" width="300" height="82"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="paopao.png" translatesAutoresizingMaskIntoConstraints="NO" id="B4Y-Yd-PaN">
-                    <rect key="frame" x="0.0" y="0.0" width="300" height="85"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paopao.png" translatesAutoresizingMaskIntoConstraints="NO" id="B4Y-Yd-PaN">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="82"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxx律师" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y47-R0-w0S">
                     <rect key="frame" x="65" y="7" width="51" height="15"/>

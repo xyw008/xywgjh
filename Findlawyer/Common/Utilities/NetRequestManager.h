@@ -32,8 +32,11 @@ typedef NS_ENUM (NSInteger, MyHTTPCodeType)
 
 typedef enum
 {
-    /// 如果存在缓存且没有过期则使用缓存数据,否则重新向服务器发送请求
-	NetAskServerIfModifiedWhenStaleCachePolicy,
+    /// 如果存在缓存且没有过期则使用缓存数据,否则重新向服务器发送请求(成功委托只调用1次)
+    NetAskServerIfModifiedWhenStaleCachePolicy,
+    
+    /// 如果存在缓存且没有过期则使用缓存数据,然后再向服务器发送请求(成功委托会调用2次)
+    NetUseCacheFirstWhenCacheValidAndAskServerAgain,
     
     /// 无视缓存数据,总是向服务器请求新的数据
 	NetAlwaysAskServerCachePolicy,

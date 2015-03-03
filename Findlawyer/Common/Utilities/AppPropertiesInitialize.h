@@ -10,6 +10,8 @@
 #import "NetworkStatusManager.h"
 #import "IQKeyboardManager.h"
 #import "LanguagesManager.h"
+#import "CoreData+MagicalRecord.h"
+#import "UIFactory.h"
 
 @interface AppPropertiesInitialize : NSObject
 
