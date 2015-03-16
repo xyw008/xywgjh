@@ -26,6 +26,12 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
 
 @implementation MyMagic
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.hidesBottomBarWhenPushed = NO;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -243,13 +249,13 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
         if (indexPath.section == 0)
         {
             InformationListVC *vc = [[InformationListVC alloc] init];
-            self.hidesBottomBarWhenPushed = YES;
+            vc.hidesBottomBarWhenPushed = YES;
             [self pushViewController:vc];
         }
         else
         {
             MyConsultListVC *vc = [[MyConsultListVC alloc] init];
-            self.hidesBottomBarWhenPushed = YES;
+            vc.hidesBottomBarWhenPushed = YES;
             [self pushViewController:vc];
         }
     }
