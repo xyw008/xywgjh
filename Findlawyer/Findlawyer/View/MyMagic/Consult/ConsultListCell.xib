@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ConsultListCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2015-1-2" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RG-89-OGy">
+                        <rect key="frame" x="214" y="9" width="66" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="bEo-PI-AqQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.69019607839999997" green="0.6705882353" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zixunhongdian.png" translatesAutoresizingMaskIntoConstraints="NO" id="kbi-VG-Wir">
+                        <rect key="frame" x="287" y="14" width="6" height="6"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="6" id="1go-pI-QGr"/>
+                            <constraint firstAttribute="width" constant="6" id="BZn-2V-Ipl"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="youjiantou.png" translatesAutoresizingMaskIntoConstraints="NO" id="8R0-mp-yfA">
+                        <rect key="frame" x="298" y="22" width="7" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="E3Q-uB-dUi"/>
+                            <constraint firstAttribute="width" constant="7" id="cZs-P3-bzy"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="被判无期的人还能结婚吗？？？？？？" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J9w-zY-l0E">
+                        <rect key="frame" x="15" y="32" width="238" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="ydz-Va-WbS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.69019607839999997" green="0.6705882353" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="是秋芳律师--交通纠纷" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZl-9A-edC">
+                        <rect key="frame" x="15" y="9" width="191" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="jLP-fa-8da"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="kbi-VG-Wir" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="32v-Qs-K7W"/>
+                    <constraint firstAttribute="trailing" secondItem="8R0-mp-yfA" secondAttribute="trailing" constant="15" id="6Lc-oC-9fQ"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="J9w-zY-l0E" secondAttribute="trailing" constant="40" id="6wF-ES-N1Q"/>
+                    <constraint firstItem="kbi-VG-Wir" firstAttribute="leading" secondItem="0RG-89-OGy" secondAttribute="trailing" constant="7" id="Cjk-lH-hyB"/>
+                    <constraint firstItem="0RG-89-OGy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uZl-9A-edC" secondAttribute="trailing" constant="8" id="Rc7-kT-trt"/>
+                    <constraint firstItem="uZl-9A-edC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Sc3-UL-fi2"/>
+                    <constraint firstItem="uZl-9A-edC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="gp9-mc-8Gl"/>
+                    <constraint firstItem="J9w-zY-l0E" firstAttribute="top" secondItem="uZl-9A-edC" secondAttribute="bottom" constant="7" id="guj-py-ZY4"/>
+                    <constraint firstItem="0RG-89-OGy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="hLn-cu-mcZ"/>
+                    <constraint firstItem="J9w-zY-l0E" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="lQK-i0-Pga"/>
+                    <constraint firstAttribute="trailing" secondItem="kbi-VG-Wir" secondAttribute="trailing" constant="27" id="tPR-Xq-jFY"/>
+                    <constraint firstAttribute="centerY" secondItem="8R0-mp-yfA" secondAttribute="centerY" id="w1H-r0-cfU"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="descriptionLB" destination="J9w-zY-l0E" id="SRu-RO-Oqp"/>
+                <outlet property="dotIV" destination="kbi-VG-Wir" id="Nth-eC-4cB"/>
+                <outlet property="timeLB" destination="0RG-89-OGy" id="bdL-yF-GNZ"/>
+                <outlet property="titleLB" destination="uZl-9A-edC" id="CuQ-bK-sVe"/>
+            </connections>
+            <point key="canvasLocation" x="207" y="350"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="youjiantou.png" width="7" height="11"/>
+        <image name="zixunhongdian.png" width="6" height="6"/>
+    </resources>
+</document>

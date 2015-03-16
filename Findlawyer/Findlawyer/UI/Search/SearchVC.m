@@ -41,6 +41,8 @@ typedef NS_ENUM(NSInteger, TheSearchType)
     UIButton         *_searchTypeBtn;
     NITextField      *_serachTextField;
     TheSearchType    _searchType;
+    
+    NSArray          *_selectPathsArray;
 }
 
 @end
@@ -89,8 +91,12 @@ typedef NS_ENUM(NSInteger, TheSearchType)
     _collectionView.backgroundColor = [UIColor whiteColor];
     [_collectionView keepAutoresizingInFull];
     
-    [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-    [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    NSIndexPath *onePath = [NSIndexPath indexPathForItem:0 inSection:0];
+    NSIndexPath *twoPath = [NSIndexPath indexPathForItem:0 inSection:1];
+    _selectPathsArray = [[NSArray alloc] initWithObjects:onePath,twoPath, nil];
+    
+    [_collectionView selectItemAtIndexPath:onePath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    [_collectionView selectItemAtIndexPath:twoPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     
     [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([SearchItemCollectionCell class]) bundle:nil] forCellWithReuseIdentifier:cellIdentifier_collecitonViewCell];
     
@@ -207,12 +213,27 @@ typedef NS_ENUM(NSInteger, TheSearchType)
         
         [_searchTypeBtn setTitle:@"律所" forState:UIControlStateNormal];
     }
+    [_collectionView reloadData];
+    for (NSIndexPath *path in _selectPathsArray)
+    {
+        [_collectionView selectItemAtIndexPath:path animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    }
+    
 }
 
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate methods
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
+    switch (_searchType) {
+        case TheSearchType_lawyer:
+            return _searchShowDataArray.count;
+            break;
+        case TheSearchType_lawfirm:
+            return _searchShowDataArray.count - 1;
+        default:
+            break;
+    }
     return _searchShowDataArray.count;
 }
 
@@ -275,7 +296,17 @@ typedef NS_ENUM(NSInteger, TheSearchType)
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
-    if (1 == section)
+    NSInteger showSection = 1;
+    switch (_searchType)
+    {
+        case TheSearchType_lawfirm:
+            showSection = 0;
+            break;
+        default:
+            break;
+    }
+    
+    if (showSection == section)
     {
         return [SearchCollectionFooterView getViewSize];
     }
@@ -284,9 +315,9 @@ typedef NS_ENUM(NSInteger, TheSearchType)
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *indexPaths = [collectionView indexPathsForSelectedItems];
+//    NSArray *indexPaths = [collectionView indexPathsForSelectedItems];
 
-    for (NSIndexPath *path in indexPaths)
+    for (NSIndexPath *path in _selectPathsArray)
     {
         if (indexPath.section == path.section && indexPath.item == path.item)
         {
@@ -298,17 +329,17 @@ typedef NS_ENUM(NSInteger, TheSearchType)
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *indexPaths = [collectionView indexPathsForSelectedItems];
+//    NSArray *indexPaths = [collectionView indexPathsForSelectedItems];
     
-    for (NSIndexPath *path in indexPaths)
+    for (NSIndexPath *path in _selectPathsArray)
     {
         if (path.section == indexPath.section)
         {
             [collectionView deselectItemAtIndexPath:path animated:YES];
         }
     }
-
     [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    _selectPathsArray = [collectionView indexPathsForSelectedItems];
 }
 
 ////////////////////////////////////////////////////////////////////////////////

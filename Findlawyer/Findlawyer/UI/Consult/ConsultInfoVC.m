@@ -16,8 +16,9 @@
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "UploadImageBC.h"
 #import "HUDManager.h"
+#import "HPTextViewInternal.h"
 
-#define kEdgeSpace 10
+#define kEdgeSpace 0
 #define kCancelBtnStr @"   取消"
 #define kConfirmBtnStr @"确定   "
 #define kDefaultBtnText @"请选择"
@@ -35,7 +36,7 @@
     UIButton            *_selectBtn;//选择咨询类型btn
     
     UILabel             *_textViewPlaceholderLB;
-    UITextView          *_textView;//咨询问题输入视图
+    HPTextViewInternal  *_textView;//咨询问题输入视图
     UIButton            *_sendInfoBtn;//发送消息按钮
     
     NSArray             *_typeArray;//可选择咨询类型数组
@@ -83,7 +84,8 @@
 - (void)initImageAddViewAndBgScrollView
 {
     _bgSrcollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    _bgSrcollView.backgroundColor = HEXCOLOR(0xF9F9F9);
+//    _bgSrcollView.backgroundColor = HEXCOLOR(0xF9F9F9);
+    _bgSrcollView.backgroundColor = Common_LiteWhiteGrayColor;
     [_bgSrcollView keepAutoresizingInFull];
     [self.view addSubview:_bgSrcollView];
     
@@ -100,8 +102,9 @@
     _selectTypeBgView.backgroundColor = [UIColor whiteColor];
     [_bgSrcollView addSubview:_selectTypeBgView];
     
-    _selectTypeLB = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, 95, 22)];
-    _selectTypeLB.textAlignment = NSTextAlignmentRight;
+    _selectTypeLB = [[UILabel alloc] initWithFrame:CGRectMake(15, 8, 70, 22)];
+//    _selectTypeLB.textAlignment = NSTextAlignmentRight;
+    _selectTypeLB.textAlignment = NSTextAlignmentLeft;
     _selectTypeLB.text = @"咨询类型:";
     _selectTypeLB.font = SP15Font;
     [_selectTypeBgView addSubview:_selectTypeLB];
@@ -119,12 +122,18 @@
 
 - (void)initTextViewAndSendBtn
 {
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(_selectTypeBgView.frameOriginX, [self getTextViewOriginY], _selectTypeBgView.width, 120)];
+    _textView = [[HPTextViewInternal alloc] initWithFrame:CGRectMake(_selectTypeBgView.frameOriginX, [self getTextViewOriginY], _selectTypeBgView.width, 120)];
     _textView.delegate = self;
     _textView.backgroundColor = [UIColor whiteColor];
+    _textView.font = SP15Font;
+//    _textView.placeholder = @"简要描述案情(500字内)";
+//    _textView.placeholderColor = ATColorRGBMake(159, 159, 159);
+    
+    [_textView setContentInset:UIEdgeInsetsMake(0, 15, 0, -15)];
     [_bgSrcollView addSubview:_textView];
     
-    _textViewPlaceholderLB = [[UILabel alloc] initWithFrame:CGRectMake((_textView.width - 170)/2, [self getTextViewPlaceholderLBOriginY], 170, 20)];
+//    _textViewPlaceholderLB = [[UILabel alloc] initWithFrame:CGRectMake((_textView.width - 170)/2, [self getTextViewPlaceholderLBOriginY], 170, 20)];
+    _textViewPlaceholderLB = [[UILabel alloc] initWithFrame:CGRectMake(20, [self getTextViewPlaceholderLBOriginY] + 8, 170, 20)];
     _textViewPlaceholderLB.text = @"简要描述案情(500字内)";
     _textViewPlaceholderLB.textColor = ATColorRGBMake(159, 159, 159);
     _textViewPlaceholderLB.backgroundColor = [UIColor clearColor];
@@ -137,7 +146,7 @@
     [_sendInfoBtn setTitle:@"发送咨询" forState:UIControlStateNormal];
     [_sendInfoBtn addTarget:self action:@selector(sendInfoBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
     _sendInfoBtn.layer.cornerRadius = 2;
-    _sendInfoBtn.backgroundColor = ATColorRGBMake(20, 139, 230);
+    _sendInfoBtn.backgroundColor = Common_ThemeColor;
     
     [_bgSrcollView addSubview:_sendInfoBtn];
     [self setBgSrcollViewContentSize];
@@ -146,12 +155,12 @@
 #pragma mark - get Bg View origin.y or contentSize method
 - (CGFloat)getSelectBgViewOriginY
 {
-    return CGRectGetMaxY(_imageAddView.frame) + 1;
+    return CGRectGetMaxY(_imageAddView.frame) + 10;
 }
 
 - (CGFloat)getTextViewOriginY
 {
-    return CGRectGetMaxY(_selectTypeBgView.frame) + 25;
+    return CGRectGetMaxY(_selectTypeBgView.frame) + 15;
 }
 
 - (CGFloat)getTextViewPlaceholderLBOriginY
@@ -161,7 +170,7 @@
 
 - (CGFloat)getSendBtnOriginY
 {
-    return CGRectGetMaxY(_textView.frame) + 12;
+    return CGRectGetMaxY(_textView.frame) + 20;
 }
 
 

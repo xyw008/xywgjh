@@ -10,6 +10,8 @@
 #import "UserCenter_TabHeaderView.h"
 #import "MyMagicCell.h"
 #import "LoginVC.h"
+#import "MyConsultListVC.h"
+#import "InformationListVC.h"
 
 static NSString * const cellIdentifier_userInfoHeader   = @"cellIdentifier_userInfoHeader";
 static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMagicCell";
@@ -235,6 +237,22 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (_tabShowDataCellTitleArray.count != indexPath.section)
+    {
+        if (indexPath.section == 0)
+        {
+            InformationListVC *vc = [[InformationListVC alloc] init];
+            self.hidesBottomBarWhenPushed = YES;
+            [self pushViewController:vc];
+        }
+        else
+        {
+            MyConsultListVC *vc = [[MyConsultListVC alloc] init];
+            self.hidesBottomBarWhenPushed = YES;
+            [self pushViewController:vc];
+        }
+    }
 }
 
 @end

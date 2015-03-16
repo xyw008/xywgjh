@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbSpecialArea;// 专业领域
 @property (weak, nonatomic) IBOutlet UILabel *lbDetail;//具体详情
 
+
 //配置此页面的数据
 - (void) configViewWithmainImage:(NSURL *)mainimageurl certificateNum:(NSString *)num lawfirmname:(NSString *)lawfirmname specailarea:(NSString *)specialarea detailInfo: (NSString *)detailinfo;
 

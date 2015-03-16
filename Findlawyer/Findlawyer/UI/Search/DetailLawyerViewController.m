@@ -20,6 +20,7 @@
 #import "ConsultInfoVC.h"
 #import "CallAndMessageManager.h"
 #import "NIWebController.h"
+#import "GJHSlideSwitchView.h"
 
 #ifndef ProHUD
 #define ProHUD	199
@@ -27,8 +28,10 @@
 
 #define kTableCellDefaultHeight 30
 
-@interface DetailLawyerViewController ()<UIScrollViewDelegate,MFMessageComposeViewControllerDelegate>
-
+@interface DetailLawyerViewController ()<UIScrollViewDelegate,MFMessageComposeViewControllerDelegate,GJHSlideSwitchViewDelegate>
+{
+    GJHSlideSwitchView      *_slideSwitchView;//
+}
 @property (nonatomic,strong)DetailLawyerHeaderView * headerview;
 @property (nonatomic,strong)NSArray * arChooseItems;
 @property (nonatomic )NSInteger choosedIndex;
@@ -66,7 +69,7 @@
     self.myScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - tempTool.height)];
     self.myScrollView.tag=4;
     self.myScrollView.backgroundColor=[UIColor colorWithRed:229.0/255.0 green:229.0/255.0 blue:(229.0/255.0) alpha:1];
-    self.myScrollView.backgroundColor=[UIColor whiteColor];
+    self.myScrollView.backgroundColor= Common_LiteWhiteGrayColor;
     self.myScrollView.pagingEnabled=NO;
     self.myScrollView.showsVerticalScrollIndicator=YES;
     self.myScrollView.showsHorizontalScrollIndicator=NO;
@@ -270,9 +273,9 @@
     {
         [muar addObject:dic [@"NTname"]];
     }
-    CGSize contendsize = self.myScrollView.contentSize;
-    contendsize = CGSizeMake(contendsize.width, contendsize.height +25 );
-    self.myScrollView.contentSize = contendsize;
+    
+    
+    /*
     self.segmentcontrol= [[UISegmentedControl alloc]initWithItems:muar];
     self.segmentcontrol.frame = CGRectMake(0, CGRectGetMaxY(self.headerview.frame), self.view.width, 25);
     _segmentcontrol.layer.borderColor = CellSeparatorColor.CGColor;
@@ -285,9 +288,23 @@
     
     [self.segmentcontrol addTarget:self action:@selector(segmentChange:) forControlEvents:UIControlEventValueChanged];
     self.segmentcontrol.selectedSegmentIndex = 0;
-     self.choosedIndex = 0;
-    
     [self.myScrollView addSubview:self.segmentcontrol];
+    */
+    
+    _slideSwitchView = [[GJHSlideSwitchView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.headerview.frame) + 12, self.view.width, 40) titlesArray:muar];
+    _slideSwitchView.slideSwitchViewDelegate = self;
+    _slideSwitchView.tabItemNormalColor = [UIColor grayColor];
+    _slideSwitchView.tabItemSelectedColor = Common_ThemeColor;
+    _slideSwitchView.shadowImage = [UIImage imageWithColor:Common_ThemeColor size:CGSizeMake(1, 1)];
+    _slideSwitchView.topScrollViewBackgroundColor = [UIColor whiteColor];
+    _slideSwitchView.isTabItemEqualWidthInFullScreenWidth = YES;
+    [_slideSwitchView buildUI];
+    [_slideSwitchView addLineWithPosition:ViewDrawLinePostionType_Bottom lineColor:Common_LiteWhiteGrayColor lineWidth:LineWidth];
+    [self.myScrollView addSubview:_slideSwitchView];
+    self.choosedIndex = 0;
+    
+    self.myScrollView.contentSize = CGSizeMake(_myScrollView.width, CGRectGetMaxY(_slideSwitchView.frame));;
+    
     [self loadarticlistByID];
     
 //    UIImageView * line = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"separator"]];
@@ -308,7 +325,9 @@
     }
     else
     {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(_segmentcontrol.frameOriginX, CGRectGetMaxY(self.segmentcontrol.frame), _segmentcontrol.width, self.arArtiiclelist.count * kTableCellDefaultHeight) style:UITableViewStylePlain];
+//        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(_segmentcontrol.frameOriginX, CGRectGetMaxY(self.segmentcontrol.frame), _segmentcontrol.width, self.arArtiiclelist.count * kTableCellDefaultHeight) style:UITableViewStylePlain];
+        
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(_slideSwitchView.frameOriginX, CGRectGetMaxY(_slideSwitchView.frame), _slideSwitchView.width, self.arArtiiclelist.count * kTableCellDefaultHeight) style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate  = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -525,6 +544,7 @@
 //        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(startX, kTableCellDefaultHeight - .5, cell.width - startX*2, .5)];
 //        line.backgroundColor = CellSeparatorColor;
 //        [cell.contentView addSubview:line];
+        cell.textLabel.textColor = [UIColor grayColor];
     }
     NSDictionary * dic = [self.arArtiiclelist objectAtIndex:indexPath.row];
     cell.textLabel.text = dic[@"Title"];
@@ -553,6 +573,17 @@
         [self pushViewController:web];
     }
 }
+
+#pragma mark - GJHSlideSwitchViewDelegate
+- (void)slideSwitchView:(GJHSlideSwitchView *)view didselectTab:(NSUInteger)number
+{
+    if (self.choosedIndex == number) {
+        return;
+    }
+    self.choosedIndex = number;
+    [self loadarticlistByID];
+}
+
 
 #pragma mark -
 - (void)didReceiveMemoryWarning

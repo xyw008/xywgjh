@@ -110,7 +110,8 @@ static LBSDataCenter *__LSDefaultDataCenter = nil;
     NSMutableDictionary *property = [[NSMutableDictionary alloc] initWithCapacity:4];
     
     if (searchkey.length >0) {
-        [property setObject:searchkey forKey:kLBSRequestQuery];
+//        [property setObject:searchkey forKey:kLBSRequestQuery];
+        [property setObject:@[searchkey] forKey:kLBSRequestFilter];
     }
     
 	[property setObject:currentcity forKey:kLBSRequestRegion];
@@ -129,7 +130,8 @@ static LBSDataCenter *__LSDefaultDataCenter = nil;
         
     }
     
-	if (index) [property setObject:[NSNumber numberWithUnsignedInteger:index] forKey:kLBSRequestPageIndex];
+	if (index)
+        [property setObject:[NSNumber numberWithUnsignedInteger:index] forKey:kLBSRequestPageIndex];
 	if (pageSize > 50) pageSize = 50;
 	if (pageSize) [property setObject:[NSNumber numberWithUnsignedInteger:pageSize] forKey:kLBSRequestPageSize];
 	

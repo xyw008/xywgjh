@@ -73,10 +73,33 @@ static dispatch_queue_t json_request_operation_processing_queue() {
         if (self.responseString && ![self.responseString isEqualToString:@" "]) {
             // Workaround for a bug in NSJSONSerialization when Unicode character escape codes are used instead of the actual character
             // See http://stackoverflow.com/a/12843465/157142
-            NSData *data = [self.responseString dataUsingEncoding:NSUTF8StringEncoding];
+            
+            
+            /**
+             *  修复json 解析 3840报错问题
+             *  熊耀文 2015-03-16
+             *  修改开始
+             */
+            
+            NSMutableString *resultStr = [NSMutableString stringWithString:self.responseString];
+            
+            //[s replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
+            //[s replaceOccurrencesOfString:@"/" withString:@"\\/" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
+            [resultStr replaceOccurrencesOfString:@"\n" withString:@"\\n" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [resultStr length])];
+            [resultStr replaceOccurrencesOfString:@"\b" withString:@"\\b" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [resultStr length])];
+            [resultStr replaceOccurrencesOfString:@"\f" withString:@"\\f" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [resultStr length])];
+            [resultStr replaceOccurrencesOfString:@"\r" withString:@"\\r" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [resultStr length])];
+            [resultStr replaceOccurrencesOfString:@"\t" withString:@"\\t" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [resultStr length])];
+            
+            NSData *data = [resultStr dataUsingEncoding:NSUTF8StringEncoding];
+            
+//            NSData *data = [self.responseString dataUsingEncoding:NSUTF8StringEncoding];
+            
+            /**
+             *  修改结束
+             */
 
             if (data) {
-                
                self.responseJSON = [NSJSONSerialization JSONObjectWithData:data options:self.JSONReadingOptions error:&error];
               
               //   self.responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];

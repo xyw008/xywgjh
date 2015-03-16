@@ -82,7 +82,8 @@
     pageSize = 30;
     self.ifhavedload = YES;
     self.muarLawyerlist = [[NSMutableArray alloc]init];
-    self.title = self.lawfirm.name;
+//    self.title = self.lawfirm.name;
+    self.title = @"律所信息";
     [self.tableView registerNib:[UINib nibWithNibName:@"LawyerCell" bundle:nil] forCellReuseIdentifier:@"LawyerCell"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [[UIView alloc]init];
@@ -135,22 +136,28 @@
                 
                 for (int i = 0; i < arlist.count; i ++)
                 {
-                    NSString *strUrl = [NSString stringWithFormat:@"http://test3.sunlawyers.com/upImg/%@",[arlist objectAtIndex:i]];
+//                    NSString *strUrl = [NSString stringWithFormat:@"http://test3.sunlawyers.com/upImg/%@",[arlist objectAtIndex:i]];
+                    NSString *strUrl = [NSString stringWithFormat:@"http://test3.sunlawyers.com/UploadBase/LawFirm/%@",[arlist objectAtIndex:i]];
                     [weakSelf.lawfirm.arImageUrlstrs addObject:strUrl];
                 }
                 
                 //律所具体信息展示界面
                 DetailLawfirmHeaderView * detailheaderview = [[[NSBundle mainBundle] loadNibNamed:@"DetailLawfirmHeaderView" owner:self options:nil] lastObject];
-                [detailheaderview configViewWithmainImage:weakSelf.lawfirm.mainImageURL
-                                           introimagelist:weakSelf.lawfirm.arImageUrlstrs
-                                                    Count:weakSelf.lawfirm.memberCount
-                                                   adress:dic [@"Address"]
-                                                    phone:weakSelf.lawfirm.tel
-                                                netAdress:weakSelf.lawfirm.mailBox
-                                                      fax: dic [@"Fax"]
-                                               detailInfo:dic [@"Detail"]];
+                [detailheaderview configViewWithLawfirmName:weakSelf.lawfirm.name
+                                                  mainImage:weakSelf.lawfirm.mainImageURL
+                                             introimagelist:weakSelf.lawfirm.arImageUrlstrs
+                                                      Count:weakSelf.lawfirm.memberCount
+                                                     adress:dic [@"Address"]
+                                                      phone:weakSelf.lawfirm.tel
+                                                  netAdress:weakSelf.lawfirm.mailBox
+                                                        fax: dic [@"Fax"]
+                                                 detailInfo:dic [@"Detail"]];
                 weakSelf.tableView.tableHeaderView = detailheaderview;
                 [self loadLocalData];
+            }
+            else
+            {
+                [HUDManager showAutoHideHUDWithToShowStr:@"加载失败" HUDMode:MBProgressHUDModeText];
             }
 
         }
@@ -158,7 +165,7 @@
         {
       
 //           [UIView  showHUDWithTitle:@"加载失败..." image:nil onView:self.view tag:ProHUD autoHideAfterDelay:1];
-            [HUDManager showAutoHideHUDWithToShowStr:@"加载失败..." HUDMode:MBProgressHUDModeText];
+            [HUDManager showAutoHideHUDWithToShowStr:@"加载失败" HUDMode:MBProgressHUDModeText];
         }
               // [self loadlawyerlist];
         
@@ -186,7 +193,9 @@
 - (void)loadLocalData
 {
     __weak  DetailLawfirmViewController * weakSelf = self;
-    [[LBSDataCenter defaultCenter] loadDataWithRegionSearchkey:[NSString stringWithFormat:@"%@",self.lawfirm.lfid] searchtype:searchLawyer index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, id dataModel) {
+//    [[LBSDataCenter defaultCenter] loadDataWithRegionSearchkey:[NSString stringWithFormat:@"%@",self.lawfirm.lfid] searchtype:searchLawyer index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, id dataModel)
+    
+    [[LBSDataCenter defaultCenter] loadDataWithRegionSearchkey:[NSString stringWithFormat:@"%d",self.lawfirmid] searchtype:searchLawyer index:currentIndex pageSize:pageSize pieceComplete:^(LBSRequest *request, id dataModel) {
         if (dataModel)
 		{
             // 得到数据后，放到此律所的律师列表里
