@@ -32,7 +32,8 @@
         
         NSString *methodNameStr = [BaseNetworkViewController getRequestURLStr:NetUserCenterRequestType_GetVerificationCode];
         NSURL *url = [UrlManager getRequestUrlByMethodName:methodNameStr];
-        NSDictionary *dic = @{@"Mobile": phoneNumber};
+        NSDictionary *dic = @{@"t": @(1),
+                              @"m": phoneNumber};
         
         [[NetRequestManager sharedInstance] sendRequest:url
                                            parameterDic:dic
@@ -65,8 +66,8 @@
                         // 进行注册操作
                         NSString *methodNameStr = [BaseNetworkViewController getRequestURLStr:NetUserCenterRequestType_Register];
                         NSURL *url = [UrlManager getRequestUrlByMethodName:methodNameStr];
-                        NSDictionary *dic = @{@"Mobile": userName,
-                                              @"Password": password,
+                        NSDictionary *dic = @{@"m": userName,
+                                              @"p": password,
                                               @"Code": verificationCode};
                         
                         [[NetRequestManager sharedInstance] sendRequest:url
@@ -78,7 +79,7 @@
                     }
                     else
                     {
-                        [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:@"请输入验证码"];
+                        [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:@"请输入正确的验证码"];
                     }
                 }
                 else

@@ -27,6 +27,12 @@
                            @"GetAskId",
                            @"AddAskPhoto",              // 上传图片
                            @"SaveAskInfo",
+                           
+                           // 用户中心
+                           @"RegisterUser",
+                           @"UserLogin",
+                           @"SendSms",
+                           
                            nil];
     });
     

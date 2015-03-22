@@ -12,7 +12,7 @@
 #import "LoginBC.h"
 #import "ATTimerManager.h"
 
-#define kGetVerificationCodeFreezeSecond 30
+#define kGetVerificationCodeFreezeSecond 60
 
 @interface RegisterVC () <ATTimerManagerDelegate>
 {
@@ -127,6 +127,7 @@
     }
 }
 
+// 获取验证码
 - (IBAction)clickGetVerificationCodeBtn:(UIButton *)sender
 {
     WEAKSELF
