@@ -40,8 +40,8 @@
             // 登录操作
             NSString *methodNameStr = [BaseNetworkViewController getRequestURLStr:NetUserCenterRequestType_Login];
             NSURL *url = [UrlManager getRequestUrlByMethodName:methodNameStr];
-            NSDictionary *dic = @{@"Mobile": userName,
-                                  @"Password": password};
+            NSDictionary *dic = @{@"m": userName,
+                                  @"p": password};
             
             [[NetRequestManager sharedInstance] sendRequest:url
                                                parameterDic:dic
