@@ -13,6 +13,8 @@
 
 - (void)ImageBoxWantDeleteImg:(ImageBox*)box;
 
+- (void)ImageBoxDidTouch:(ImageBox*)box;
+
 @end
 
 @interface ImageBox : UIView

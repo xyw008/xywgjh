@@ -136,10 +136,27 @@
                 
                 for (int i = 0; i < arlist.count; i ++)
                 {
-//                    NSString *strUrl = [NSString stringWithFormat:@"http://test3.sunlawyers.com/upImg/%@",[arlist objectAtIndex:i]];
-                    NSString *strUrl = [NSString stringWithFormat:@"http://test3.sunlawyers.com/UploadBase/LawFirm/%@",[arlist objectAtIndex:i]];
-                    [weakSelf.lawfirm.arImageUrlstrs addObject:strUrl];
+                    //NSString *strUrl = [NSString stringWithFormat:@"http://test3.sunlawyers.com/upImg/%@",[arlist objectAtIndex:i]];
+                    //NSString *smallStrUrl = [NSString stringWithFormat:@"http://test3.sunlawyers.com/UploadBase/LawFirm/%@",[arlist objectAtIndex:i]];
+                    
+                    NSString *baseUrl = @"http://test3.sunlawyers.com/UploadBase/LawFirm/";
+                    
+                    NSMutableString *smallUrl = [NSMutableString stringWithFormat:@"%@",[arlist objectAtIndex:i]];
+                    NSString *bigString = [NSMutableString stringWithFormat:@"%@",smallUrl];
+                    NSString *tagString = @"Small";
+                    
+                    if ([smallUrl hasPrefix:tagString])
+                    {
+                        bigString = [bigString substringFromIndex:tagString.length];
+                    }
+                    NSString *smallStrUrl = [NSString stringWithFormat:@"%@%@",baseUrl,smallUrl];
+                    NSString *bigStrUrl = [NSString stringWithFormat:@"%@%@",baseUrl,bigString];
+                    
+                    [weakSelf.lawfirm.arImageUrlstrs addObject:bigStrUrl];
+                    [weakSelf.lawfirm.arBigImageUrlStrs addObject:bigStrUrl];
                 }
+                
+                DLog(@"main url =%@",weakSelf.lawfirm.mainImageURL.baseURL)
                 
                 //律所具体信息展示界面
                 DetailLawfirmHeaderView * detailheaderview = [[[NSBundle mainBundle] loadNibNamed:@"DetailLawfirmHeaderView" owner:self options:nil] lastObject];
@@ -152,6 +169,7 @@
                                                   netAdress:weakSelf.lawfirm.mailBox
                                                         fax: dic [@"Fax"]
                                                  detailInfo:dic [@"Detail"]];
+                detailheaderview.lawfirmItem = weakSelf.lawfirm;
                 weakSelf.tableView.tableHeaderView = detailheaderview;
                 [self loadLocalData];
             }

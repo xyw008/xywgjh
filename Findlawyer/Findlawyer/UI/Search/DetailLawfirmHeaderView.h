@@ -10,6 +10,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TTTAttributedLabel.h"
+@class LBSLawfirm;
 
 @interface DetailLawfirmHeaderView : UIView
 
@@ -30,6 +31,8 @@
 
 @property (nonatomic,strong) IBOutlet UIButton *leftBtn; //左翻页btn
 @property (nonatomic,strong) IBOutlet UIButton *rightBtn; //又翻页btn
+
+@property (nonatomic,strong)LBSLawfirm *lawfirmItem;
 
 - (IBAction)turntoLeft:(id)sender;
 

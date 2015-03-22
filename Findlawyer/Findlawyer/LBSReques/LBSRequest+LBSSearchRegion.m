@@ -47,17 +47,19 @@ static NSString * const _baseAppendFormat = @"%@:%@"; // 多个参数
         [v2String appendFormat:_baseAppendWithSkipFormat, @"geotable_id", databox];
     if (filter)
     {
-//        [v2String appendFormat:@"%@=", kLBSRequestFilter];
-//        
-//        [v2String appendFormat:@"%@", [filter componentsJoinedByString:@","]];
-//        [v2String appendString:@"&"];
+        [v2String appendFormat:@"%@=LFId:", kLBSRequestFilter];
         
+        [v2String appendFormat:@"[%@]", [filter componentsJoinedByString:@","]];
+        [v2String appendString:@"&"];
+        
+        /*
         [v2String appendFormat:@"%@=", kLBSRequestFilter];
         for (NSString * filterMember in filter)
         {
             [v2String appendFormat:@"|%@", filterMember];
         }
         [v2String appendString:@"&"];
+         */
     }
     NSNumber *scope = [info objectForKey:kLBSRequestScope];
     if (scope)

@@ -55,6 +55,9 @@
     for (UIView *view in self.subviews) {
         if ([view isKindOfClass:[UIImageView class]])
         {
+//            if ([_delegate respondsToSelector:@selector(ImageBoxDidTouch:)]) {
+//                [_delegate ImageBoxDidTouch:self];
+//            }
             [EXPhotoViewer showImageFrom:(UIImageView *)view];
             return;
         }

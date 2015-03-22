@@ -10,6 +10,8 @@
 #import "UIImageView+WebCache.h"
 #import "EXPhotoViewer.h"
 #import "ImageBox.h"
+#import "LBSLawfirm.h"
+#import "ShowImgFullScreenManager.h"
 
 #define kBetweenSpace 10
 #define kImageWidth (IPHONE_WIDTH - 2*10 - kBetweenSpace*3)/4
@@ -85,7 +87,7 @@
         CGFloat startX = 0;
         for (int i=0; i<imagelist.count; i++)
         {
-            ImageBox *box = [[ImageBox alloc] initWithFrame:CGRectMake(startX, 0, imagesize.width, imagesize.height) image:nil delegate:nil needDeleteBtn:NO];
+            ImageBox *box = [[ImageBox alloc] initWithFrame:CGRectMake(startX, 0, imagesize.width, imagesize.height) image:nil delegate:self needDeleteBtn:NO];
             [box.imgView setImageWithURL:[NSURL URLWithString:[imagelist objectAtIndex:i]] placeholderImage:[UIImage imageNamed:@"defualtLawfirm"]];
             [self.scPhoto addSubview:box];
             startX += box.width + kBetweenSpace;
@@ -181,6 +183,12 @@
 - (void)enlargeImageTap:(UIGestureRecognizer*)tap
 {
     [EXPhotoViewer showImageFrom:_mainImg];
+    //[ShowImgFullScreenManager showImgFullScreenWithImgUrls:@[_lawfirmItem]];
+}
+
+- (void)ImageBoxDidTouch:(ImageBox*)box
+{
+    //[ShowImgFullScreenManager showImgFullScreenWithImgUrls:_lawfirmItem.arBigImageUrlStrs];
 }
 
 

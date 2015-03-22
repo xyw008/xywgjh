@@ -15,6 +15,7 @@
 @property (strong,nonatomic)  NSNumber *lfid;
 @property (strong, nonatomic) NSNumber * memberCount;
 @property (strong,nonatomic)  NSMutableArray *arImageUrlstrs;
+@property (nonatomic,strong)  NSMutableArray *arBigImageUrlStrs;
 @property (strong, nonatomic) UIImage  *mainImage;          // 律所缩略图
 @property (strong, nonatomic) NSURL    *mainImageURL;       // 律所缩略图的url
 @property (strong, nonatomic) NSString *name;               // 律所名称

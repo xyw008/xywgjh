@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Findlawyer/UI/Search/DetailLawfirmViewController.m"
-            timestampString = "448201313.128488"
+            timestampString = "448726550.071771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
             landmarkName = "-loadlawyerlist"
             landmarkType = "5">
          </BreakpointContent>
