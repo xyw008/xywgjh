@@ -334,11 +334,12 @@
     LawyerCell *lycell = (LawyerCell *)cell;
     lycell.cellindexPath = indexPath;
     LBSLawyer *lawyer = [self.muarLawyerlist objectAtIndex:indexPath.row];
-    lycell.lbName.text = lawyer.name;
-    lycell.lblawfirm.text = lawyer.lawfirmName;
-    lycell.lbCertificate.text = lawyer.certificateNo;
-    lycell.specialAreaStr = lawyer.specialArea;
-    lycell.lbPhone.text = lawyer.mobile ? lawyer.mobile : @"暂无电话";
+//    lycell.lbName.text = lawyer.name;
+//    lycell.lblawfirm.text = lawyer.lawfirmName;
+//    lycell.lbCertificate.text = lawyer.certificateNo;
+//    lycell.specialAreaStr = lawyer.specialArea;
+//    lycell.lbPhone.text = lawyer.mobile ? lawyer.mobile : @"暂无电话";
+    [lycell loadCellShowDataWithItemEntity:lawyer];
     lycell.delegate = self;
     [lycell.imgIntroduct setImageWithURL:lawyer.mainImageURL placeholderImage:[UIImage imageNamed:@"defaultlawyer"]];
 }
