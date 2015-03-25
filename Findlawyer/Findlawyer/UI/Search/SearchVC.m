@@ -363,6 +363,54 @@ typedef NS_ENUM(NSInteger, TheSearchType)
 - (void)clickSearchBtn:(UIButton *)sender
 {
     NSArray *indexPaths = [_collectionView indexPathsForSelectedItems];
+    
+    CLLocationCoordinate2D searchLocation;
+    NSString *searchKey = nil;
+    
+    for (NSIndexPath *indexPath in indexPaths)
+    {
+        // 法院或商圈周边的选中项
+        if (0 == indexPath.section)
+        {
+            NSString *selectedSearchKeyStr = [[self getLawfirmArray] objectAtIndex:indexPath.item];
+            if (![selectedSearchKeyStr isEqualToString:kNoLimitStr])
+            {
+                CLLocationCoordinate2D location = [self getLawfirmLocationCoordinate2D:selectedSearchKeyStr];
+                
+                searchLocation = location;
+            }
+        }
+        // 擅长领域的选中项
+        else if (1 == indexPath.section)
+        {
+            NSString *selectedSearchKeyStr = kSpecialtyDomainArray[indexPath.item];
+            searchKey = ![selectedSearchKeyStr isEqualToString:kNoLimitStr] ? selectedSearchKeyStr : nil;
+        }
+    }
+    
+    // 搜索律师
+    if (_searchType == TheSearchType_lawyer)
+    {
+        SearchLawyerViewController *searchLawyer = [[SearchLawyerViewController alloc] init];
+        searchLawyer.strTitle = @"附近律师";
+        searchLawyer.hidesBottomBarWhenPushed = YES;
+        searchLawyer.searchKey = searchKey;
+        searchLawyer.searchLocation = searchLocation;
+        [self pushViewController:searchLawyer];
+    }
+    // 搜索律所
+    else if (_searchType == TheSearchType_lawfirm)
+    {
+        SearchDeatalViewController *vc = [[SearchDeatalViewController alloc] init];
+        vc.strTitle = @"律所";
+        vc.isShowMapView = YES;
+        vc.searchKey = searchKey;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self pushViewController:vc];
+    }
+    
+    /*
+    NSArray *indexPaths = [_collectionView indexPathsForSelectedItems];
 
     SearchLawyerViewController *searchLawyer = [[SearchLawyerViewController alloc] init];
     
@@ -387,10 +435,10 @@ typedef NS_ENUM(NSInteger, TheSearchType)
             searchLawyer.searchKey = ![selectedSearchKeyStr isEqualToString:kNoLimitStr] ? selectedSearchKeyStr : nil;
         }
     }
-    
     searchLawyer.strTitle = @"附近律师";
     searchLawyer.hidesBottomBarWhenPushed = YES;
     [self pushViewController:searchLawyer];
+     */
 }
 
 #pragma mark - Lawfirm Data Soucre

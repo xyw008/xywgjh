@@ -83,15 +83,25 @@
 {
     [HUDManager hideHUD];
     
-    NSDictionary *userInfoDic = [infoObj safeObjectForKey:@"list"];
-    NSNumber *userId = [userInfoDic safeObjectForKey:@"UserId"];
-    
-    [UserInfoModel setUserDefaultUserId:userId];
-    
-    if (_success)
+    NSInteger code = [[infoObj safeObjectForKey:@"code"] integerValue];
+    if (0 == code)
     {
-        _success(infoObj);
+        NSDictionary *dataDic = [infoObj safeObjectForKey:@"data"];
+        NSNumber *userId = [dataDic safeObjectForKey:@"userId"];
+        
+        [UserInfoModel setUserDefaultUserId:userId];
+        
+        if (_success)
+        {
+            _success(infoObj);
+        }
     }
+    else
+    {
+        NSString *msg = [infoObj safeObjectForKey:@"msg"];
+        [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:msg];
+    }
+    
 }
 
 @end
