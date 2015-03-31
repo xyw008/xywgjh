@@ -1,0 +1,226 @@
+/* 
+  Localizable.strings
+  Sephome
+
+  Created by swift on 14/11/9.
+  Copyright (c) 2014年 com.gjh. All rights reserved.
+*/
+
+// 类目
+"Catalog_TabType_Classification"                = "Classification";
+"Catalog_TabType_Brand"                         = "Brand";
+"Catalog_TabType_Efficacy"                      = "Efficacy";
+
+// 注册&登陆
+"Login_Login"                                   = "Login";
+"Login_UserName"                                = "User name";
+"Login_Password"                                = "Password";
+"Login_AutoLogin"                               = "Auto login";
+"Login_ForgetPassword"                          = "Forget password";
+"Login_LoginNow"                                = "Login now";
+
+"Register_Register"                             = "Register";
+"Register_MobileNumber"                         = "11 cell phone number";
+"Register_Email"                                = "Email";
+"Register_PleaseInputPassword"                  = "Please input password(6 to 16 digits or letters)";
+"Register_PleaseInputPasswordAgain"             = "Please input password again";
+"Register_VerificationCode"                     = "Verification code of mobile received";
+"Register_GetVerificationCode"                  = "Get verification code";
+"Register_RegisterNow"                          = "Register now";
+"Register_UseMobileNumberToRegister"            = "Use mobile number to register";
+"Register_UseEmailToRegister"                   = "Use email to register";
+
+//产品
+"Product_List_Synthesize"                       = "Synthesize";
+"Product_List_NewProduct"                       = "NewProduct";
+"Product_List_SalesVolume"                      = "SalesVolume";
+"Product_List_Price"                            = "Price";
+
+"Product_Detail_AddCart"                        = "AddCart";
+"Product_Detail_GoPay"                          = "Pay";
+"Product_Detail_TodayExchangeRate"              = "TodayExchangeRate";
+"Product_Detail_SalesPromotion"                 = "Sales Promotion";
+"Product_Detail_MonthSales"                     = "MonthSales";
+"Product_Detail_OnlineConsult"                  = "OnlineConsult";
+"Product_Detail_GoBrand"                        = "GoBrand";
+"Product_Detail_PictureAndDetail"               = "PictureAndDetail";
+"Product_Detail_Comment"                        = "Comment";
+"Product_Detail_GoodComment"                    = "GoodComment";
+"Product_Detail_TotalCommentHead"               = "Total";
+"Product_Detail_TotalCommentFooter"             = "comment";
+"Product_Detail_GuessYouLike"                   = "GuessYouLike";
+"Product_Detail_AfterSale"                      = "AfterSale";
+"Product_Detail_SellOut"                        = "Sell out";
+
+"Product_Detail_WillStartGroup"                 = "Will start group";
+"Product_Detail_DidRemindGroup"                 = "已设置提醒";
+
+"Product_AddCartSucceedShowInfo"                = "加入购物车成功";
+"Product_AddCartFailShowInfo"                   = "加入购物车失败,请重试";
+"Product_AddFavoriteSucceedShowInfo"            = "加入收藏夹成功";
+"Product_AddFavoriteFailShowInfo"               = "加入收藏夹失败,请重试";
+
+"Product_NoSearchHistoryShowInfo"               = "暂无搜索记录";
+"Product_ClearSearchHistoryShowInfo"            = "清除搜索记录";
+
+"Product_Comment_AddPhoto"                      = "Add Photo";
+"Product_Comment_PleaseInputComment"            = "Please input you comment";
+
+"Product_CommentList_All"                       = "All";
+"Product_CommentList_Like"                      = "Like";
+"Product_CommentList_Normal"                    = "Normal";
+"Product_CommentList_Unlike"                    = "Unlike";
+
+// 订单
+"Order_List_AllOrders"                          = "All";
+"Order_List_WaitPayOrders"                      = "For the payment";
+"Order_List_WaitShipmentsOrders"                = "To send the goods";
+"Order_List_HasShipmentsOrders"                 = "Has shipments";
+"Order_List_WaitShareOrders"                    = "Share order";
+
+"Order_List_OrderNumber"                        = "Number";
+"Order_List_OrderState"                         = "StateStateState";
+"Order_List_OrderMoney"                         = "Money";
+"Order_List_OrderTime"                          = "Time";
+"Order_List_OrderAmount"                        = "Amount";
+
+"Order_List_ProductAmount"                      = "Amount";
+"Order_List_ProductTotalPrice"                  = "TotalPrice";
+"Order_List_SelectAllProduct"                   = "SelectAll";
+
+"Order_List_Piece"                              = "Piece";
+
+"Order_Detail_Refund"                           = "Refund";
+"Order_Detail_Comment"                          = "Comment";
+"Order_Detail_HKLogisticsInfo"                  = "InternationalLogistics";
+"Order_Detail_CNLogisticsInfo"                  = "InlandLogistics";
+"Order_Detail_OrderTraceInfo"                   = "订单处理流程";
+"Order_Detail_ReceiveInfo"                      = "Receive";
+
+"Order_Detail_FreightMoney"                     = "Freight";
+"Order_Detail_PayMoney"                         = "Pay";
+
+"Order_Detail_UserName"                         = "UserName";
+"Order_Detail_Telephone"                        = "Telephone";
+"Order_Detail_Address"                          = "Address";
+"Order_Detail_BestTime"                         = "BestTime";
+
+"Order_Write_TotalProduct"                      = "TotalNum";
+
+"Order_Write_ProductPacket"                     = "ProductPacket";
+"Order_Write_GreetingCard"                      = "GreetingCard";
+"Order_Write_LeaveMessage"                      = "LeaveMessage";
+"Order_Write_InputMessage"                      = "PleaseInputMessage";
+
+"Order_Write_Pay_Alipay"                        = "Alipay";
+"Order_Write_Pay_WeChat"                        = "WeChatPay";
+"Order_Write_Pay_Paypal"                        = "Paypal";
+"Order_Write_Pay_Balance"                       = "BalancePay";
+
+"Order_Write_UseRedPacketKey"                   = "UseRedPacket";
+"Order_Write_UseCouponKey"                      = "UseCoupon";
+"Order_Write_UseBalanceKey"                     = "UseBalance";
+"Order_Write_UseIntegralKey"                    = "UseIntegerl";
+
+"Order_Write_UnitPointKey"                      = "Point";
+"Order_Write_UnitMoneyKey"                      = "Yuan";
+
+"Order_Write_CanUseMaxIntegral"                 = "NowCanUse";
+"Order_Write_YouHave"                           = "YouHave";
+"Order_Write_Integral"                          = "Integral";
+
+
+"Order_Write_ProductTotalPrice"                 = "ProductTotalPrice";
+"Order_Write_PackPrice"                         = "Pack";
+"Order_Write_CartPrice"                         = "Cart";
+"Order_Write_RedPacketPrice"                    = "RedPacket";
+"Order_Write_CouponPrice"                       = "Coupon";
+"Order_Write_IntegralPrice"                     = "Integral";
+"Order_Write_BalancePrice"                      = "Balance";
+
+"Order_Write_PleaceSelectAddress"               = "PleaceAddAddress";
+"Order_Write_PleaceSelectPayMethod"             = "PleaceSelectPayMethod";
+
+"Order_Write_GifIntegral"                       = "该订单完成后，您将获得";
+
+"Order_Write_GoPayKey"                          = "GoPay";
+
+//评论
+"Comment_List_LookMore"                         = "LookMore";
+"Comment_Detail_Publish"                        = "Publish";
+"Comment_Detail_PleaseInputComment"             = "Please input comment";
+"Comment_Detail_Reply"                          = "Reply";
+
+"Comment_Submit_MindScore"                      = "亲，给商品打个分哦";
+"Comment_Submit_MindInputComment"               = "亲，请输入评论";
+"Comment_Submit_SuccessKey"                     = "评论成功";
+
+
+//美妆圈
+"BeautyMakeup_Home_Share"                       = "Share";
+"BeautyMakeup_Home_Home"                        = "Home";
+"BeautyMakeup_Home_ShareOrder"                  = "ShareOrder";
+"BeautyMakeup_Home_Video"                       = "Video";
+"BeautyMakeup_Home_SearchPlaceholder"           = "SearchVideo";
+
+"BeautyMakeup_Video_Comments"                   = "Comments";
+"BeautyMakeup_Video_Detail"                     = "Detail";
+
+//收藏夹
+"Favorites_Product_PersonNum"                   = "PersonNum";
+
+//退款、退货
+"Refund_Money_Step_FirstInfo"                   = "买家申请退款";
+"Refund_Money_Step_SecondInfo"                  = "商家处理退款申请";
+"Refund_Money_Step_ThirdInfo"                   = "商家确定退款，退款成功";
+
+"Refund_Product_Step_FirstInfo"                 = "买家申请退货";
+"Refund_Product_Step_SecondInfo"                = "商家处理退货申请";
+"Refund_Product_Step_ThirdInfo"                 = "买家退货并填写退货物流信息";
+"Refund_Product_Step_FourthInfo"                = "商家确定退货，退款成功";
+
+"Refund_Type"                                   = "Type";
+"Refund_Reason"                                 = "Reason";
+"Refund_Money"                                  = "Money";
+"Refund_Number"                                 = "Number";
+"Refund_Explain"                                = "Explain";
+
+"Refund_Choose_Money"                           = "RefundMoney";
+"Refund_Choose_ProductKey"                      = "RefundProduct";
+
+"Refund_RemindText_Choose"                      = "Choose";
+"Refund_RemindText_Money"                       = "InputMoney";
+"Refund_RemindText_Number"                      = "InputNumber";
+"Refund_RemindText_Max"                         = "200 letter";
+
+
+"Refund_Reason_DescriptionDifferent"            = "材料与描述不相符";
+"Refund_Reason_FakeKey"                         = "认为是假货";
+"Refund_Reason_Breakage"                        = "商品或配件少件或破损";
+"Refund_Reason_Defect"                          = "做工瑕疵";
+"Refund_Reason_SizeDifferent"                   = "大小尺寸不相符";
+"Refund_Reason_FaultBuy"                        = "拍错";
+"Refund_Reason_DonotLike"                       = "不喜欢";
+"Refund_Reason_EffectIsBad"                     = "效果不好";
+
+"Refund_LogisticsCompanyKey"                    = "LogisticsCompany";
+"Refund_LogisticsNumberKey"                     = "LogisticeNumber";
+"Refund_RemindText_NumberKey"                   = "Number";
+
+"Refund_Please_Input_Reason"                    = "Please input Reason";
+"Refund_Please_Input_Money"                     = "Please input Money";
+"Refund_Please_Input_Number"                    = "Please input number";
+"Refund_Please_Input_Company"                   = "Please input Company";
+"Refund_Please_Input_RightMoney"                = "Please input right Money";
+
+// 各控制器导航栏标题
+"NavTitle_OrderList"                            = "OrderList";
+"NavTitle_OrderDetail"                          = "OrderDetail";
+"NavTitle_OrderWrite"                           = "OrderConfirm";
+"NavTitle_OrderProductList"                     = "ProductsList";
+"NavTitle_Favorites"                            = "MyFavorites";
+"NavTitle_MyComment"                            = "MyComments";
+"NavTitle_CommentDetial"                        = "CommentDetail";
+"NavTitle_RefundAndAfterSales"                  = "RfundAndAfterSales";
+"NavTitle_ProductDetail"                        = "ProductDetail";
+

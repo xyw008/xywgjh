@@ -83,25 +83,33 @@
 {
     [HUDManager hideHUD];
     
-    NSInteger code = [[infoObj safeObjectForKey:@"code"] integerValue];
-    if (0 == code)
+    if ([infoObj isSafeObject] && [infoObj isAbsoluteValid])
     {
         NSDictionary *dataDic = [infoObj safeObjectForKey:@"data"];
-        NSNumber *userId = [dataDic safeObjectForKey:@"userId"];
         
-        [UserInfoModel setUserDefaultUserId:userId];
-        
-        if (_success)
+        if ([dataDic isAbsoluteValid])
         {
-            _success(infoObj);
+            NSArray *rowArray = [dataDic safeObjectForKey:@"row"];
+            
+            if ([rowArray isAbsoluteValid])
+            {
+                NSDictionary *rowDic = [rowArray objectAtIndex:0];
+                
+                NSInteger userId = [[rowDic safeObjectForKey:@"userId"] integerValue];
+                NSString *userName = [rowDic safeObjectForKey:@"UserName"];
+                NSString *email = [rowDic safeObjectForKey:@"Email"];
+                
+                [UserInfoModel setUserDefaultUserId:@(userId)];
+                [UserInfoModel setUserDefaultUserName:userName];
+                [UserInfoModel setUserDefaultEmail:email];
+            }
+            
+            if (_success)
+            {
+                _success(infoObj);
+            }
         }
     }
-    else
-    {
-        NSString *msg = [infoObj safeObjectForKey:@"msg"];
-        [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:msg];
-    }
-    
 }
 
 @end

@@ -498,28 +498,33 @@
 {
     if ([dic isSafeObject] && [dic isAbsoluteValid])
     {
-        // banner
-        NSArray *bannerList = [dic objectForKey:@"AD"];
-        if ([bannerList isAbsoluteValid])
+        NSDictionary *data = [dic safeObjectForKey:@"data"];
+        
+        if ([data isAbsoluteValid])
         {
-            _networkHomePageBannerEntitiesArray = [NSMutableArray arrayWithCapacity:bannerList.count];
-            for (NSDictionary *oneBannerDic in bannerList)
+            // banner
+            NSArray *bannerList = [data safeObjectForKey:@"table1"];
+            if ([bannerList isAbsoluteValid])
             {
-                HomePageBannerEntity *entity = [HomePageBannerEntity initWithDict:oneBannerDic];
-                
-                [_networkHomePageBannerEntitiesArray addObject:entity];
+                _networkHomePageBannerEntitiesArray = [NSMutableArray arrayWithCapacity:bannerList.count];
+                for (NSDictionary *oneBannerDic in bannerList)
+                {
+                    HomePageBannerEntity *entity = [HomePageBannerEntity initWithDict:oneBannerDic];
+                    
+                    [_networkHomePageBannerEntitiesArray addObject:entity];
+                }
             }
-        }
-        // news list
-        NSArray *newsList = [dic objectForKey:@"MainNews"];
-        if ([newsList isAbsoluteValid])
-        {
-            _networkHomePageNewsEntitiesArray = [NSMutableArray arrayWithCapacity:newsList.count];
-            for (NSDictionary *oneNewsDic in newsList)
+            // news list
+            NSArray *newsList = [data safeObjectForKey:@"table0"];
+            if ([newsList isAbsoluteValid])
             {
-                HomePageNewsEntity *entity = [HomePageNewsEntity initWithDict:oneNewsDic];
-                
-                [_networkHomePageNewsEntitiesArray addObject:entity];
+                _networkHomePageNewsEntitiesArray = [NSMutableArray arrayWithCapacity:newsList.count];
+                for (NSDictionary *oneNewsDic in newsList)
+                {
+                    HomePageNewsEntity *entity = [HomePageNewsEntity initWithDict:oneNewsDic];
+                    
+                    [_networkHomePageNewsEntitiesArray addObject:entity];
+                }
             }
         }
     }

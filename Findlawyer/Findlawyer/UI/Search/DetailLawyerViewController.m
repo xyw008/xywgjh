@@ -158,7 +158,9 @@
     {
         if (result) {
             
-            if (userInfo) {
+            if (userInfo)
+            {
+                //NSDictionary *data = [userInfo safeObjectForKey:@"data"];
                 
                 weakSelf.arChooseItems = userInfo[@"NewsType"];
                 

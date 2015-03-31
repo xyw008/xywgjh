@@ -12,6 +12,7 @@
 #import "LoginVC.h"
 #import "MyConsultListVC.h"
 #import "InformationListVC.h"
+#import "UserInfoModel.h"
 
 static NSString * const cellIdentifier_userInfoHeader   = @"cellIdentifier_userInfoHeader";
 static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMagicCell";
@@ -20,6 +21,8 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
 {
     NSArray                     *_tabShowDataCellTitleArray;
     NSArray                     *_tabShowDataCellImageArray;
+    
+    UserCenter_TabHeaderView    *_headerView;
 }
 
 @end
@@ -30,6 +33,12 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
 {
     [super viewWillAppear:animated];
     self.hidesBottomBarWhenPushed = NO;
+    
+    if (_headerView)
+    {
+        [self setHeadViewType];
+        [_tableView reloadData];
+    }
 }
 
 - (void)viewDidLoad
@@ -116,11 +125,12 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
                   reuseIdentifier:cellIdentifier_MyMagicCell];
     
     // tab header view
-    UserCenter_TabHeaderView *headerView = [UserCenter_TabHeaderView loadFromNib];
-    headerView.viewType = UserCenterHeaderViewType_NotLogin;
-    headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _headerView = [UserCenter_TabHeaderView loadFromNib];
+    //_headerView.viewType = UserCenterHeaderViewType_NotLogin;
+    [self setHeadViewType];
+    _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     WEAKSELF
-    [headerView setOperationHandle:^(UserCenter_TabHeaderView *view, UserCenterTabHeaderViewOperationType type, id sender) {
+    [_headerView setOperationHandle:^(UserCenter_TabHeaderView *view, UserCenterTabHeaderViewOperationType type, id sender) {
         
         if (type == UserCenterTabHeaderViewOperationType_UserHeaderImageBtn)
         {
@@ -133,7 +143,21 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
             [weakSelf presentViewController:loginNav modalTransitionStyle:UIModalTransitionStyleCoverVertical completion:nil];
         }
     }];
-    _tableView.tableHeaderView = headerView;
+    _tableView.tableHeaderView = _headerView;
+}
+
+- (void)setHeadViewType
+{
+    NSString *password = [UserInfoModel getUserDefaultPassword];
+    if ([password isAbsoluteValid])
+    {
+        _headerView.viewType = UserCenterHeaderViewType_Logined;
+        [_headerView loadDataUserName:[UserInfoModel getUserDefaultUserName] phoneNum:[UserInfoModel getUserDefaultEmail]];
+    }
+    else
+    {
+        _headerView.viewType = UserCenterHeaderViewType_NotLogin;
+    }
 }
 
 - (void)curIndexTabCellShowData:(NSInteger)index
@@ -145,7 +169,11 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _tabShowDataCellTitleArray.count + 1;
+    NSString *password = [UserInfoModel getUserDefaultPassword];
+    if ([password isAbsoluteValid]) {
+        return _tabShowDataCellTitleArray.count + 1;
+    }
+    return _tabShowDataCellTitleArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -258,6 +286,12 @@ static NSString * const cellIdentifier_MyMagicCell      = @"cellIdentifier_MyMag
             vc.hidesBottomBarWhenPushed = YES;
             [self pushViewController:vc];
         }
+    }
+    else
+    {
+        [UserInfoModel setUserDefaultPassword:@""];
+        [self setHeadViewType];
+        [tableView reloadData];
     }
 }
 

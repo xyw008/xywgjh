@@ -35,5 +35,7 @@ typedef void (^UserCenterTabHeaderViewOperationHandle) (UserCenter_TabHeaderView
 
 + (CGFloat)getViewHeight;
 
+- (void)loadDataUserName:(NSString*)userName phoneNum:(NSString*)phoneNumString;
+
 @end
 
