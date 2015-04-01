@@ -37,6 +37,15 @@
 #define BetweenHorizontalBtnAndBtnSpace ((self.view.boundsWidth - LineBtnCount * BtnWidth) / (LineBtnCount + 1)) // 横向btn和btn之间的间隙
 #define BetweenVerticalBtnAndLabelSpace 10         // 纵向btn和label之间的间隙
 
+typedef enum
+{
+    NewListRequestType_Hot      = 2,//头条
+    NewListRequestType_LegalInstitution,//法制
+    NewListRequestType_Boundary,//律界
+    NewListRequestType_Practice,//实务
+}NewListRequestType;
+
+
 @interface HomePageVC () <NetRequestDelegate, CycleScrollViewDelegate>
 {
     UIView          *_rigitemTitleView;
@@ -46,6 +55,8 @@
     
     NSMutableArray *_networkHomePageNewsEntitiesArray;
     NSMutableArray *_networkHomePageBannerEntitiesArray;
+    
+    NewListRequestType  _selectNewListType;//default:NewListRequestType_Hot
 }
 @property (nonatomic,strong)UIButton  *btnCity ;
 
@@ -70,6 +81,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _selectNewListType = NewListRequestType_Hot;
     
     // 进行应用程序一系列属性的初始化设置
     [AppPropertiesInitialize startAppPropertiesInitialize];
@@ -311,7 +324,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _networkHomePageNewsEntitiesArray.count + 1;
+    if ([_networkHomePageNewsEntitiesArray isAbsoluteValid]) {
+        return _networkHomePageNewsEntitiesArray.count + 1;
+    }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -338,6 +354,7 @@
     if (!_sliderSwitchView)
     {
         _sliderSwitchView = [[GJHSlideSwitchView alloc] initWithFrame:CGRectMake(0, 0, _tableView.boundsWidth, kDefaultSlideSwitchViewHeight) titlesArray:@[@"头条", @"法制", @"律界", @"实务"]];
+        _sliderSwitchView.slideSwitchViewDelegate = self;
         _sliderSwitchView.tabItemNormalColor = HEXCOLOR(0X6D6D6D);
         _sliderSwitchView.tabItemSelectedColor = Common_ThemeColor;
         _sliderSwitchView.shadowImage = [UIImage imageWithColor:Common_ThemeColor size:CGSizeMake(1, 1)];
@@ -469,28 +486,53 @@
 - (void)setNetworkRequestStatusBlocks
 {
     WEAKSELF
+    self.startedBlock = ^(NetRequest *request)
+    {
+        if (NetHomePageNewsRequestType_GetInitLoadData == request.tag)
+        {
+            [weakSelf showHUDInfoByType:HUDInfoType_Loading];
+        }
+    };
+    
     [self setNetSuccessBlock:^(NetRequest *request, id successInfoObj) {
         STRONGSELF
-        if (NetHomePageNewsRequestType_GetMainNewsList == request.tag)
+        if (NetHomePageNewsRequestType_GetInitLoadData == request.tag)
         {
             [strongSelf parseNetworkDataWithDic:successInfoObj];
             
             [strongSelf->_tableView reloadData];
             [strongSelf reloadCycleScrollViewData];
         }
+        else if(NetHomePageNewsRequestType_PostMainNewsList == request.tag)
+        {
+            [strongSelf parseNewsListRequest:successInfoObj];
+        }
     }];
 }
 
 - (void)getNetworkData
 {
-    [self sendRequest:[[self class] getRequestURLStr:NetHomePageNewsRequestType_GetMainNewsList]
+    [self sendRequest:[[self class] getRequestURLStr:NetHomePageNewsRequestType_GetInitLoadData]
          parameterDic:nil
        requestHeaders:nil
     requestMethodType:RequestMethodType_GET
-           requestTag:NetHomePageNewsRequestType_GetMainNewsList
+           requestTag:NetHomePageNewsRequestType_GetInitLoadData
              delegate:self
              userInfo:nil
        netCachePolicy:NetUseCacheFirstWhenCacheValidAndAskServerAgain
+         cacheSeconds:CacheNetDataTimeType_Forever];
+}
+
+- (void)postNewsListRequest
+{
+    [self sendRequest:[[self class] getRequestURLStr:NetHomePageNewsRequestType_PostMainNewsList]
+         parameterDic:@{@"MNId":@(_selectNewListType)}
+       requestHeaders:nil
+    requestMethodType:RequestMethodType_GET
+           requestTag:NetHomePageNewsRequestType_PostMainNewsList
+             delegate:self
+             userInfo:nil
+       netCachePolicy:NetNotCachePolicy
          cacheSeconds:CacheNetDataTimeType_Forever];
 }
 
@@ -516,6 +558,8 @@
             }
             // news list
             NSArray *newsList = [data safeObjectForKey:@"table0"];
+            [self getNewsListData:newsList];
+            /*
             if ([newsList isAbsoluteValid])
             {
                 _networkHomePageNewsEntitiesArray = [NSMutableArray arrayWithCapacity:newsList.count];
@@ -526,7 +570,41 @@
                     [_networkHomePageNewsEntitiesArray addObject:entity];
                 }
             }
+             */
         }
+    }
+}
+
+- (void)parseNewsListRequest:(NSDictionary*)successInfo
+{
+    NSDictionary *dataDic = [successInfo safeObjectForKey:@"data"];
+    if ([dataDic isAbsoluteValid])
+    {
+        NSArray *tableArray = [dataDic safeObjectForKey:@"table"];
+        [self getNewsListData:tableArray];
+    }
+    else
+    {
+        [_networkHomePageNewsEntitiesArray removeAllObjects];
+    }
+    [_tableView reloadData];
+}
+
+- (void)getNewsListData:(NSArray*)newsArray
+{
+    if ([newsArray isAbsoluteValid])
+    {
+        _networkHomePageNewsEntitiesArray = [NSMutableArray arrayWithCapacity:newsArray.count];
+        for (NSDictionary *oneNewsDic in newsArray)
+        {
+            HomePageNewsEntity *entity = [HomePageNewsEntity initWithDict:oneNewsDic];
+            
+            [_networkHomePageNewsEntitiesArray addObject:entity];
+        }
+    }
+    else
+    {
+        [_networkHomePageNewsEntitiesArray removeAllObjects];
     }
 }
 
@@ -538,6 +616,29 @@
     NIWebController *web = [[NIWebController alloc] initWithURL:[NSURL URLWithString:entity.newsUrlStr]];
     
     [self.navigationController pushViewController:web animated:YES];
+}
+
+
+#pragma mark - GJHSlideSwitchViewDelegate
+- (void)slideSwitchView:(GJHSlideSwitchView *)view didselectTab:(NSUInteger)number
+{
+    switch (number) {
+        case 0:
+            _selectNewListType = NewListRequestType_Hot;
+            break;
+        case 1:
+            _selectNewListType = NewListRequestType_LegalInstitution;
+            break;
+        case 2:
+            _selectNewListType = NewListRequestType_Boundary;
+            break;
+        case 3:
+            _selectNewListType = NewListRequestType_Practice;
+            break;
+        default:
+            break;
+    }
+    [self postNewsListRequest];
 }
 
 @end

@@ -19,6 +19,8 @@
 @property (nonatomic,strong) UIView *bgSearchView;
 @property (nonatomic,assign) BOOL isShowMapView;//判断是先显示地图还是列表
 
+@property (nonatomic,assign) CLLocationCoordinate2D searchLocation; // 搜索制定地址的坐标
+
 - (IBAction)sceneChange:(id)sender;
 
 @end

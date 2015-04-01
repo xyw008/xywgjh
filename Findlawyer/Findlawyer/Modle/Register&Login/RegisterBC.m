@@ -221,23 +221,40 @@
     [HUDManager hideHUD];
     
     NSInteger code = [[infoObj safeObjectForKey:@"code"] integerValue];
-    if (0 == code)
+    NSString *msg = [infoObj safeObjectForKey:@"msg"];
+    switch (request.tag)
     {
-        NSDictionary *dataDic = [infoObj safeObjectForKey:@"data"];
-        NSNumber *userId = [dataDic safeObjectForKey:@"userId"];
-        
-        [UserInfoModel setUserDefaultUserId:userId];
-        
-        if (_success)
+        case NetUserCenterRequestType_GetVerificationCode:
+            if (0 == code)
+            {
+                [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:msg];
+            }
+            break;
+        case NetUserCenterRequestType_Register:
         {
-            _success(infoObj);
+            if (0 == code)
+            {
+                NSDictionary *dataDic = [infoObj safeObjectForKey:@"data"];
+                NSNumber *userId = [dataDic safeObjectForKey:@"userId"];
+                
+                [UserInfoModel setUserDefaultUserId:userId];
+                
+                if (_success)
+                {
+                    _success(infoObj);
+                }
+            }
+            else
+            {
+                [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:msg];
+            }
         }
+            break;
+        default:
+            break;
     }
-    else
-    {
-        NSString *msg = [infoObj safeObjectForKey:@"msg"];
-        [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:msg];
-    }
+    
+    
 }
 
 @end
