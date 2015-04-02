@@ -211,6 +211,12 @@
     }
      */
     
+    if (_searchLocation.latitude)
+    {
+        BMKCoordinateRegion mapRegion = BMKCoordinateRegionMake(_searchLocation, BMKCoordinateSpanMake(kMapShowSpan, kMapShowSpan));
+        [_mapView setRegion:mapRegion animated:YES];
+    }
+    
     [self loadAnnotationWithArray:_listContend];
 }
 
@@ -484,7 +490,7 @@
 {
     [_mapView updateLocationData:userLocation];
     
-    if (!_isLocationSuccess)
+    if (!_isLocationSuccess && !_searchLocation.latitude)
     {
         BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(userLocation.location.coordinate, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
         [_mapView setRegion:viewRegion animated:YES];
