@@ -49,12 +49,20 @@ double calculateLantitudeLongitudeDist(double lon1,double lat1,
 	return dist;
      */
     
+    /*
     // 标注点和用户当前的位置点
     CLLocation *annotatiaonCllocation = [[CLLocation alloc] initWithLatitude:lat1 longitude:lon1];
     CLLocation *userCllocation = [[CLLocation alloc] initWithLatitude:lat2 longitude:lon2];
     
     // 2点间的直线距离
     double distance = [annotatiaonCllocation distanceFromLocation:userCllocation];
+    
+    return distance;
+     */
+    
+    BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake(lat1,lon1));
+    BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake(lat2,lon2));
+    CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
     
     return distance;
 }
