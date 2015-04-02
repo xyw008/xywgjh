@@ -14,10 +14,13 @@
 #include <libkern/OSAtomic.h>
 #import <CoreLocation/CoreLocation.h>
 static LBSRequestManager * __requestDefaultManager;
-@interface LBSRequestManager() <CLLocationManagerDelegate>
+@interface LBSRequestManager() <CLLocationManagerDelegate, BMKLocationServiceDelegate>
 {
 	dispatch_queue_t _requestSendQueue;
+    /*
 	CLLocationManager *_manager;
+     */
+    BMKLocationService *_locationService;
 	NSMutableArray *_locationRequests;
 	OSSpinLock _locationRequestsLock;
 	
@@ -47,8 +50,13 @@ static LBSRequestManager * __requestDefaultManager;
 		_networkStatus = [_reachability currentReachabilityStatus];
 		_requestSendQueue = dispatch_queue_create("com.baidu.requestQueue.private", nil);
 		if (_requestSendQueue == nil) return nil;
+        /*
 		_manager = [[CLLocationManager alloc] init];
 		[_manager setDelegate:self];
+         */
+        _locationService = [[BMKLocationService alloc]init];
+        _locationService.delegate = self;
+        
 		_locationRequests = [[NSMutableArray alloc] init];
 		_requestsSaveQueue = [[NSMutableArray alloc] init];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_removeRequestFromSaveQueueNotification:) name:@"ls.request.complete" object:nil];
@@ -142,7 +150,10 @@ static LBSRequestManager * __requestDefaultManager;
 		OSSpinLockLock(&_locationRequestsLock);
 		[_locationRequests addObject:handler];
 		OSSpinLockUnlock(&_locationRequestsLock);
+        /*
 		[_manager startUpdatingLocation];
+         */
+        [_locationService startUserLocationService];
 		
 		return;
 	}
@@ -158,6 +169,7 @@ static LBSRequestManager * __requestDefaultManager;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+/*
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
 	void(^handler)(CLLocation *location);
@@ -183,4 +195,38 @@ static LBSRequestManager * __requestDefaultManager;
 	OSSpinLockUnlock(&_locationRequestsLock);
 	[manager stopUpdatingLocation];
 }
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)didUpdateUserLocation:(BMKUserLocation *)userLocation
+{
+    void(^handler)(CLLocation *location);
+    OSSpinLockLock(&_locationRequestsLock);
+    for (handler in _locationRequests)
+    {
+        handler(userLocation.location);
+    }
+    [_locationRequests removeAllObjects];
+    OSSpinLockUnlock(&_locationRequestsLock);
+    
+    [_locationService stopUserLocationService];
+    _locationService.delegate = nil;
+}
+
+- (void)didFailToLocateUserWithError:(NSError *)error
+{
+    void(^handler)(CLLocation *location);
+    OSSpinLockLock(&_locationRequestsLock);
+    for (handler in _locationRequests)
+    {
+        handler(nil);
+    }
+    [_locationRequests removeAllObjects];
+    OSSpinLockUnlock(&_locationRequestsLock);
+    
+    [_locationService stopUserLocationService];
+    _locationService.delegate = nil;
+}
+
 @end

@@ -489,6 +489,7 @@
         BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(userLocation.location.coordinate, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
         [_mapView setRegion:viewRegion animated:YES];
         
+        
         _isLocationSuccess = !_isLocationSuccess;
     }
 }
