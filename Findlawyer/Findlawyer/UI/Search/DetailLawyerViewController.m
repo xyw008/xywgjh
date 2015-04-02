@@ -91,6 +91,8 @@
    // [self.myScrollView setContentSize:CGSizeMake(320.0,630)];
 
     // Do any additional setup after loading the view.
+    
+    self.lawyer.lawerid = @(30);
 }
 
 - (void)loadLawyerInfo
@@ -158,26 +160,31 @@
     {
         if (result) {
             
-            if (userInfo) {
+            if (userInfo)
+            {
+                NSDictionary *dataDic = [userInfo safeObjectForKey:@"data"];
                 
-                weakSelf.arChooseItems = userInfo[@"NewsType"];
-                
-                if (weakSelf.arChooseItems.count >0)
+                if ([dataDic isAbsoluteValid])
                 {
-                    for (NSDictionary * dic in weakSelf.arChooseItems)
-                    {
-                        NSString *strtype = dic [@"NTname"];
-                        self.dicLoaed [strtype] = @(NO);
-                    }
+                    //weakSelf.arChooseItems = dataDic[@"NewsType"];
+                    weakSelf.arChooseItems = dataDic[@"table"];
                     
-                    [weakSelf configSegmentcontrol];
+                    if (weakSelf.arChooseItems.count >0)
+                    {
+                        for (NSDictionary * dic in weakSelf.arChooseItems)
+                        {
+                            NSString *strtype = dic [@"NTname"];
+                            self.dicLoaed [strtype] = @(NO);
+                        }
+                        
+                        [weakSelf configSegmentcontrol];
+                    }
+                    else
+                    {
+                        //[UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
+                        //[HUDManager showAutoHideHUDWithToShowStr:@"加载完毕" HUDMode:MBProgressHUDModeText];
+                    }
                 }
-                else
-                {
-//                    [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
-//                    [HUDManager showAutoHideHUDWithToShowStr:@"加载完毕" HUDMode:MBProgressHUDModeText];
-                }
-      
             }
             else
             {
@@ -224,10 +231,13 @@
 //        [UIView hideHUDWithTitle:@"加载完毕" image:nil onView:weakSelf.view tag:ProHUD delay:0.5];
         if (userInfo)
         {
-            weakSelf.dicLoaed[strType]= @(YES);
-            weakSelf.arArtiiclelist = userInfo[@"News"];//userInfo[@"News"];
-           [weakSelf configTableview];
-           
+            NSDictionary *dataDic = [userInfo safeObjectForKey:@"data"];
+            if ([dataDic isAbsoluteValid])
+            {
+                weakSelf.dicLoaed[strType]= @(YES);
+                weakSelf.arArtiiclelist = dataDic[@"table"];//userInfo[@"News"];
+                [weakSelf configTableview];
+            }
         }
     }];
      if ( ret == NetBeginRequest)

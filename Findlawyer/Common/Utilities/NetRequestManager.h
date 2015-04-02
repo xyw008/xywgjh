@@ -24,7 +24,7 @@
  */
 typedef NS_ENUM (NSInteger, MyHTTPCodeType)
 {
-    MyHTTPCodeType_Success                  = 1200,
+    MyHTTPCodeType_Success                  = 0,
     MyHTTPCodeType_DataSourceNotFound       = 1404,
     MyHTTPCodeType_InternalError            = 1500,
     MyHTTPCodeType_IllegalParameter         = 1600,

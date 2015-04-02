@@ -185,6 +185,8 @@
 #pragma mark - btn touch event
 - (void)selectTypeBtnTouch:(UIButton*)btn
 {
+    [self.view endEditing:YES];
+    
     // 定义一个关闭的barBtn
     UIBarButtonItem *closeBarBtn = [[UIBarButtonItem alloc] initWithTitle:kCancelBtnStr style:UIBarButtonItemStyleBordered target:self action:@selector(clickCancelOrConfirmBtn:)];
     
@@ -257,19 +259,25 @@
             {
                 case NetConsultInfoRequestType_GetAskId:
                 {
-                    NSArray *askArray = [successInfoObj objectForKey:@"Ask"];
-                    if ([askArray isAbsoluteValid])
+                    NSDictionary *dataDic = [successInfoObj safeObjectForKey:@"data"];
+                    
+                    if ([dataDic isAbsoluteValid])
                     {
-                        NSDictionary *askDic = [askArray objectAtIndex:0];
-                        if ([askDic isAbsoluteValid])
+                        //NSArray *askArray = [successInfoObj objectForKey:@"Ask"];
+                        NSArray *askArray = [dataDic objectForKey:@"row"];
+                        if ([askArray isAbsoluteValid])
                         {
-                            strongSelf->_askId = [askDic objectForKey:@"AskId"];
-                            //如果要上传图片时候发现没有askId，而且发起的请求的情况
-                            if (strongSelf->_willUploadImgButNoAskId)
+                            NSDictionary *askDic = [askArray objectAtIndex:0];
+                            if ([askDic isAbsoluteValid])
                             {
-                                [strongSelf uploadImgArray:strongSelf->_uploadImgArray];
-                                strongSelf->_willUploadImgButNoAskId = NO;
-                                strongSelf->_uploadImgArray = nil;
+                                strongSelf->_askId = [askDic objectForKey:@"AskId"];
+                                //如果要上传图片时候发现没有askId，而且发起的请求的情况
+                                if (strongSelf->_willUploadImgButNoAskId)
+                                {
+                                    [strongSelf uploadImgArray:strongSelf->_uploadImgArray];
+                                    strongSelf->_willUploadImgButNoAskId = NO;
+                                    strongSelf->_uploadImgArray = nil;
+                                }
                             }
                         }
                     }
@@ -284,8 +292,6 @@
                     break;
             }
         }
-    } failedBlock:^(NetRequest *request, NSError *error) {
-        DLog(@"SD");
     }];
 }
 
@@ -319,7 +325,11 @@
                 NSNumber *typeId = [[NSNumber alloc] initWithInteger:[askTypeId integerValue]];
                 
                 DLog(@"succeed str = %@",[_uploadImageBC getSucceedReultStr]);
-                NSDictionary *parm = @{@"askId":_askId,@"askTypeId":typeId,@"content":_textView.text,@"PhotoSaves":[_uploadImageBC getSucceedReultStr]};
+                NSString *imageResultStr = [_uploadImageBC getSucceedReultStr];
+                if (![imageResultStr isAbsoluteValid]) {
+                    imageResultStr = @" ";
+                }
+                NSDictionary *parm = @{@"askId":_askId,@"askTypeId":typeId,@"content":_textView.text,@"PhotoSaves":imageResultStr};
                 
                 [self sendRequest:[BaseNetworkViewController getRequestURLStr:NetConsultInfoRequestType_PostSaveAskInfo] parameterDic:parm requestHeaders:nil requestMethodType:RequestMethodType_POST requestTag:NetConsultInfoRequestType_PostSaveAskInfo];
             }

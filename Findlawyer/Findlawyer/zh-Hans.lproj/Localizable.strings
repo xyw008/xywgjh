@@ -1,0 +1,434 @@
+/* 
+  Localizable.strings
+  Sephome
+
+  Created by swift on 14/11/9.
+  Copyright (c) 2014年 com.gjh. All rights reserved.
+*/
+
+// 所有模块
+"All_DataSourceNotFound"                        = "无法找到资源";
+"All_Confirm"                                   = "确定";
+"All_Cancel"                                    = "取消";
+"All_Delete"                                    = "删除";
+"All_Edit"                                      = "编辑";
+"All_Save"                                      = "保存";
+"All_PickFromCamera"                            = "拍照";
+"All_PickFromAlbum"                             = "从相册选择";
+"All_AreYouWantToGiveUpInputContent"            = "是否放弃您所输入的内容?";
+"All_SendSuccess"                               = "发送成功!";
+"All_LoadFailed"                                = "加载失败,点击重新加载!";
+"All_Send"                                      = "发送";
+"All_Remind"                                    = "温馨提示";
+"All_Anonymity"                                 = "匿名";
+"All_TotalPrice"                                = "总价";
+
+// 忘记密码
+"ForgetPassword_PleaseInputMobilePhoneOrEmailOfLogin"           = "请输入您用于登录的手机号或Email";
+"ForgetPassword_PleaseInputVerificationCodeOfMobilePhoneOrEmal" = "请输入手机或者邮箱收到的验证码";
+
+"ForgetPassword_PleaseInputNewPassword"                  = "请输入新密码(6-16位数字、字母或符号)";
+"ForgetPassword_PleaseInputNewPasswordAgain"             = "请再次输入新密码";
+
+// 优惠劵
+"Coupon_Type_SHOP"                              = "全场通用";
+"Coupon_Type_PRODUCT"                           = "商品通用";
+
+// 品牌团
+"BrandGroup_BuyDesc"                            = "人已买";
+"BrandGroup_Day"                                = "天";
+"BrandGroup_Hour"                               = "时";
+"BrandGroup_Minute"                             = "分";
+"BrandGroup_Second"                             = "秒";
+
+// 首页
+"HomePage_SeachPlaceholder"                     = "搜索妆品";
+
+// 首页->header
+"HomePage_SignIn"                               = "每日签到";
+"HomePage_LearnMakeup"                          = "学化妆";
+"HomePage_ShareOrder"                           = "晒单";
+"HomePage_Service"                              = "客服";
+"HomePage_Gift"                                 = "新人礼物";
+"HomePage_Brand"                                = "品牌街";
+"HomePage_MyOrder"                              = "我的订单";
+"HomePage_myCommission"                         = "我的分成";
+
+// 首页->品牌团
+"HomePage_Discount"                             = "折";
+
+// 首页->类目产品
+"HomePage_HKPrice"                              = "香港价";
+"HomePage_SalesNumber"                          = "销量";
+
+// 首页->今日特惠
+"HomePage_TodayPreferential"                    = "今日特惠";
+
+// 首页->SliderSwitch
+"HomePage_SkinCare"                             = "护肤";
+"HomePage_ColourMakeup"                         = "彩妆";
+"HomePage_Perfume"                              = "香水";
+"HomePage_HairCare"                             = "护发";
+"HomePage_BodyCare"                             = "身体护理";
+"HomePage_Men"                                  = "男士";
+"HomePage_GiftPackage"                          = "礼品套装";
+"HomePage_Tools"                                = "工具";
+
+// 积分商城
+"IntegralStore_integralRequired"                = "所需积分";
+"IntegralStore_exchangeCount"                   = "数量";
+
+// 积分商城->详情
+"DeatilIntegralStore_MyIntegral"                = "我的积分";
+"DeatilIntegralStore_ExchangeNow"               = "立即兑换";
+"DeatilIntegralStore_DetailInfo"                = "图文详情";
+
+// 意见反馈
+"Feedback_FeedbackType"                         = "反馈类型";
+"Feedback_PleaseSelectFeedbackType"             = "请选择反馈类型";
+"Feedback_FeedbackContent"                      = "反馈内容";
+"Feedback_PleaseInputFeedbackContent"           = "请填写反馈内容";
+"Feedback_Contact"                              = "联系方式";
+"Feedback_PleaseInputYourName"                  = "请填写您的姓名";
+"Feedback_PleaseInputMobilePhoneOrEmail"        = "请填写您的手机号码或邮箱";
+"Feedback_SubmitFeedback"                       = "提交意见";
+
+"Feedback_FeedbackType_FunctionOpinion"         = "功能意见";
+"Feedback_FeedbackType_ProblemFeedback"         = "问题反馈";
+"Feedback_FeedbackType_YourNewDemand"           = "您的新需求";
+
+// 我的余额
+"MyBalance_BalancePaymentDetails"               = "余额收支明细";
+"MyBalance_NoBalancePaymentHistory"             = "暂无余额消费记录";
+
+// 购物车
+"ShoppingCart_TotalOf"                          = "总计";
+"ShoppingCart_Settlement"                       = "结算";
+"ShoppingCart_DeleteProductItem"                = "是否删除商品?";
+"ShoppingCart_NoSelectedProductItem"            = "您还没有选择商品哦";
+
+// 购物车->优惠劵领取
+"ShoppingCart_Receive"                          = "领取";
+"ShoppingCart_AlreadyReceive"                   = "已经领取";
+
+// 用户资料修改
+"ModifyUserInfo_Nickname"                       = "请输入昵称";
+"ModifyUserInfo_Email"                          = "请输入E-mail";
+"ModifyUserInfo_QQ"                             = "请输入QQ";
+"ModifyUserInfo_MobilePhoneNumber"              = "请输入手机号码";
+"ModifyUserInfo_Modify"                         = "确认修改";
+
+// 修改密码
+"ModifyPassword_OldPassword"                    = "原密码";
+"ModifyPassword_OldPasswordErrorRemind"         = "密码错误";
+
+"ModifyPassword_NewPassword"                    = "新密码(6-16位数字、字母或符号)";
+"ModifyPassword_NewPasswordErrorRemind"         = "密码必需是6-16位数字、字母或符号";
+
+"ModifyPassword_NewPasswordConfirm"             = "确认新密码";
+"ModifyPassword_NewPasswordConfirmErrorRemind"  = "两次密码输入不一致";
+
+"ModifyPassword_ModifyPassword"                 = "修改密码";
+"ModifyPassword_PasswordModifyFail"             = "修改密码失败,请重试!";
+
+// 地址管理
+"AddressManager_AddNewAddress"                  = "+添加地址";
+"AddressManager_ToDoOfTheAddress"               = "想对地址进行";
+
+// 地址管理->地址编辑或添加
+"AddressManager_PleaseChooseProvinceAndCity"    = "请选择 省 市 区";
+"AddressManager_PleaseInputDetailAddress"       = "请填写详细地址";
+"AddressManager_PleaseInputZipCode"             = "请填写邮政编码";
+"AddressManager_PleaseInputConsigneeName"       = "请填写收货人姓名";
+"AddressManager_PleaseInputConsigneeMobile"     = "请填写联系人手机号码";
+"AddressManager_IDCardInputRemind"              = "为更快通关,建议亲留下身份证信息,我们会加密保存";
+"AddressManager_PleaseInputIdCart"              = "请填写身份证号码";
+
+// 类目
+"Catalog_TabType_Classification"                = "分类";
+"Catalog_TabType_Brand"                         = "品牌";
+"Catalog_TabType_Efficacy"                      = "功效";
+
+// 注册&登陆
+"Login_Login"                                   = "登录";
+"Login_UserName"                                = "请输入用户名";
+"Login_Password"                                = "请输入密码";
+"Login_AutoLogin"                               = "自动登录";
+"Login_ForgetPassword"                          = "忘记密码?";
+"Login_LoginWithVerificationCode"               = "动态验证码登录";
+"Login_LoginNow"                                = "立即登录";
+
+"Register_Register"                             = "注册";
+"Register_MobileNumber"                         = "请输入手机号码";
+"Register_Email"                                = "请输入邮箱";
+"Register_PleaseInputPassword"                  = "请输入密码(6-16位数字、字母或符号)";
+"Register_PleaseInputPasswordAgain"             = "请再次输入密码";
+"Register_VerificationCode"                     = "请输入验证码";
+"Register_GetVerificationCode"                  = "获取验证码";
+"Register_RegisterNow"                          = "确认注册";
+"Register_UseMobileNumberToRegister"            = "使用手机号码注册";
+"Register_UseEmailToRegister"                   = "使用邮箱注册";
+
+"Login_PasswordNotEqualShowInfo"                = "两次密码输入不一致";
+
+// 注册&登录预留
+"Login_NoUserShowInfo"                          = "请输入有效的用户名";
+"Login_NoPasswordShowInfo"                      = "请输入有效的密码";
+"Login_NoPasswordConfirmShowInfo"               = "请再次输入密码";
+"Login_NoAgreeProtocolShowInfo"                 = "请同意寰居服务协议";
+"Login_LoginFailShowInfo"                       = "登录失败";
+"Login_LoadingShowInfo"                         = "正在登录...";
+
+// 个人
+"Mine_Welcome"                                  = "欢迎来到思芙美妆";
+"Mine_RegisterOrLogin"                          = "登录/注册";
+
+"Mine_VIPLevel"                                 = "会员等级";
+"Mine_Order"                                    = "订单";
+"Mine_Integral"                                 = "积分";
+"Mine_Balance"                                  = "余额";
+"Mine_RedEnvelope"                              = "红包";
+
+"Mine_Coupon"                                   = "优惠劵";
+"Mine_RefundOrafterSales"                       = "退款/售后";
+"Mine_ShippingAddress"                          = "收货地址";
+
+"Mine_MyCollect"                                = "我的收藏";
+"Mine_Feedback"                                 = "意见反馈";
+"Mine_MyRecommend"                              = "我的推荐";
+"Mine_MyComments"                               = "我的评论";
+"Mine_MyConsulting"                             = "我的咨询";
+
+"Mine_ModifyPassword"                           = "修改密码";
+
+"Mine_Logout"                                   = "退出登录";
+
+// 个人(提示)
+"Mine_LogoutWarning"                            = "亲,真的要退出当前登录的账号吗?";
+
+// 版本检测
+"Version_NowNewVersion"                         = "当前为最新版本";
+"Version_LoadingShowKey"                        = "正在检测更新...";
+
+// 产品
+"Product_List_Synthesize"                       = "综合";
+"Product_List_NewProduct"                       = "新品";
+"Product_List_SalesVolume"                      = "销量";
+"Product_List_Price"                            = "价格";
+
+"Product_Detail_AddCart"                        = "加入购物车";
+"Product_Detail_GoPay"                          = "去结算";
+"Product_Detail_TodayExchangeRate"              = "今日汇率";
+"Product_Detail_SalesPromotion"                 = "促销";
+"Product_Detail_MonthSales"                     = "月销量";
+"Product_Detail_OnlineConsult"                  = "在线咨询";
+"Product_Detail_GoBrand"                        = "品牌直通车";
+"Product_Detail_PictureAndDetail"               = "图文详情";
+"Product_Detail_Comment"                        = "评价";
+"Product_Detail_GoodComment"                    = "好评";
+"Product_Detail_TotalCommentHead"               = "共";
+"Product_Detail_TotalCommentFooter"             = "条评价";
+"Product_Detail_GuessYouLike"                   = "猜你喜欢";
+"Product_Detail_AfterSale"                      = "售后";
+"Product_Detail_SellOut"                        = "此商品已售完";
+
+"Product_Detail_WillStartGroup"                 = "即将开团";
+"Product_Detail_DidRemindGroup"                 = "已设置提醒";
+
+"Product_AddCartSucceedShowInfo"                = "加入购物车成功";
+"Product_AddCartFailShowInfo"                   = "加入购物车失败,请重试";
+"Product_AddFavoriteSucceedShowInfo"            = "加入收藏夹成功";
+"Product_AddFavoriteFailShowInfo"               = "加入收藏夹失败,请重试";
+
+"Product_NoSearchHistoryShowInfo"               = "暂无搜索记录";
+"Product_ClearSearchHistoryShowInfo"            = "清除搜索记录";
+
+"Product_Comment_AddPhoto"                      = "添加照片";
+"Product_Comment_PleaseInputComment"            = "请输入您的评价";
+
+"Product_CommentList_All"                       = "全部";
+"Product_CommentList_Like"                      = "喜欢";
+"Product_CommentList_Normal"                    = "一般";
+"Product_CommentList_Unlike"                    = "不喜欢";
+
+// 订单
+"Order_List_AllOrders"                          = "全部";
+"Order_List_WaitPayOrders"                      = "待付款";
+"Order_List_WaitShipmentsOrders"                = "待发货";
+"Order_List_HasShipmentsOrders"                 = "已发货";
+"Order_List_WaitShareOrders"                    = "待晒单";
+
+"Order_List_OrderNumber"                        = "订单编号";
+"Order_List_OrderState"                         = "订单状态";
+"Order_List_OrderMoney"                         = "订单金额";
+"Order_List_OrderTime"                          = "下单时间";
+"Order_List_OrderAmount"                        = "商品数量";
+
+"Order_List_ProductAmount"                      = "数量";
+"Order_List_ProductTotalPrice"                  = "总价";
+"Order_List_SelectAllProduct"                   = "全选";
+"Order_List_Piece"                              = "件";
+
+"Order_List_CancelOrder"                        = "取消订单";
+
+"Order_Detail_Refund"                           = "退货/退款";
+"Order_Detail_Comment"                          = "评论";
+"Order_Detail_HKLogisticsInfo"                  = "国际物流";
+"Order_Detail_CNLogisticsInfo"                  = "国内物流";
+"Order_Detail_OrderTraceInfo"                   = "订单处理流程";
+"Order_Detail_ReceiveInfo"                      = "收货信息";
+
+"Order_Detail_FreightMoney"                     = "运费";
+"Order_Detail_PayMoney"                         = "应付款";
+
+"Order_Detail_UserName"                         = "收货人姓名";
+"Order_Detail_Telephone"                        = "电话";
+"Order_Detail_Address"                          = "地址";
+"Order_Detail_BestTime"                         = "最佳收货时间";
+
+"Order_Write_TotalProduct"                      = "总计";
+
+"Order_Write_ProductPacket"                     = "商品包装";
+"Order_Write_GreetingCard"                      = "祝福贺卡";
+"Order_Write_LeaveMessage"                      = "留言备注";
+"Order_Write_InputMessage"                      = "请输入留言信息";
+
+"Order_Write_Pay_Alipay"                        = "支付宝";
+"Order_Write_Pay_WeChat"                        = "微信支付";
+"Order_Write_Pay_Paypal"                        = "Paypal";
+"Order_Write_Pay_Balance"                       = "余额支付";
+
+"Order_Write_UseRedPacket"                      = "使用红包";
+"Order_Write_UseCoupon"                         = "使用优惠券";
+"Order_Write_UseBalance"                        = "使用余额";
+"Order_Write_UseIntegral"                       = "使用积分";
+
+"Order_Write_UnitPoint"                         = "点";
+"Order_Write_UnitMoney"                         = "元";
+
+"Order_Write_CanUseMaxIntegral"                 = "当前最多可以使用";
+"Order_Write_YouHave"                           = "您拥有";
+"Order_Write_Integral"                          = "积分";
+
+"Order_Write_ProductTotalPrice"                 = "商品总价";
+"Order_Write_PackPrice"                         = "包装";
+"Order_Write_CartPrice"                         = "贺卡";
+"Order_Write_RedPacketPrice"                    = "红包";
+"Order_Write_CouponPrice"                       = "优惠券";
+"Order_Write_IntegralPrice"                     = "积分";
+"Order_Write_BalancePrice"                      = "余额";
+
+"Order_Write_PleaceSelectAddress"               = "亲，请填写收货地址";
+"Order_Write_PleaceSelectPayMethod"             = "亲，请选择付款方式";
+
+"Order_Write_GifIntegral"                       = "该订单完成后，您将获得";
+
+"Order_Write_GoPayKey"                          = "去支付";
+
+//评论
+"Comment_List_LookMore"                         = "查看余下回复";
+"Comment_Detail_Publish"                        = "发表";
+"Comment_Detail_PleaseInputComment"             = "请输入评论";
+"Comment_Detail_Reply"                          = "回复";
+
+"Comment_Submit_MindScore"                      = "亲，给商品打个分哦";
+"Comment_Submit_MindInputComment"               = "亲，请输入评论";
+"Comment_Submit_SuccessKey"                     = "评论成功";
+
+//美妆圈
+"BeautyMakeup_Home_Share"                       = "晒";
+"BeautyMakeup_Home_Home"                        = "首页";
+"BeautyMakeup_Home_ShareOrder"                  = "晒单";
+"BeautyMakeup_Home_Video"                       = "视频";
+"BeautyMakeup_Home_SearchPlaceholder"           = "搜索视频";
+
+"BeautyMakeup_Video_Comments"                   = "点评";
+"BeautyMakeup_Video_Detail"                     = "详情";
+
+
+//收藏夹
+"Favorites_Product_PersonNum"                   = "收藏人气";
+
+//退款、退货
+"Refund_Money_Step_FirstInfo"                   = "买家申请退款";
+"Refund_Money_Step_SecondInfo"                  = "商家处理退款申请";
+"Refund_Money_Step_ThirdInfo"                   = "商家确定退款，退款成功";
+
+"Refund_Product_Step_FirstInfo"                 = "买家申请退货";
+"Refund_Product_Step_SecondInfo"                = "商家处理退货申请";
+"Refund_Product_Step_ThirdInfo"                 = "买家退货并填写退货物流信息";
+"Refund_Product_Step_FourthInfo"                = "商家确定退货，退款成功";
+
+"Refund_Type"                                   = "退还类型";
+"Refund_Reason"                                 = "退还原因";
+"Refund_Money"                                  = "退款金额";
+"Refund_Number"                                 = "退货数量";
+"Refund_Explain"                                = "退还说明";
+
+"Refund_Choose_Money"                           = "我要退款";
+"Refund_Choose_Product"                         = "我要退货";
+
+"Refund_RemindText_Choose"                      = "请选择";
+"Refund_RemindText_Money"                       = "请输入金额";
+"Refund_RemindText_Number"                      = "请输入数字";
+"Refund_RemindText_Max"                         = "最多200字符";
+
+"Refund_Reason_DescriptionDifferent"            = "材料与描述不相符";
+"Refund_Reason_FakeKey"                         = "认为是假货";
+"Refund_Reason_Breakage"                        = "商品或配件少件或破损";
+"Refund_Reason_Defect"                          = "做工瑕疵";
+"Refund_Reason_SizeDifferent"                   = "大小尺寸不相符";
+"Refund_Reason_FaultBuy"                        = "拍错";
+"Refund_Reason_DonotLike"                       = "不喜欢";
+"Refund_Reason_EffectIsBad"                     = "效果不好";
+
+"Refund_LogisticsCompany"                       = "物流公司";
+"Refund_LogisticsNumber"                        = "快递单号";
+"Refund_RemindText_LogisticsNumber"             = "请输入单号";
+
+"Refund_Please_Input_Reason"                    = "请输入退款或退货原因";
+"Refund_Please_Input_Money"                     = "请输入退款或退货金额";
+"Refund_Please_Input_Number"                    = "请输入退货数量";
+"Refund_Please_Input_Company"                   = "请输入物流公司";
+"Refund_Please_Input_RightMoney"                = "请输入正确的退款金额";
+
+// 各控制器导航栏标题
+"NavTitle_LearnMakeup"                          = "学化妆";
+"NavTitle_Service"                              = "客服";
+"NavTitle_MyCommission"                         = "我的分成";
+"NavTitle_LoginWithVerificationCode"            = "动态验证码登录";
+"NavTitle_ForgetPassword_FindBack"              = "找回密码";
+"NavTitle_ForgetPassword_Modify"                = "设置新密码";
+"NavTitle_Coupon"                               = "优惠劵";
+"NavTitle_Gift"                                 = "新人礼物";
+"NavTitle_RedEnvelopeVC"                        = "我的红包";
+"NavTitle_BrandStreet"                          = "品牌街";
+"NavTitle_Feedback"                             = "意见反馈";
+"NavTitle_IntegralStore"                        = "积分商城";
+"NavTitle_DetailIntegralStore"                  = "详情";
+"NavTitle_MyBalance"                            = "我的余额";
+"NavTitle_ModifyUserInfo"                       = "资料修改";
+"NavTitle_ModifyPassword"                       = "密码修改";
+"NavTitle_ShoppingCar"                          = "购物车";
+"NavTitle_Mine"                                 = "个人";
+"NavTitle_AddressManager"                       = "地址管理";
+"NavTitle_AddAddress"                           = "新增地址";
+"NavTitle_ModifyAddress"                        = "修改地址";
+"NavTitle_Preferential"                         = "优惠";
+"NavTitle_HomePage"                             = "唯美网";
+
+"NavTitle_OrderList"                            = "订单列表";
+"NavTitle_OrderDetail"                          = "订单详情";
+"NavTitle_OrderWrite"                           = "订单确认";
+"NavTitle_OrderProductList"                     = "商品清单";
+"NavTitle_Favorites"                            = "我的收藏夹";
+"NavTitle_MyComment"                            = "我的评论";
+"NavTitle_CommentDetial"                        = "评论详情";
+"NavTitle_MyConsult"                            = "商品咨询";
+"NavTitle_ConsultList"                          = "咨询列表";
+"NavTitle_RefundAndAfterSales"                  = "退款/售后";
+"NavTitle_ProductDetail"                        = "商品详情";
+"NavTitle_StartGroupRemind"                     = "开团提醒";
+
+"NavTitle_ShareVideoDetail"                     = "视频详情";
+"NavTitle_ShareVideoCommentReply"               = "评论回复";

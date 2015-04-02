@@ -234,6 +234,25 @@
             [annotations addObject:locationAnnotation];
         }
         
+        /**
+         @ 修改描述     添加 标注律所的图标
+         @ 修改人       leo
+         @ 修改时间     2015-03-31
+         @ 修改开始
+         */
+        
+        if (_searchLocation.latitude)
+        {
+            LBSLawfirm *lawfirm = [[LBSLawfirm alloc] init];
+            lawfirm.coordinate = _searchLocation;
+            
+            LBSLocationAnnotation *locationAnnotation = [[LBSLocationAnnotation alloc] init];
+            locationAnnotation.lawfirm = lawfirm;
+            [annotations addObject:locationAnnotation];
+        }
+        // 修改结束
+        
+        
         if ([annotations isAbsoluteValid])
         {
             [_mapView addAnnotations:annotations];
@@ -366,6 +385,35 @@
             newAnnotationView = [[CustomBMKAnnotationView alloc] initWithAnnotation:theAnnotation reuseIdentifier:AnnotationViewID];
         }
         
+        /**
+         @ 修改描述     加多 标注律所的图标
+         @ 修改人       leo
+         @ 修改时间     2015-03-31
+         @ 修改开始
+         */
+        
+        //开始修改
+        if (_searchLocation.latitude && theAnnotation.coordinate.latitude == _searchLocation.latitude && theAnnotation.coordinate.longitude == _searchLocation.longitude)
+        {
+            newAnnotationView.image = [UIImage imageNamed:@"court"];
+        }
+        else
+        {
+            newAnnotationView.annotation = theAnnotation;
+            
+            // newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawfirm] + 1];
+            newAnnotationView.title = [NSString stringWithFormat:@"%d", [_listContend indexOfObject:theAnnotation.lawfirm] + 1];
+            
+            // paopao视图
+            BMKLawfirmPaoPaoView *paopaoView = [BMKLawfirmPaoPaoView loadFromNib];
+            
+            // 加载paopao视图的数据
+            [paopaoView loadViewData:theAnnotation.lawfirm];
+            newAnnotationView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
+        }
+        
+        
+        /*
         newAnnotationView.annotation = theAnnotation;
         
         // newAnnotationView.image = [self getMapAnnotationPointImageWithIndex:[self.listContend indexOfObject:theAnnotation.lawfirm] + 1];
@@ -377,6 +425,12 @@
         // 加载paopao视图的数据
         [paopaoView loadViewData:theAnnotation.lawfirm];
         newAnnotationView.paopaoView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
+        */
+        
+        
+        //修改结束
+        
+        
         
         /*
          // 设置颜色
@@ -458,8 +512,14 @@
         if (location)
         {
             [[LBSSharedData sharedData] setCurrentCoordinate2D:location.coordinate];
-            // 得到地理坐标后，进行百度LBS云搜索
-            [weakSelf loadDataWithLocation:location.coordinate radius:kRadius searchKey:self.searchKey IsSearStatus:isSearch];
+            CLLocationCoordinate2D coordinate = location.coordinate;
+        
+            // 如果法院坐标有值就用法院的坐标去搜索
+            if (_searchLocation.latitude)
+            {
+                coordinate = _searchLocation;
+            }
+            [weakSelf loadDataWithLocation:coordinate radius:kRadius searchKey:self.searchKey IsSearStatus:isSearch];
         }
         else
         {    // 没有坐标则显示定位失败

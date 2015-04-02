@@ -404,7 +404,8 @@ typedef NS_ENUM(NSInteger, TheSearchType)
         SearchDeatalViewController *vc = [[SearchDeatalViewController alloc] init];
         vc.strTitle = @"律所";
         vc.isShowMapView = YES;
-        vc.searchKey = searchKey;
+        //vc.searchKey = searchKey;
+        vc.searchLocation = searchLocation;
         vc.hidesBottomBarWhenPushed = YES;
         [self pushViewController:vc];
     }

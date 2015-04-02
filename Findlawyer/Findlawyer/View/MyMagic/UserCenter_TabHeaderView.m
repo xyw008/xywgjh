@@ -92,6 +92,13 @@ static CGFloat defaultViewHeight = 0;
     if (_operationHandle) _operationHandle(self, UserCenterTabHeaderViewOperationType_LoginAndRegister, sender);
 }
 
+
+- (void)loadDataUserName:(NSString *)userName phoneNum:(NSString *)phoneNumString
+{
+    _userNameLabel.text = userName;
+    _mobilePhoneNumLabel.text = phoneNumString;
+}
+
 ///////////////////////////////////////////////////////////////////
 
 + (CGFloat)getViewHeight
