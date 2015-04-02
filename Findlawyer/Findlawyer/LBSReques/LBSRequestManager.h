@@ -24,6 +24,6 @@
  */
 - (void)addRequest:(LBSRequest *)request complete:(void(^)(LBSRequest *request, NSArray *contents))handler;
 - (void)addRequest:(LBSRequest *)request pieceComplete:(LBSRequestHandler)handler;
-- (void)addRequest:(LBSRequest *)request locationUpdateComplete:(void(^)(CLLocation *location))handler;
+- (void)addRequest:(LBSRequest *)request locationUpdateComplete:(void(^)(BMKUserLocation *location))handler;
 - (void)addRequest:(LBSRequest *)request dataComplete:(LBSRequestHandler)handler;
 @end

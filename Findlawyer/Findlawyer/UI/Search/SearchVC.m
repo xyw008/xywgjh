@@ -364,7 +364,7 @@ typedef NS_ENUM(NSInteger, TheSearchType)
 {
     NSArray *indexPaths = [_collectionView indexPathsForSelectedItems];
     
-    CLLocationCoordinate2D searchLocation;
+    CLLocationCoordinate2D searchLocation = CLLocationCoordinate2DMake(0, 0);
     NSString *searchKey = nil;
     
     for (NSIndexPath *indexPath in indexPaths)

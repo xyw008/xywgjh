@@ -66,6 +66,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _isShowMapView = YES;
+        _searchLocation = CLLocationCoordinate2DMake(0, 0);
     }
     return self;
 }
@@ -179,9 +180,9 @@
 // 开启地图定位
 - (void)startUserLocationService
 {
-    _locService = [[BMKLocationService alloc]init];
-    _locService.delegate = self;
-    [_locService startUserLocationService];
+//    _locService = [[BMKLocationService alloc]init];
+//    _locService.delegate = self;
+//    [_locService startUserLocationService];
     
     _mapView.showsUserLocation = NO;                        // 先关闭显示的定位图层
     _mapView.userTrackingMode = BMKUserTrackingModeNone;    // 设置定位的状态
@@ -490,19 +491,26 @@
 {
     [_mapView updateLocationData:userLocation];
     
-    if (!_isLocationSuccess && !_searchLocation.latitude)
-    {
-        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(userLocation.location.coordinate, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
-        [_mapView setRegion:viewRegion animated:YES];
-        
-        
-        _isLocationSuccess = !_isLocationSuccess;
-    }
+    [self setMapCenterWithLocation:userLocation];
 }
 
 - (void)didFailToLocateUserWithError:(NSError *)error
 {
     DLog(@"定位失败");
+}
+
+// 设置地图中心
+- (void)setMapCenterWithLocation:(BMKUserLocation *)userLocation
+{
+    [_mapView updateLocationData:userLocation];
+    
+    if (!_isLocationSuccess && !_searchLocation.latitude)
+    {
+        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(userLocation.location.coordinate, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
+        [_mapView setRegion:viewRegion animated:YES];
+        
+        _isLocationSuccess = !_isLocationSuccess;
+    }
 }
 
 // 搜索加载数据
@@ -515,11 +523,13 @@
     __weak SearchDeatalViewController *weakSelf = self;
     
     // 添加请求
-    [[LBSRequestManager defaultManager] addRequest:[[LBSRequest alloc] initWithURL:[NSURL URLWithString:kLBSRequestUpdateLocation]] locationUpdateComplete:^(CLLocation *location) {
+    [[LBSRequestManager defaultManager] addRequest:[[LBSRequest alloc] initWithURL:[NSURL URLWithString:kLBSRequestUpdateLocation]] locationUpdateComplete:^(BMKUserLocation *location) {
         if (location)
         {
-            [[LBSSharedData sharedData] setCurrentCoordinate2D:location.coordinate];
-            CLLocationCoordinate2D coordinate = location.coordinate;
+            [[LBSSharedData sharedData] setCurrentCoordinate2D:location.location.coordinate];
+            [weakSelf setMapCenterWithLocation:location];
+            
+            CLLocationCoordinate2D coordinate = location.location.coordinate;
         
             // 如果法院坐标有值就用法院的坐标去搜索
             if (_searchLocation.latitude)

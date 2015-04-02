@@ -137,7 +137,7 @@ static LBSRequestManager * __requestDefaultManager;
 }
 
 //
-- (void)addRequest:(LBSRequest *)request locationUpdateComplete:(void(^)(CLLocation *location))handler
+- (void)addRequest:(LBSRequest *)request locationUpdateComplete:(void(^)(BMKUserLocation *location))handler
 {
 	if (_networkStatus == NotReachable)
 	{
@@ -201,22 +201,21 @@ static LBSRequestManager * __requestDefaultManager;
 
 - (void)didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
-    void(^handler)(CLLocation *location);
+    void(^handler)(BMKUserLocation *location);
     OSSpinLockLock(&_locationRequestsLock);
     for (handler in _locationRequests)
     {
-        handler(userLocation.location);
+        handler(userLocation);
     }
     [_locationRequests removeAllObjects];
     OSSpinLockUnlock(&_locationRequestsLock);
     
     [_locationService stopUserLocationService];
-    _locationService.delegate = nil;
 }
 
 - (void)didFailToLocateUserWithError:(NSError *)error
 {
-    void(^handler)(CLLocation *location);
+    void(^handler)(BMKUserLocation *location);
     OSSpinLockLock(&_locationRequestsLock);
     for (handler in _locationRequests)
     {
@@ -226,7 +225,6 @@ static LBSRequestManager * __requestDefaultManager;
     OSSpinLockUnlock(&_locationRequestsLock);
     
     [_locationService stopUserLocationService];
-    _locationService.delegate = nil;
 }
 
 @end

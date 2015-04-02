@@ -73,6 +73,7 @@
     if (self) {
         
         _isShowMapView = YES;
+        _searchLocation = CLLocationCoordinate2DMake(0, 0);
     }
     return self;
 }
@@ -154,7 +155,6 @@
     {
         [self loadmoreDataIsSearStatus:NO];
     }
-    // [self loadLocalData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -190,9 +190,9 @@
 // 开启地图定位
 - (void)startUserLocationService
 {
-    _locService = [[BMKLocationService alloc]init];
-    _locService.delegate = self;
-    [_locService startUserLocationService];
+//    _locService = [[BMKLocationService alloc]init];
+//    _locService.delegate = self;
+//    [_locService startUserLocationService];
     
     _mapView.showsUserLocation = NO;                        // 先关闭显示的定位图层
     _mapView.userTrackingMode = BMKUserTrackingModeNone;    // 设置定位的状态
@@ -583,6 +583,19 @@
     [_mapView updateLocationData:userLocation];
     
     // 以法院为中心搜索的时候地图定位到法院的位置,否则定位到用户当前的坐标位置
+    [self setMapCenterWithLocation:userLocation];
+}
+
+- (void)didFailToLocateUserWithError:(NSError *)error
+{
+    DLog(@"定位失败");
+}
+
+// 设置地图中心
+- (void)setMapCenterWithLocation:(BMKUserLocation *)userLocation
+{
+    [_mapView updateLocationData:userLocation];
+    
     if (!_isLocationSuccess && !_searchLocation.latitude)
     {
         BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(userLocation.location.coordinate, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
@@ -590,11 +603,6 @@
         
         _isLocationSuccess = !_isLocationSuccess;
     }
-}
-
-- (void)didFailToLocateUserWithError:(NSError *)error
-{
-    DLog(@"定位失败");
 }
 
 // 搜索加载数据
@@ -608,12 +616,13 @@
     __weak SearchLawyerViewController *weakSelf = self;
     
       // 添加请求
-    [[LBSRequestManager defaultManager] addRequest:[[LBSRequest alloc] initWithURL:[NSURL URLWithString:kLBSRequestUpdateLocation]] locationUpdateComplete:^(CLLocation *location) {
+    [[LBSRequestManager defaultManager] addRequest:[[LBSRequest alloc] initWithURL:[NSURL URLWithString:kLBSRequestUpdateLocation]] locationUpdateComplete:^(BMKUserLocation *location) {
  
         if (location)
         {
             // 得到地理坐标后，进行百度LBS云搜索
-            [[LBSSharedData sharedData] setCurrentCoordinate2D:location.coordinate];
+            [[LBSSharedData sharedData] setCurrentCoordinate2D:location.location.coordinate];
+            [self setMapCenterWithLocation:location];
             
             // 如果法院坐标有值就用法院的坐标去搜索
             if (_searchLocation.latitude)
@@ -622,7 +631,7 @@
             }
             else
             {
-                [weakSelf loadDataWithLocation:location.coordinate radius:kRadius IsSearStatus:isSearch];
+                [weakSelf loadDataWithLocation:location.location.coordinate radius:kRadius IsSearStatus:isSearch];
             }
         }
         else

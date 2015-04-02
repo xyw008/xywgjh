@@ -97,7 +97,7 @@ static NSString * const _baseAppendFormat = @"%@:%@"; // 多个参数
 
 @implementation LBSRequest (LBSLocation)
 
-+ (void)updateCurrentLocationWithHandler:(void (^)(CLLocation *))handler
++ (void)updateCurrentLocationWithHandler:(void (^)(BMKUserLocation *))handler
 {
 	[[LBSRequestManager defaultManager] addRequest:[[LBSRequest alloc] initWithURL:[NSURL URLWithString:kLBSRequestLocation]] locationUpdateComplete:handler];
 }
