@@ -305,10 +305,6 @@
 		43B1867A19ECBF1800B7B1F6 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43B1867919ECBF1800B7B1F6 /* libicucore.dylib */; };
 		43B334AF19F0BE8C00DBE372 /* searchBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334AE19F0BE8C00DBE372 /* searchBG@2x.png */; };
 		43B334B119F0E8F300DBE372 /* navTitleBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334B019F0E8F300DBE372 /* navTitleBtn@2x.png */; };
-		43B334BF19F0F21300DBE372 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334BB19F0F21300DBE372 /* Default-568h@2x.png */; };
-		43B334C019F0F21300DBE372 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334BC19F0F21300DBE372 /* Default-667h@2x.png */; };
-		43B334C119F0F21300DBE372 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334BD19F0F21300DBE372 /* Default@2x.png */; };
-		43B334C219F0F21300DBE372 /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334BE19F0F21300DBE372 /* Default@3x.png */; };
 		43B334C619F1001F00DBE372 /* saoyisao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334C419F1001F00DBE372 /* saoyisao@2x.png */; };
 		43B334C719F1001F00DBE372 /* xihuan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43B334C519F1001F00DBE372 /* xihuan@2x.png */; };
 		43CEA80C1A6A106B0001CCA3 /* SearchCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CEA80A1A6A106B0001CCA3 /* SearchCollectionHeaderView.m */; };
@@ -1135,10 +1131,6 @@
 		43B1867919ECBF1800B7B1F6 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		43B334AE19F0BE8C00DBE372 /* searchBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchBG@2x.png"; sourceTree = "<group>"; };
 		43B334B019F0E8F300DBE372 /* navTitleBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navTitleBtn@2x.png"; sourceTree = "<group>"; };
-		43B334BB19F0F21300DBE372 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		43B334BC19F0F21300DBE372 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
-		43B334BD19F0F21300DBE372 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		43B334BE19F0F21300DBE372 /* Default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@3x.png"; sourceTree = "<group>"; };
 		43B334C419F1001F00DBE372 /* saoyisao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saoyisao@2x.png"; sourceTree = "<group>"; };
 		43B334C519F1001F00DBE372 /* xihuan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xihuan@2x.png"; sourceTree = "<group>"; };
 		43CEA8091A6A106B0001CCA3 /* SearchCollectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCollectionHeaderView.h; sourceTree = "<group>"; };
@@ -2649,10 +2641,6 @@
 				2BD7215D1A73DE3400712DA0 /* Map */,
 				2BD721541A73DBFB00712DA0 /* Search */,
 				2BD9CCC21A64198800DA8DD1 /* Tab */,
-				43B334BB19F0F21300DBE372 /* Default-568h@2x.png */,
-				43B334BC19F0F21300DBE372 /* Default-667h@2x.png */,
-				43B334BD19F0F21300DBE372 /* Default@2x.png */,
-				43B334BE19F0F21300DBE372 /* Default@3x.png */,
 			);
 			path = appCommon;
 			sourceTree = "<group>";
@@ -4072,7 +4060,6 @@
 				1E34A1A619B778E80035CDE6 /* sms_unseleted@2x.png in Resources */,
 				43B1845919ECB74E00B7B1F6 /* sr_refresh.png in Resources */,
 				2BD9CCD61A64198800DA8DD1 /* tab_Fabao_Normal@3x.png in Resources */,
-				43B334C119F0F21300DBE372 /* Default@2x.png in Resources */,
 				2BD6A9E91A76935B00734BD2 /* LawfirmCell.xib in Resources */,
 				43B1862819ECBA4800B7B1F6 /* pinyin.sqlite in Resources */,
 				51E621031975148A0087B49B /* btn_icon6@2x.png in Resources */,
@@ -4101,7 +4088,6 @@
 				43CEA81A1A6A37DD0001CCA3 /* gouXuan_Selected@3x.png in Resources */,
 				43CEA80D1A6A106B0001CCA3 /* SearchCollectionHeaderView.xib in Resources */,
 				43DABEBE19ED276800CA3FD9 /* 14@2x.png in Resources */,
-				43B334C219F0F21300DBE372 /* Default@3x.png in Resources */,
 				43DABEBF19ED276800CA3FD9 /* 15@2x.png in Resources */,
 				517F0C7A1977E4900044D8E5 /* Default~iphone.png in Resources */,
 				5166D01819738CFF003A0994 /* arrow_right@2x.png in Resources */,
@@ -4120,7 +4106,6 @@
 				2B2A339419ED6A0B00DAE712 /* consultHighlight@2x.png in Resources */,
 				1E34A1A519B778E80035CDE6 /* sms_seleted@2x.png in Resources */,
 				B3AAEB6319EF620A003FB7F9 /* defaultLawfirm_big@2x.png in Resources */,
-				43B334BF19F0F21300DBE372 /* Default-568h@2x.png in Resources */,
 				2BD9CCD71A64198800DA8DD1 /* tab_Home_Highlight@2x.png in Resources */,
 				2BD721761A752D3D00712DA0 /* fabao@3x.png in Resources */,
 				2BD9CCDA1A64198800DA8DD1 /* tab_Home_Normal@3x.png in Resources */,
@@ -4140,7 +4125,6 @@
 				2BD9CCD41A64198800DA8DD1 /* tab_Fabao_Highlight@3x.png in Resources */,
 				51E620FF197514690087B49B /* btn_icon3@2x.png in Resources */,
 				B39F45B119F4E28F00C89290 /* deps in Resources */,
-				43B334C019F0F21300DBE372 /* Default-667h@2x.png in Resources */,
 				517C24DB19D6B76300331AE4 /* btnChangecity@2x.png in Resources */,
 				2BDF20BF1A6EB91A00C1D9A9 /* youjiantou@2x.png in Resources */,
 				B39F464E19F4E28F00C89290 /* Default@2x.png in Resources */,
