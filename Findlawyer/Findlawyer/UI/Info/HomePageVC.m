@@ -380,6 +380,7 @@ typedef enum
          HomePageNewsEntity *entity = _networkHomePageNewsEntitiesArray[indexPath.row];
          UILabel *titleLabel = (UILabel *)[cell viewWithTag:1001];
          UILabel *descLabel = (UILabel *)[cell viewWithTag:1002];
+         UIImageView *previewIV = (UIImageView*)[cell viewWithTag:1000];
          
          titleLabel.font = SP15Font;
          titleLabel.textColor = Common_BlackColor;
@@ -389,6 +390,23 @@ typedef enum
          
          titleLabel.text = entity.newsTitleStr;
          descLabel.text = entity.newsDescStr;
+         
+         NSString *imageString = @"temp_tt";
+         switch (_selectNewListType)
+         {
+             case NewListRequestType_LegalInstitution:
+                 imageString = @"temp_fz";
+                 break;
+             case NewListRequestType_Boundary:
+                 imageString = @"temp_lj";
+                 break;
+            case NewListRequestType_Practice:
+                 imageString = @"temp_ws";
+                 break;
+             default:
+                 break;
+         }
+         previewIV.image = [UIImage imageNamed:imageString];
      }
      else if(_networkHomePageNewsEntitiesArray.count == indexPath.row)
      {
