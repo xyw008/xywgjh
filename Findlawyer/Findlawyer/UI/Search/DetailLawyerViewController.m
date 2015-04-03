@@ -91,8 +91,6 @@
    // [self.myScrollView setContentSize:CGSizeMake(320.0,630)];
 
     // Do any additional setup after loading the view.
-    
-    self.lawyer.lawerid = @(30);
 }
 
 - (void)loadLawyerInfo
@@ -105,20 +103,26 @@
         {
             if (userInfo)
             {
-                NSArray * contents = userInfo[@"Lawyer"];
-                NSDictionary * dic = [contents objectAtIndex:0];
-//                weakSelf.lawyer.tel = dic[@"Tel"];
-                weakSelf.lawyer.fax = dic [@"Fax"];
-                weakSelf.lawyer.address = dic [@"Address"];
-                weakSelf.lawyer.detail = dic [@"Detail"];
-                weakSelf.lawyer.mailBox = dic [@"Mail"];
-                weakSelf.lawyer.mobile = dic [@"Mobile"];
-                [weakSelf configHeaderView];
+                //NSArray * contents = userInfo[@"Lawyer"];
+                NSDictionary *dataDic = userInfo[@"data"];
+                if ([dataDic isAbsoluteValid])
+                {
+                    NSArray *contents = dataDic[@"row"];
+                    NSDictionary * dic = [contents objectAtIndex:0];
+                    //                weakSelf.lawyer.tel = dic[@"Tel"];
+                    weakSelf.lawyer.fax = dic [@"Fax"];
+                    weakSelf.lawyer.address = dic [@"Address"];
+                    weakSelf.lawyer.detail = dic [@"Detail"];
+                    weakSelf.lawyer.mailBox = dic [@"Mail"];
+                    //weakSelf.lawyer.mobile = dic [@"Mobile"];
+                    [weakSelf configHeaderView];
+                    
+                    if (strongSelf->_showConsultBtn)
+                        [strongSelf initConsultBtn];
+                    else
+                        [strongSelf configToolview];
+                }
                 
-                if (strongSelf->_showConsultBtn)
-                    [strongSelf initConsultBtn];
-                else
-                    [strongSelf configToolview];
                 
 //                [weakSelf configToolview];
             }
