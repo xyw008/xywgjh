@@ -70,6 +70,13 @@
 
     CGFloat addressLBMaxWidth = IPHONE_WIDTH - 75 - 10;
     CGSize addressSize = [adress sizeWithFont:_lbAdress.font constrainedToWidth:addressLBMaxWidth];
+    if (addressSize.height < 15) {
+        addressSize.height = 15;
+        [_lbAdress mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(15);
+        }];
+    }
+    
     
     self.lbCount.text = [NSString stringWithFormat:@"%d",[count integerValue]];
     self.lbAdress.text = adress;
