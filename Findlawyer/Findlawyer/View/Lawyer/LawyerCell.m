@@ -192,7 +192,16 @@ static CGFloat defaultCellHeight = 0;
     self.lbPhone.text = entity.mobile ? entity.mobile : @"暂无电话";
     self.specialAreaStr = entity.specialArea;
     
-    [_distanceBtn setTitle:[NSString stringWithFormat:@"%.0lf米", entity.distance] forState:UIControlStateNormal];
+    // [_distanceBtn setTitle:[NSString stringWithFormat:@"%.0lf米", entity.distance] forState:UIControlStateNormal];
+    
+    if (entity.distance > 9999)
+    {
+        [_distanceBtn setTitle:[NSString stringWithFormat:@"%.1lf千米",entity.distance / 1000] forState:UIControlStateNormal];
+    }
+    else
+    {
+         [_distanceBtn setTitle:[NSString stringWithFormat:@"%.0lf米",entity.distance] forState:UIControlStateNormal];
+    }
 }
 
 @end

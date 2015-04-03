@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -32,7 +32,6 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8888米" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSd-ED-XXK">
                     <rect key="frame" x="253" y="8" width="40" height="19"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="40" id="1gV-mp-3kU"/>
                         <constraint firstAttribute="height" constant="19" id="7z2-iL-F5p"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -59,7 +58,7 @@
                 <constraint firstItem="Sra-G1-yDM" firstAttribute="top" secondItem="yH2-kW-NAv" secondAttribute="bottom" id="SE8-QZ-CXd"/>
                 <constraint firstItem="eTx-in-7Sv" firstAttribute="leading" secondItem="yH2-kW-NAv" secondAttribute="leading" id="VGO-js-9nJ"/>
                 <constraint firstItem="eTx-in-7Sv" firstAttribute="leading" secondItem="faM-Yp-ICS" secondAttribute="trailing" constant="6" id="ZlG-1j-UWg"/>
-                <constraint firstItem="tSd-ED-XXK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eTx-in-7Sv" secondAttribute="trailing" constant="10" id="jcB-TD-JEy"/>
+                <constraint firstItem="tSd-ED-XXK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eTx-in-7Sv" secondAttribute="trailing" constant="5" id="jcB-TD-JEy"/>
                 <constraint firstItem="eTx-in-7Sv" firstAttribute="top" secondItem="faM-Yp-ICS" secondAttribute="top" id="lhN-KB-TAK"/>
                 <constraint firstItem="tSd-ED-XXK" firstAttribute="trailing" secondItem="yH2-kW-NAv" secondAttribute="trailing" id="nam-Vc-scr"/>
                 <constraint firstItem="faM-Yp-ICS" firstAttribute="top" secondItem="3pi-fv-W2j" secondAttribute="top" constant="8" id="ndv-Cy-vIN"/>

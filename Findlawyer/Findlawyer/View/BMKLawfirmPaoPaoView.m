@@ -48,10 +48,23 @@
         [_lawyfirmHeaderImageView gjh_setImageWithURL:lawfirmEntity.mainImageURL placeholderImage:[placeholderImage resize:size] imageShowStyle:ImageShowStyle_None success:nil failure:nil];
         
         _lawfirmNameLabel.text = lawfirmEntity.name;
-        _distanceLabel.text = [NSString stringWithFormat:@"%d米",lawfirmEntity.distance];
+        // _distanceLabel.text = [NSString stringWithFormat:@"%d米",lawfirmEntity.distance];
         
         _lawfirmAddressLabel.text = [NSString stringWithFormat:@"地址: %@",lawfirmEntity.address];
         _lawyerNumLabel.text = [NSString stringWithFormat:@"执业人数: %@",lawfirmEntity.memberCount];
+        
+        _distanceLabel.text = nil;
+        if (lawfirmEntity.distance > 0)
+        {
+            if (lawfirmEntity.distance > 9999)
+            {
+                _distanceLabel.text = [NSString stringWithFormat:@"%.1lf千米",lawfirmEntity.distance / 1000];
+            }
+            else
+            {
+                _distanceLabel.text = [NSString stringWithFormat:@"%.0lf米",lawfirmEntity.distance];
+            }
+        }
     }
 }
 
