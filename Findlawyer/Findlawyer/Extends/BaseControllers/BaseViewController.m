@@ -97,10 +97,22 @@
      *o2o返回键放在了低栏,这里屏蔽掉(默认是调用@selector(backViewController))
      */
     // 返回Btn
+    
+    NSString *backString = @"返回";
+    if ([_backTitle isAbsoluteValid]) {
+        backString = _backTitle;
+    }
+    
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left
+                            barButtonTitle:backString
                                  normalImg:[UIImage imageNamed:@"nav_back"]
                             highlightedImg:[UIImage imageNamed:@"nav_back"]
                                     action:@selector(backViewController)];
+    
+//    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left
+//                                 normalImg:[UIImage imageNamed:@"nav_back"]
+//                            highlightedImg:[UIImage imageNamed:@"nav_back"]
+//                                    action:@selector(backViewController)];
     
     // 加此代码可以在自定义leftBarButtonItem之后还保持IOS7以上系统自带的滑动返回效果
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
@@ -191,6 +203,12 @@
 
 - (void)pushViewController:(UIViewController *)viewController
 {
+    DLog(@"self title %@  %@  %@",self.navigationItem.title,self.title,self.navigationController.title)
+    
+    if ([self.navigationItem.title isAbsoluteValid] && [viewController isKindOfClass:[BaseViewController class]])
+    {
+        ((BaseViewController*)viewController).backTitle = self.navigationItem.title;
+    }
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -340,6 +358,29 @@
 - (void)hideHUD
 {
     [HUDManager hideHUD];
+}
+
+- (void)configureBarbuttonItemByPosition:(BarbuttonItemPosition)position barButtonTitle:(NSString *)title normalImg:(UIImage *)normalImg highlightedImg:(UIImage *)highlightedImg action:(SEL)action
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, [title stringSizeWithFont:SP15Font].width + 30, 30);
+    [btn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    btn.titleLabel.font = SP16Font;
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setImage:normalImg forState:UIControlStateNormal];
+    [btn setImage:highlightedImg forState:UIControlStateHighlighted];
+    [btn setTitle:title forState:UIControlStateNormal];
+    btn.titleEdgeInsets = UIEdgeInsetsMake(0, -16, 0, 0);
+    btn.imageEdgeInsets = UIEdgeInsetsMake(0, -8, 0, 0);
+    //btn.backgroundColor = [UIColor redColor];
+    
+    // 调整点击范围扩大的问题
+    UIView *backView = [[UIView alloc] initWithFrame:btn.bounds];
+    //    backView.bounds = CGRectOffset(backView.bounds, -5, 0);
+    [backView addSubview:btn];
+    
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backView];
+    self.navigationItem.leftBarButtonItem = barButtonItem;
 }
 
 - (void)configureBarbuttonItemByPosition:(BarbuttonItemPosition)position normalImg:(UIImage *)normalImg highlightedImg:(UIImage *)highlightedImg action:(SEL)action

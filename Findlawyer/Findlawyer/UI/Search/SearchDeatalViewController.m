@@ -214,6 +214,8 @@
     
     if (_searchLocation.latitude)
     {
+        
+        
         BMKCoordinateRegion mapRegion = BMKCoordinateRegionMake(_searchLocation, BMKCoordinateSpanMake(kMapShowSpan, kMapShowSpan));
         [_mapView setRegion:mapRegion animated:YES];
     }
@@ -503,7 +505,7 @@
 - (void)setMapCenterWithLocation:(BMKUserLocation *)userLocation
 {
     [_mapView updateLocationData:userLocation];
-    
+
     if (!_isLocationSuccess && !_searchLocation.latitude)
     {
         BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(userLocation.location.coordinate, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));

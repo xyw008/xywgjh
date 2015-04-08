@@ -130,7 +130,6 @@ static NSDictionary* dictFromString(NSString* string)
 + (UIBarButtonItem *)barButtonItemWithFrame:(CGRect)frame tag:(int)tag normalImg:(UIImage *)normalImg highlightedImg:(UIImage *)highlightedImg title:(NSString *)title titleFont:(UIFont *)titleFont titleColor:(UIColor *)titleColor target:(id)target action:(SEL)action
 {
     UIButton *btn = InsertImageButtonWithTitle(nil, frame, tag, normalImg, highlightedImg, title, UIEdgeInsetsZero, titleFont, titleColor, target, action);
-    
     // 调整点击范围扩大的问题
     UIView *backView = [[UIView alloc] initWithFrame:btn.bounds];
 //    backView.bounds = CGRectOffset(backView.bounds, -5, 0);

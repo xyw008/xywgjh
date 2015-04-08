@@ -49,6 +49,8 @@
     BMKMapView          *_mapView;
     BMKLocationService  *_locService;
     
+    BMKUserLocation     *_userLocation;
+    
     BOOL                _isLocationSuccess;
 }
 
@@ -596,6 +598,8 @@
 {
     [_mapView updateLocationData:userLocation];
     
+    //LBSLawyer *lastLawyer = [self.listContend lastObject];
+    
     if (!_isLocationSuccess && !_searchLocation.latitude)
     {
         BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(userLocation.location.coordinate, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
@@ -622,6 +626,7 @@
         {
             // 得到地理坐标后，进行百度LBS云搜索
             [[LBSSharedData sharedData] setCurrentCoordinate2D:location.location.coordinate];
+            //_userLocation = location;
             [self setMapCenterWithLocation:location];
             
             // 如果法院坐标有值就用法院的坐标去搜索
@@ -699,6 +704,8 @@
             [weakSelf.listContend sortUsingComparator:^NSComparisonResult(LBSLawyer *obj1, LBSLawyer *obj2) {
                 return obj1.distance < obj2.distance ? NSOrderedAscending : NSOrderedDescending;
             }];
+            
+            //[weakSelf setMapCenterWithLocation:_userLocation];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
