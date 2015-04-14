@@ -42,6 +42,8 @@
     BMKMapView          *_mapView;
     BMKLocationService  *_locService;
     
+    BMKUserLocation     *_userLocation;//自己当前的位置
+    
     BOOL                _isLocationSuccess;
 }
 
@@ -503,10 +505,30 @@
 - (void)setMapCenterWithLocation:(BMKUserLocation *)userLocation
 {
     [_mapView updateLocationData:userLocation];
-    
+
     if (!_isLocationSuccess && !_searchLocation.latitude)
     {
-        BMKCoordinateRegion viewRegion = BMKCoordinateRegionMake(userLocation.location.coordinate, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
+        LBSLawfirm *lastLawyer = [self.listContend lastObject];
+        
+        BMKCoordinateRegion viewRegion;
+        if (lastLawyer)
+        {
+            CLLocationCoordinate2D userCoordinate = userLocation.location.coordinate;
+            
+            BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake(lastLawyer.coordinate.latitude,userCoordinate.longitude));
+            BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake(userCoordinate.latitude,lastLawyer.coordinate.longitude));
+            
+            BMKMapPoint point3 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake(userCoordinate.latitude,userCoordinate.longitude));
+            
+            CLLocationDistance latitudeMeters = BMKMetersBetweenMapPoints(point1,point3);
+            CLLocationDistance longitudeMeters = BMKMetersBetweenMapPoints(point2,point3);
+            
+            viewRegion = BMKCoordinateRegionMakeWithDistance(userCoordinate, latitudeMeters, longitudeMeters);
+        }
+        else
+        {
+            viewRegion = BMKCoordinateRegionMake(userLocation.location.coordinate, BMKCoordinateSpanMake(kMapShowSpan,kMapShowSpan));
+        }
         [_mapView setRegion:viewRegion animated:YES];
         
         _isLocationSuccess = !_isLocationSuccess;
@@ -527,7 +549,8 @@
         if (location)
         {
             [[LBSSharedData sharedData] setCurrentCoordinate2D:location.location.coordinate];
-            [weakSelf setMapCenterWithLocation:location];
+            _userLocation = location;
+            //[weakSelf setMapCenterWithLocation:location];
             
             CLLocationCoordinate2D coordinate = location.location.coordinate;
         
@@ -594,6 +617,8 @@
             [weakSelf.listContend sortUsingComparator:^NSComparisonResult(LBSLawyer *obj1, LBSLawyer *obj2) {
                 return obj1.distance < obj2.distance ? NSOrderedAscending : NSOrderedDescending;
             }];
+            
+            [weakSelf setMapCenterWithLocation:_userLocation];
             
             dispatch_async(dispatch_get_main_queue(), ^{
 				NSLog(@"reload data now.");

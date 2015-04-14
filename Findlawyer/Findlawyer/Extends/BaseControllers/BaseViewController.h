@@ -43,6 +43,8 @@ typedef void (^PickPhotoCancelHandle) (void);
     UITableView *_tableView;              // default is nil
 }
 
+@property (nonatomic,copy) NSString *backTitle;//返回按钮文字
+
 /// 布局子视图的Y坐标的起点(IOS7为20,IOS7以下为0)
 @property (nonatomic, assign, readonly) float subViewsOriginY;
 
@@ -141,6 +143,9 @@ typedef void (^PickPhotoCancelHandle) (void);
  @ 创建时间    2014-07-18
  */
 - (void)hideHUD;
+
+
+- (void)configureBarbuttonItemByPosition:(BarbuttonItemPosition)position barButtonTitle:(NSString *)title normalImg:(UIImage *)normalImg highlightedImg:(UIImage *)highlightedImg action:(SEL)action;
 
 /**
  @ 方法描述    配置导航栏按钮

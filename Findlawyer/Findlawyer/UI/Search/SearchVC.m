@@ -67,7 +67,7 @@ typedef NS_ENUM(NSInteger, TheSearchType)
 
 - (void)setPageLocalizableText
 {
-    [self setNavigationItemTitle:@"内容定制"];
+    //[self setNavigationItemTitle:@"内容定制"];
 }
 
 - (void)getLocalShowData
