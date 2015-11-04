@@ -367,6 +367,9 @@
 		B338DB831BEA59D40053DB4C /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB7D1BEA59D40053DB4C /* RECommonFunctions.m */; };
 		B338DB841BEA59D40053DB4C /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB7F1BEA59D40053DB4C /* RESideMenu.m */; };
 		B338DB851BEA59D40053DB4C /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB811BEA59D40053DB4C /* UIViewController+RESideMenu.m */; };
+		B338DB8A1BEA5FEC0053DB4C /* MainCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB891BEA5FEC0053DB4C /* MainCenterVC.m */; };
+		B338DB8D1BEA70E40053DB4C /* LeftUserCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB8C1BEA70E40053DB4C /* LeftUserCenterVC.m */; };
+		B338DB901BEA71DE0053DB4C /* Stars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B338DB8F1BEA71DE0053DB4C /* Stars@2x.png */; };
 		FAF92EF61B6F103900DD06BC /* PRPAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EF51B6F103900DD06BC /* PRPAlertView.m */; };
 		FAF92F051B6F10A400DD06BC /* AppSmallUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EF81B6F10A400DD06BC /* AppSmallUtils.m */; };
 		FAF92F061B6F10A400DD06BC /* AppSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EFA1B6F10A400DD06BC /* AppSoundManager.m */; };
@@ -1123,6 +1126,11 @@
 		B338DB7F1BEA59D40053DB4C /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESideMenu.m; sourceTree = "<group>"; };
 		B338DB801BEA59D40053DB4C /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
 		B338DB811BEA59D40053DB4C /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
+		B338DB881BEA5FEC0053DB4C /* MainCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainCenterVC.h; sourceTree = "<group>"; };
+		B338DB891BEA5FEC0053DB4C /* MainCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainCenterVC.m; sourceTree = "<group>"; };
+		B338DB8B1BEA70E40053DB4C /* LeftUserCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftUserCenterVC.h; sourceTree = "<group>"; };
+		B338DB8C1BEA70E40053DB4C /* LeftUserCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftUserCenterVC.m; sourceTree = "<group>"; };
+		B338DB8F1BEA71DE0053DB4C /* Stars@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Stars@2x.png"; sourceTree = "<group>"; };
 		FAF92EF41B6F103900DD06BC /* PRPAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPAlertView.h; sourceTree = "<group>"; };
 		FAF92EF51B6F103900DD06BC /* PRPAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPAlertView.m; sourceTree = "<group>"; };
 		FAF92EF71B6F10A400DD06BC /* AppSmallUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSmallUtils.h; sourceTree = "<group>"; };
@@ -2273,8 +2281,8 @@
 		43D1CB011A75EBA5004564C2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B338DB8E1BEA71DE0053DB4C /* Image */,
 				43D1CB021A75EBA5004564C2 /* AddressJson */,
-				43D1CB041A75EBA5004564C2 /* Image */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -2285,13 +2293,6 @@
 				43D1CB031A75EBA5004564C2 /* Address.json */,
 			);
 			path = AddressJson;
-			sourceTree = "<group>";
-		};
-		43D1CB041A75EBA5004564C2 /* Image */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Image;
 			sourceTree = "<group>";
 		};
 		43D1CB071A75EBF9004564C2 /* Common */ = {
@@ -2656,6 +2657,8 @@
 			children = (
 				B3162C4E1BEA4DC2009E7C19 /* Extends */,
 				B3162C631BEA4DC2009E7C19 /* Model */,
+				B338DB871BEA5FAC0053DB4C /* Views */,
+				B338DB861BEA5FAC0053DB4C /* Controllers */,
 				B3162C441BEA4DC2009E7C19 /* AppDelegate.h */,
 				B3162C451BEA4DC2009E7C19 /* AppDelegate.m */,
 				B3162C461BEA4DC2009E7C19 /* LaunchScreen.xib */,
@@ -2788,6 +2791,32 @@
 			path = LGSideMenuController;
 			sourceTree = "<group>";
 		};
+		B338DB861BEA5FAC0053DB4C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B338DB881BEA5FEC0053DB4C /* MainCenterVC.h */,
+				B338DB891BEA5FEC0053DB4C /* MainCenterVC.m */,
+				B338DB8B1BEA70E40053DB4C /* LeftUserCenterVC.h */,
+				B338DB8C1BEA70E40053DB4C /* LeftUserCenterVC.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B338DB871BEA5FAC0053DB4C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B338DB8E1BEA71DE0053DB4C /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				B338DB8F1BEA71DE0053DB4C /* Stars@2x.png */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
 		FAFD22C91BE0DBFB0004DD6F /* OBCConvertor */ = {
 			isa = PBXGroup;
 			children = (
@@ -2880,6 +2909,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43D1CA2D1A75E778004564C2 /* deps in Resources */,
+				B338DB901BEA71DE0053DB4C /* Stars@2x.png in Resources */,
 				43D1CAD51A75E779004564C2 /* NimbusWebController.bundle in Resources */,
 				43D1CA271A75E778004564C2 /* .gitignore in Resources */,
 				43D1C9D21A75E778004564C2 /* AQGridSelectionGray.png in Resources */,
@@ -2989,6 +3019,7 @@
 				43D1CA051A75E778004564C2 /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				43D1C9F01A75E778004564C2 /* UISlider+FlatUI.m in Sources */,
 				43D1CC291A75EBFA004564C2 /* ATTapView.m in Sources */,
+				B338DB8D1BEA70E40053DB4C /* LeftUserCenterVC.m in Sources */,
 				B3162C8E1BEA4DC2009E7C19 /* MuBan.xcdatamodeld in Sources */,
 				43D1CADF1A75E779004564C2 /* SDWebImageDownloader.m in Sources */,
 				43D1CA071A75E778004564C2 /* NSObject+MagicalDataImport.m in Sources */,
@@ -3170,6 +3201,7 @@
 				FAF92F0B1B6F10A400DD06BC /* UserInfoModel.m in Sources */,
 				FAFD22C31BE0D5480004DD6F /* FreeLayoutTileView.m in Sources */,
 				43D1CC421A75EBFA004564C2 /* ImagePreviewController.m in Sources */,
+				B338DB8A1BEA5FEC0053DB4C /* MainCenterVC.m in Sources */,
 				43D1CA0E1A75E778004564C2 /* NSManagedObject+MagicalRequests.m in Sources */,
 				43D1CA0B1A75E778004564C2 /* NSManagedObject+MagicalDataImport.m in Sources */,
 				43D1C9D01A75E778004564C2 /* UIColor+AQGridView.m in Sources */,
