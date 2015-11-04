@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  MuBan
+
+  Created by swift on 15/1/26.
+  Copyright (c) 2015年 com.gjh. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "app name";

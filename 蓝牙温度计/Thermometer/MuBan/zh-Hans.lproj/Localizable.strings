@@ -1,0 +1,132 @@
+/* 
+  Localizable.strings
+  MuBan
+
+  Created by swift on 15/1/26.
+  Copyright (c) 2015年 com.gjh. All rights reserved.
+*/
+
+// 所有模块
+"All_DataSourceNotFound"                        = "无法找到资源";
+"All_Confirm"                                   = "确定";
+"All_Cancel"                                    = "取消";
+"All_Delete"                                    = "删除";
+"All_Edit"                                      = "编辑";
+"All_PickFromCamera"                            = "拍照";
+"All_PickFromAlbum"                             = "从相册选择";
+
+// 地址管理
+"AddressManager_AddNewAddress"                  = "+添加地址";
+"AddressManager_ToDoOfTheAddress"               = "想对地址进行";
+
+// 类目
+"Catalog_TabType_Classification"                = "分类";
+"Catalog_TabType_Brand"                         = "品牌";
+"Catalog_TabType_Efficacy"                      = "功效";
+
+// 注册&登陆
+"Login_Login"                                   = "登录";
+"Login_UserName"                                = "用户名";
+"Login_Password"                                = "密码";
+"Login_AutoLogin"                               = "自动登录";
+"Login_ForgetPassword"                          = "忘记密码";
+"Login_LoginNow"                                = "立即登录";
+
+"Register_Register"                             = "注册";
+"Register_MobileNumber"                         = "11位手机号码";
+"Register_Email"                                = "邮箱";
+"Register_PleaseInputPassword"                  = "请输入密码(6-16位数字或字母)";
+"Register_PleaseInputPasswordAgain"             = "请再次输入密码";
+"Register_VerificationCode"                     = "手机收到的验证码";
+"Register_GetVerificationCode"                  = "获取验证码";
+"Register_RegisterNow"                          = "确认注册";
+"Register_UseMobileNumberToRegister"            = "使用手机号码注册";
+"Register_UseEmailToRegister"                   = "使用邮箱注册";
+
+// 注册&登录预留
+"Login_NoUserShowInfo"                          = "请输入有效的用户名";
+"Login_NoPasswordShowInfo"                      = "请输入有效的密码";
+"Login_NoPasswordConfirmShowInfo"               = "请再次输入密码";
+"Login_PasswordNotEqualShowInfo"                = "密码输入不一致";
+"Login_NoAgreeProtocolShowInfo"                 = "请同意寰居服务协议";
+"Login_LoginFailShowInfo"                       = "登录失败";
+"Login_LoadingShowInfo"                         = "正在登录...";
+
+// 个人
+"Mine_VIPLevel"                                 = "会员等级";
+"Mine_Order"                                    = "订单";
+"Mine_Integral"                                 = "积分";
+"Mine_Balance"                                  = "余额";
+"Mine_RedEnvelope"                              = "红包";
+
+"Mine_Coupon"                                   = "优惠劵";
+"Mine_RefundOrafterSales"                       = "退款/售后";
+"Mine_ShippingAddress"                          = "收货地址";
+
+"Mine_MyCollect"                                = "我的收藏";
+"Mine_MyMessage"                                = "我的留言";
+"Mine_MyRecommend"                              = "我的推荐";
+"Mine_MyComments"                               = "我的评论";
+"Mine_MyConsulting"                             = "我的咨询";
+
+// 个人预留
+"Mine_DeleteThisAddress"                        = "是否删除地址";
+"Mine_PhoneNumberError"                         = "亲，您所输入的手机号不正确喔";
+"Mine_EmailError"                               = "亲，您所输入的邮箱不正确喔";
+
+// 修改密码
+"Password_PasswordError"                        = "密码错误!";
+"Password_PasswordLessThanSix"                  = "亲，密码不能低于6位喔！";
+"Password_PasswordDifferent"                    = "亲，两次密码不一样喔";
+"Password_PasswordModifyFail"                   = "密码修改不成功，是否离开本页面？";
+"Password_PasswordModifySuccess"                = "密码修改成功。";
+
+// 版本检测
+"Version_NowNewVersion"                         = "当前为最新版本";
+"Version_LoadingShowKey"                        = "正在检测更新...";
+
+// 产品
+"Product_List_Brand"                            = "品牌";
+"Product_List_Sort"                             = "分类";
+"Product_List_Effect"                           = "功效";
+"Product_List_Price"                            = "价格";
+
+"Product_Detail_AddCart"                        = "加入购物车";
+"Product_Detail_GoPay"                          = "去结算";
+
+
+"Product_AddCartSucceedShowInfo"                = "加入购物车成功";
+"Product_AddCartFailShowInfo"                   = "加入购物车失败,请重试";
+"Product_AddFavoriteSucceedShowInfo"            = "加入收藏夹成功";
+"Product_AddFavoriteFailShowInfo"               = "加入收藏夹失败,请重试";
+
+"Product_NoSearchHistoryShowInfo"               = "暂无搜索记录";
+"Product_ClearSearchHistoryShowInfo"            = "清除搜索记录";
+
+// 订单
+"Order_List_AllOrders"                          = "全部";
+"Order_List_WaitShipmentsOrders"                = "待发货";
+"Order_List_WaitPayOrders"                      = "待付款";
+
+"Order_List_OrderNumber"                        = "编号";
+"Order_List_OrderState"                         = "订单状态";
+"Order_List_OrderMoney"                         = "订单金额";
+"Order_List_OrderTime"                          = "下单时间";
+"Order_List_OrderAmount"                        = "商品数量";
+
+"Order_List_ProductAmount"                      = "数量";
+"Order_List_ProductTotalPrice"                  = "总价";
+"Order_List_SelectAllProduct"                   = "全选";
+
+
+// 购物车
+"ShoppingCart_DeleteProductItem"                = "是否删除商品?";
+"ShoppingCart_NoSelectedProductItem"            = "您还没有选择商品哦";
+
+// 各控制器导航栏标题
+"NavTitle_ShoppingCar"                          = "购物车";
+"NavTitle_Mine"                                 = "个人";
+"NavTitle_AddressManager"                       = "地址管理";
+"NavTitle_AddAddress"                           = "新增地址";
+"NavTitle_Preferential"                         = "优惠";
+"NavTitle_FAQ"                                  = "FAQ";

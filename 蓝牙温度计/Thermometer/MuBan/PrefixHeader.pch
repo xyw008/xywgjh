@@ -1,0 +1,32 @@
+//
+//  PrefixHeader.pch
+//  MuBan
+//
+//  Created by swift on 15/1/26.
+//  Copyright (c) 2015年 com.gjh. All rights reserved.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+    #import "CommonConfig.h"
+    #import "PublicDocuments.h"
+    #import "Interface.h"
+    #import "ATBLibs.h"
+    #import "CommonCategories.h"
+    #import "LanguagesManager.h"
+    #import "FontManager.h"
+
+    // define this constant if you want to use Masonry without the 'mas_' prefix
+    // #define MAS_SHORTHAND
+    // define this constant if you want to enable auto-boxing for default syntax
+    #define MAS_SHORTHAND_GLOBALS
+    #import "Masonry.h"
+#endif

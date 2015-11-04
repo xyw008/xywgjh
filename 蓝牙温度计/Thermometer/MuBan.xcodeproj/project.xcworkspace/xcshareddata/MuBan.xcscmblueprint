@@ -1,0 +1,46 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "6F0AFF7670DF53B01B9750C1B70D3F65B81DAC33",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++3947" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++4580" : 0,
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++422" : 0,
+    "6F0AFF7670DF53B01B9750C1B70D3F65B81DAC33" : 0,
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++3947" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "CE663B86-29E4-481C-8C3E-5CAAECA1E1F7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++4580" : "Git_AlexAPP%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF\/%E6%9C%80%E6%96%B0%E6%A8%A1%E6%9D%BF(%E8%83%BD%E5%85%BC%E5%AE%B964%E4%BD%8D)\/MuBan\/Class\/Nimbus\/src\/overview\/resources\/NimbusOverviewer.bundle",
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++422" : "Git_AlexAPP%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF\/%E6%9C%80%E6%96%B0%E6%A8%A1%E6%9D%BF(%E8%83%BD%E5%85%BC%E5%AE%B964%E4%BD%8D)\/MuBan\/Class\/Nimbus\/src\/photos\/resources\/NimbusPhotos.bundle",
+    "6F0AFF7670DF53B01B9750C1B70D3F65B81DAC33" : "Git_Alex",
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++3947" : "Git_AlexAPP%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF\/%E6%9C%80%E6%96%B0%E6%A8%A1%E6%9D%BF(%E8%83%BD%E5%85%BC%E5%AE%B964%E4%BD%8D)\/MuBan\/Class\/Nimbus\/src\/webcontroller\/resources\/NimbusWebController.bundle"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MuBan",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "APP项目模板\/最新模板(能兼容64位)\/MuBan\/MuBan.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/192.168.0.100\/o2o_ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "43ad27df-ac1c-4d72-822e-fa1f3520b629++3947"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/192.168.0.100\/o2o_ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "43ad27df-ac1c-4d72-822e-fa1f3520b629++422"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/192.168.0.100\/o2o_ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "43ad27df-ac1c-4d72-822e-fa1f3520b629++4580"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:alexkung\/gjh_baoche.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6F0AFF7670DF53B01B9750C1B70D3F65B81DAC33"
+    }
+  ]
+}

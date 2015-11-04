@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellIdentifier" id="KGk-i7-Jjw" customClass="ProductCategoryCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nTY-JZ-Vw9">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="a60-8V-vzJ"/>
+                            <constraint firstAttribute="width" id="bhy-k6-P1u"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="布艺" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHn-eY-plo">
+                        <rect key="frame" x="15" y="12" width="295" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="cJq-h0-zWL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="抱枕/纯棉" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PiB-EE-gdK">
+                        <rect key="frame" x="15" y="35" width="295" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="Tvs-En-Jl5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="nTY-JZ-Vw9" firstAttribute="top" secondItem="lHn-eY-plo" secondAttribute="top" id="9SO-O3-RgQ"/>
+                    <constraint firstItem="nTY-JZ-Vw9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="DIf-Rh-uRr"/>
+                    <constraint firstItem="PiB-EE-gdK" firstAttribute="width" secondItem="lHn-eY-plo" secondAttribute="width" id="I8O-eC-Nd3"/>
+                    <constraint firstItem="lHn-eY-plo" firstAttribute="leading" secondItem="nTY-JZ-Vw9" secondAttribute="trailing" id="R3w-Wz-XQK"/>
+                    <constraint firstItem="nTY-JZ-Vw9" firstAttribute="bottom" secondItem="PiB-EE-gdK" secondAttribute="bottom" id="Vdd-l1-8CY"/>
+                    <constraint firstItem="PiB-EE-gdK" firstAttribute="leading" secondItem="lHn-eY-plo" secondAttribute="leading" id="c3B-vT-5OC"/>
+                    <constraint firstItem="nTY-JZ-Vw9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="nua-ga-nRJ"/>
+                    <constraint firstAttribute="trailing" secondItem="lHn-eY-plo" secondAttribute="trailing" constant="10" id="uNo-xc-Vxs"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="cellDetailTextLabel" destination="PiB-EE-gdK" id="Cqd-Ap-pj0"/>
+                <outlet property="cellImageView" destination="nTY-JZ-Vw9" id="K2s-XE-seZ"/>
+                <outlet property="cellTextLabel" destination="lHn-eY-plo" id="SQd-tp-jep"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
