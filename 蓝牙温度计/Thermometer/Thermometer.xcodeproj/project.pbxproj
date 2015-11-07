@@ -3370,11 +3370,11 @@
 				FAF92F071B6F10A400DD06BC /* AppUIElement.m in Sources */,
 				43D1C9EA1A75E778004564C2 /* UIColor+FlatUI.m in Sources */,
 				43D1CA001A75E778004564C2 /* IQToolbar.m in Sources */,
-<<<<<<< HEAD:蓝牙温度计/Thermometer/MuBan.xcodeproj/project.pbxproj
+
 				2B129EA71BED9F9B003BEC8A /* BabySpeaker.m in Sources */,
-=======
+
 				B3162C831BEA4DC2009E7C19 /* BaseViewController.m in Sources */,
->>>>>>> 3897a03a688496b23a3dfef04fb96e1eab05fceb:蓝牙温度计/Thermometer/Thermometer.xcodeproj/project.pbxproj
+
 				43D1CC581A75EBFA004564C2 /* PopupController.m in Sources */,
 				FAF92F081B6F10A400DD06BC /* GCDThread.m in Sources */,
 				43D1CC201A75EBFA004564C2 /* ATTimerManager.m in Sources */,

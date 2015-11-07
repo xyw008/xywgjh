@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0610"
+   LastUpgradeVersion = "0710"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,88 +15,69 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "432C31871A7243840094A27E"
-               BuildableName = "MuBan.app"
-               BlueprintName = "MuBan"
-               ReferencedContainer = "container:MuBan.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "432C31A31A7243840094A27E"
-               BuildableName = "MuBanTests.xctest"
-               BlueprintName = "MuBanTests"
-               ReferencedContainer = "container:MuBan.xcodeproj">
+               BuildableName = "Thermometer.app"
+               BlueprintName = "Thermometer"
+               ReferencedContainer = "container:Thermometer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Debug">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "432C31A31A7243840094A27E"
-               BuildableName = "MuBanTests.xctest"
-               BlueprintName = "MuBanTests"
-               ReferencedContainer = "container:MuBan.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "432C31871A7243840094A27E"
-            BuildableName = "MuBan.app"
-            BlueprintName = "MuBan"
-            ReferencedContainer = "container:MuBan.xcodeproj">
+            BuildableName = "Thermometer.app"
+            BlueprintName = "Thermometer"
+            ReferencedContainer = "container:Thermometer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "432C31871A7243840094A27E"
-            BuildableName = "MuBan.app"
-            BlueprintName = "MuBan"
-            ReferencedContainer = "container:MuBan.xcodeproj">
+            BuildableName = "Thermometer.app"
+            BlueprintName = "Thermometer"
+            ReferencedContainer = "container:Thermometer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "432C31871A7243840094A27E"
-            BuildableName = "MuBan.app"
-            BlueprintName = "MuBan"
-            ReferencedContainer = "container:MuBan.xcodeproj">
+            BuildableName = "Thermometer.app"
+            BlueprintName = "Thermometer"
+            ReferencedContainer = "container:Thermometer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
