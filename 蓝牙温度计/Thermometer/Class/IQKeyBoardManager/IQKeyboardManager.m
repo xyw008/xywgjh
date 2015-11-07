@@ -1092,7 +1092,7 @@ NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
         UIView *textField = [siblings firstObject];
         
         //Either there is no inputAccessoryView or if accessoryView is not appropriate for current situation(There is Previous/Next/Done toolbar).
-		if (![textField inputAccessoryView] || ([[textField inputAccessoryView] tag] == kIQPreviousNextButtonToolbarTag))
+		if (![textField inputAccessoryView] || ([textField inputAccessoryView]. tag == kIQPreviousNextButtonToolbarTag))
 		{
             //Now adding textField placeholder text as title of IQToolbar  (Enhancement ID: #27)
 			[textField addDoneOnKeyboardWithTarget:self action:@selector(doneAction:) shouldShowPlaceholder:_shouldShowTextFieldPlaceholder];

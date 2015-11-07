@@ -33,7 +33,7 @@
     _failed = failed;
     _showHUD = show;
     
-    [HUDManager showHUDWithToShowStr:[LanguagesManager getStr:Version_LoadingShowKey] HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0.1 userInteractionEnabled:NO];
+    //[HUDManager showHUDWithToShowStr:[LanguagesManager getStVersion_LoadingShowey] HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0.1 userInteractionEnabled:NO];
     NSURL *url = [NSURL URLWithString:@"http://itunes.apple.com/lookup?id=com.ejushang.o2o"];
     [[NetRequestManager sharedInstance] sendRequest:url parameterDic:nil requestMethodType:RequestMethodType_GET requestTag:1000 delegate:self userInfo:nil];
 }
@@ -50,7 +50,7 @@
 {
     [HUDManager hideHUD];
     if (_showHUD) {
-        [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:[LanguagesManager getStr:Version_NowNewVersionKey]];
+        //[[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:[LanguagesManager getStr:Version_NowNewVersionKey]];
     }
     _failed(error);
 }
@@ -71,7 +71,7 @@
             }
             else
             {
-                [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:[LanguagesManager getStr:Version_NowNewVersionKey]];
+                //[[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:[LanguagesManager getStr:Version_NowNewVersionKey]];
             }
         }
     }
@@ -100,11 +100,11 @@
 {
     if ([self compareVersion])
     {
-        [[InterfaceHUDManager sharedInstance] showAlertWithTitle:nil message:[LanguagesManager getStr:Password_PasswordModifyFailKey] alertShowType:AlertShowType_Informative cancelTitle:@"取消" cancelBlock:^(GJHAlertView *alertView, NSInteger index) {
-            
-        } otherTitle:@"马上升级" otherBlock:^(GJHAlertView *alertView, NSInteger index) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[_appInfo objectForKey:@"trackViewUrl"]]];
-        }];
+//        [[InterfaceHUDManager sharedInstance] showAlertWithTitle:nil message:[LanguagesManager getStr:Password_PasswordModifyFailKey] alertShowType:AlertShowType_Informative cancelTitle:@"取消" cancelBlock:^(GJHAlertView *alertView, NSInteger index) {
+//            
+//        } otherTitle:@"马上升级" otherBlock:^(GJHAlertView *alertView, NSInteger index) {
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[_appInfo objectForKey:@"trackViewUrl"]]];
+//        }];
     }
 }
 

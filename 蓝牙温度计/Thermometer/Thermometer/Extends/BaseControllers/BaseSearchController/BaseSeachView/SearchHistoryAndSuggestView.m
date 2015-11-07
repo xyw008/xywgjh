@@ -60,7 +60,7 @@
     _nothingHistoryLB.center = CGPointMake(self.center.x, 100);
     _nothingHistoryLB.textAlignment = NSTextAlignmentCenter;
     _nothingHistoryLB.font = SP15Font;
-    _nothingHistoryLB.text = [LanguagesManager getStr:Product_NoSearchHistoryShowInfoKey];
+    //_nothingHistoryLB.text = [LanguagesManager getStr:Product_NoSearchHistoryShowInfoKey];
     _nothingHistoryLB.backgroundColor = [UIColor whiteColor];
     _nothingHistoryLB.textColor = Common_BlackColor;
     [self addSubview:_nothingHistoryLB];
@@ -166,7 +166,7 @@
     {
         UIButton *clearHistoryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         clearHistoryBtn.frame = CGRectMake(50, 2, 110, 28);
-        [clearHistoryBtn setTitle:[LanguagesManager getStr:Product_ClearSearchHistoryShowInfoKey] forState:UIControlStateNormal];
+        //[clearHistoryBtn setTitle:[LanguagesManager getStr:Product_ClearSearchHistoryShowInfoKey] forState:UIControlStateNormal];
         clearHistoryBtn.titleLabel.font = SP15Font;
         [clearHistoryBtn setTitleColor:Common_BlackColor forState:UIControlStateNormal];
         [clearHistoryBtn addTarget:self action:@selector(clearHistoryBtnTouch:) forControlEvents:UIControlEventTouchUpInside];

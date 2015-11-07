@@ -7,7 +7,6 @@
 //
 
 #import "BaseSearchController.h"
-#import "ProductListVC.h"
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "NITextField.h"
 #import "AppPropertiesInitialize.h"
@@ -287,9 +286,7 @@
     //其他视图 推到商品列表视图控制器
     else
     {
-        ProductListVC *productList = [[ProductListVC alloc] initWithSearchStr:string];
-        productList.hidesBottomBarWhenPushed = YES;
-        [self pushViewController:productList];
+        
     }
 }
 

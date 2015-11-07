@@ -32,6 +32,7 @@
 
 // 常规文字颜色
 #define Common_BlackColor                   HEXCOLOR(0X969A9B)                  // 黑色    适用范围:TAB的主标题
+#define Common_GrayColor                    HEXCOLOR(0X777777)                  // 黑色    适用范围:TAB的主标题
 #define Common_LiteGrayColor                HEXCOLOR(0X969A9B)                  // 浅灰色  适用范围:...
 #define Common_InkBlackColor                HEXCOLOR(0X545D61)                  // 墨黑色  适用范围:TAB未选中状态的主标题
 #define Common_InkGreenColor                HEXCOLOR(0X7A97A1)                  // 墨绿色  适用范围:TAB的子标题

@@ -33,11 +33,11 @@
             
             if (show)
             {
-                [HUDManager showHUDWithToShowStr:LocalizedStr(Login_LoadingShowInfoKey)
-                                         HUDMode:MBProgressHUDModeIndeterminate
-                                        autoHide:NO
-                                      afterDelay:0
-                          userInteractionEnabled:NO];
+//                [HUDManager showHUDWithToShowStr:LocalizedStr(Login_LoadingShowInfoKey)
+//                                         HUDMode:MBProgressHUDModeIndeterminate
+//                                        autoHide:NO
+//                                      afterDelay:0
+//                          userInteractionEnabled:NO];
             }
             
             // 登录操作
@@ -76,11 +76,11 @@
             
             if (show)
             {
-                [HUDManager showHUDWithToShowStr:LocalizedStr(Login_LoadingShowInfoKey)
-                                         HUDMode:MBProgressHUDModeIndeterminate
-                                        autoHide:NO
-                                      afterDelay:0
-                          userInteractionEnabled:NO];
+//                [HUDManager showHUDWithToShowStr:LocalizedStr(Login_LoadingShowInfoKey)
+//                                         HUDMode:MBProgressHUDModeIndeterminate
+//                                        autoHide:NO
+//                                      afterDelay:0
+//                          userInteractionEnabled:NO];
             }
             
             // 登录操作
