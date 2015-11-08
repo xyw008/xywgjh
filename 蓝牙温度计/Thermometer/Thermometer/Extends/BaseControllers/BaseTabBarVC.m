@@ -55,7 +55,7 @@
     {
         UITabBarItem *aItem = [items objectAtIndex:i];
         [aItem setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor whiteColor]} forState:UIControlStateSelected];
-        [aItem setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor colorWithWhite:0 alpha:0.5]} forState:UIControlStateNormal];
+        [aItem setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor colorWithWhite:1 alpha:0.5]} forState:UIControlStateNormal];
         
         NSString *title = nil;
         UIImage *normalImage = nil;

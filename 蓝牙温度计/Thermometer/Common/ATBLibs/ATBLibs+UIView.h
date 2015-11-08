@@ -69,6 +69,16 @@
 /// 加圆角
 - (void)setRadius:(CGFloat)radius;
 
+
++ (CGFloat)getViewDynamicValue320:(CGFloat)value320;
+
+
++ (CGFloat)getViewDynamicValue640:(CGFloat)value640;
+
+
++ (CGFloat)getDpToPx:(CGFloat)dp;
+
+
 @end
 
 

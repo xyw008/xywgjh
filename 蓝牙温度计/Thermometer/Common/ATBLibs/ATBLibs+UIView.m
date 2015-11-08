@@ -289,6 +289,21 @@
     self.layer.masksToBounds = YES;
 }
 
++ (CGFloat)getViewDynamicValue320:(CGFloat)value320
+{
+    return [self getViewDynamicValue640:value320 * 2];
+}
+
++ (CGFloat)getViewDynamicValue640:(CGFloat)value640
+{
+    return value640 * IPHONE_WIDTH / 640;
+}
+
++ (CGFloat)getDpToPx:(CGFloat)dp
+{
+    return dp * 1.3333;
+}
+
 @end
 
 

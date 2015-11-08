@@ -53,7 +53,7 @@
 {
     [super viewDidLoad];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:HEXCOLOR(0XFF3366) size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:HEXCOLOR(0X3c3a47) size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
     
     if (IOS7)
     {

@@ -39,6 +39,15 @@
 // 以iPhone6为换算基数获得比例值
 #define kGetScaleValueBaseIP6(__A)  (__A * IPHONE_WIDTH / 375)
 
+//dp 转换成 px
+#define DpToPx(dp) [UIView getDpToPx:dp]
+
+//通过480 的dp值 动态获取 不同屏幕的 标注的 宽和高
+#define DpDynamicWidthValue640(dp) [UIView getViewDynamicValue640:[UIView getDpToPx:dp]]
+
+//动态获取 不同屏幕的 标注的 宽和高
+#define DynamicWidthValue640(pix) [UIView getViewDynamicValue640:pix]
+
 /**
  * A helper macro to keep the interfaces compatiable with pre ARC compilers.
  * Useful when you put nimbus in a library and link it to a GCC LLVM compiler.
@@ -77,3 +86,18 @@ static __class * __singleton__ = nil; \
 dispatch_once( &once, ^{ __singleton__ = [[__class alloc] init]; } ); \
 return __singleton__; \
 }
+
+
+// View 圆角和加边框
+#define ViewBorderRadius(View, Radius, Width, Color)\
+\
+[View.layer setCornerRadius:(Radius)];\
+[View.layer setMasksToBounds:YES];\
+[View.layer setBorderWidth:(Width)];\
+[View.layer setBorderColor:[Color CGColor]]
+
+// View 圆角
+#define ViewRadius(View, Radius)\
+\
+[View.layer setCornerRadius:(Radius)];\
+[View.layer setMasksToBounds:YES]
