@@ -36,8 +36,8 @@
 // 设置标签栏的属性
 - (void)setTabBarItemsInfo
 {
-    self.tabBar.backgroundImage = [UIImage imageNamed:@"Navigation_Under.png"];
-    self.tabBar.selectionIndicatorImage = [UIImage imageNamed:@"Navigation_Under_Opt.png"];
+    self.tabBar.backgroundImage = [UIImage imageWithColor:HEXCOLOR(0X3C3A47) size:CGSizeMake(IPHONE_WIDTH, 50)];
+    self.tabBar.selectionIndicatorImage = [UIImage imageWithColor:HEXCOLOR(0X3C3A47) size:CGSizeMake(IPHONE_WIDTH, 50)];
     
     if (IOS7)
     {
@@ -54,8 +54,8 @@
     for (int i = 0; i < items.count; i++)
     {
         UITabBarItem *aItem = [items objectAtIndex:i];
-        [aItem setTitleTextAttributes:@{UITextAttributeTextColor: HEXCOLOR(0X306CC5)} forState:UIControlStateSelected];
-        [aItem setTitleTextAttributes:@{UITextAttributeTextColor: HEXCOLOR(0X4F555F)} forState:UIControlStateNormal];
+        [aItem setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor whiteColor]} forState:UIControlStateSelected];
+        [aItem setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor colorWithWhite:0 alpha:0.5]} forState:UIControlStateNormal];
         
         NSString *title = nil;
         UIImage *normalImage = nil;
@@ -65,37 +65,44 @@
         {
             case 0:
             {
-                title = @"新闻";
+                title = @"体温";
                 
-                normalImage = [UIImage imageNamed:@"tab_news_normal"];
-                selectedImage = [UIImage imageNamed:@"tab_news_selected"];
+                normalImage = [UIImage imageNamed:@"toolbar_icon_bodytemperature_n"];
+                selectedImage = [UIImage imageNamed:@"toolbar_icon_bodytemperature_f"];
             }
                 break;
             case 1:
             {
-                title = @"图片";
+                title = @"心率";
                 
-                normalImage = [UIImage imageNamed:@"tab_image_normal"];
-                selectedImage = [UIImage imageNamed:@"tab_image_selected"];
+                normalImage = [UIImage imageNamed:@"toolbar_icon_heartrate_n"];
+                selectedImage = [UIImage imageNamed:@"toolbar_icon_heartrate_f"];
             }
                 break;
             case 2:
             {
-                title = @"视频";
+                title = @"血压";
                 
-                normalImage = [UIImage imageNamed:@"tab_video_normal"];
-                selectedImage = [UIImage imageNamed:@"tab_video_selected"];
+                normalImage = [UIImage imageNamed:@"toolbar_icon_bloodpressure_n"];
+                selectedImage = [UIImage imageNamed:@"toolbar_icon_bloodpressure_f"];
             }
                 break;
             case 3:
             {
-                title = @"论坛";
+                title = @"血氧";
                 
-                normalImage = [UIImage imageNamed:@"tab_bbs_normal"];
-                selectedImage = [UIImage imageNamed:@"tab_bbs_selected"];
+                normalImage = [UIImage imageNamed:@"toolbar_icon_o2_n"];
+                selectedImage = [UIImage imageNamed:@"toolbar_icon_o2_f"];
             }
                 break;
+            case 4:
+            {
+                title = @"记步";
                 
+                normalImage = [UIImage imageNamed:@"toolbar_icon_walk_n"];
+                selectedImage = [UIImage imageNamed:@"toolbar_icon_walk_f"];
+            }
+                break;
             default:
                 break;
         }

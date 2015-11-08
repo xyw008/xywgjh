@@ -16,7 +16,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    UIImageView *bgIV = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    bgIV.image = [UIImage imageNamed:@"leftmenu_bg"];
+    [self.view addSubview:bgIV];
+    
 }
 
 - (void)didReceiveMemoryWarning {
