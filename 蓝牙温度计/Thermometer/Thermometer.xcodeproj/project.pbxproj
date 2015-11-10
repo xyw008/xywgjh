@@ -17,6 +17,7 @@
 		2B129EA91BED9F9B003BEC8A /* BLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B129E9B1BED9F9B003BEC8A /* BLEManager.m */; };
 		2B129EAA1BED9F9B003BEC8A /* BLECacheDataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B129E9E1BED9F9B003BEC8A /* BLECacheDataEntity.m */; };
 		2B129EAB1BED9F9B003BEC8A /* SystemConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B129EA11BED9F9B003BEC8A /* SystemConvert.m */; };
+		2B287EA41BF0EA240070609D /* MuBan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3162C741BEA4DC2009E7C19 /* MuBan.xcdatamodeld */; };
 		431F13891A7762E9008C4544 /* ChineseToPinyinResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 431F137D1A7762E9008C4544 /* ChineseToPinyinResource.m */; };
 		431F138A1A7762E9008C4544 /* HanyuPinyinOutputFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 431F137F1A7762E9008C4544 /* HanyuPinyinOutputFormat.m */; };
 		431F138B1A7762E9008C4544 /* NSString+PinYin4Cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = 431F13811A7762E9008C4544 /* NSString+PinYin4Cocoa.m */; };
@@ -465,7 +466,6 @@
 		B3162C8B1BEA4DC2009E7C19 /* ExamineVersionBC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3162C6F1BEA4DC2009E7C19 /* ExamineVersionBC.m */; };
 		B3162C8C1BEA4DC2009E7C19 /* LoginBC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3162C711BEA4DC2009E7C19 /* LoginBC.m */; };
 		B3162C8D1BEA4DC2009E7C19 /* RegisterBC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3162C731BEA4DC2009E7C19 /* RegisterBC.m */; };
-		B3162C8E1BEA4DC2009E7C19 /* MuBan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3162C741BEA4DC2009E7C19 /* MuBan.xcdatamodeld */; };
 		B338DB821BEA59D40053DB4C /* LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB7B1BEA59D40053DB4C /* LGSideMenuController.m */; };
 		B338DB831BEA59D40053DB4C /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB7D1BEA59D40053DB4C /* RECommonFunctions.m */; };
 		B338DB841BEA59D40053DB4C /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB7F1BEA59D40053DB4C /* RESideMenu.m */; };
@@ -3524,7 +3524,6 @@
 				43D1C9F01A75E778004564C2 /* UISlider+FlatUI.m in Sources */,
 				43D1CC291A75EBFA004564C2 /* ATTapView.m in Sources */,
 				B338DB8D1BEA70E40053DB4C /* LeftUserCenterVC.m in Sources */,
-				B3162C8E1BEA4DC2009E7C19 /* MuBan.xcdatamodeld in Sources */,
 				43D1CADF1A75E779004564C2 /* SDWebImageDownloader.m in Sources */,
 				43D1CA071A75E778004564C2 /* NSObject+MagicalDataImport.m in Sources */,
 				43D1CC521A75EBFA004564C2 /* KeepLoginSessionConnection.m in Sources */,
@@ -3797,6 +3796,7 @@
 				43D1CC141A75EBFA004564C2 /* ATSingleton.m in Sources */,
 				43D1C9B01A75E778004564C2 /* AFHTTPRequestOperation.m in Sources */,
 				43D1C9B71A75E778004564C2 /* AFURLResponseSerialization.m in Sources */,
+				2B287EA41BF0EA240070609D /* MuBan.xcdatamodeld in Sources */,
 				43D1CA8E1A75E778004564C2 /* NILauncherButtonView.m in Sources */,
 				43D1CA371A75E778004564C2 /* NICollectionViewCellFactory.m in Sources */,
 				43D1CC191A75EBFA004564C2 /* ATExplosionAnimation.m in Sources */,
