@@ -53,7 +53,7 @@
 {
     [super viewDidLoad];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:HEXCOLOR(0X3c3a47) size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:HEXCOLOR(0X2D2C37) size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
     
     if (IOS7)
     {
@@ -472,7 +472,7 @@
 
 - (void)setNavigationItemTitle:(NSString *)titleStr
 {
-    [self setNavigationItemTitle:titleStr titleFont:[UIFont boldSystemFontOfSize:NavTitleFontSize] titleColor:[UIColor blackColor]];
+    [self setNavigationItemTitle:titleStr titleFont:[UIFont boldSystemFontOfSize:NavTitleFontSize] titleColor:[UIColor whiteColor]];
 }
 
 - (void)setNavigationItemTitle:(NSString *)title titleFont:(UIFont *)font titleColor:(UIColor *)color

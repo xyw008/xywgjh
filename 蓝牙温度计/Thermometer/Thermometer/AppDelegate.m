@@ -15,6 +15,7 @@
 #import "RESideMenu.h"
 #import "MainCenterVC.h"
 #import "LeftUserCenterVC.h"
+#import "AboutVC.h"
 
 @interface AppDelegate () <NetRequestDelegate,RESideMenuDelegate>
 {
@@ -54,7 +55,9 @@
     sideMenuViewController.contentViewShadowOpacity = 0.6;
     sideMenuViewController.contentViewShadowRadius = 12;
     sideMenuViewController.contentViewShadowEnabled = YES;
-    self.window.rootViewController = sideMenuViewController;
+    // self.window.rootViewController = sideMenuViewController;
+    
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[AboutVC loadFromNib]];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
