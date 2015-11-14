@@ -35,12 +35,12 @@ UILabel *InsertLabelWithShadowAndLineAndContentOffset(id superView, CGRect cRect
 UIWebView *InsertWebView(id superView,CGRect cRect, id<UIWebViewDelegate>delegate, int tag);
 
 // UIbutton
-UIButton *InsertButton(id view, CGRect rc, int tag, NSString *title, id target, SEL action);
-UIButton *InsertImageButtonWithTitle(id view, CGRect rc, int tag, UIImage *img, UIImage *imgH, NSString *title, UIEdgeInsets edgeInsets, UIFont *font, UIColor *color, id target, SEL action);
-UIButton *InsertImageButtonWithSelectedImage(id view, CGRect rc, int tag, UIImage *img, UIImage *imgH, UIImage *imgSelected, BOOL selected, id target, SEL action);
-UIButton *InsertImageButtonWithSelectedImageAndTitle(id view, CGRect rc, int tag, UIImage *img, UIImage *imgH, UIImage *imgSelected, BOOL selected, NSString *title, UIEdgeInsets edgeInsets, UIFont *font, UIColor *color, id target, SEL action);
-UIButton *InsertButtonWithType(id view, CGRect rc, int tag, id target, SEL action, UIButtonType type);
-UIButton *InsertImageButton(id view, CGRect rc, int tag, UIImage *img, UIImage *imgH, id target, SEL action);
+UIButton *InsertButton(id view, CGRect rc, NSInteger tag, NSString *title, id target, SEL action);
+UIButton *InsertImageButtonWithTitle(id view, CGRect rc, NSInteger tag, UIImage *img, UIImage *imgH, NSString *title, UIEdgeInsets edgeInsets, UIFont *font, UIColor *color, id target, SEL action);
+UIButton *InsertImageButtonWithSelectedImage(id view, CGRect rc, NSInteger tag, UIImage *img, UIImage *imgH, UIImage *imgSelected, BOOL selected, id target, SEL action);
+UIButton *InsertImageButtonWithSelectedImageAndTitle(id view, CGRect rc, NSInteger tag, UIImage *img, UIImage *imgH, UIImage *imgSelected, BOOL selected, NSString *title, UIEdgeInsets edgeInsets, UIFont *font, UIColor *color, id target, SEL action);
+UIButton *InsertButtonWithType(id view, CGRect rc, NSInteger tag, id target, SEL action, UIButtonType type);
+UIButton *InsertImageButton(id view, CGRect rc, NSInteger tag, UIImage *img, UIImage *imgH, id target, SEL action);
 
 // UITableView
 UITableView *InsertTableView(id superView, CGRect rect, id<UITableViewDataSource> dataSoure, id<UITableViewDelegate> delegate, UITableViewStyle style);

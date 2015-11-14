@@ -16,6 +16,7 @@
 #import "MainCenterVC.h"
 #import "LeftUserCenterVC.h"
 #import "AboutVC.h"
+#import "AlarmSettingVC.h"
 
 @interface AppDelegate () <NetRequestDelegate,RESideMenuDelegate>
 {
@@ -57,7 +58,7 @@
     sideMenuViewController.contentViewShadowEnabled = YES;
     // self.window.rootViewController = sideMenuViewController;
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[AboutVC loadFromNib]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[AlarmSettingVC new]];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

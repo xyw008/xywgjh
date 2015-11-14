@@ -389,7 +389,7 @@ UIWebView *InsertWebView(id superView,CGRect cRect, id<UIWebViewDelegate>delegat
     return tempWebView;
 }
 
-UIButton *InsertButton(id view, CGRect rc, int tag, NSString *title, id target, SEL action){
+UIButton *InsertButton(id view, CGRect rc, NSInteger tag, NSString *title, id target, SEL action){
 	UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     
 	UILabel *label = [btn titleLabel];
@@ -411,7 +411,7 @@ UIButton *InsertButton(id view, CGRect rc, int tag, NSString *title, id target, 
 	return btn;
 }
 
-UIButton *InsertImageButton(id view, CGRect rc, int tag, UIImage *img, UIImage *imgH, id target, SEL action){
+UIButton *InsertImageButton(id view, CGRect rc, NSInteger tag, UIImage *img, UIImage *imgH, id target, SEL action){
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     
     if (nil != img)
@@ -431,7 +431,7 @@ UIButton *InsertImageButton(id view, CGRect rc, int tag, UIImage *img, UIImage *
     return btn;
 }
 
-UIButton *InsertImageButtonWithTitle(id view, CGRect rc, int tag, UIImage *img, UIImage *imgH, NSString *title, UIEdgeInsets edgeInsets, UIFont *font, UIColor *color, id target, SEL action){
+UIButton *InsertImageButtonWithTitle(id view, CGRect rc, NSInteger tag, UIImage *img, UIImage *imgH, NSString *title, UIEdgeInsets edgeInsets, UIFont *font, UIColor *color, id target, SEL action){
     UIButton *btn = InsertImageButton(view, rc, tag, img, imgH, target, action);
     
     if (nil != font)
@@ -450,14 +450,14 @@ UIButton *InsertImageButtonWithTitle(id view, CGRect rc, int tag, UIImage *img, 
     return btn;
 }
 
-UIButton *InsertImageButtonWithSelectedImage(id view, CGRect rc, int tag, UIImage *img, UIImage *imgH, UIImage *imgSelected, BOOL selected, id target, SEL action){
+UIButton *InsertImageButtonWithSelectedImage(id view, CGRect rc, NSInteger tag, UIImage *img, UIImage *imgH, UIImage *imgSelected, BOOL selected, id target, SEL action){
     UIButton *btn = InsertImageButton(view, rc, tag, img, imgH, target, action);
     [btn setBackgroundImage:imgSelected forState:UIControlStateSelected];
     btn.selected = selected;
     return btn;
 }
 
-UIButton *InsertImageButtonWithSelectedImageAndTitle(id view, CGRect rc, int tag, UIImage *img, UIImage *imgH, UIImage *imgSelected, BOOL selected, NSString *title, UIEdgeInsets edgeInsets, UIFont *font, UIColor *color, id target, SEL action){
+UIButton *InsertImageButtonWithSelectedImageAndTitle(id view, CGRect rc, NSInteger tag, UIImage *img, UIImage *imgH, UIImage *imgSelected, BOOL selected, NSString *title, UIEdgeInsets edgeInsets, UIFont *font, UIColor *color, id target, SEL action){
     UIButton *btn = InsertImageButtonWithSelectedImage(view, rc, tag, img, imgH, imgSelected, selected, target, action);
     
     if (nil != font)
@@ -476,7 +476,7 @@ UIButton *InsertImageButtonWithSelectedImageAndTitle(id view, CGRect rc, int tag
     return btn;
 }
 
-UIButton *InsertButtonWithType(id view, CGRect rc, int tag, id target, SEL action, UIButtonType type){
+UIButton *InsertButtonWithType(id view, CGRect rc, NSInteger tag, id target, SEL action, UIButtonType type){
     UIButton *btn = [UIButton buttonWithType:type];
     
 	btn.frame = rc;
