@@ -51,6 +51,13 @@
                   reuseIdentifier:nil];
     
     TemperatureRecordTabHeaderView *headerView = [TemperatureRecordTabHeaderView loadFromNib];
+    headerView.operationHandle = ^(TemperatureRecordTabHeaderView *view, HeaderViewOperationType type) {
+        if (HeaderViewOperationType_DatePre == type) {
+            
+        } else {
+            
+        }
+    };
     _tableView.tableHeaderView = headerView;
     
     // navigation buttons
