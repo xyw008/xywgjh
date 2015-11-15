@@ -65,25 +65,44 @@
 
 - (void)setup
 {
-    //温度计颜色视图
-    _temperaturesColorView = [[UIView alloc] initWithFrame:CGRectMake(DpToPx(32)/2, DpToPx(42)/2, DynamicWidthValue640(200), DynamicWidthValue640(587))];
-    _temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:20];
-    [self addSubview:_temperaturesColorView];
-    
     //温度计图片
-    _temperaturesIV = [[UIImageView alloc] initWithFrame:_temperaturesColorView.frame];
+    _temperaturesIV = [[UIImageView alloc] initWithFrame:CGRectMake(35, 55, DynamicWidthValue640(200), DynamicWidthValue640(587))];
     _temperaturesIV.image = [UIImage imageNamed:@"home_temperature_bg_t"];
+    
+    //温度计颜色视图
+    _temperaturesColorView = [[UIView alloc] initWithFrame:_temperaturesIV.frame];
+    _temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:20];
+    
+    [self addSubview:_temperaturesColorView];
     [self addSubview:_temperaturesIV];
     
     //温度计高亮效果图片
     UIImageView *lightIV = [[UIImageView alloc] initWithFrame:_temperaturesColorView.frame];
     lightIV.image = [UIImage imageNamed:@"home_temperature_light"];
     [self addSubview:lightIV];
+    
+    self.backgroundColor = HEXCOLOR(0XF7F7F7);
 }
 
 - (void)setTemperature:(CGFloat)temperature
 {
+    CGFloat height = DynamicWidthValue640(275/1.5);
     
+    if (temperature <= 32)
+    {
+        
+    }
+    else if (temperature >= 44)
+    {
+        height = _temperaturesIV.height;
+    }
+    else
+    {
+        height += (temperature - 32) * DynamicWidthValue640(50/1.5);
+    }
+    
+    _temperaturesColorView.frame = CGRectMake(_temperaturesColorView.frameOriginX, CGRectGetMaxY(_temperaturesIV.frame) - height, _temperaturesColorView.width, height);
+    _temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:temperature];
 }
 
 
