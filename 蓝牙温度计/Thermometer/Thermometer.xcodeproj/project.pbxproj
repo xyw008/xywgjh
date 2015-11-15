@@ -27,6 +27,15 @@
 		2B150A2E1BF38EA400315C66 /* AlarmSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B150A2D1BF38EA400315C66 /* AlarmSettingVC.m */; };
 		2B181D131BF7730300B0E241 /* icon_dropdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B181D121BF7730300B0E241 /* icon_dropdown@2x.png */; };
 		2B287EA41BF0EA240070609D /* MuBan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3162C741BEA4DC2009E7C19 /* MuBan.xcdatamodeld */; };
+		2BD263091BF86FAA00640293 /* ParallaxHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD263061BF86FAA00640293 /* ParallaxHeaderView.m */; };
+		2BD2630A1BF86FAA00640293 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD263081BF86FAA00640293 /* UIImage+ImageEffects.m */; };
+		2BD2630E1BF8714900640293 /* TemperatureRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD2630D1BF8714900640293 /* TemperatureRecordVC.m */; };
+		2BD263151BF872AB00640293 /* TemperatureRecordTabHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD263141BF872AB00640293 /* TemperatureRecordTabHeaderView.m */; };
+		2BD263191BF872F600640293 /* TemperatureRecordTabHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD263181BF872F600640293 /* TemperatureRecordTabHeaderView.xib */; };
+		2BD2631C1BF877B300640293 /* icon_candle_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BD2631A1BF877B300640293 /* icon_candle_left@2x.png */; };
+		2BD2631D1BF877B300640293 /* icon_candle_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BD2631B1BF877B300640293 /* icon_candle_right@2x.png */; };
+		2BD2631F1BF885B500640293 /* FriendsBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BD2631E1BF885B500640293 /* FriendsBackground.png */; };
+		2BD263211BF8B27000640293 /* icon_userhead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BD263201BF8B27000640293 /* icon_userhead@2x.png */; };
 		431F13891A7762E9008C4544 /* ChineseToPinyinResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 431F137D1A7762E9008C4544 /* ChineseToPinyinResource.m */; };
 		431F138A1A7762E9008C4544 /* HanyuPinyinOutputFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 431F137F1A7762E9008C4544 /* HanyuPinyinOutputFormat.m */; };
 		431F138B1A7762E9008C4544 /* NSString+PinYin4Cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = 431F13811A7762E9008C4544 /* NSString+PinYin4Cocoa.m */; };
@@ -541,6 +550,19 @@
 		2B150A2C1BF38EA400315C66 /* AlarmSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmSettingVC.h; sourceTree = "<group>"; };
 		2B150A2D1BF38EA400315C66 /* AlarmSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmSettingVC.m; sourceTree = "<group>"; };
 		2B181D121BF7730300B0E241 /* icon_dropdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_dropdown@2x.png"; sourceTree = "<group>"; };
+		2BD263051BF86FAA00640293 /* ParallaxHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxHeaderView.h; sourceTree = "<group>"; };
+		2BD263061BF86FAA00640293 /* ParallaxHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParallaxHeaderView.m; sourceTree = "<group>"; };
+		2BD263071BF86FAA00640293 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		2BD263081BF86FAA00640293 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		2BD2630C1BF8714900640293 /* TemperatureRecordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemperatureRecordVC.h; sourceTree = "<group>"; };
+		2BD2630D1BF8714900640293 /* TemperatureRecordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemperatureRecordVC.m; sourceTree = "<group>"; };
+		2BD263131BF872AB00640293 /* TemperatureRecordTabHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemperatureRecordTabHeaderView.h; sourceTree = "<group>"; };
+		2BD263141BF872AB00640293 /* TemperatureRecordTabHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemperatureRecordTabHeaderView.m; sourceTree = "<group>"; };
+		2BD263181BF872F600640293 /* TemperatureRecordTabHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TemperatureRecordTabHeaderView.xib; sourceTree = "<group>"; };
+		2BD2631A1BF877B300640293 /* icon_candle_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_candle_left@2x.png"; sourceTree = "<group>"; };
+		2BD2631B1BF877B300640293 /* icon_candle_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_candle_right@2x.png"; sourceTree = "<group>"; };
+		2BD2631E1BF885B500640293 /* FriendsBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FriendsBackground.png; sourceTree = "<group>"; };
+		2BD263201BF8B27000640293 /* icon_userhead@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_userhead@2x.png"; sourceTree = "<group>"; };
 		431F137C1A7762E9008C4544 /* ChineseToPinyinResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseToPinyinResource.h; sourceTree = "<group>"; };
 		431F137D1A7762E9008C4544 /* ChineseToPinyinResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChineseToPinyinResource.m; sourceTree = "<group>"; };
 		431F137E1A7762E9008C4544 /* HanyuPinyinOutputFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HanyuPinyinOutputFormat.h; sourceTree = "<group>"; };
@@ -1519,9 +1541,40 @@
 		2B181D111BF7730300B0E241 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				2BD263201BF8B27000640293 /* icon_userhead@2x.png */,
 				2B181D121BF7730300B0E241 /* icon_dropdown@2x.png */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		2BD263041BF86FAA00640293 /* ParallaxHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				2BD263051BF86FAA00640293 /* ParallaxHeaderView.h */,
+				2BD263061BF86FAA00640293 /* ParallaxHeaderView.m */,
+				2BD263071BF86FAA00640293 /* UIImage+ImageEffects.h */,
+				2BD263081BF86FAA00640293 /* UIImage+ImageEffects.m */,
+			);
+			path = ParallaxHeaderView;
+			sourceTree = "<group>";
+		};
+		2BD2630B1BF8713700640293 /* TemperatureRecord */ = {
+			isa = PBXGroup;
+			children = (
+				2BD2630C1BF8714900640293 /* TemperatureRecordVC.h */,
+				2BD2630D1BF8714900640293 /* TemperatureRecordVC.m */,
+			);
+			path = TemperatureRecord;
+			sourceTree = "<group>";
+		};
+		2BD263121BF8726E00640293 /* TemperatureRecordVC */ = {
+			isa = PBXGroup;
+			children = (
+				2BD263131BF872AB00640293 /* TemperatureRecordTabHeaderView.h */,
+				2BD263141BF872AB00640293 /* TemperatureRecordTabHeaderView.m */,
+				2BD263181BF872F600640293 /* TemperatureRecordTabHeaderView.xib */,
+			);
+			path = TemperatureRecordVC;
 			sourceTree = "<group>";
 		};
 		431F137A1A7762E9008C4544 /* PinYin4Objc */ = {
@@ -1611,6 +1664,7 @@
 		43D1C68B1A75E692004564C2 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				2BD263041BF86FAA00640293 /* ParallaxHeaderView */,
 				B338DB781BEA59D40053DB4C /* RESideMenu */,
 				FAFD22C91BE0DBFB0004DD6F /* OBCConvertor */,
 				431F137A1A7762E9008C4544 /* PinYin4Objc */,
@@ -3101,6 +3155,8 @@
 		B30CF1C91BEF7A1100D6D63E /* NavBar */ = {
 			isa = PBXGroup;
 			children = (
+				2BD2631A1BF877B300640293 /* icon_candle_left@2x.png */,
+				2BD2631B1BF877B300640293 /* icon_candle_right@2x.png */,
 				B30CF1CA1BEF7A1100D6D63E /* navigationbar_icon_back@2x.png */,
 				B30CF1CB1BEF7A1100D6D63E /* navigationbar_icon_back@3x.png */,
 				B30CF1CC1BEF7A1100D6D63E /* navigationbar_icon_chart@2x.png */,
@@ -3259,6 +3315,7 @@
 		B338DB861BEA5FAC0053DB4C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2BD2630B1BF8713700640293 /* TemperatureRecord */,
 				2B150A0E1BF379A000315C66 /* UserCenter */,
 				B338DB881BEA5FEC0053DB4C /* MainCenterVC.h */,
 				B338DB891BEA5FEC0053DB4C /* MainCenterVC.m */,
@@ -3271,6 +3328,7 @@
 		B338DB871BEA5FAC0053DB4C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2BD263121BF8726E00640293 /* TemperatureRecordVC */,
 				B30CF1C51BEF31A000D6D63E /* MainView */,
 			);
 			path = Views;
@@ -3287,6 +3345,7 @@
 				B30CF13F1BEF26EB00D6D63E /* HomeView */,
 				B30CF13A1BEF22EB00D6D63E /* LeftView */,
 				B338DB8F1BEA71DE0053DB4C /* Stars@2x.png */,
+				2BD2631E1BF885B500640293 /* FriendsBackground.png */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -3395,6 +3454,7 @@
 				B30CF13E1BEF22EB00D6D63E /* leftmenu_bg@3x.png in Resources */,
 				B30CF1BE1BEF29F500D6D63E /* toolbar_icon_o2_f@3x.png in Resources */,
 				B30CF17E1BEF26EB00D6D63E /* home_device_wifi_02@2x.png in Resources */,
+				2BD263211BF8B27000640293 /* icon_userhead@2x.png in Resources */,
 				43D1C9D21A75E778004564C2 /* AQGridSelectionGray.png in Resources */,
 				B30CF17F1BEF26EB00D6D63E /* home_device_wifi_02@3x.png in Resources */,
 				B30CF1831BEF26EB00D6D63E /* home_device_wifi_04@3x.png in Resources */,
@@ -3446,12 +3506,14 @@
 				2B150A291BF384AC00315C66 /* about_icon_download@2x.png in Resources */,
 				B30CF1921BEF26EB00D6D63E /* home_icon_wear_hand_2@2x.png in Resources */,
 				B30CF1731BEF26EB00D6D63E /* home_device_battery_02@3x.png in Resources */,
+				2BD2631D1BF877B300640293 /* icon_candle_right@2x.png in Resources */,
 				B30CF1B61BEF29F500D6D63E /* toolbar_icon_bodytemperature_f@3x.png in Resources */,
 				43D1CACF1A75E779004564C2 /* lib.xcconfig in Resources */,
 				B30CF1C01BEF29F500D6D63E /* toolbar_icon_o2_n@3x.png in Resources */,
 				B30CF16E1BEF26EB00D6D63E /* home_device_battery_00@2x.png in Resources */,
 				43D1CACE1A75E779004564C2 /* Icon@2x.png in Resources */,
 				2B150A2B1BF384AC00315C66 /* about_icon_lead@2x.png in Resources */,
+				2BD263191BF872F600640293 /* TemperatureRecordTabHeaderView.xib in Resources */,
 				43D1C9E01A75E778004564C2 /* Images.xcassets in Resources */,
 				B3162C7D1BEA4DC2009E7C19 /* Localizable.strings in Resources */,
 				B30CF1751BEF26EB00D6D63E /* home_device_battery_03@3x.png in Resources */,
@@ -3479,6 +3541,7 @@
 				43D1CABF1A75E779004564C2 /* deps in Resources */,
 				B30CF1F51BEF98A200D6D63E /* leftmenu_icon_grandf@3x.png in Resources */,
 				FAFD22CE1BE0DBFB0004DD6F /* ts.tab in Resources */,
+				2BD2631F1BF885B500640293 /* FriendsBackground.png in Resources */,
 				B30CF1B91BEF29F500D6D63E /* toolbar_icon_heartrate_f@2x.png in Resources */,
 				B30CF1F61BEF98A200D6D63E /* leftmenu_icon_grandm@2x.png in Resources */,
 				B30CF1E01BEF7A1100D6D63E /* navigationbar_icon_timetree@2x.png in Resources */,
@@ -3508,6 +3571,7 @@
 				B30CF1EE1BEF98A200D6D63E /* leftmenu_icon_adduser@2x.png in Resources */,
 				B30CF1721BEF26EB00D6D63E /* home_device_battery_02@2x.png in Resources */,
 				B30CF1BC1BEF29F500D6D63E /* toolbar_icon_heartrate_n@3x.png in Resources */,
+				2BD2631C1BF877B300640293 /* icon_candle_left@2x.png in Resources */,
 				B30CF13D1BEF22EB00D6D63E /* leftmenu_bg@2x.png in Resources */,
 				B30CF1951BEF26EB00D6D63E /* home_icon_wear_head@3x.png in Resources */,
 				B30CF1DA1BEF7A1100D6D63E /* navigationbar_icon_chose@2x.png in Resources */,
@@ -3562,6 +3626,7 @@
 				43D1C9B51A75E778004564C2 /* AFURLConnectionOperation.m in Sources */,
 				43D1CA4E1A75E778004564C2 /* NIState.m in Sources */,
 				43D1CAEF1A75E779004564C2 /* WebViewJavascriptBridge.m in Sources */,
+				2BD263091BF86FAA00640293 /* ParallaxHeaderView.m in Sources */,
 				43D1CC5E1A75EBFA004564C2 /* UpdataAppModel.m in Sources */,
 				2B129EA61BED9F9B003BEC8A /* Babysister.m in Sources */,
 				43D1C9B21A75E778004564C2 /* AFHTTPSessionManager.m in Sources */,
@@ -3576,6 +3641,7 @@
 				43D1CC3B1A75EBFA004564C2 /* UIImage+SSToolkitAdditions.m in Sources */,
 				FAF92F051B6F10A400DD06BC /* AppSmallUtils.m in Sources */,
 				43D1CA461A75E778004564C2 /* NINetworkActivity.m in Sources */,
+				2BD2630A1BF86FAA00640293 /* UIImage+ImageEffects.m in Sources */,
 				43D1CC1F1A75EBFA004564C2 /* ATSequenceImageView.m in Sources */,
 				43D1CC2C1A75EBFA004564C2 /* NSDate+SSToolkitAdditions.m in Sources */,
 				43D1C9CA1A75E778004564C2 /* AQGridViewController.m in Sources */,
@@ -3595,6 +3661,7 @@
 				43D1CC291A75EBFA004564C2 /* ATTapView.m in Sources */,
 				B338DB8D1BEA70E40053DB4C /* LeftUserCenterVC.m in Sources */,
 				43D1CADF1A75E779004564C2 /* SDWebImageDownloader.m in Sources */,
+				2BD263151BF872AB00640293 /* TemperatureRecordTabHeaderView.m in Sources */,
 				43D1CA071A75E778004564C2 /* NSObject+MagicalDataImport.m in Sources */,
 				43D1CC521A75EBFA004564C2 /* KeepLoginSessionConnection.m in Sources */,
 				43D1C9CC1A75E778004564C2 /* AQGridViewUpdateInfo.m in Sources */,
@@ -3749,6 +3816,7 @@
 				43D1CAB11A75E779004564C2 /* NIOverview.m in Sources */,
 				43D1CA101A75E778004564C2 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				43D1C9F11A75E778004564C2 /* UIStepper+FlatUI.m in Sources */,
+				2BD2630E1BF8714900640293 /* TemperatureRecordVC.m in Sources */,
 				43D1CC411A75EBFA004564C2 /* CommentSendController.m in Sources */,
 				43D1CA211A75E778004564C2 /* MASViewAttribute.m in Sources */,
 				43D1CA2A1A75E778004564C2 /* MYBlurIntroductionView.m in Sources */,

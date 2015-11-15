@@ -17,6 +17,7 @@
 #import "LeftUserCenterVC.h"
 #import "AboutVC.h"
 #import "AlarmSettingVC.h"
+#import "TemperatureRecordVC.h"
 
 @interface AppDelegate () <NetRequestDelegate,RESideMenuDelegate>
 {
@@ -34,7 +35,6 @@
     
     // 进行应用程序一系列属性的初始化设置
     [AppPropertiesInitialize startAppPropertiesInitialize];
-    
     
     _baseTabBarController = [[BaseTabBarVC alloc] init];
     _baseTabBarController.viewControllers = @[
@@ -58,10 +58,12 @@
     sideMenuViewController.contentViewShadowEnabled = YES;
     // self.window.rootViewController = sideMenuViewController;
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[AlarmSettingVC new]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[TemperatureRecordVC new]];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
     
     return YES;
 }

@@ -32,7 +32,7 @@
 
 // 常规文字颜色
 #define Common_BlackColor                   HEXCOLOR(0X000000)                  // 黑色    适用范围:TAB的主标题
-#define Common_GrayColor                    HEXCOLOR(0X777777)                  // 黑色    适用范围:TAB的主标题
+#define Common_GrayColor                    HEXCOLOR(0X4A4A4A)                  // 灰色    适用范围:TAB的主标题
 #define Common_LiteGrayColor                HEXCOLOR(0X969A9B)                  // 浅灰色  适用范围:...
 #define Common_InkBlackColor                HEXCOLOR(0X545D61)                  // 墨黑色  适用范围:TAB未选中状态的主标题
 #define Common_InkGreenColor                HEXCOLOR(0X7A97A1)                  // 墨绿色  适用范围:TAB的子标题
@@ -44,7 +44,7 @@
 
 #define Common_LiteWhiteGrayColor           HEXCOLOR(0XB5C4C9)                  // 浅灰白色 适用范围:订单详情页面 小标题、时间、购买件数
 
-#define Common_ThemeColor                   HEXCOLOR(0X76823B)                  // 换了LOGO后的主题颜色
+#define Common_ThemeColor                   HEXCOLOR(0X2D2C37)                  // 换了LOGO后的主题颜色
 #define Common_LiteBrownColor               HEXCOLOR(0X8E8F87)                  // 浅棕色，底部按钮文字未点中颜色
 
 #define ThinLineWidth                       0.5                 // 细的线宽值
