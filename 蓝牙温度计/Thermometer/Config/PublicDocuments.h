@@ -49,11 +49,7 @@
 
 #define Common_LiteWhiteGrayColor           HEXCOLOR(0XB5C4C9)                  // 浅灰白色 适用范围:订单详情页面 小标题、时间、购买件数
 
-<<<<<<< HEAD
 #define Common_ThemeColor                   HEXCOLOR(0X2D2C37)                  // 换了LOGO后的主题颜色
-=======
-#define Common_ThemeColor                   HEXCOLOR(0X3C3A47)                  // 换了LOGO后的主题颜色
->>>>>>> 53930870453638b746d7c878e94e3fc323e2c1a7
 #define Common_LiteBrownColor               HEXCOLOR(0X8E8F87)                  // 浅棕色，底部按钮文字未点中颜色
 
 #define ThinLineWidth                       0.5                 // 细的线宽值
