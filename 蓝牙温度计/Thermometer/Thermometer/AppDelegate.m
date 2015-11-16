@@ -17,6 +17,7 @@
 #import "LeftUserCenterVC.h"
 #import "AboutVC.h"
 #import "AlarmSettingVC.h"
+#import "TemperatureRecordVC.h"
 
 @interface AppDelegate () <NetRequestDelegate,RESideMenuDelegate>
 {
@@ -43,7 +44,7 @@
 //                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]],
 //                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]],
 //                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]]];
-    
+
     LeftUserCenterVC *leftMenuViewController = [[LeftUserCenterVC alloc] init];
     
 //    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:_baseTabBarController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
@@ -58,12 +59,14 @@
     sideMenuViewController.contentViewShadowOpacity = 0.6;
     sideMenuViewController.contentViewShadowRadius = 12;
     sideMenuViewController.contentViewShadowEnabled = YES;
-    self.window.rootViewController = sideMenuViewController;
-    
-    //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[AlarmSettingVC new]];
+    // self.window.rootViewController = sideMenuViewController;
+
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[TemperatureRecordVC new]];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
     
     return YES;
 }

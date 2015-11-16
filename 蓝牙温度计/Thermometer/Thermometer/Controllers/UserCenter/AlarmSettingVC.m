@@ -83,7 +83,7 @@
                                             CGRectZero,
                                             NSTextAlignmentLeft,
                                             @"测试铃声",
-                                            kSystemFont16,
+                                            kSystemFont_Size(16),
                                             Common_BlackColor,
                                             YES);
             }
@@ -98,7 +98,7 @@
                                                        nil,
                                                        @"88.8°C",
                                                        UIEdgeInsetsMake(0, 0, 0, 5),
-                                                       kSystemFont16,
+                                                       kSystemFont_Size(16),
                                                        Common_BlackColor,
                                                        self,
                                                        @selector(clickSelectTemperatureBtn:));
@@ -108,7 +108,7 @@
             
             UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_dropdown"]];
             arrowImageView.frameSize = CGSizeMake(10, 10);
-            arrowImageView.frameOrigin = CGPointMake(accessoryView.frameWidth - arrowImageView.frameWidth, accessoryView.center.y + kGetScaleValueBaseIP6(16) / 2 - arrowImageView.frameHeight - 3);
+            arrowImageView.frameOrigin = CGPointMake(accessoryView.frameWidth - arrowImageView.frameWidth, accessoryView.center.y + 16 / 2 - arrowImageView.frameHeight - 3);
             [accessoryView addSubview:arrowImageView];
         }
             break;
@@ -188,7 +188,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return kGetScaleValueBaseIP6(35);
+    return 35;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -198,7 +198,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return kGetScaleValueBaseIP6(46);
+    return 46;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -208,7 +208,7 @@
                                        CGRectMake(0, 0, headerSize.width, headerSize.height),
                                        NSTextAlignmentLeft,
                                        _tabSectionTitleArray[section],
-                                       kSystemFont12,
+                                       kSystemFont_Size(12),
                                        Common_BlackColor,
                                        NO);
     return headerLabel;
@@ -222,7 +222,7 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:cellIdentifier];
-        cell.textLabel.font = kSystemFont16;
+        cell.textLabel.font = kSystemFont_Size(16);
         cell.textLabel.textColor = Common_BlackColor;
         [cell addLineWithPosition:ViewDrawLinePostionType_Bottom
                         lineColor:PageBackgroundColor
