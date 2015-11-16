@@ -455,6 +455,7 @@
 		B30CF1F71BEF98A200D6D63E /* leftmenu_icon_grandm@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B30CF1EB1BEF98A200D6D63E /* leftmenu_icon_grandm@3x.png */; };
 		B30CF1F81BEF98A200D6D63E /* leftmenu_icon_mother@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B30CF1EC1BEF98A200D6D63E /* leftmenu_icon_mother@2x.png */; };
 		B30CF1F91BEF98A200D6D63E /* leftmenu_icon_mother@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B30CF1ED1BEF98A200D6D63E /* leftmenu_icon_mother@3x.png */; };
+		B30F5EC61BF8C51D00F33372 /* UnidreamLED.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B30F5EC51BF8C51C00F33372 /* UnidreamLED.ttf */; };
 		B3162C791BEA4DC2009E7C19 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3162C451BEA4DC2009E7C19 /* AppDelegate.m */; };
 		B3162C7A1BEA4DC2009E7C19 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3162C461BEA4DC2009E7C19 /* LaunchScreen.xib */; };
 		B3162C7B1BEA4DC2009E7C19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3162C481BEA4DC2009E7C19 /* Main.storyboard */; };
@@ -1318,6 +1319,7 @@
 		B30CF1EB1BEF98A200D6D63E /* leftmenu_icon_grandm@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu_icon_grandm@3x.png"; sourceTree = "<group>"; };
 		B30CF1EC1BEF98A200D6D63E /* leftmenu_icon_mother@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu_icon_mother@2x.png"; sourceTree = "<group>"; };
 		B30CF1ED1BEF98A200D6D63E /* leftmenu_icon_mother@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu_icon_mother@3x.png"; sourceTree = "<group>"; };
+		B30F5EC51BF8C51C00F33372 /* UnidreamLED.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnidreamLED.ttf; sourceTree = "<group>"; };
 		B3162C441BEA4DC2009E7C19 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B3162C451BEA4DC2009E7C19 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B3162C471BEA4DC2009E7C19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -2616,6 +2618,7 @@
 		43D1CB011A75EBA5004564C2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B30F5EC51BF8C51C00F33372 /* UnidreamLED.ttf */,
 				B338DB8E1BEA71DE0053DB4C /* Image */,
 				43D1CB021A75EBA5004564C2 /* AddressJson */,
 			);
@@ -3447,6 +3450,7 @@
 				B30CF1921BEF26EB00D6D63E /* home_icon_wear_hand_2@2x.png in Resources */,
 				B30CF1731BEF26EB00D6D63E /* home_device_battery_02@3x.png in Resources */,
 				B30CF1B61BEF29F500D6D63E /* toolbar_icon_bodytemperature_f@3x.png in Resources */,
+				B30F5EC61BF8C51D00F33372 /* UnidreamLED.ttf in Resources */,
 				43D1CACF1A75E779004564C2 /* lib.xcconfig in Resources */,
 				B30CF1C01BEF29F500D6D63E /* toolbar_icon_o2_n@3x.png in Resources */,
 				B30CF16E1BEF26EB00D6D63E /* home_device_battery_00@2x.png in Resources */,

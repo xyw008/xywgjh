@@ -7,12 +7,27 @@
 //
 
 #import "TemperaturesShowView.h"
+#import "BLEManager.h"
 
 @interface TemperaturesShowView ()
 {
     UIView          *_temperaturesColorView;//显示温度计颜色的视图
     UIImageView     *_temperaturesIV;//温度计图片
     
+    UILabel         *_temperaturesLB;//温度LB
+    UILabel         *_statusLB;//状态(正常等)
+    
+    UILabel         *_highestLB;//最高温度LB
+    UILabel         *_highestValueLB;//最高温度值LB
+    UILabel         *_testTimeLB;//测试时间LB
+    UILabel         *_testTimeValueLB;//测试时间值LB
+    UILabel         *_deviceLB;//设备
+    UIImageView     *_deviceSignalIV;//设备信号IV
+    UIImageView     *_deviceBatteryIV;//设备电池IV
+    
+    CGFloat         _highestTemperatures;
+    
+    BOOL            _isFTypeTemperature;//华式 显示方法
 }
 
 @end
@@ -50,8 +65,23 @@
     {
         return HEXCOLOR(0XFF4330);
     }
-    
 }
+
++ (NSString*)getTemperaturesStatus:(CGFloat)temperature
+{
+    if (temperature <= 35.9)
+        return @"低温";
+    else if(temperature <= 37.4)
+        return @"正常";
+    else if(temperature <= 37.9)
+        return @"低烧";
+    else if(temperature <= 45)
+        return @"高烧";
+    else
+        return @"异常";
+}
+
+
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -65,9 +95,21 @@
 
 - (void)setup
 {
+    _isFTypeTemperature = YES;
+    self.backgroundColor = HEXCOLOR(0XF7F7F7);
+    _highestTemperatures = 0;
+    [self initTemperaturesImageView];
+    [self initTemperaturesTitleView];
+}
+
+//温度计图片
+- (void)initTemperaturesImageView
+{
     //温度计图片
-    _temperaturesIV = [[UIImageView alloc] initWithFrame:CGRectMake(35, 55, DynamicWidthValue640(200), DynamicWidthValue640(587))];
-    _temperaturesIV.image = [UIImage imageNamed:@"home_temperature_bg_t"];
+    NSString *temperatureImgStr = _isFTypeTemperature ? @"home_temperature_bg_f" : @"home_temperature_bg_t";
+    
+    _temperaturesIV = [[UIImageView alloc] initWithFrame:CGRectMake(32, 55, DynamicWidthValue640(200), DynamicWidthValue640(587))];
+    _temperaturesIV.image = [UIImage imageNamed:temperatureImgStr];
     
     //温度计颜色视图
     _temperaturesColorView = [[UIView alloc] initWithFrame:_temperaturesIV.frame];
@@ -80,9 +122,118 @@
     UIImageView *lightIV = [[UIImageView alloc] initWithFrame:_temperaturesColorView.frame];
     lightIV.image = [UIImage imageNamed:@"home_temperature_light"];
     [self addSubview:lightIV];
-    
-    self.backgroundColor = HEXCOLOR(0XF7F7F7);
 }
+
+//温度文字
+- (void)initTemperaturesTitleView
+{
+    //UniDreamLED font name
+    
+    //_temperaturesLB = [[UILabel alloc] init];
+    _temperaturesLB = [[UILabel alloc] initWithText:@"38" font:[UIFont fontWithName:@"UniDreamLED" size:90]];
+    _temperaturesLB.textColor = _temperaturesColorView.backgroundColor;
+    [self addSubview:_temperaturesLB];
+    
+    CGFloat statusLBHeight = DynamicWidthValue640(32);
+    _statusLB = [[UILabel alloc] initWithText:@"正常" font:SP12Font];
+    _statusLB.backgroundColor = _temperaturesLB.textColor;
+    _statusLB.textColor = [UIColor whiteColor];
+    _statusLB.textAlignment = NSTextAlignmentCenter;
+    ViewRadius(_statusLB, statusLBHeight/2);
+    [self addSubview:_statusLB];
+ 
+    _highestLB = [self creatLBText:@"最高温度:"];
+    _highestValueLB = [self creatLBText:@"0.0度"];
+    _testTimeLB = [self creatLBText:@"已测:"];
+    _testTimeValueLB = [self creatLBText:@"58分钟"];
+    _deviceLB = [self creatLBText:@"设备:"];
+    
+    _deviceSignalIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_device_wifi_00"]];
+    [self addSubview:_deviceSignalIV];
+    
+    _deviceBatteryIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_device_battery_00"]];
+    [self addSubview:_deviceBatteryIV];
+    
+    [_temperaturesLB mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_statusLB.mas_left).offset(0);
+        make.height.equalTo(90);
+        make.top.equalTo(_temperaturesIV.mas_top).offset(53);
+    }];
+    
+    CGFloat statusWidth = [_statusLB.text sizeWithFont:_statusLB.font constrainedToWidth:130].width + statusLBHeight;
+    [_statusLB mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).offset(-32);
+        make.bottom.equalTo(_temperaturesLB.mas_bottom).offset(-15);
+        make.height.equalTo(statusLBHeight);
+        make.width.equalTo(statusWidth);
+    }];
+    
+    CGFloat highestLBWidth = [_highestLB.text sizeWithFont:_highestLB.font constrainedToWidth:300].width + 8;
+    [_highestLB mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_highestValueLB.mas_left).offset(-12);
+        make.top.equalTo(_temperaturesLB.mas_bottom).offset(24);
+        make.height.equalTo(22);
+        make.width.equalTo(highestLBWidth);
+    }];
+    
+    //最高温度值LB宽度
+    CGFloat highestValueLBWidth = [@"36.8度" sizeWithFont:_highestValueLB.font constrainedToWidth:1000].width + 8;
+    [_highestValueLB mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_statusLB.mas_right);
+        make.top.equalTo(_highestLB.mas_top);
+        make.height.equalTo(_highestLB.mas_height);
+        make.width.equalTo(highestValueLBWidth);
+    }];
+    
+    [_testTimeLB mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_highestLB.mas_right);
+        make.top.equalTo(_highestLB.mas_bottom).offset(10);
+        make.height.equalTo(_highestLB.mas_height);
+        make.width.equalTo(_highestLB.mas_width);
+    }];
+    
+    [_testTimeValueLB mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_highestValueLB.mas_right);
+        make.top.equalTo(_testTimeLB.mas_top);
+        make.height.equalTo(_testTimeLB.mas_height);
+        make.width.equalTo(_highestValueLB.mas_width);
+    }];
+    
+    [_deviceLB mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_testTimeLB.mas_bottom).offset(10);
+        make.right.equalTo(_testTimeLB.mas_right);
+        make.width.equalTo(_testTimeLB.mas_width);
+        make.height.equalTo(_testTimeLB.mas_height);
+    }];
+    
+    [_deviceSignalIV mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_deviceLB.mas_centerY);
+        make.left.equalTo(_deviceLB.mas_right).offset(12);
+        make.height.equalTo(22);
+        make.width.equalTo(22);
+        //make.height.equalTo(32);
+        //make.width.equalTo(32);
+    }];
+    
+    [_deviceBatteryIV mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_deviceSignalIV.mas_centerY);
+        make.left.equalTo(_deviceSignalIV.mas_right).offset(4);
+        make.height.equalTo(_deviceSignalIV.mas_height);
+        make.width.equalTo(_deviceSignalIV.mas_width);
+    }];
+}
+
+- (UILabel*)creatLBText:(NSString*)text
+{
+    UILabel *lb = [[UILabel alloc] init];
+    lb.text = text;
+    lb.textColor = Common_BlackColor;
+    lb.textAlignment = NSTextAlignmentRight;
+    lb.font = SP18Font;
+    [self addSubview:lb];
+    return lb;
+}
+
 
 - (void)setTemperature:(CGFloat)temperature
 {
@@ -101,8 +252,25 @@
         height += (temperature - 32) * DynamicWidthValue640(50/1.5);
     }
     
+    
     _temperaturesColorView.frame = CGRectMake(_temperaturesColorView.frameOriginX, CGRectGetMaxY(_temperaturesIV.frame) - height, _temperaturesColorView.width, height);
     _temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:temperature];
+    
+    CGFloat nowTemperature = _isFTypeTemperature ? [BLEManager getFTemperatureWithC:temperature] : temperature;
+    NSString *nowTemperatureString = [NSString stringWithFormat:@"%.1lf",nowTemperature];
+    
+    //华式显示会有查过100的情况。
+    _temperaturesLB.font = nowTemperatureString.length > 4 ? [UIFont fontWithName:@"UniDreamLED" size:79] : [UIFont fontWithName:@"UniDreamLED" size:90];
+    _temperaturesLB.text = nowTemperatureString;
+    _temperaturesLB.textColor = _temperaturesColorView.backgroundColor;
+    _statusLB.backgroundColor = _temperaturesColorView.backgroundColor;
+    _statusLB.text = [TemperaturesShowView getTemperaturesStatus:temperature];
+    
+    
+    if (nowTemperature > _highestTemperatures) {
+        _highestTemperatures = nowTemperature;
+        _highestValueLB.text = [NSString stringWithFormat:@"%.1lf度",nowTemperature];
+    }
 }
 
 

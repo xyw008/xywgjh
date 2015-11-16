@@ -9,6 +9,11 @@
 #import "MainCenterVC.h"
 #import "TemperaturesShowView.h"
 #import "PopupController.h"
+#import "BabyBluetooth.h"
+#import "BLEManager.h"
+
+#define channelOnPeropheralView @"peripheralView"
+#define channelOnCharacteristicView @"CharacteristicView"
 
 #define kBottomBtnStartTag 1000
 
@@ -18,6 +23,11 @@
     TemperaturesShowView        *_temperaturesShowView;
     
     UIView                      *_popBgView;//启动弹出的选择模式视图
+    
+    BabyBluetooth               *_babyBluethooth;
+    CBPeripheral                *_currPeripheral;//现在的外围设备
+    CBService                   *_currTemperatureService;//现在的服务
+    CBService                   *_currBatteryService;//电池服务
 }
 @end
 
@@ -27,16 +37,19 @@
     [super viewDidLoad];
     self.view.backgroundColor = HEXCOLOR(0XF7F7F7);
     
-    
-    
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navigationbar_icon_menu"] highlightedImg:[UIImage imageNamed:@"navigationbar_icon_menu"] action:@selector(presentLeftMenuViewController:)];
     
+    
+    NSArray * fontArrays = [[NSArray alloc] initWithArray:[UIFont familyNames]];
+    for (NSString * temp in fontArrays) {
+        DLog(@"Font name  = %@", temp);
+    }
     
     
     [self initTemperaturesShowView];
     [self initBottomBtnsView];
     
-    //[self initPopView];
+    [self initPopView];
     
     CGFloat height = 38;
     _headIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, height, height)];
@@ -56,10 +69,9 @@
 - (void)initTemperaturesShowView
 {
     _temperaturesShowView = [[TemperaturesShowView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH,DynamicWidthValue640(587) + 55)];
-    [_temperaturesShowView setTemperature:37];
+    //[_temperaturesShowView setTemperature:0];
     [self.view addSubview:_temperaturesShowView];
 }
-
 
 - (void)initBottomBtnsView
 {
@@ -178,7 +190,6 @@
         make.width.equalTo(bluetoothBtn.mas_width);
         make.height.equalTo(bluetoothBtn.mas_height);
     }];
-    
 }
 
 
@@ -187,6 +198,16 @@
 {
     [_popBgView removeFromSuperview];
     _popBgView = nil;
+    
+    //初始化BabyBluetooth 蓝牙库
+    _babyBluethooth = [BabyBluetooth shareBabyBluetooth];
+    //设置蓝牙委托
+    [self bluethoothDelegate];
+    
+    //停止之前的连接
+    [_babyBluethooth cancelAllPeripheralsConnection];
+    //设置委托后直接可以使用，无需等待CBCentralManagerStatePoweredOn状态。
+    _babyBluethooth.scanForPeripherals().begin();
 }
 
 - (void)monitorBtnTouch:(UIButton*)btn
@@ -219,6 +240,164 @@
     }
 }
 
+
+#pragma mark - 
+
+
+//蓝牙网关初始化和委托方法设置
+-(void)bluethoothDelegate
+{
+    WEAKSELF
+    [_babyBluethooth setBlockOnCentralManagerDidUpdateState:^(CBCentralManager *central) {
+        if (central.state == CBCentralManagerStatePoweredOn) {
+            DLog(@"设备打开成功，开始扫描设备");
+        }
+    }];
+
+    
+    //设置扫描到设备的委托
+    [_babyBluethooth setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
+        DLog(@"搜索到了设备:%@",peripheral.name);
+        STRONGSELF
+        if ([peripheral.name isEqualToString:@"Yushi_MODT"] || [peripheral.name isEqualToString:@"YuShi_MODT"])
+        {
+            //停止扫描
+            [strongSelf->_babyBluethooth cancelScan];
+            
+            strongSelf->_currPeripheral = peripheral;
+            
+            strongSelf->_babyBluethooth.having(strongSelf->_currPeripheral).and.channel(channelOnPeropheralView).then.connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
+        }
+    }];
+    
+    
+    //设置设备连接成功的委托,同一个baby对象，使用不同的channel切换委托回调
+    [_babyBluethooth setBlockOnConnectedAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral) {
+        DLog(@"连接成功");
+        
+        //[SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--连接成功",peripheral.name]];
+    }];
+    
+    //设置设备连接失败的委托
+    [_babyBluethooth setBlockOnFailToConnectAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
+        DLog(@"设备：%@--连接失败",peripheral.name);
+        //[SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--连接失败",peripheral.name]];
+    }];
+    
+    //设置设备断开连接的委托
+    [_babyBluethooth setBlockOnDisconnectAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
+        DLog(@"设备：%@--断开连接",peripheral.name);
+        //[SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--断开失败",peripheral.name]];
+    }];
+
+    
+    //设置发现设备的Services的委托
+    [_babyBluethooth setBlockOnDiscoverServicesAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, NSError *error) {
+        for (CBService *s in peripheral.services)
+        {
+            DLog(@"搜索到服务:%@",s.UUID.UUIDString);
+            ///插入section到tableview
+            //[weakSelf insertSectionToTableView:s];
+        }
+    }];
+    //设置发现设service的Characteristics的委托
+    [_babyBluethooth setBlockOnDiscoverCharacteristicsAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBService *service, NSError *error) {
+        DLog(@"===service name:%@",service.UUID);
+        STRONGSELF
+        if ([service.UUID.UUIDString isEqualToString:@"1809"])
+        {
+            strongSelf->_currTemperatureService = service;
+            
+            for (CBCharacteristic *c in service.characteristics)
+            {
+                DLog(@"uuid = %@   de = %@",c.UUID,c.description);
+            }
+            
+            [weakSelf setCurrTemperaturesNotifiy];
+        }
+        //插入row到tableview
+        //[weakSelf insertRowToTableView:service];
+    }];
+    //设置读取characteristics的委托
+    [_babyBluethooth setBlockOnReadValueForCharacteristicAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+        NSLog(@"characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
+    }];
+    
+    
+    //设置读取Descriptor的委托
+    [_babyBluethooth setBlockOnReadValueForDescriptorsAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
+        NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
+    }];
+    
+    
+    //设置发现characteristics的descriptors的委托
+    [_babyBluethooth setBlockOnDiscoverDescriptorsForCharacteristicAtChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
+        NSLog(@"CharacteristicViewController===characteristic name:%@",characteristic.service.UUID);
+        for (CBDescriptor *d in characteristic.descriptors) {
+             NSLog(@"CharacteristicViewController CBDescriptor name is :%@",d.UUID);
+            //[weakSelf insertDescriptor:d];
+        }
+    }];
+    
+    
+    
+    
+    //示例:
+    //扫描选项->CBCentralManagerScanOptionAllowDuplicatesKey:忽略同一个Peripheral端的多个发现事件被聚合成一个发现事件
+    NSDictionary *scanForPeripheralsWithOptions = @{CBCentralManagerScanOptionAllowDuplicatesKey:@YES};
+    //连接设备->
+    [_babyBluethooth setBabyOptionsWithScanForPeripheralsWithOptions:scanForPeripheralsWithOptions connectPeripheralWithOptions:nil scanForPeripheralsWithServices:nil discoverWithServices:nil discoverWithCharacteristics:nil];
+}
+
+- (void)setCurrTemperaturesNotifiy
+{
+    
+    if(_currPeripheral.state != CBPeripheralStateConnected){
+        //[SVProgressHUD showErrorWithStatus:@"peripheral已经断开连接，请重新连接"];
+        return;
+    }
+    
+    WEAKSELF
+    for (CBCharacteristic *characteristic in _currTemperatureService.characteristics)
+    {
+        DLog(@"uuid = %@   de = %@",characteristic.UUID,characteristic.description);
+        
+        if ([characteristic.UUID.UUIDString isEqualToString:@"2A1C"])
+        {
+            if (characteristic.properties & CBCharacteristicPropertyNotify ||  characteristic.properties & CBCharacteristicPropertyIndicate){
+                
+                if(characteristic.isNotifying)
+                {
+                    [_babyBluethooth cancelNotify:_currPeripheral characteristic:characteristic];
+                }
+                else
+                {
+                    [_currPeripheral setNotifyValue:YES forCharacteristic:characteristic];
+                    
+                    WEAKSELF
+                    [_babyBluethooth notify:_currPeripheral
+                             characteristic:characteristic
+                                      block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+                            STRONGSELF
+                            [strongSelf->_temperaturesShowView setTemperature:[BLEManager getTemperatureWithBLEData:characteristics.value]];
+                                          
+                            NSLog(@"new value %@",characteristics.value);
+                               //[self insertReadValues:characteristics];
+                           }];
+                }
+            }
+            else{
+                //[SVProgressHUD showErrorWithStatus:@"这个characteristic没有nofity的权限"];
+                return;
+            }
+        }
+        
+        
+        
+    }
+    
+    
+}
 
 
 @end

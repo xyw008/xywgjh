@@ -41,6 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *)getCacheTemperatureDataWithBLEData:(NSData *)data error:(NSError **)error;
 
+
++ (CGFloat)getFTemperatureWithC:(CGFloat)c_temperature;
+
 @end
 
 NS_ASSUME_NONNULL_END

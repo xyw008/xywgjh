@@ -36,17 +36,19 @@
     [AppPropertiesInitialize startAppPropertiesInitialize];
     
     
-    _baseTabBarController = [[BaseTabBarVC alloc] init];
-    _baseTabBarController.viewControllers = @[
-                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]],
-                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]],
-                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]],
-                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]],
-                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]]];
+//    _baseTabBarController = [[BaseTabBarVC alloc] init];
+//    _baseTabBarController.viewControllers = @[
+//                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]],
+//                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]],
+//                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]],
+//                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]],
+//                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]]];
     
     LeftUserCenterVC *leftMenuViewController = [[LeftUserCenterVC alloc] init];
     
-    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:_baseTabBarController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
+//    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:_baseTabBarController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
+    
+    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]] leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
     
     sideMenuViewController.backgroundImage = [UIImage imageNamed:@"Stars"];
     sideMenuViewController.menuPreferredStatusBarStyle = 1; // UIStatusBarStyleLightContent
