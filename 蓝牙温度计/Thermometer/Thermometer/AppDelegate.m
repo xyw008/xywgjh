@@ -59,9 +59,9 @@
     sideMenuViewController.contentViewShadowOpacity = 0.6;
     sideMenuViewController.contentViewShadowRadius = 12;
     sideMenuViewController.contentViewShadowEnabled = YES;
-    // self.window.rootViewController = sideMenuViewController;
+    self.window.rootViewController = sideMenuViewController;
 
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[TemperatureRecordVC new]];
+    //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[TemperatureRecordVC new]];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
