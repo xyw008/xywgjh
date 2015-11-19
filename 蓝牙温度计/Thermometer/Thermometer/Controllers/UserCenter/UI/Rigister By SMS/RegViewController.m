@@ -15,6 +15,7 @@
 #import <SMS_SDK/SMSSDK+ExtexdMethods.h>
 #import <MOBFoundation/MOBFoundation.h>
 #import "NITextField.h"
+#import "AppPropertiesInitialize.h"
 
 @interface RegViewController ()
 {
@@ -38,6 +39,13 @@
 @end
 
 @implementation RegViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [AppPropertiesInitialize setKeyboardManagerEnable:NO];
+}
 
 -(void)clickLeftButton
 {
