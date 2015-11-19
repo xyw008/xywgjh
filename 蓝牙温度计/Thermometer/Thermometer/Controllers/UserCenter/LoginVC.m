@@ -137,6 +137,7 @@
 - (IBAction)clickRegisterBtn:(UIButton *)sender
 {
     RegViewController *reg = [[RegViewController alloc] init];
+    
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:reg] animated:YES completion:^{
         
     }];
@@ -144,7 +145,11 @@
 
 - (IBAction)clickForgetPasswordBtn:(UIButton *)btn
 {
+    RegViewController *reg = [[RegViewController alloc] init];
     
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:reg] animated:YES completion:^{
+        
+    }];
 }
 
 @end

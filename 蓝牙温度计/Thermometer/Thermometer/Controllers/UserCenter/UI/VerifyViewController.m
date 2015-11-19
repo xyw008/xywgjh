@@ -108,7 +108,7 @@ static NSMutableArray* _userData2;
                 _alert3 = alert;
                 */
                 
-                SimpleAlert(UIAlertViewStyleDefault, nil, @"验证成功，跳转到设置密码页面", 0, nil, nil, @"OK");
+                SimpleAlert(UIAlertViewStyleDefault, nil, @"验证成功，跳转到设置密码页面,新增用户设置密码和忘记密码重设密码可以共用同一个密码设置页面", 0, nil, nil, @"OK");
             }
             else
             {
