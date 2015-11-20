@@ -15,6 +15,8 @@ typedef enum
     HUDOperationSuccess,
     /// customView显示操作失败
     HUDOperationFailed,
+    /// customView: loading
+    HUDOperationLoading,
     /// 不加载customView
     HUDOthers
     
@@ -33,9 +35,23 @@ typedef enum
 
 + (void)showAutoHideHUDOfCustomViewWithToShowStr:(NSString *)showStr showType:(HUDShowType)showType;
 
-+ (void)showHUDWithToShowStr:(NSString *)showStr HUDMode:(MBProgressHUDMode)mode autoHide:(BOOL)autoHide afterDelay:(NSTimeInterval)afterDelay userInteractionEnabled:(BOOL)yesOrNo;
++ (void)showHUDWithToShowStr:(NSString *)showStr
+                     HUDMode:(MBProgressHUDMode)mode
+                    autoHide:(BOOL)autoHide
+      userInteractionEnabled:(BOOL)yesOrNo;
 
-+ (void)showHUDWithToShowStr:(NSString *)showStr HUDMode:(MBProgressHUDMode)mode autoHide:(BOOL)autoHide afterDelay:(NSTimeInterval)afterDelay userInteractionEnabled:(BOOL)yesOrNo showType:(HUDShowType)showType;
++ (void)showHUDWithToShowStr:(NSString *)showStr
+                     HUDMode:(MBProgressHUDMode)mode
+                    autoHide:(BOOL)autoHide
+      userInteractionEnabled:(BOOL)yesOrNo
+                    showType:(HUDShowType)showType;
+
++ (void)showHUDWithToShowStr:(NSString *)showStr
+                     HUDMode:(MBProgressHUDMode)mode
+                    autoHide:(BOOL)autoHide
+      userInteractionEnabled:(BOOL)yesOrNo
+                    showType:(HUDShowType)showType
+                      inView:(UIView *)inView;
 
 /**
  * 方法描述: 隐藏提示
@@ -45,5 +61,7 @@ typedef enum
  * 创建时间: 2013-11-27
  */
 + (void)hideHUD;
+
++ (void)hideHUDInView:(UIView *)inView;
 
 @end

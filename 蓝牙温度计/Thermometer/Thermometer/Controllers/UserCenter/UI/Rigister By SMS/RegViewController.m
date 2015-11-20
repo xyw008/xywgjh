@@ -152,6 +152,7 @@
                      ;
                  }];
                   */
+                 verify.isModifyPassword = _isModifyPassword;
                  [self.navigationController pushViewController:verify animated:YES];
              }
              else

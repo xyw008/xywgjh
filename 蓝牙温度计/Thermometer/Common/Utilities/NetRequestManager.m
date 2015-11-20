@@ -305,7 +305,7 @@ DEF_SINGLETON(NetRequestManager);
 }
 
 // 发送请求
-- (void)startRequestWithUrl:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestHeaders:(NSDictionary *)headers requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo savePath:(NSString *)savePath tempPath:(NSString *)tempPath fileDic:(NSDictionary *)fileDic netCachePolicy:(NetCachePolicy)cachePolicy cacheSeconds:(NSTimeInterval)cacheSeconds
+- (NetRequest *)startRequestWithUrl:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestHeaders:(NSDictionary *)headers requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo savePath:(NSString *)savePath tempPath:(NSString *)tempPath fileDic:(NSDictionary *)fileDic netCachePolicy:(NetCachePolicy)cachePolicy cacheSeconds:(NSTimeInterval)cacheSeconds
 {
     // 保存所有的请求参数,已便如果session过期再重新登录以后发送上一次的历史请求
     self.url = url;
@@ -451,7 +451,7 @@ DEF_SINGLETON(NetRequestManager);
                     {
                         [netRequest.delegate netRequest:netRequest successWithInfoObj:result];
                     }
-                    return;
+                    return netRequest;
                 }
             }
             else
@@ -495,60 +495,61 @@ DEF_SINGLETON(NetRequestManager);
     }
     
     [netRequest.asiFormRequest startAsynchronous];
-    
     [netRequestArray addObject:netRequest];
+    
+    return netRequest;
 }
 
-- (void)sendRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo
+- (NetRequest *)sendRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo
 {
-    [self sendRequest:url parameterDic:parameterDic requestMethodType:RequestMethodType_GET requestTag:tag delegate:delegate userInfo:userInfo];
+    return [self sendRequest:url parameterDic:parameterDic requestMethodType:RequestMethodType_GET requestTag:tag delegate:delegate userInfo:userInfo];
 }
 
-- (void)sendRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo;
+- (NetRequest *)sendRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo;
 
 {
-    [self sendRequest:url parameterDic:parameterDic requestHeaders:nil requestMethodType:methodType requestTag:tag delegate:delegate userInfo:userInfo];
+    return [self sendRequest:url parameterDic:parameterDic requestHeaders:nil requestMethodType:methodType requestTag:tag delegate:delegate userInfo:userInfo];
 }
 
-- (void)sendRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestHeaders:(NSDictionary *)headers requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo
+- (NetRequest *)sendRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestHeaders:(NSDictionary *)headers requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo
 {
-    [self sendRequest:url parameterDic:parameterDic requestHeaders:headers requestMethodType:methodType requestTag:tag delegate:delegate userInfo:userInfo netCachePolicy:NetNotCachePolicy cacheSeconds:0.0];
+    return [self sendRequest:url parameterDic:parameterDic requestHeaders:headers requestMethodType:methodType requestTag:tag delegate:delegate userInfo:userInfo netCachePolicy:NetNotCachePolicy cacheSeconds:0.0];
 }
 
-- (void)sendRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestHeaders:(NSDictionary *)headers requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo netCachePolicy:(NetCachePolicy)cachePolicy cacheSeconds:(NSTimeInterval)cacheSeconds
+- (NetRequest *)sendRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestHeaders:(NSDictionary *)headers requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo netCachePolicy:(NetCachePolicy)cachePolicy cacheSeconds:(NSTimeInterval)cacheSeconds
 {
-    [self startRequestWithUrl:url parameterDic:parameterDic requestHeaders:headers requestMethodType:methodType requestTag:tag delegate:delegate userInfo:userInfo savePath:nil tempPath:nil fileDic:nil netCachePolicy:cachePolicy cacheSeconds:cacheSeconds];
-}
-
-/////////////////////////////////////////////////////////////////////////
-
-- (void)sendDownloadRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate savePath:(NSString *)savePath tempPath:(NSString *)tempPath
-{
-    [self sendDownloadRequest:url parameterDic:parameterDic requestMethodType:methodType requestTag:tag delegate:delegate userInfo:nil savePath:savePath tempPath:tempPath];
-}
-
-- (void)sendDownloadRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo savePath:(NSString *)savePath tempPath:(NSString *)tempPath
-{
-    [self startRequestWithUrl:url parameterDic:parameterDic requestHeaders:nil requestMethodType:methodType requestTag:tag delegate:delegate userInfo:userInfo savePath:savePath tempPath:tempPath fileDic:nil netCachePolicy:NetNotCachePolicy cacheSeconds:0.0];
+    return [self startRequestWithUrl:url parameterDic:parameterDic requestHeaders:headers requestMethodType:methodType requestTag:tag delegate:delegate userInfo:userInfo savePath:nil tempPath:nil fileDic:nil netCachePolicy:cachePolicy cacheSeconds:cacheSeconds];
 }
 
 /////////////////////////////////////////////////////////////////////////
 
-- (void)sendUploadRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate fileDic:(NSDictionary *)fileDic
+- (NetRequest *)sendDownloadRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate savePath:(NSString *)savePath tempPath:(NSString *)tempPath
 {
-    [self sendUploadRequest:url parameterDic:parameterDic requestMethodType:methodType requestTag:tag delegate:delegate userInfo:nil fileDic:fileDic];
+    return [self sendDownloadRequest:url parameterDic:parameterDic requestMethodType:methodType requestTag:tag delegate:delegate userInfo:nil savePath:savePath tempPath:tempPath];
 }
 
-- (void)sendUploadRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo fileDic:(NSDictionary *)fileDic
+- (NetRequest *)sendDownloadRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo savePath:(NSString *)savePath tempPath:(NSString *)tempPath
 {
-    [self startRequestWithUrl:url parameterDic:parameterDic requestHeaders:nil requestMethodType:methodType requestTag:tag delegate:delegate userInfo:userInfo savePath:nil tempPath:nil fileDic:fileDic netCachePolicy:NetNotCachePolicy cacheSeconds:0.0];
+    return [self startRequestWithUrl:url parameterDic:parameterDic requestHeaders:nil requestMethodType:methodType requestTag:tag delegate:delegate userInfo:userInfo savePath:savePath tempPath:tempPath fileDic:nil netCachePolicy:NetNotCachePolicy cacheSeconds:0.0];
 }
 
 /////////////////////////////////////////////////////////////////////////
 
-- (void)sendLatestRequest
+- (NetRequest *)sendUploadRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate fileDic:(NSDictionary *)fileDic
 {
-    [self startRequestWithUrl:self.url parameterDic:self.parameterDic requestHeaders:self.requestHeaders requestMethodType:self.methodType requestTag:self.tag delegate:self.delegate userInfo:self.userInfo savePath:self.savePath tempPath:self.tempPath fileDic:self.fileDic netCachePolicy:self.cachePolicy cacheSeconds:self.cacheSeconds];
+    return [self sendUploadRequest:url parameterDic:parameterDic requestMethodType:methodType requestTag:tag delegate:delegate userInfo:nil fileDic:fileDic];
+}
+
+- (NetRequest *)sendUploadRequest:(NSURL *)url parameterDic:(NSDictionary *)parameterDic requestMethodType:(NSString *)methodType requestTag:(int)tag delegate:(id<NetRequestDelegate>)delegate userInfo:(NSDictionary *)userInfo fileDic:(NSDictionary *)fileDic
+{
+    return [self startRequestWithUrl:url parameterDic:parameterDic requestHeaders:nil requestMethodType:methodType requestTag:tag delegate:delegate userInfo:userInfo savePath:nil tempPath:nil fileDic:fileDic netCachePolicy:NetNotCachePolicy cacheSeconds:0.0];
+}
+
+/////////////////////////////////////////////////////////////////////////
+
+- (NetRequest *)sendLatestRequest
+{
+    return [self startRequestWithUrl:self.url parameterDic:self.parameterDic requestHeaders:self.requestHeaders requestMethodType:self.methodType requestTag:self.tag delegate:self.delegate userInfo:self.userInfo savePath:self.savePath tempPath:self.tempPath fileDic:self.fileDic netCachePolicy:self.cachePolicy cacheSeconds:self.cacheSeconds];
 }
 
 - (void)clearDelegate:(id<NetRequestDelegate>)delegate

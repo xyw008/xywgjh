@@ -24,6 +24,8 @@
 @property (nonatomic, strong) UILabel *voiceCallMsgLabel;
 @property (nonatomic, strong) UIButton *voiceCallButton;
 
+@property (nonatomic, assign) BOOL isModifyPassword;  // 是否为修改密码,不是则为设置新密码
+
 -(void)setPhone:(NSString*)phone AndAreaCode:(NSString*)areaCode;
 -(void)submit;
 -(void)CannotGetSMS;

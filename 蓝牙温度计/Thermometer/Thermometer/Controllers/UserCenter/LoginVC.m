@@ -52,6 +52,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
+    [AppPropertiesInitialize setKeyboardManagerEnable:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -146,6 +147,7 @@
 - (IBAction)clickForgetPasswordBtn:(UIButton *)btn
 {
     RegViewController *reg = [[RegViewController alloc] init];
+    reg.isModifyPassword = YES;
     
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:reg] animated:YES completion:^{
         

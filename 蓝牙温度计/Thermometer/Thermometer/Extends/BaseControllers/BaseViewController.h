@@ -128,6 +128,14 @@ typedef void (^PickPhotoCancelHandle) (void);
 
 /**
  @ 方法描述    HUD显示文字信息
+ @ 输入参数    HUDInfoType: 显示类型 userInteractionEnabled: 用户界面是否可操作
+ @ 创建人      龚俊慧
+ @ 创建时间    2015-11-13
+ */
+- (void)showHUDInfoByType:(HUDInfoType)type userInteractionEnabled:(BOOL)enabled;
+
+/**
+ @ 方法描述    HUD显示文字信息
  @ 输入参数    String: 需要显示的文字内容
  @ 创建人      龚俊慧
  @ 创建时间    2014-07-18
@@ -204,6 +212,14 @@ typedef void (^PickPhotoCancelHandle) (void);
  @ 创建时间    2014-07-18
  */
 - (void)addBackSwipeGesture;
+
+/**
+ @ 方法描述    app内部打开appStore详情页
+ @ 输入参数    appId: APP在AppStore的ID
+ @ 创建人      龚俊慧
+ @ 创建时间    2015-11-13
+ */
+- (void)openAppStoreInsideWithIdentifier:(NSString *)appId;
 
 /**
  @ 方法描述    从相机或者相册选取单张照片

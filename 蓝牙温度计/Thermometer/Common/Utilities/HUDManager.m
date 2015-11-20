@@ -7,88 +7,86 @@
 //
 
 #import "HUDManager.h"
+#import "AppUIElement.h"
 
 @implementation HUDManager
 
 + (void)showAutoHideHUDWithToShowStr:(NSString *)showStr HUDMode:(MBProgressHUDMode)mode
 {
-    [self showHUDWithToShowStr:showStr HUDMode:mode autoHide:YES afterDelay:HUDAutoHideTypeShowTime userInteractionEnabled:YES];
+    [self showHUDWithToShowStr:showStr HUDMode:mode autoHide:YES userInteractionEnabled:YES];
 }
 
 + (void)showAutoHideHUDOfCustomViewWithToShowStr:(NSString *)showStr showType:(HUDShowType)showType
 {
-    [self showHUDWithToShowStr:showStr HUDMode:MBProgressHUDModeCustomView autoHide:YES afterDelay:HUDAutoHideTypeShowTime userInteractionEnabled:YES showType:showType];
+    [self showHUDWithToShowStr:showStr HUDMode:MBProgressHUDModeCustomView autoHide:YES userInteractionEnabled:YES showType:showType];
 }
 
-+ (void)showHUDWithToShowStr:(NSString *)showStr HUDMode:(MBProgressHUDMode)mode autoHide:(BOOL)autoHide afterDelay:(NSTimeInterval)afterDelay userInteractionEnabled:(BOOL)yesOrNo
++ (void)showHUDWithToShowStr:(NSString *)showStr HUDMode:(MBProgressHUDMode)mode autoHide:(BOOL)autoHide userInteractionEnabled:(BOOL)yesOrNo
 {
-    [self showHUDWithToShowStr:showStr HUDMode:mode autoHide:autoHide afterDelay:afterDelay userInteractionEnabled:yesOrNo showType:HUDOthers];
+    [self showHUDWithToShowStr:showStr HUDMode:mode autoHide:autoHide userInteractionEnabled:yesOrNo showType:HUDOthers];
 }
 
-+ (void)showHUDWithToShowStr:(NSString *)showStr HUDMode:(MBProgressHUDMode)mode autoHide:(BOOL)autoHide afterDelay:(NSTimeInterval)afterDelay userInteractionEnabled:(BOOL)yesOrNo showType:(HUDShowType)showType
++ (void)showHUDWithToShowStr:(NSString *)showStr HUDMode:(MBProgressHUDMode)mode autoHide:(BOOL)autoHide userInteractionEnabled:(BOOL)yesOrNo showType:(HUDShowType)showType
+{
+    [self showHUDWithToShowStr:showStr HUDMode:mode autoHide:autoHide userInteractionEnabled:yesOrNo showType:showType inView:[UIApplication sharedApplication].keyWindow];
+}
+
++ (void)showHUDWithToShowStr:(NSString *)showStr HUDMode:(MBProgressHUDMode)mode autoHide:(BOOL)autoHide userInteractionEnabled:(BOOL)yesOrNo showType:(HUDShowType)showType inView:(UIView *)inView
 {
     // 隐藏上一次显示的hud
-    [self hideHUD];
+    [self hideHUDInView:inView];
     
     // 创建hud
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithWindow:window];
+    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:inView animated:YES];
     
     HUD.userInteractionEnabled = !yesOrNo; // 加上这个属性才能在HUD还没隐藏的时候点击到别的view
-    HUD.removeFromSuperViewOnHide = YES;
     HUD.mode = mode;
-    [window addSubview:HUD];
-
-    if (mode == MBProgressHUDModeCustomView)
-    {
-        UIImageView *customImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        
-        if (showType == HUDOperationSuccess)
-        {
-            customImgView.image = [UIImage imageNamed:@"Login_btn_Right.png"];
-        }
-        else if (showType == HUDOperationFailed)
-        {
-            customImgView.image = [UIImage imageNamed:@"Unify_Image_w7.png"];
-        }
-        
-        HUD.customView = customImgView;
-    }
-   
-    HUD.labelText = showStr;
-    HUD.opacity = 0.7;
+    HUD.detailsLabelText = showStr;
+    HUD.detailsLabelFont = [UIFont systemFontOfSize:15];
+    HUD.opacity = 0.8;
+    HUD.dimBackground = NO;
+    HUD.animationType = MBProgressHUDAnimationFade;
+    HUD.cornerRadius = 0;
     
     // HUD.taskInProgress = YES;
-    HUD.animationType = MBProgressHUDAnimationFade;
-    
-    [HUD show:YES];
-    
-    /*
-     [HUD showAnimated:YES whileExecutingBlock:^{
-     sleep(5); // 这个是5秒后隐藏
-     HUD.progress = 0.5;
-     } completionBlock:^{
-     [HUD removeFromSuperview];
-     HUD = nil;
-     }];
-     */
     
     if (autoHide)
     {
-        [HUD hide:YES afterDelay:afterDelay];
+        [HUD hide:YES afterDelay:HUDAutoHideTypeShowTime];
+    }
+    
+    if (mode == MBProgressHUDModeCustomView)
+    {
+        UIView *customView = nil;
+        
+        if (showType == HUDOperationSuccess)
+        {
+            customView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+            ((UIImageView *)customView).image = [UIImage imageNamed:@"Login_btn_Right"];
+        }
+        else if (showType == HUDOperationFailed)
+        {
+            customView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+            ((UIImageView *)customView).image = [UIImage imageNamed:@"Unify_Image_w7"];
+        }
+        else if (HUDOperationLoading == showType)
+        {
+            customView = [[ActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+            [((ActivityIndicatorView *)customView) startAnimating];
+        }
+        
+        HUD.customView = customView;
     }
 }
 
 + (void)hideHUD
 {
-    NSArray *HUDArray = [MBProgressHUD allHUDsForView:[UIApplication sharedApplication].keyWindow];
-    
-    for (MBProgressHUD *HUD in HUDArray)
-    {
-        [HUD hide:YES];
-        [HUD removeFromSuperview];
-    }
+    [self hideHUDInView:[UIApplication sharedApplication].keyWindow];
 }
 
++ (void)hideHUDInView:(UIView *)inView
+{
+    [MBProgressHUD hideAllHUDsForView:inView animated:YES];
+}
 
 @end

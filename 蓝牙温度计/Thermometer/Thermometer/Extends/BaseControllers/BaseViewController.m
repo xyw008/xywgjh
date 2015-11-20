@@ -11,8 +11,9 @@
 #import "InterfaceHUDManager.h"
 #import "LanguagesManager.h"
 #import "CTAssetsPickerController.h"
+#import <StoreKit/StoreKit.h>
 
-@interface BaseViewController () <UINavigationControllerDelegate, CTAssetsPickerControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UIScrollViewDelegate>
+@interface BaseViewController () <UINavigationControllerDelegate, CTAssetsPickerControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UIScrollViewDelegate, SKStoreProductViewControllerDelegate>
 {
     PickPhotoFinishHandle _pickPhotoFinishHandle;
     PickPhotoCancelHandle _pickPhotoCancelHandle;
@@ -53,7 +54,7 @@
 {
     [super viewDidLoad];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:HEXCOLOR(0X2D2C37) size:CGSizeMake(1, 1)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:Common_ThemeColor] forBarMetrics:UIBarMetricsDefault];
     
     if (IOS7)
     {
@@ -98,9 +99,9 @@
      */
     // 返回Btn
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left
-                                 normalImg:[UIImage imageNamed:@"Return_btn_3.png"]
-                            highlightedImg:[UIImage imageNamed:@"Return_btn_4.png"]
-                                    action:NULL];
+                                 normalImg:[UIImage imageNamed:@"navigationbar_icon_back"]
+                            highlightedImg:[UIImage imageNamed:@"navigationbar_icon_back"]
+                                    action:@selector(backViewController)];
     
     // 加此代码可以在自定义leftBarButtonItem之后还保持IOS7以上系统自带的滑动返回效果
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
@@ -310,35 +311,43 @@
 
 - (void)showHUDInfoByType:(HUDInfoType)type
 {
+    [self showHUDInfoByType:type userInteractionEnabled:YES];
+}
+
+- (void)showHUDInfoByType:(HUDInfoType)type userInteractionEnabled:(BOOL)enabled
+{
     switch (type)
     {
         case HUDInfoType_Success:
         {
+             [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:OperationSuccess showType:HUDOperationSuccess];
             /*
-            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:OperationSuccess showType:HUDOperationSuccess];
-             */
             [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:OperationSuccess];
+             */
         }
             break;
         case HUDInfoType_Failed:
         {
+             [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:OperationFailure showType:HUDOperationFailed];
             /*
-            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:OperationFailure showType:HUDOperationFailed];
-             */
             [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:OperationFailure];
+             */
         }
             break;
         case HUDInfoType_Loading:
         {
-            [HUDManager showHUDWithToShowStr:nil HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:0.0 userInteractionEnabled:YES];
+            [HUDManager showHUDWithToShowStr:nil
+                                     HUDMode:MBProgressHUDModeIndeterminate
+                                    autoHide:NO
+                      userInteractionEnabled:enabled];
         }
             break;
-            case HUDInfoType_NoConnectionNetwork:
+        case HUDInfoType_NoConnectionNetwork:
         {
+             [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:NoConnectionNetwork showType:HUDOperationFailed];
             /*
-            [HUDManager showAutoHideHUDOfCustomViewWithToShowStr:NoConnectionNetwork showType:HUDOperationFailed];
-             */
             [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:NoConnectionNetwork];
+             */
         }
             break;
         default:
@@ -348,10 +357,10 @@
 
 - (void)showHUDInfoByString:(NSString *)str
 {
-    /*
     [HUDManager showAutoHideHUDWithToShowStr:str HUDMode:MBProgressHUDModeText];
-     */
+    /*
     [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:str];
+     */
 }
 
 - (void)hideHUD
@@ -472,7 +481,7 @@
 
 - (void)setNavigationItemTitle:(NSString *)titleStr
 {
-    [self setNavigationItemTitle:titleStr titleFont:[UIFont boldSystemFontOfSize:NavTitleFontSize] titleColor:[UIColor whiteColor]];
+    [self setNavigationItemTitle:titleStr titleFont:[UIFont systemFontOfSize:NavTitleFontSize] titleColor:[UIColor whiteColor]];
 }
 
 - (void)setNavigationItemTitle:(NSString *)title titleFont:(UIFont *)font titleColor:(UIColor *)color
@@ -519,6 +528,20 @@
             
         }];
     }
+}
+
+// app内部打开appStore详情页
+- (void)openAppStoreInsideWithIdentifier:(NSString *)appId
+{
+    SKStoreProductViewController *storeProductVC = [[SKStoreProductViewController alloc] init];
+    storeProductVC.delegate = self;
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithObject:appId forKey:SKStoreProductParameterITunesItemIdentifier];
+    [storeProductVC loadProductWithParameters:dict completionBlock:^(BOOL result, NSError *error) {
+        
+    }];
+    
+    [self presentViewController:storeProductVC animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate methods
@@ -630,6 +653,15 @@
             if (_tabScrollToBottomOperationHandle) _tabScrollToBottomOperationHandle(scrollView);
         }
     }
+}
+
+#pragma mark - SKStoreProductViewControllerDelegate methods
+
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
+{
+    [viewController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 @end

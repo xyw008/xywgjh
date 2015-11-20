@@ -21,6 +21,7 @@
 #import "LoginVC.h"
 #import <SMS_SDK/SMSSDK.h>
 #import <SMS_SDK/SMSSDK+AddressBookMethods.h>
+#import "PasswordInputVC.h"
 
 #define appKey      @"a8ea83ab1e88"
 #define appSecret   @"984b8c403f774dc553356467397313c7"
