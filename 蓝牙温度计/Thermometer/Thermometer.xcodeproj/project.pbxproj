@@ -492,6 +492,9 @@
 		B338DB8A1BEA5FEC0053DB4C /* MainCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB891BEA5FEC0053DB4C /* MainCenterVC.m */; };
 		B338DB8D1BEA70E40053DB4C /* LeftUserCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB8C1BEA70E40053DB4C /* LeftUserCenterVC.m */; };
 		B338DB901BEA71DE0053DB4C /* Stars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B338DB8F1BEA71DE0053DB4C /* Stars@2x.png */; };
+		B35A8FA31BFA2FEB0050E49B /* YSBLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B35A8FA21BFA2FEB0050E49B /* YSBLEManager.m */; };
+		B35A8FA91BFA475D0050E49B /* FSLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B35A8FA61BFA475D0050E49B /* FSLineChart.m */; };
+		B35A8FAA1BFA475D0050E49B /* UIColor+FSPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = B35A8FA81BFA475D0050E49B /* UIColor+FSPalette.m */; };
 		FAF92EF61B6F103900DD06BC /* PRPAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EF51B6F103900DD06BC /* PRPAlertView.m */; };
 		FAF92F051B6F10A400DD06BC /* AppSmallUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EF81B6F10A400DD06BC /* AppSmallUtils.m */; };
 		FAF92F061B6F10A400DD06BC /* AppSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EFA1B6F10A400DD06BC /* AppSoundManager.m */; };
@@ -1392,6 +1395,12 @@
 		B338DB8B1BEA70E40053DB4C /* LeftUserCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftUserCenterVC.h; sourceTree = "<group>"; };
 		B338DB8C1BEA70E40053DB4C /* LeftUserCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftUserCenterVC.m; sourceTree = "<group>"; };
 		B338DB8F1BEA71DE0053DB4C /* Stars@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Stars@2x.png"; sourceTree = "<group>"; };
+		B35A8FA11BFA2FEB0050E49B /* YSBLEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSBLEManager.h; sourceTree = "<group>"; };
+		B35A8FA21BFA2FEB0050E49B /* YSBLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSBLEManager.m; sourceTree = "<group>"; };
+		B35A8FA51BFA475D0050E49B /* FSLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSLineChart.h; sourceTree = "<group>"; };
+		B35A8FA61BFA475D0050E49B /* FSLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSLineChart.m; sourceTree = "<group>"; };
+		B35A8FA71BFA475D0050E49B /* UIColor+FSPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+FSPalette.h"; sourceTree = "<group>"; };
+		B35A8FA81BFA475D0050E49B /* UIColor+FSPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+FSPalette.m"; sourceTree = "<group>"; };
 		FAF92EF41B6F103900DD06BC /* PRPAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPAlertView.h; sourceTree = "<group>"; };
 		FAF92EF51B6F103900DD06BC /* PRPAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPAlertView.m; sourceTree = "<group>"; };
 		FAF92EF71B6F10A400DD06BC /* AppSmallUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSmallUtils.h; sourceTree = "<group>"; };
@@ -1487,6 +1496,8 @@
 			children = (
 				2B129E9A1BED9F9B003BEC8A /* BLEManager.h */,
 				2B129E9B1BED9F9B003BEC8A /* BLEManager.m */,
+				B35A8FA11BFA2FEB0050E49B /* YSBLEManager.h */,
+				B35A8FA21BFA2FEB0050E49B /* YSBLEManager.m */,
 			);
 			path = BC;
 			sourceTree = "<group>";
@@ -1666,6 +1677,7 @@
 		43D1C68B1A75E692004564C2 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				B35A8FA41BFA475D0050E49B /* FSLineChart */,
 				2BD263041BF86FAA00640293 /* ParallaxHeaderView */,
 				B338DB781BEA59D40053DB4C /* RESideMenu */,
 				FAFD22C91BE0DBFB0004DD6F /* OBCConvertor */,
@@ -3353,6 +3365,17 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
+		B35A8FA41BFA475D0050E49B /* FSLineChart */ = {
+			isa = PBXGroup;
+			children = (
+				B35A8FA51BFA475D0050E49B /* FSLineChart.h */,
+				B35A8FA61BFA475D0050E49B /* FSLineChart.m */,
+				B35A8FA71BFA475D0050E49B /* UIColor+FSPalette.h */,
+				B35A8FA81BFA475D0050E49B /* UIColor+FSPalette.m */,
+			);
+			path = FSLineChart;
+			sourceTree = "<group>";
+		};
 		FAFD22C91BE0DBFB0004DD6F /* OBCConvertor */ = {
 			isa = PBXGroup;
 			children = (
@@ -3663,6 +3686,7 @@
 				43D1CA051A75E778004564C2 /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				43D1C9F01A75E778004564C2 /* UISlider+FlatUI.m in Sources */,
 				43D1CC291A75EBFA004564C2 /* ATTapView.m in Sources */,
+				B35A8FAA1BFA475D0050E49B /* UIColor+FSPalette.m in Sources */,
 				B338DB8D1BEA70E40053DB4C /* LeftUserCenterVC.m in Sources */,
 				43D1CADF1A75E779004564C2 /* SDWebImageDownloader.m in Sources */,
 				2BD263151BF872AB00640293 /* TemperatureRecordTabHeaderView.m in Sources */,
@@ -3844,6 +3868,7 @@
 				43D1C9D71A75E778004564C2 /* ASIDataCompressor.m in Sources */,
 				43D1CA9F1A75E779004564C2 /* NITableViewModel.m in Sources */,
 				43D1CC361A75EBFA004564C2 /* UIImageView+Image.m in Sources */,
+				B35A8FA31BFA2FEB0050E49B /* YSBLEManager.m in Sources */,
 				43D1CC301A75EBFA004564C2 /* NSNumber+SSToolkitAdditions.m in Sources */,
 				2B150A121BF379CF00315C66 /* AboutVC.m in Sources */,
 				2B150A2E1BF38EA400315C66 /* AlarmSettingVC.m in Sources */,
@@ -3877,6 +3902,7 @@
 				43D1CA151A75E778004564C2 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				43D1CA121A75E778004564C2 /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				43D1C9EB1A75E778004564C2 /* UIFont+FlatUI.m in Sources */,
+				B35A8FA91BFA475D0050E49B /* FSLineChart.m in Sources */,
 				43D1CA081A75E778004564C2 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				43D1CC081A75EBFA004564C2 /* ATB_SmallTools.m in Sources */,
 				43D1CC1A1A75EBFA004564C2 /* ATFlipAnimationView.m in Sources */,

@@ -142,8 +142,7 @@
 //华氏°F＝℃×9/5＋32
 + (CGFloat)getFTemperatureWithC:(CGFloat)c_temperature
 {
-    return c_temperature * 9 / 5 + 42;
-    //return c_temperature * 9 / 5 + 32;
+    return c_temperature * 9 / 5 + 32;
 }
 
 @end
