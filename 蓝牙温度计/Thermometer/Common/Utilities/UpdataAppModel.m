@@ -38,7 +38,7 @@ static NSString *updateUrlStr;
 {
     if ([NetworkStatusManager getNetworkStatus] == NotReachable)
     {
-        [HUDManager showHUDWithToShowStr:NoConnectionNetwork HUDMode:MBProgressHUDModeCustomView autoHide:YES afterDelay:2.5 userInteractionEnabled:YES showType:HUDOperationFailed];
+        [HUDManager showHUDWithToShowStr:NoConnectionNetwork HUDMode:MBProgressHUDModeCustomView autoHide:YES userInteractionEnabled:YES showType:HUDOperationFailed];
         return;
     }
     //传参 1个参数
@@ -54,11 +54,11 @@ static NSString *updateUrlStr;
 {
     if (request.tag == UpdataAppRequestTag)
     {
-        [HUDManager showHUDWithToShowStr:@"版本更新检查中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:2.5 userInteractionEnabled:YES showType:HUDOthers];
+        [HUDManager showHUDWithToShowStr:@"版本更新检查中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO userInteractionEnabled:YES showType:HUDOthers];
     }
     else if (request.tag == DownloadAppRequestTag)
     {
-        [HUDManager showHUDWithToShowStr:@"版本更新中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO afterDelay:2.5 userInteractionEnabled:YES showType:HUDOthers];
+        [HUDManager showHUDWithToShowStr:@"版本更新中..." HUDMode:MBProgressHUDModeIndeterminate autoHide:NO userInteractionEnabled:YES showType:HUDOthers];
     }
 }
 
@@ -89,7 +89,7 @@ static NSString *updateUrlStr;
     }
     else
     {
-        [HUDManager showHUDWithToShowStr:@"版本更新成功!" HUDMode:MBProgressHUDModeCustomView autoHide:YES afterDelay:2.5 userInteractionEnabled:YES showType:HUDOperationSuccess];
+        [HUDManager showHUDWithToShowStr:@"版本更新成功!" HUDMode:MBProgressHUDModeCustomView autoHide:YES userInteractionEnabled:YES showType:HUDOperationSuccess];
     }
 }
 
@@ -97,7 +97,7 @@ static NSString *updateUrlStr;
 + (void)netRequest:(NetRequest *)request failedWithError:(NSError *)error
 {
     [HUDManager hideHUD];
-    [HUDManager showHUDWithToShowStr:@"版本更新检查失败..." HUDMode:MBProgressHUDModeCustomView autoHide:YES afterDelay:2.5 userInteractionEnabled:YES showType:HUDOperationFailed];
+    [HUDManager showHUDWithToShowStr:@"版本更新检查失败..." HUDMode:MBProgressHUDModeCustomView autoHide:YES userInteractionEnabled:YES showType:HUDOperationFailed];
 }
 
 #pragma mark - 判断是否有更新

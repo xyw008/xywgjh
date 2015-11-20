@@ -33,11 +33,10 @@
             
             if (show)
             {
-//                [HUDManager showHUDWithToShowStr:LocalizedStr(Login_LoadingShowInfoKey)
-//                                         HUDMode:MBProgressHUDModeIndeterminate
-//                                        autoHide:NO
-//                                      afterDelay:0
-//                          userInteractionEnabled:NO];
+                [HUDManager showHUDWithToShowStr:@"登录中..."
+                                         HUDMode:MBProgressHUDModeIndeterminate
+                                        autoHide:NO
+                          userInteractionEnabled:NO];
             }
             
             // 登录操作
@@ -56,12 +55,14 @@
         }
         else
         {
-            [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:@"请输入密码"];
+            // [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:@"请输入密码"];
+            [HUDManager showAutoHideHUDWithToShowStr:@"请输入密码" HUDMode:MBProgressHUDModeText];
         }
     }
     else
     {
-        [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:@"请输入用户名"];
+        // [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:@"请输入用户名"];
+        [HUDManager showAutoHideHUDWithToShowStr:@"请输入用户名" HUDMode:MBProgressHUDModeText];
     }
 }
 
@@ -76,11 +77,10 @@
             
             if (show)
             {
-//                [HUDManager showHUDWithToShowStr:LocalizedStr(Login_LoadingShowInfoKey)
-//                                         HUDMode:MBProgressHUDModeIndeterminate
-//                                        autoHide:NO
-//                                      afterDelay:0
-//                          userInteractionEnabled:NO];
+                [HUDManager showHUDWithToShowStr:@"登录中..."
+                                         HUDMode:MBProgressHUDModeIndeterminate
+                                        autoHide:NO
+                          userInteractionEnabled:NO];
             }
             
             // 登录操作

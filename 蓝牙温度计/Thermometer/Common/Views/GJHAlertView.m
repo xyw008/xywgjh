@@ -369,31 +369,32 @@
 }
 
 - (CGSize) calculateSize {
-    CGFloat contentWidth = 250;
+    CGFloat contentWidth = IPHONE_WIDTH - 70;
     
-    CGFloat titleHeight;
-    CGFloat messageHeight;
-    
+    CGSize titleSize;
+    CGSize messageSize;
     if ([self.titleLabel.text respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
         // iOS7 methods
-        CGRect titleRect = [self.titleLabel.text boundingRectWithSize:CGSizeMake(contentWidth, CGFLOAT_MAX)
-                                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                                           attributes:@{NSFontAttributeName:self.titleLabel.font}
-                                                              context:nil];
-        CGRect messageRect = [self.messageLabel.text boundingRectWithSize:CGSizeMake(contentWidth, CGFLOAT_MAX)
-                                                                  options:NSStringDrawingUsesLineFragmentOrigin
-                                                               attributes:@{NSFontAttributeName:self.messageLabel.font}
-                                                                  context:nil];
-        titleHeight = titleRect.size.height;
-        messageHeight = messageRect.size.height;
+        titleSize = [self.titleLabel.text boundingRectWithSize:CGSizeMake(contentWidth, CGFLOAT_MAX)
+                                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                                    attributes:@{NSFontAttributeName:self.titleLabel.font}
+                                                       context:nil].size;
+        messageSize = [self.messageLabel.text boundingRectWithSize:CGSizeMake(contentWidth, CGFLOAT_MAX)
+                                                           options:NSStringDrawingUsesLineFragmentOrigin
+                                                        attributes:@{NSFontAttributeName:self.messageLabel.font}
+                                                           context:nil].size;
     } else {
         // Pre-iOS7 methods
-        titleHeight = [self.titleLabel.text sizeWithFont:self.titleLabel.font constrainedToSize:CGSizeMake(contentWidth, CGFLOAT_MAX)].height;
-        messageHeight = [self.messageLabel.text sizeWithFont:self.messageLabel.font constrainedToSize:CGSizeMake(contentWidth, CGFLOAT_MAX)].height;
+        titleSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font
+                                     constrainedToSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
+        messageSize = [self.messageLabel.text sizeWithFont:self.messageLabel.font
+                                         constrainedToSize:CGSizeMake(contentWidth, CGFLOAT_MAX)];
     }
+    CGFloat titleHeight = titleSize.height;
+    CGFloat messageHeight = messageSize.height;
     
     /*
-    CGFloat buttonHeight = [self totalButtonHeight];
+     CGFloat buttonHeight = [self totalButtonHeight];
      */
     CGFloat buttonHeight = 0.0;
     
@@ -402,11 +403,13 @@
     float messageSpace = (messageHeight <= 0 || !self.inputContentView) ? 0 : 10;
     
     CGFloat contentHeight = titleHeight + titleSpace + messageHeight + messageSpace + buttonHeight + [self inputContentHeight];
+    contentWidth = (![_buttons isAbsoluteValid]) ? MIN(contentWidth, MAX(titleSize.width, messageSize.width)) : contentWidth;
     
-    if(self.maxHeight && contentHeight>self.maxHeight)
+    if(self.maxHeight && contentHeight>self.maxHeight) {
         return CGSizeMake(contentWidth, MAX(titleHeight + titleSpace + buttonHeight + [self inputContentHeight], self.maxHeight));
-    else
+    } else {
         return CGSizeMake(contentWidth, contentHeight);
+    }
 }
 
 - (NSInteger) numberOfButtons {

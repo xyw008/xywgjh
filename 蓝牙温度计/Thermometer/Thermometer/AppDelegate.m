@@ -18,6 +18,13 @@
 #import "AboutVC.h"
 #import "AlarmSettingVC.h"
 #import "TemperatureRecordVC.h"
+#import "LoginVC.h"
+#import <SMS_SDK/SMSSDK.h>
+#import <SMS_SDK/SMSSDK+AddressBookMethods.h>
+#import "PasswordInputVC.h"
+
+#define appKey      @"a8ea83ab1e88"
+#define appSecret   @"984b8c403f774dc553356467397313c7"
 
 @interface AppDelegate () <NetRequestDelegate,RESideMenuDelegate>
 {
@@ -36,6 +43,9 @@
     // 进行应用程序一系列属性的初始化设置
     [AppPropertiesInitialize startAppPropertiesInitialize];
     
+    // 初始化应用，appKey和appSecret从后台申请得到
+    [SMSSDK registerApp:appKey
+             withSecret:appSecret];
     
 //    _baseTabBarController = [[BaseTabBarVC alloc] init];
 //    _baseTabBarController.viewControllers = @[
@@ -59,10 +69,15 @@
     sideMenuViewController.contentViewShadowOpacity = 0.6;
     sideMenuViewController.contentViewShadowRadius = 12;
     sideMenuViewController.contentViewShadowEnabled = YES;
+
     self.window.rootViewController = sideMenuViewController;
 
     //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[TemperatureRecordVC new]];
-    
+
+    //self.window.rootViewController = sideMenuViewController;
+
+    //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[LoginVC loadFromNib]];
+
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
