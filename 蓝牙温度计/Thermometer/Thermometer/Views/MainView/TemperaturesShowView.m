@@ -29,7 +29,7 @@
     UIImageView     *_deviceSignalIV;//设备信号IV
     UIImageView     *_deviceBatteryIV;//设备电池IV
     
-    CGFloat         _highestTemperatures;
+    CGFloat         _highestTemperature;//最高温度，单位会变
 }
 
 @end
@@ -112,7 +112,7 @@
 - (void)setup
 {
     self.backgroundColor = HEXCOLOR(0XF7F7F7);
-    _highestTemperatures = 0;
+    _highestTemperature = 0;
     [self initTemperaturesImageView];
     [self initTemperaturesTitleView];
 }
@@ -184,13 +184,14 @@
     _testTimeLB = [self creatLBText:@"已测:"];
     _testTimeValueLB = [self creatLBText:@"58分钟"];
     _deviceLB = [self creatLBText:@"设备:"];
-    _deviceLB.hidden = NO;
     
     _deviceSignalIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_device_wifi_00"]];
     [self addSubview:_deviceSignalIV];
+    _deviceSignalIV.hidden = YES;
     
     _deviceBatteryIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_device_battery_00"]];
     [self addSubview:_deviceBatteryIV];
+    _deviceBatteryIV.hidden = YES;
     
     [_temperaturesLB mas_updateConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_statusLB.mas_left).offset(0);
@@ -284,10 +285,31 @@
 #pragma mark - set
 - (void)setIsFTypeTemperature:(BOOL)isFTypeTemperature
 {
-    NSString *temperatureImgStr = _isFTypeTemperature ? @"home_temperature_bg_f" : @"home_temperature_bg_t";
-    _temperaturesIV.image = [UIImage imageNamed:temperatureImgStr];
+    _isFTypeTemperature = isFTypeTemperature;
+    NSString *temperatureImgStr =  @"home_temperature_bg_t";
+    NSString *unitStr = @"°C";
+
+    CGFloat nowTp = [_temperaturesLB.text floatValue];
+    CGFloat hightestTp = _highestTemperature;
     
-    _unitLB.text = _isFTypeTemperature ? @"°F" : @"°C";
+    //华氏温度
+    if (_isFTypeTemperature)
+    {
+        temperatureImgStr = @"home_temperature_bg_f";
+        unitStr = @"°F";
+        nowTp = [BLEManager getFTemperatureWithC:nowTp];
+        hightestTp = [BLEManager getFTemperatureWithC:hightestTp];
+    }
+    else
+    {
+        nowTp = [BLEManager getCTemperatureWithF:nowTp];
+        hightestTp = [BLEManager getCTemperatureWithF:hightestTp];
+    }
+    _highestTemperature = hightestTp;
+    _temperaturesIV.image = [UIImage imageNamed:temperatureImgStr];
+    _unitLB.text = unitStr;
+    [self setNowTemperatureText:nowTp];
+    _highestValueLB.text = [NSString stringWithFormat:@"%.1lf度",hightestTp];
 }
 
 - (void)setIsShowTemperatureStatus:(BOOL)isShowTemperatureStatus
@@ -296,9 +318,7 @@
     if (_isShowTemperatureStatus)
     {
         for (UIView *subView in self.subviews) {
-            if ([subView isKindOfClass:[UILabel class]]) {
                 subView.hidden = NO;
-            }
         }
         _searchLB.hidden = YES;
     }
@@ -327,21 +347,28 @@
     _temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:temperature];
     
     CGFloat nowTemperature = _isFTypeTemperature ? [BLEManager getFTemperatureWithC:temperature] : temperature;
-    NSString *nowTemperatureString = [NSString stringWithFormat:@"%.1lf",nowTemperature];
+    [self setNowTemperatureText:nowTemperature];
+    
+    _unitLB.textColor = _temperaturesLB.textColor;
+    _statusLB.backgroundColor = _temperaturesColorView.backgroundColor;
+    _statusLB.text = [TemperaturesShowView getTemperaturesStatus:temperature];
+    
+    if (nowTemperature > _highestTemperature) {
+        _highestTemperature = nowTemperature;
+        _highestValueLB.text = [NSString stringWithFormat:@"%.1lf度",nowTemperature];
+    }
+}
+
+- (void)setNowTemperatureText:(CGFloat)temperature
+{
+    NSString *nowTemperatureString = [NSString stringWithFormat:@"%.1lf",temperature];
     
     //华式显示会有查过100的情况。
     _temperaturesLB.font = nowTemperatureString.length > 4 ? [UIFont fontWithName:@"UniDreamLED" size:79] : [UIFont fontWithName:@"UniDreamLED" size:90];
     _temperaturesLB.text = nowTemperatureString;
     _temperaturesLB.textColor = _temperaturesColorView.backgroundColor;
-    _unitLB.textColor = _temperaturesLB.textColor;
-    _statusLB.backgroundColor = _temperaturesColorView.backgroundColor;
-    _statusLB.text = [TemperaturesShowView getTemperaturesStatus:temperature];
-    
-    if (nowTemperature > _highestTemperatures) {
-        _highestTemperatures = nowTemperature;
-        _highestValueLB.text = [NSString stringWithFormat:@"%.1lf度",nowTemperature];
-    }
 }
+
 
 - (void)setBettey:(CGFloat)bettey
 {

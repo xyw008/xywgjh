@@ -78,6 +78,7 @@ typedef NS_ENUM(NSInteger, ValueLabelPositionType) {
 @property (nonatomic) BOOL drawInnerGrid;
 @property (nonatomic, strong) UIColor* innerGridColor;
 @property (nonatomic) CGFloat innerGridLineWidth;
+@property (nonatomic) BOOL needVerticalLine;//是否需要垂直的线
 
 // Smoothing
 @property (nonatomic) BOOL bezierSmoothing;

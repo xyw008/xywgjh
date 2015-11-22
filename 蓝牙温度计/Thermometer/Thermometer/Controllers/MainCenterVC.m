@@ -7,43 +7,71 @@
 //
 
 #import "MainCenterVC.h"
+#import "AppDelegate.h"
 #import "TemperaturesShowView.h"
 #import "PopupController.h"
 #import "YSBLEManager.h"
 #import "FSLineChart.h"
+#import "ATTimerManager.h"
+#import "CommonEntity.h"
+
+#import "AlarmSettingVC.h"
+#import "LeftUserCenterVC.h"
+#import "AboutVC.h"
+
 
 #define channelOnPeropheralView @"peripheralView"
 #define channelOnCharacteristicView @"CharacteristicView"
 
 #define kBottomBtnStartTag 1000
 
-@interface MainCenterVC ()
+@interface MainCenterVC ()<ATTimerManagerDelegate>
 {
     UIImageView                 *_headIV;//头像
+    UIScrollView                *_bgScrollView;
     TemperaturesShowView        *_temperaturesShowView;
     FSLineChart                 *_fsLineTemperatureView;//温度线条
     
     UIView                      *_popBgView;//启动弹出的选择模式视图
     
     YSBLEManager                *_ysBluethooth;
+    NSInteger                   _countdownTimer;//温度组30秒倒计时计算
 }
 @end
 
 @implementation MainCenterVC
 
+- (void)dealloc
+{
+    [[ATTimerManager shardManager] stopTimerDelegate:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:YES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:NO];
+    [super viewDidDisappear:animated];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _countdownTimer = 30;
+    
+    
     self.view.backgroundColor = HEXCOLOR(0XF7F7F7);
     
-    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navigationbar_icon_menu"] highlightedImg:[UIImage imageNamed:@"navigationbar_icon_menu"] action:@selector(presentLeftMenuViewController:)];
+    //[self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navigationbar_icon_menu"] highlightedImg:[UIImage imageNamed:@"navigationbar_icon_menu"] action:@selector(presentLeftMenuViewController:)];
+    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navigationbar_icon_menu"] highlightedImg:[UIImage imageNamed:@"navigationbar_icon_menu"] action:@selector(leftMenuBtnTouch:)];
     
     
-    NSArray * fontArrays = [[NSArray alloc] initWithArray:[UIFont familyNames]];
-    for (NSString * temp in fontArrays) {
-        DLog(@"Font name  = %@", temp);
-    }
     
-    
+    [self initBgScrollView];
     [self initTemperaturesShowView];
     [self initFsLineTemperatureView];
     [self initBottomBtnsView];
@@ -66,48 +94,60 @@
 
 #pragma mark - init method
 
+- (void)initBgScrollView
+{
+    _bgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH,DynamicWidthValue640(587) + 55)];
+    _bgScrollView.pagingEnabled = YES;
+    _bgScrollView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:_bgScrollView];
+}
+
 - (void)initTemperaturesShowView
 {
     _temperaturesShowView = [[TemperaturesShowView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH,DynamicWidthValue640(587) + 55)];
     //[_temperaturesShowView setTemperature:0];
-    [self.view addSubview:_temperaturesShowView];
+    //[self.view addSubview:_temperaturesShowView];
+    [_bgScrollView addSubview:_temperaturesShowView];
 }
 
 - (void)initFsLineTemperatureView
 {
     // Creating the line chart
-    _fsLineTemperatureView = [[FSLineChart alloc] initWithFrame:CGRectMake(10, 55, IPHONE_WIDTH - 10, _temperaturesShowView.height - 55)];
+    _fsLineTemperatureView = [[FSLineChart alloc] initWithFrame:CGRectMake(IPHONE_WIDTH + 10, 20, IPHONE_WIDTH - 10, _temperaturesShowView.height - 20)];
     _fsLineTemperatureView.backgroundColor = _temperaturesShowView.backgroundColor;
     _fsLineTemperatureView.gridStep = 32;
-    _fsLineTemperatureView.verticalGridStep = 10;
+    _fsLineTemperatureView.verticalGridStep = 11;
     _fsLineTemperatureView.horizontalGridStep = 6; // 151,187,205,0.2
     _fsLineTemperatureView.color = Common_BlueColor;
     _fsLineTemperatureView.fillColor = [_fsLineTemperatureView.color colorWithAlphaComponent:0.3];
     _fsLineTemperatureView.valueLabelBackgroundColor = [UIColor clearColor];
     _fsLineTemperatureView.margin = 35;
+    _fsLineTemperatureView.needVerticalLine = NO;
     
     _fsLineTemperatureView.labelForIndex = ^(NSUInteger item) {
         return @"18:00";
     };
     
     _fsLineTemperatureView.labelForValue = ^(CGFloat value) {
-        return [NSString stringWithFormat:@"%.0f°C", value];
+        return [NSString stringWithFormat:@"%.0f°C", value - 1];
     };
-    [_fsLineTemperatureView setChartData:@[@(33),@(35),@(36),@(36.3),@(36.5),@(36.6),@(36.6),@(36.8)]];
+    //[_fsLineTemperatureView setChartData:@[@(33),@(35),@(36),@(36.3),@(36.5),@(36.6),@(36.6),@(36.8),@(36.1),@(36.1),@(36.1),@(36.1),@(33),@(40),@(33),@(36.1)]];
     
-    [self.view addSubview:_fsLineTemperatureView];
+    [_bgScrollView addSubview:_fsLineTemperatureView];
+    _bgScrollView.contentSize = CGSizeMake(_bgScrollView.width*2, 0);
 }
 
 - (void)initBottomBtnsView
 {
     CGFloat startX = DpToPx(24)/2;
     
-    UIView *bottomBgView = [[UIView alloc] initWithFrame:CGRectMake(startX, CGRectGetMaxY(_temperaturesShowView.frame) + 38, IPHONE_WIDTH - startX * 2, DynamicWidthValue640(150))];
+    UIView *bottomBgView = [[UIView alloc] initWithFrame:CGRectMake(startX, CGRectGetMaxY(_bgScrollView.frame) + 38, IPHONE_WIDTH - startX * 2, DynamicWidthValue640(150))];
     bottomBgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bottomBgView];
     
     NSArray *titleArray = @[@"预警",@"记录",@"佩戴方式",@"单位切换"];
     NSArray *imageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_wear_hand",@"home_icon_unit_c"];
+    NSArray *selectImageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_wear_head",@"home_icon_unit_f"];
     
     CGFloat btnWidth = (bottomBgView.width - startX * 5) / 4;
     
@@ -120,6 +160,7 @@
         //[btn setTitle:titleArray[i] forState:UIControlStateNormal];
         //[btn setTitleColor:Common_BlackColor forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:imageArray[i]] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:selectImageArray[i]] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(bottomBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
         //btn.titleLabel.font = [UIFont systemFontOfSize:10];
         //btn.titleEdgeInsets = UIEdgeInsetsMake(30, -20, 0, 0);
@@ -133,6 +174,7 @@
         
         [bottomBgView addSubview:titleLB];
         [bottomBgView addSubview:btn];
+        
         
         if (lastBtn)
         {
@@ -218,6 +260,13 @@
 
 
 #pragma mark - btn touch
+
+- (void)leftMenuBtnTouch:(UIButton*)btn
+{
+    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleMenu];
+}
+
+
 - (void)connectBluetoothBtnTouch:(UIButton*)btn
 {
     [_popBgView removeFromSuperview];
@@ -226,15 +275,39 @@
     _ysBluethooth = [YSBLEManager sharedInstance];
     
     WEAKSELF
+    
+    //实时温度
     [_ysBluethooth setActualTimeValueCallBack:^(CGFloat newTemperature,CGFloat newBettey){
         STRONGSELF
         if (!strongSelf->_temperaturesShowView.isShowTemperatureStatus) {
             strongSelf->_temperaturesShowView.isShowTemperatureStatus = YES;
             
+            //开始获取30秒的6组温度数据
             [[YSBLEManager sharedInstance] writeIs30Second:YES];
         }
         [strongSelf->_temperaturesShowView setTemperature:newTemperature];
         [strongSelf->_temperaturesShowView setBettey:newBettey];
+    }];
+    
+    //组温度数据回调
+    [_ysBluethooth setGroupTemperatureCallBack:^(NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic){
+        STRONGSELF
+        NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
+        for (NSInteger i=1; i<= temperatureDic.allKeys.count; i++)
+        {
+            NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[NSString stringWithInt:i]];
+            for (BLECacheDataEntity *item in oneGroupItemArray)
+            {
+                [dataArray addObject:@(item.temperature + 9)];
+            }
+        }
+    
+        if ([dataArray isAbsoluteValid])
+        {
+            [strongSelf->_fsLineTemperatureView setChartData:dataArray];
+            
+            [weakSelf start30SecondCountdownTimer];
+        }
     }];
     
     [_ysBluethooth startScanPeripherals];
@@ -255,22 +328,78 @@
     switch (index)
     {
         case 0://预警
-            
+        {
+            AlarmSettingVC *vc = [[AlarmSettingVC alloc] init];
+            [self pushViewController:vc];
+        }
             break;
         case 1://记录
             
             break;
         case 2://佩戴方式
-            
+            btn.selected = !btn.selected;
             break;
         case 3://单位切换
-            
+            btn.selected = !btn.selected;
+            _temperaturesShowView.isFTypeTemperature = btn.selected;
             break;
         default:
             break;
     }
 }
 
+
+// 开启30秒倒计时
+- (void)start30SecondCountdownTimer
+{
+    if ([[ATTimerManager shardManager] hasTimerDelegate:self])
+    {
+        [[ATTimerManager shardManager] stopTimerDelegate:self];
+    }
+    [[ATTimerManager shardManager] addTimerDelegate:self interval:1];
+}
+
+#pragma mark - ATTimerManagerDelegate methods
+
+- (void)timerManager:(ATTimerManager *)manager timerFireWithInfo:(ATTimerStepInfo)info
+{
+    _countdownTimer--;
+    
+    if (0 == _countdownTimer)
+    {
+        [[YSBLEManager sharedInstance] writeIs30Second:YES];
+        _countdownTimer = 30;
+        [[ATTimerManager shardManager] stopTimerDelegate:self];
+    }
+}
+
+#pragma mark - LeftUserCenterVCDelegate
+- (void)LeftUserCenterVC:(LeftUserCenterVC*)vc didTouchUserItem:(UserItem*)item
+{
+    [self leftMenuBtnTouch:nil];
+}
+
+- (void)LeftUserCenterVC:(LeftUserCenterVC*)vc touchType:(LeftMenuTouchType)type
+{
+    [self leftMenuBtnTouch:nil];
+    switch (type)
+    {
+        case LeftMenuTouchType_AddUser:
+            
+            break;
+        case LeftMenuTouchType_Setting:
+            
+            break;
+        case LeftMenuTouchType_About:
+        {
+            AboutVC *vc = [AboutVC loadFromNib];
+            [self pushViewController:vc];
+        }
+            break;
+        default:
+            break;
+    }
+}
 
 
 @end

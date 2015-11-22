@@ -43,13 +43,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- @ 方法描述: 摄氏文档转华氏温度
+ @ 方法描述: 摄氏温度转华氏温度
  @ 输入参数:  摄氏温度
  @ 返回值:   华氏温度
  @ 创建人:   熊耀文
  @ Creat:   2015-11-15
  */
 + (CGFloat)getFTemperatureWithC:(CGFloat)c_temperature;
+
+/**
+ @ 方法描述: 华氏温度转摄氏温度
+ @ 输入参数:  华氏温度
+ @ 返回值:   摄氏温度
+ @ 创建人:   熊耀文
+ @ Creat:   2015-11-15
+ */
++ (CGFloat)getCTemperatureWithF:(CGFloat)f_temperature;
+
 
 @end
 

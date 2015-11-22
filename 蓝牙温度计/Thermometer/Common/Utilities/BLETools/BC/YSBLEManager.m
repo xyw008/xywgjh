@@ -22,7 +22,10 @@
     CBPeripheral                *_currPeripheral;//现在的外围设备
     CBService                   *_currTemperatureService;//现在的服务
     
+    BOOL                        _hasGroupNotifiy;//是否已经设置温度组的通知（defalut:NO）
     NSInteger                   _groupIndex;//取温度的组数从1开始(30秒 最大6，5分钟 最大30)
+    NSMutableDictionary         *_groupTemperatureDic;//温度组
+    
 }
 
 @end
@@ -37,6 +40,9 @@ DEF_SINGLETON(YSBLEManager);
     if (self) {
         
         _groupIndex = 1;
+        _hasGroupNotifiy = NO;
+        _groupTemperatureDic = [[NSMutableDictionary alloc] init];
+        
         //初始化BabyBluetooth 蓝牙库
         _babyBluethooth = [BabyBluetooth shareBabyBluetooth];
         //设置蓝牙委托
@@ -59,8 +65,11 @@ DEF_SINGLETON(YSBLEManager);
 - (void)writeIs30Second:(BOOL)is30Second
 {
     _is30Second = is30Second;
+    _groupIndex = 1;
     
-    [self setTemperatureGroupNotifiy];
+    if (!_hasGroupNotifiy) {
+        [self setTemperatureGroupNotifiy];
+    }
     
     [self startWriteGourpData];
 }
@@ -68,11 +77,14 @@ DEF_SINGLETON(YSBLEManager);
 
 - (void)startWriteGourpData
 {
+    if (1 == _groupIndex) {
+        [_groupTemperatureDic removeAllObjects];
+    }
+    
     for (CBCharacteristic *characteristic in _currTemperatureService.characteristics)
     {
         if ([characteristic.UUID.UUIDString isEqualToString:@"FFF3"])
         {
-            
             NSInteger type = _is30Second ? 1 : 2;
             NSInteger total = type + _groupIndex;
             
@@ -262,6 +274,8 @@ DEF_SINGLETON(YSBLEManager);
                 }
                 else
                 {
+                    _hasGroupNotifiy = YES;
+                    
                     [_currPeripheral setNotifyValue:YES forCharacteristic:characteristic];
                     
                     [_babyBluethooth notify:_currPeripheral
@@ -295,6 +309,9 @@ DEF_SINGLETON(YSBLEManager);
 {
     NSDictionary *dic = [BLEManager getCacheTemperatureDataWithBLEData:characteristic.value error:nil];
     DLog(@"dic   =%@",dic);
+    
+    [_groupTemperatureDic addEntriesFromDictionary:dic];
+    
     if ([dic isAbsoluteValid])
     {
         _groupIndex++;
@@ -320,11 +337,14 @@ DEF_SINGLETON(YSBLEManager);
         }
     }
     
-    
-    if (_groupTemperatureCallBack) {
-        NSDictionary *dic = [BLEManager getCacheTemperatureDataWithBLEData:characteristic.value error:nil];
-        _groupTemperatureCallBack(dic);
+    if (1 == _groupIndex)
+    {
+        if (_groupTemperatureCallBack) {
+            _groupTemperatureCallBack(_groupTemperatureDic);
+        }
     }
+    
+    
 }
 
 @end

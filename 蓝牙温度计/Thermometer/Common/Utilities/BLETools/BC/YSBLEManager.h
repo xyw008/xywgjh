@@ -11,7 +11,7 @@
 
 typedef void (^ActualTimeValueCallBack) (CGFloat newTemperature,CGFloat newBettey);
 
-typedef void (^GroupTemperatureCallBack) (NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic );
+typedef void (^GroupTemperatureCallBack) (NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic);
 
 @interface YSBLEManager : NSObject
 

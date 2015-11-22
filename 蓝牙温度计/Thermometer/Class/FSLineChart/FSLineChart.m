@@ -23,6 +23,8 @@
 #import "FSLineChart.h"
 #import "UIColor+FSPalette.h"
 
+#define kLabelForIndexTag 9000
+
 @interface FSLineChart ()
 
 @property (nonatomic, strong) NSMutableArray* data;
@@ -81,6 +83,7 @@
     _axisColor = [UIColor colorWithWhite:0.7 alpha:1.0];
     _innerGridColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     _drawInnerGrid = YES;
+    _needVerticalLine = YES;
     _bezierSmoothing = YES;
     _bezierSmoothingTension = 0.2;
     _lineWidth = 1;
@@ -144,14 +147,23 @@
     }
     
     if(_labelForIndex) {
+        
+        //自己加的
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(_margin - 1, _axisHeight + _margin, self.frame.size.width - _margin, 40)];
         view.backgroundColor = self.backgroundColor;
         [self addSubview:view];
         
+        for (UIView *subView in self.subviews) {
+            if ([subView isKindOfClass:[UILabel class]] && subView.tag >= kLabelForIndexTag) {
+                [subView removeFromSuperview];
+            }
+        }
+        
         for(int i=0;i<_horizontalGridStep + 1;i++) {
             UILabel* label = [self createLabelForIndex:i];
-            
+    
             if(label) {
+                label.tag = kLabelForIndexTag + i;
                 [self addSubview:label];
             }
         }
@@ -167,7 +179,10 @@
     CGFloat minBound = [self minVerticalBound];
     CGFloat maxBound = [self maxVerticalBound];
     
-    CGPoint p = CGPointMake(_margin + (_valueLabelPosition == ValueLabelRight ? _axisWidth : 0), _axisHeight + _margin - (index + 1) * _axisHeight / _verticalGridStep);
+    //CGPoint p = CGPointMake(_margin + (_valueLabelPosition == ValueLabelRight ? _axisWidth : 0), _axisHeight + _margin - (index + 1) * _axisHeight / _verticalGridStep);
+    
+    CGPoint p = CGPointMake(_margin + (_valueLabelPosition == ValueLabelRight ? _axisWidth : 0), _axisHeight + _margin - (index + 1) * _axisHeight / _verticalGridStep + 10);
+    
     
     NSString* text = _labelForValue(minBound + (maxBound - minBound) / _verticalGridStep * (index + 1));
     
@@ -177,6 +192,7 @@
     }
     
     CGRect rect = CGRectMake(_margin, p.y + 2, self.frame.size.width - _margin * 2 - 4.0f, 14);
+    
     
     float width = [text boundingRectWithSize:rect.size
                                      options:NSStringDrawingUsesLineFragmentOrigin
@@ -264,21 +280,26 @@
     
     // draw grid
     if(_drawInnerGrid) {
-        for(int i=0;i<_horizontalGridStep;i++) {
-            CGContextSetStrokeColorWithColor(ctx, [_innerGridColor CGColor]);
-            CGContextSetLineWidth(ctx, _innerGridLineWidth);
-            
-            CGPoint point = CGPointMake((1 + i) * _axisWidth / _horizontalGridStep * scale + _margin, _margin);
-            
-            CGContextMoveToPoint(ctx, point.x, point.y);
-            CGContextAddLineToPoint(ctx, point.x, _axisHeight + _margin);
-            CGContextStrokePath(ctx);
-            
-            CGContextSetStrokeColorWithColor(ctx, [_axisColor CGColor]);
-            CGContextSetLineWidth(ctx, _axisLineWidth);
-            CGContextMoveToPoint(ctx, point.x - 0.5f, _axisHeight + _margin);
-            CGContextAddLineToPoint(ctx, point.x - 0.5f, _axisHeight + _margin + 3);
-            CGContextStrokePath(ctx);
+        
+        
+        if (_needVerticalLine)
+        {
+            for(int i=0;i<_horizontalGridStep;i++) {
+                CGContextSetStrokeColorWithColor(ctx, [_innerGridColor CGColor]);
+                CGContextSetLineWidth(ctx, _innerGridLineWidth);
+                
+                CGPoint point = CGPointMake((1 + i) * _axisWidth / _horizontalGridStep * scale + _margin, _margin);
+                
+                CGContextMoveToPoint(ctx, point.x, point.y);
+                CGContextAddLineToPoint(ctx, point.x, _axisHeight + _margin);
+                CGContextStrokePath(ctx);
+                
+                CGContextSetStrokeColorWithColor(ctx, [_axisColor CGColor]);
+                CGContextSetLineWidth(ctx, _axisLineWidth);
+                CGContextMoveToPoint(ctx, point.x - 0.5f, _axisHeight + _margin);
+                CGContextAddLineToPoint(ctx, point.x - 0.5f, _axisHeight + _margin + 3);
+                CGContextStrokePath(ctx);
+            }
         }
         
         for(int i=0;i<_verticalGridStep + 1;i++) {
@@ -508,8 +529,8 @@
 
 - (CGFloat)getUpperRoundNumber:(CGFloat)value forGridStep:(int)gridStep
 {
-    //最高42°
-    return 42;
+    //最高43°
+    return 43;
     //源代码
     /*
     if(value <= 0)

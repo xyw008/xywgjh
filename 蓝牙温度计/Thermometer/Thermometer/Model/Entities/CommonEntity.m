@@ -8,6 +8,28 @@
 
 #import "CommonEntity.h"
 
+
+@implementation UserItem
+
+- (id)initWithDict:(NSDictionary *)dict
+{
+    self = [super init];
+    if (self)
+    {
+        self.userId = [[dict objectForKey:@"userId"] integerValue];
+        self.userName = [dict objectForKey:@"name"];
+        self.gender = [[dict safeObjectForKey:@"gender"] integerValue];
+        self.age = [[dict safeObjectForKey:@"age"] integerValue];
+        self.role = [dict safeObjectForKey:@"role"];
+    }
+    return self;
+}
+
+
+@end
+
+
+
 @implementation FAQEntity
 
 - (id)initWithDict:(NSDictionary *)dict
