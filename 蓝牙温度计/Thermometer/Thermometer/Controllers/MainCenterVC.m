@@ -19,7 +19,7 @@
 #import "LeftUserCenterVC.h"
 #import "AboutVC.h"
 #import "AddUserVC.h"
-
+#import "SetupVC.h"
 
 #define channelOnPeropheralView @"peripheralView"
 #define channelOnCharacteristicView @"CharacteristicView"
@@ -36,6 +36,7 @@
     UIView                      *_popBgView;//启动弹出的选择模式视图
     
     YSBLEManager                *_ysBluethooth;
+
     NSInteger                   _countdownTimer;//温度组30秒倒计时计算
 }
 @end
@@ -278,7 +279,7 @@
     WEAKSELF
     
     //实时温度
-    [_ysBluethooth setActualTimeValueCallBack:^(CGFloat newTemperature,CGFloat newBettey){
+    [_ysBluethooth setActualTimeValueCallBack:^(CGFloat newTemperature,CGFloat rssi, CGFloat newBettey){
         STRONGSELF
         if (!strongSelf->_temperaturesShowView.isShowTemperatureStatus) {
             strongSelf->_temperaturesShowView.isShowTemperatureStatus = YES;
@@ -288,6 +289,8 @@
         }
         [strongSelf->_temperaturesShowView setTemperature:newTemperature];
         [strongSelf->_temperaturesShowView setBettey:newBettey];
+        [strongSelf->_temperaturesShowView setRssi:rssi];
+        
     }];
     
     //组温度数据回调
@@ -299,14 +302,15 @@
             NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[NSString stringWithInt:i]];
             for (BLECacheDataEntity *item in oneGroupItemArray)
             {
-                [dataArray addObject:@(item.temperature + 9)];
+                [dataArray addObject:@(item.temperature)];
+                //[dataArray addObject:@(item.temperature + 9)];
             }
         }
     
         if ([dataArray isAbsoluteValid])
         {
+            [strongSelf->_fsLineTemperatureView clearChartData];
             [strongSelf->_fsLineTemperatureView setChartData:dataArray];
-            
             [weakSelf start30SecondCountdownTimer];
         }
     }];
@@ -365,7 +369,6 @@
 - (void)timerManager:(ATTimerManager *)manager timerFireWithInfo:(ATTimerStepInfo)info
 {
     _countdownTimer--;
-    
     if (0 == _countdownTimer)
     {
         [[YSBLEManager sharedInstance] writeIs30Second:YES];
@@ -392,7 +395,10 @@
         }
             break;
         case LeftMenuTouchType_Setting:
-            
+        {
+            SetupVC *vc = [SetupVC new];
+            [self pushViewController:vc];
+        }
             break;
         case LeftMenuTouchType_About:
         {

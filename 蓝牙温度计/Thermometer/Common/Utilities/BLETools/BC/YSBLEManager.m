@@ -125,8 +125,12 @@ DEF_SINGLETON(YSBLEManager);
             [strongSelf->_babyBluethooth cancelScan];
             
             strongSelf->_currPeripheral = peripheral;
+            strongSelf->_rssi = [RSSI floatValue];
             
             strongSelf->_babyBluethooth.having(strongSelf->_currPeripheral).and.channel(channelOnPeropheralView).then.connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
+            
+            //定时刷新rssi
+            [NSTimer scheduledTimerWithTimeInterval:5.0f target:strongSelf selector:@selector(refreshRssi) userInfo:nil repeats:YES];
         }
     }];
     
@@ -199,8 +203,11 @@ DEF_SINGLETON(YSBLEManager);
         }
     }];
     
-    
-    
+    [_babyBluethooth setBlockOnDidReadRSSIAtChannel:channelOnPeropheralView block:^(NSNumber *RSSI, NSError *error) {
+        DLog(@"change  rssi = %@",RSSI);
+        STRONGSELF
+        strongSelf->_rssi = [RSSI floatValue];
+    }];
     
     //示例:
     //扫描选项->CBCentralManagerScanOptionAllowDuplicatesKey:忽略同一个Peripheral端的多个发现事件被聚合成一个发现事件
@@ -300,7 +307,7 @@ DEF_SINGLETON(YSBLEManager);
     {
         CGFloat newTemperature = [BLEManager getTemperatureWithBLEData:characteristic.value];
         CGFloat newBettey = [BLEManager getBatteryWithBLEData:characteristic.value];
-        _actualTimeValueCallBack(newTemperature,newBettey);
+        _actualTimeValueCallBack(newTemperature,_rssi,newBettey);
     }
 }
 
@@ -343,8 +350,11 @@ DEF_SINGLETON(YSBLEManager);
             _groupTemperatureCallBack(_groupTemperatureDic);
         }
     }
-    
-    
+}
+
+- (void)refreshRssi
+{
+    [_currPeripheral readRSSI];
 }
 
 @end

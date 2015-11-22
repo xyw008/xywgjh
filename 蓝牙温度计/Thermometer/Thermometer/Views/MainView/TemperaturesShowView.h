@@ -15,6 +15,9 @@
 
 - (void)setTemperature:(CGFloat)temperature;
 
+- (void)setRssi:(CGFloat)rssi;
+
 - (void)setBettey:(CGFloat)bettey;
+
 
 @end

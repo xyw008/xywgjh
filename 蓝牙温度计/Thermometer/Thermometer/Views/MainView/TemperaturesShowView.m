@@ -370,10 +370,30 @@
 }
 
 
+- (void)setRssi:(CGFloat)rssi
+{
+    NSString *imageStr = @"home_device_wifi_04";
+    if (rssi > -70)
+    {
+        
+    }
+    else if (rssi > -90)
+        imageStr = @"home_device_wifi_03";
+    else if (rssi > -110)
+        imageStr = @"home_device_wifi_02";
+    else if (rssi > -150)
+        imageStr = @"home_device_wifi_01";
+    else
+        imageStr = @"home_device_wifi_00";
+    
+    _deviceSignalIV.image = [UIImage imageNamed:imageStr];
+}
+
 - (void)setBettey:(CGFloat)bettey
 {
     _deviceBatteryIV.image = [UIImage imageNamed:[TemperaturesShowView getBetteyImage:bettey]];
 }
+
 
 
 @end

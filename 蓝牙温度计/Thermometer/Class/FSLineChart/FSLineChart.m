@@ -24,6 +24,7 @@
 #import "UIColor+FSPalette.h"
 
 #define kLabelForIndexTag 9000
+#define kLabelForValueTag 8900
 
 @interface FSLineChart ()
 
@@ -137,10 +138,21 @@
     }
     
     if(_labelForValue) {
+        
+        ////
+        //自己加的
+        for (UIView *subView in self.subviews) {
+            if ([subView isKindOfClass:[UILabel class]] && subView.tag >= kLabelForValueTag && subView.tag < kLabelForIndexTag) {
+                [subView removeFromSuperview];
+            }
+        }
+        /////////
+        
         for(int i=0;i<_verticalGridStep;i++) {
             UILabel* label = [self createLabelForValue:i];
             
             if(label) {
+                label.tag = kLabelForValueTag + i;
                 [self addSubview:label];
             }
         }
@@ -148,6 +160,7 @@
     
     if(_labelForIndex) {
         
+        ////
         //自己加的
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(_margin - 1, _axisHeight + _margin, self.frame.size.width - _margin, 40)];
         view.backgroundColor = self.backgroundColor;
@@ -158,6 +171,7 @@
                 [subView removeFromSuperview];
             }
         }
+        /////////
         
         for(int i=0;i<_horizontalGridStep + 1;i++) {
             UILabel* label = [self createLabelForIndex:i];

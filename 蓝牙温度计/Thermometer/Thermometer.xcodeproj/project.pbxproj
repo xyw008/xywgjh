@@ -539,6 +539,7 @@
 		B3192FDD1C01D71700424A9B /* adduser_icon_name@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3192FD01C01D71700424A9B /* adduser_icon_name@2x.png */; };
 		B3192FDE1C01D71700424A9B /* adduser_icon_sex@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3192FD11C01D71700424A9B /* adduser_icon_sex@2x.png */; };
 		B3192FE11C02149600424A9B /* SlideActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B3192FE01C02149600424A9B /* SlideActionSheet.m */; };
+		B3192FE41C02179000424A9B /* SetupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3192FE31C02179000424A9B /* SetupVC.m */; };
 		B338DB821BEA59D40053DB4C /* LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB7B1BEA59D40053DB4C /* LGSideMenuController.m */; };
 		B338DB831BEA59D40053DB4C /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB7D1BEA59D40053DB4C /* RECommonFunctions.m */; };
 		B338DB841BEA59D40053DB4C /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B338DB7F1BEA59D40053DB4C /* RESideMenu.m */; };
@@ -1510,6 +1511,8 @@
 		B3192FD11C01D71700424A9B /* adduser_icon_sex@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adduser_icon_sex@2x.png"; sourceTree = "<group>"; };
 		B3192FDF1C02149600424A9B /* SlideActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideActionSheet.h; sourceTree = "<group>"; };
 		B3192FE01C02149600424A9B /* SlideActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideActionSheet.m; sourceTree = "<group>"; };
+		B3192FE21C02179000424A9B /* SetupVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupVC.h; sourceTree = "<group>"; };
+		B3192FE31C02179000424A9B /* SetupVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupVC.m; sourceTree = "<group>"; };
 		B338DB7A1BEA59D40053DB4C /* LGSideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGSideMenuController.h; sourceTree = "<group>"; };
 		B338DB7B1BEA59D40053DB4C /* LGSideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGSideMenuController.m; sourceTree = "<group>"; };
 		B338DB7C1BEA59D40053DB4C /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
@@ -1673,6 +1676,8 @@
 				2B150A2D1BF38EA400315C66 /* AlarmSettingVC.m */,
 				B3192E711C01CF7D00424A9B /* AddUserVC.h */,
 				B3192E721C01CF7D00424A9B /* AddUserVC.m */,
+				B3192FE21C02179000424A9B /* SetupVC.h */,
+				B3192FE31C02179000424A9B /* SetupVC.m */,
 			);
 			path = UserCenter;
 			sourceTree = "<group>";
@@ -3982,6 +3987,7 @@
 				FAF92F051B6F10A400DD06BC /* AppSmallUtils.m in Sources */,
 				43D1CA461A75E778004564C2 /* NINetworkActivity.m in Sources */,
 				2BD2630A1BF86FAA00640293 /* UIImage+ImageEffects.m in Sources */,
+				B3192FE41C02179000424A9B /* SetupVC.m in Sources */,
 				43D1CC1F1A75EBFA004564C2 /* ATSequenceImageView.m in Sources */,
 				2B709C011BFE1C470014020A /* SMS_MBProgressHUD+Add.m in Sources */,
 				43D1CC2C1A75EBFA004564C2 /* NSDate+SSToolkitAdditions.m in Sources */,
