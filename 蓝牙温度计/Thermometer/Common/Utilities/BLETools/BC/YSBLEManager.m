@@ -119,7 +119,11 @@ DEF_SINGLETON(YSBLEManager);
     [_babyBluethooth setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
         DLog(@"搜索到了设备:%@",peripheral.name);
         STRONGSELF
-        if ([peripheral.name isEqualToString:@"Yushi_MODT"] || [peripheral.name isEqualToString:@"YuShi_MODT"])
+        
+        NSString *name = [peripheral.name lowercaseString];
+        NSString *ys = [@"Yushi_MODT" lowercaseString];
+        
+        if ([name isEqualToString:ys])
         {
             //停止扫描
             [strongSelf->_babyBluethooth cancelScan];
@@ -166,8 +170,27 @@ DEF_SINGLETON(YSBLEManager);
     }];
     //设置发现设service的Characteristics的委托
     [_babyBluethooth setBlockOnDiscoverCharacteristicsAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBService *service, NSError *error) {
-        DLog(@"===service name:%@",service.UUID);
+        //DLog(@"===service name:%@   string = %@",service.UUID,service.UUID.UUIDString);
         STRONGSELF
+        
+        //获取设备mac
+        if ([service.UUID.UUIDString isEqualToString:@"180A"])
+        {
+            for (CBCharacteristic *c in service.characteristics)
+            {
+                //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
+                NSString *cUUIDString = [c.UUID.UUIDString lowercaseString];
+                NSString *sysIdString = [@"2A23" lowercaseString];
+                
+                if ([cUUIDString isEqualToString:sysIdString])
+                {
+                    strongSelf->_babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(peripheral,c);
+                }
+            }
+            
+        }
+        
+        
         if ([service.UUID.UUIDString isEqualToString:@"1809"])
         {
             strongSelf->_currTemperatureService = service;
@@ -183,8 +206,31 @@ DEF_SINGLETON(YSBLEManager);
         //[weakSelf insertRowToTableView:service];
     }];
     //设置读取characteristics的委托
-    [_babyBluethooth setBlockOnReadValueForCharacteristicAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
+    [_babyBluethooth setBlockOnReadValueForCharacteristicAtChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
         NSLog(@"characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
+        
+        NSString *cUUIDString = [characteristics.UUID.UUIDString lowercaseString];
+        NSString *sysIdString = [@"2A23" lowercaseString];
+        
+        if ([cUUIDString isEqualToString:sysIdString])
+        {
+            NSString *value = [NSString stringWithFormat:@"%@",characteristics.value];
+            NSMutableString *macString = [[NSMutableString alloc] init];
+            [macString appendString:[[value substringWithRange:NSMakeRange(16, 2)] uppercaseString]];
+            [macString appendString:@":"];
+            [macString appendString:[[value substringWithRange:NSMakeRange(14, 2)] uppercaseString]];
+            [macString appendString:@":"];
+            [macString appendString:[[value substringWithRange:NSMakeRange(12, 2)] uppercaseString]];
+            [macString appendString:@":"];
+            [macString appendString:[[value substringWithRange:NSMakeRange(5, 2)] uppercaseString]];
+            [macString appendString:@":"];
+            [macString appendString:[[value substringWithRange:NSMakeRange(3, 2)] uppercaseString]];
+            [macString appendString:@":"];
+            [macString appendString:[[value substringWithRange:NSMakeRange(1, 2)] uppercaseString]];
+            
+            STRONGSELF
+            strongSelf->_macAdd = macString;
+        }
     }];
     
     
