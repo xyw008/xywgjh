@@ -18,6 +18,7 @@
 #import "AlarmSettingVC.h"
 #import "LeftUserCenterVC.h"
 #import "AboutVC.h"
+#import "AddUserVC.h"
 
 
 #define channelOnPeropheralView @"peripheralView"
@@ -385,7 +386,10 @@
     switch (type)
     {
         case LeftMenuTouchType_AddUser:
-            
+        {
+            AddUserVC *vc = [[AddUserVC alloc] init];
+            [self pushViewController:vc];
+        }
             break;
         case LeftMenuTouchType_Setting:
             
