@@ -14,12 +14,19 @@
 #import "FSLineChart.h"
 #import "ATTimerManager.h"
 #import "CommonEntity.h"
+#import "UserInfoModel.h"
+#import "XLWelcomeAppView.h"
+#import "AppPropertiesInitialize.h"
+#import "LoginBC.h"
 
 #import "AlarmSettingVC.h"
 #import "LeftUserCenterVC.h"
 #import "AboutVC.h"
 #import "AddUserVC.h"
 #import "SetupVC.h"
+#import "LoginVC.h"
+#import "RegViewController.h"
+#import "TemperatureRecordVC.h"
 
 #define channelOnPeropheralView @"peripheralView"
 #define channelOnCharacteristicView @"CharacteristicView"
@@ -38,6 +45,10 @@
     YSBLEManager                *_ysBluethooth;
 
     NSInteger                   _countdownTimer;//温度组30秒倒计时计算
+    
+    BOOL                        _isVisitorType;//是否是游客模式
+    
+    XLWelcomeAppView            *_welcomeAppView;//第一次启动app
 }
 @end
 
@@ -48,10 +59,22 @@
     [[ATTimerManager shardManager] stopTimerDelegate:self];
 }
 
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    if ([[UserInfoModel getNoFirstGoApp] boolValue])
+//    {
+//        self.navigationController.navigationBarHidden = NO;
+//    }
+//}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:YES];
+    if ([[UserInfoModel getNoFirstGoApp] boolValue])
+    {
+        [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:YES];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -64,13 +87,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _countdownTimer = 30;
-    
-    
     self.view.backgroundColor = HEXCOLOR(0XF7F7F7);
-    
     //[self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navigationbar_icon_menu"] highlightedImg:[UIImage imageNamed:@"navigationbar_icon_menu"] action:@selector(presentLeftMenuViewController:)];
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navigationbar_icon_menu"] highlightedImg:[UIImage imageNamed:@"navigationbar_icon_menu"] action:@selector(leftMenuBtnTouch:)];
     
+    
+    //登陆成功通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loginSuccess:)
+                                                 name:kLoginSuccessNotificationKey
+                                               object:nil];
     
     
     [self initBgScrollView];
@@ -79,7 +105,7 @@
     [self initBottomBtnsView];
     
     
-    [self initPopView];
+    //[self initPopView];
     
     CGFloat height = 38;
     _headIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, height, height)];
@@ -87,12 +113,66 @@
     ViewRadius(_headIV, height/2);
     self.navigationItem.titleView = _headIV;
     //self.view.backgroundColor = [UIColor redColor];
+    
+    
+    [self judgeGoAppNum];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - welcome
+- (void)judgeGoAppNum
+{
+    if (![[UserInfoModel getNoFirstGoApp] boolValue])
+    {
+        [self hiddenNav:YES];
+        NSArray *imageArray = @[@"lead_01.png",@"lead_02.png",@"lead_03.png"];
+        WEAKSELF
+        _welcomeAppView = [XLWelcomeAppView showSuperView:self.view welcomeImage:imageArray callBack:^(NSInteger touchBtnIndex){
+            STRONGSELF
+            if (0 == touchBtnIndex)//注册
+            {
+                RegViewController *reg = [[RegViewController alloc] init];
+                UINavigationController *regNav = [[UINavigationController alloc] initWithRootViewController:reg];
+                
+                [strongSelf presentViewController:regNav
+                             modalTransitionStyle:UIModalTransitionStyleCoverVertical
+                                       completion:^{
+                                       }];
+                
+            }
+            else if(1 == touchBtnIndex)//登录
+            {
+                [weakSelf goLoginView];
+            }
+            else if(2 == touchBtnIndex)//游客模式
+            {
+                strongSelf->_isVisitorType = YES;
+                [weakSelf removeWelcomeAppView];
+            }
+        }];
+    }
+}
+
+- (void)removeWelcomeAppView
+{
+    [_welcomeAppView removeSelf];
+    [self initPopView];
+    [self hiddenNav:NO];
+    [UserInfoModel setUserDefaultNoFirstGoApp:@(YES)];
+    _welcomeAppView = nil;
+}
+
+- (void)hiddenNav:(BOOL)hidden
+{
+    self.navigationController.navigationBarHidden = hidden;
+    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:!hidden];
+    [AppPropertiesInitialize setBackgroundColorToStatusBar:hidden ? HEXCOLOR(0X3C3A47) : Common_ThemeColor];
+}
+
 
 #pragma mark - init method
 
@@ -329,6 +409,11 @@
 - (void)bottomBtnTouch:(UIButton*)btn
 {
     NSInteger index = btn.tag - kBottomBtnStartTag;
+    if (index != 3 && _isVisitorType)
+    {
+        [self goLoginView];
+        return;
+    }
     
     switch (index)
     {
@@ -339,7 +424,10 @@
         }
             break;
         case 1://记录
-            
+            {
+                TemperatureRecordVC *vc = [TemperatureRecordVC new];
+                [self pushViewController:vc];
+            }
             break;
         case 2://佩戴方式
             btn.selected = !btn.selected;
@@ -411,5 +499,24 @@
     }
 }
 
+#pragma mark - push
+- (void)goLoginView
+{
+    LoginVC *login = [LoginVC loadFromNib];
+    UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:login];
+    
+    [self presentViewController:loginNav
+           modalTransitionStyle:UIModalTransitionStyleCoverVertical
+                     completion:^{
+                         
+    }];
+}
+
+
+#pragma mark - notification
+- (void)loginSuccess:(NSNotification*)notification
+{
+    [self removeWelcomeAppView];
+}
 
 @end

@@ -154,4 +154,9 @@
     }];
 }
 
+- (IBAction)clickCloseBtn:(UIButton *)btn
+{
+    [self backViewController];
+}
+
 @end

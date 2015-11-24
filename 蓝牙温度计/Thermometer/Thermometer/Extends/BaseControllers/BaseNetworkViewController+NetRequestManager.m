@@ -40,8 +40,8 @@
                            @"search/querySuggest",
                            
                            // 用户中心
-                           @"user/register",
-                           @"user/login",
+                           @"register",
+                           @"login",
                            @"user/changePwd",
                            
                            @"account/my/info",
