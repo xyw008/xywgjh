@@ -112,6 +112,7 @@ static NSMutableArray* _userData2;
                 
                 PasswordInputVC *passwordInput = [PasswordInputVC loadFromNib];
                 passwordInput.isModifyPassword = _isModifyPassword;
+                passwordInput.phoneNumStr = _phone;
                 
                 [self.navigationController pushViewController:passwordInput animated:YES];
             }

@@ -33,6 +33,8 @@
 #define UserDefault_CookiesArrayKey         @"userDefault_CookiesArrayKey"      // HTTP响应cookies
 #define UserDefault_DeviceTokenKey          @"userDefault_DeviceTokenKey"       // 用户注册通知成功后返回的token
 
+#define UserDefault_NoFirstAppKey          @"UserDefault_NoFirstAppKey"         //不是第一次进入app
+
 @implementation UserInfoModel
 
 DEF_SINGLETON(UserInfoModel);
@@ -321,6 +323,20 @@ DEF_SINGLETON(UserInfoModel);
 + (NSString *)getUserDefaultDeviceToken
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_DeviceTokenKey];
+}
+
+
+
+//第一次进入主页
++ (void)setUserDefaultNoFirstGoApp:(NSNumber *)noFirstGoApp
+{
+    [[NSUserDefaults standardUserDefaults] setObject:noFirstGoApp forKey:UserDefault_NoFirstAppKey];
+    [self saveUserDefaultInfo];
+}
+
++ (NSNumber *)getNoFirstGoApp
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_NoFirstAppKey];
 }
 
 @end

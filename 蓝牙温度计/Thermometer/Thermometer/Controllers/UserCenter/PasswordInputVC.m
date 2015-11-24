@@ -9,9 +9,12 @@
 #import "PasswordInputVC.h"
 #import "NITextField.h"
 #import "PRPAlertView.h"
+#import "LoginBC.h"
 
 @interface PasswordInputVC ()
-
+{
+    LoginBC     *_loginBC;
+}
 @property (nonatomic, weak) IBOutlet NITextField *passwordTF;
 @property (nonatomic, weak) IBOutlet UIButton *commitBtn;
 
@@ -70,7 +73,29 @@
     [self configureViewsProperties];
 }
 
-- (IBAction)clickCommitBtn:(UIButton *)sender {
+- (IBAction)clickCommitBtn:(UIButton *)sender
+{
+    _loginBC = [[LoginBC alloc] init];
+    
+    /*
+     userName ：用户名
+     userPassword  ：密码
+     */
+//    WEAKSELF
+//    [_loginBC loginWithUserName:_userNameLabel.text
+//                       password:_passwordLabel.text
+//                      autoLogin:YES
+//                        showHUD:YES
+//                  successHandle:^(id successInfoObj) {
+//                      
+//                      [UserInfoModel setUserDefaultLoginName:_userNameLabel.text];
+//                      [UserInfoModel setUserDefaultPassword:_passwordLabel.text];
+//                      
+//                      [weakSelf backViewController];
+//                      
+//                  } failedHandle:^(NSError *error) {
+//                      
+//                  }];
     
 }
 

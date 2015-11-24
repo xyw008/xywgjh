@@ -11,5 +11,6 @@
 @interface PasswordInputVC : BaseNetworkViewController
 
 @property (nonatomic, assign) BOOL isModifyPassword;  // 是否为修改密码,不是则为设置新密码
+@property (nonatomic, copy)NSString *phoneNumStr;
 
 @end

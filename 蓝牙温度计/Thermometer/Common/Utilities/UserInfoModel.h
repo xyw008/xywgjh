@@ -80,4 +80,9 @@ AS_SINGLETON(UserInfoModel);
 + (void)setUserDefaultDeviceToken:(NSString *)token;
 + (NSString *)getUserDefaultDeviceToken;
 
+
+//第一次进入app
++ (void)setUserDefaultNoFirstGoApp:(NSNumber*)noFirstGoApp;
++ (NSNumber *)getNoFirstGoApp;
+
 @end

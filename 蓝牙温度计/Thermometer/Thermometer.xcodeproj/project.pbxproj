@@ -410,6 +410,10 @@
 		43D1CC6B1A75EBFA004564C2 /* YGButtonBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D1CBFD1A75EBFA004564C2 /* YGButtonBox.m */; };
 		B30CF1C81BEF324300D6D63E /* TemperaturesShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = B30CF1C71BEF324300D6D63E /* TemperaturesShowView.m */; };
 		B30F5EC61BF8C51D00F33372 /* UnidreamLED.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B30F5EC51BF8C51C00F33372 /* UnidreamLED.ttf */; };
+		B310DEA21C035958000A8CBC /* XLWelcomeAppView.m in Sources */ = {isa = PBXBuildFile; fileRef = B310DEA11C035958000A8CBC /* XLWelcomeAppView.m */; };
+		B310DEA71C035D09000A8CBC /* lead_01.png in Resources */ = {isa = PBXBuildFile; fileRef = B310DEA41C035D09000A8CBC /* lead_01.png */; };
+		B310DEA81C035D09000A8CBC /* lead_02.png in Resources */ = {isa = PBXBuildFile; fileRef = B310DEA51C035D09000A8CBC /* lead_02.png */; };
+		B310DEA91C035D09000A8CBC /* lead_03.png in Resources */ = {isa = PBXBuildFile; fileRef = B310DEA61C035D09000A8CBC /* lead_03.png */; };
 		B3162C791BEA4DC2009E7C19 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3162C451BEA4DC2009E7C19 /* AppDelegate.m */; };
 		B3162C7A1BEA4DC2009E7C19 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3162C461BEA4DC2009E7C19 /* LaunchScreen.xib */; };
 		B3162C7B1BEA4DC2009E7C19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3162C481BEA4DC2009E7C19 /* Main.storyboard */; };
@@ -1362,6 +1366,11 @@
 		B30CF1C61BEF324300D6D63E /* TemperaturesShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemperaturesShowView.h; sourceTree = "<group>"; };
 		B30CF1C71BEF324300D6D63E /* TemperaturesShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemperaturesShowView.m; sourceTree = "<group>"; };
 		B30F5EC51BF8C51C00F33372 /* UnidreamLED.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = UnidreamLED.ttf; sourceTree = "<group>"; };
+		B310DEA01C035958000A8CBC /* XLWelcomeAppView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLWelcomeAppView.h; sourceTree = "<group>"; };
+		B310DEA11C035958000A8CBC /* XLWelcomeAppView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLWelcomeAppView.m; sourceTree = "<group>"; };
+		B310DEA41C035D09000A8CBC /* lead_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lead_01.png; sourceTree = "<group>"; };
+		B310DEA51C035D09000A8CBC /* lead_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lead_02.png; sourceTree = "<group>"; };
+		B310DEA61C035D09000A8CBC /* lead_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lead_03.png; sourceTree = "<group>"; };
 		B3162C441BEA4DC2009E7C19 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B3162C451BEA4DC2009E7C19 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B3162C471BEA4DC2009E7C19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -3285,6 +3294,8 @@
 		43D1CBE41A75EBFA004564C2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B310DEA01C035958000A8CBC /* XLWelcomeAppView.h */,
+				B310DEA11C035958000A8CBC /* XLWelcomeAppView.m */,
 				B3192FDF1C02149600424A9B /* SlideActionSheet.h */,
 				B3192FE01C02149600424A9B /* SlideActionSheet.m */,
 				FAF92EF41B6F103900DD06BC /* PRPAlertView.h */,
@@ -3316,6 +3327,16 @@
 				B30CF1C71BEF324300D6D63E /* TemperaturesShowView.m */,
 			);
 			path = MainView;
+			sourceTree = "<group>";
+		};
+		B310DEA31C035D09000A8CBC /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				B310DEA41C035D09000A8CBC /* lead_01.png */,
+				B310DEA51C035D09000A8CBC /* lead_02.png */,
+				B310DEA61C035D09000A8CBC /* lead_03.png */,
+			);
+			path = Welcome;
 			sourceTree = "<group>";
 		};
 		B3162C431BEA4DC2009E7C19 /* Thermometer */ = {
@@ -3633,6 +3654,7 @@
 		B338DB8E1BEA71DE0053DB4C /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B310DEA31C035D09000A8CBC /* Welcome */,
 				B3192FC41C01D71700424A9B /* AddUser */,
 				B3192F061C01D45500424A9B /* HomeView */,
 				B3192F351C01D45500424A9B /* LeftView */,
@@ -3809,6 +3831,7 @@
 				2B5C8BBE1BFF3C4700F665BA /* Default-568h@2x.png in Resources */,
 				43D1CB051A75EBA5004564C2 /* CHANGELOG in Resources */,
 				43D1CA891A75E778004564C2 /* deps in Resources */,
+				B310DEA81C035D09000A8CBC /* lead_02.png in Resources */,
 				B3192F991C01D45500424A9B /* leftmenu_icon_baby@3x.png in Resources */,
 				B3192FBF1C01D45500424A9B /* toolbar_icon_o2_n@3x.png in Resources */,
 				B3192FBE1C01D45500424A9B /* toolbar_icon_o2_n@2x.png in Resources */,
@@ -3840,6 +3863,7 @@
 				B3192FD91C01D71700424A9B /* adduser_icon_grandm_f@2x.png in Resources */,
 				43D1C9E01A75E778004564C2 /* Images.xcassets in Resources */,
 				B3192FB71C01D45500424A9B /* toolbar_icon_bodytemperature_n@3x.png in Resources */,
+				B310DEA91C035D09000A8CBC /* lead_03.png in Resources */,
 				B3162C7D1BEA4DC2009E7C19 /* Localizable.strings in Resources */,
 				43D1CA021A75E778004564C2 /* IQKeyboardManager.bundle in Resources */,
 				43D1CACC1A75E779004564C2 /* Icon-Small@2x.png in Resources */,
@@ -3883,6 +3907,7 @@
 				B3192F711C01D45500424A9B /* home_device_battery_05@2x.png in Resources */,
 				B3192F791C01D45500424A9B /* home_device_wifi_03@2x.png in Resources */,
 				B3192F681C01D45500424A9B /* home_device_battery_00@3x.png in Resources */,
+				B310DEA71C035D09000A8CBC /* lead_01.png in Resources */,
 				2B709BBC1BFE19020014020A /* SMS_SDKLocalizable.strings in Resources */,
 				43D1CAEE1A75E779004564C2 /* WebViewJavascriptBridge.js.txt in Resources */,
 				2B1CC6DE1BFCCFA900C2F589 /* loading_icon_key@2x.png in Resources */,
@@ -3970,6 +3995,7 @@
 				43D1CA4E1A75E778004564C2 /* NIState.m in Sources */,
 				43D1CAEF1A75E779004564C2 /* WebViewJavascriptBridge.m in Sources */,
 				2BD263091BF86FAA00640293 /* ParallaxHeaderView.m in Sources */,
+				B310DEA21C035958000A8CBC /* XLWelcomeAppView.m in Sources */,
 				43D1CC5E1A75EBFA004564C2 /* UpdataAppModel.m in Sources */,
 				2B709C0C1BFE1C470014020A /* YJViewController.m in Sources */,
 				2B129EA61BED9F9B003BEC8A /* Babysister.m in Sources */,
