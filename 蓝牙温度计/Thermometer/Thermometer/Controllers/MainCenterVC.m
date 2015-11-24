@@ -7,47 +7,77 @@
 //
 
 #import "MainCenterVC.h"
+#import "AppDelegate.h"
 #import "TemperaturesShowView.h"
 #import "PopupController.h"
-#import "BabyBluetooth.h"
-#import "BLEManager.h"
+#import "YSBLEManager.h"
+#import "FSLineChart.h"
+#import "ATTimerManager.h"
+#import "CommonEntity.h"
+
+#import "AlarmSettingVC.h"
+#import "LeftUserCenterVC.h"
+#import "AboutVC.h"
+#import "AddUserVC.h"
+#import "SetupVC.h"
 
 #define channelOnPeropheralView @"peripheralView"
 #define channelOnCharacteristicView @"CharacteristicView"
 
 #define kBottomBtnStartTag 1000
 
-@interface MainCenterVC ()
+@interface MainCenterVC ()<ATTimerManagerDelegate>
 {
     UIImageView                 *_headIV;//头像
+    UIScrollView                *_bgScrollView;
     TemperaturesShowView        *_temperaturesShowView;
+    FSLineChart                 *_fsLineTemperatureView;//温度线条
     
     UIView                      *_popBgView;//启动弹出的选择模式视图
     
-    BabyBluetooth               *_babyBluethooth;
-    CBPeripheral                *_currPeripheral;//现在的外围设备
-    CBService                   *_currTemperatureService;//现在的服务
-    CBService                   *_currBatteryService;//电池服务
+    YSBLEManager                *_ysBluethooth;
+
+    NSInteger                   _countdownTimer;//温度组30秒倒计时计算
 }
 @end
 
 @implementation MainCenterVC
 
+- (void)dealloc
+{
+    [[ATTimerManager shardManager] stopTimerDelegate:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:YES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:NO];
+    [super viewDidDisappear:animated];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _countdownTimer = 30;
+    
+    
     self.view.backgroundColor = HEXCOLOR(0XF7F7F7);
     
-    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navigationbar_icon_menu"] highlightedImg:[UIImage imageNamed:@"navigationbar_icon_menu"] action:@selector(presentLeftMenuViewController:)];
+    //[self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navigationbar_icon_menu"] highlightedImg:[UIImage imageNamed:@"navigationbar_icon_menu"] action:@selector(presentLeftMenuViewController:)];
+    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navigationbar_icon_menu"] highlightedImg:[UIImage imageNamed:@"navigationbar_icon_menu"] action:@selector(leftMenuBtnTouch:)];
     
     
-    NSArray * fontArrays = [[NSArray alloc] initWithArray:[UIFont familyNames]];
-    for (NSString * temp in fontArrays) {
-        DLog(@"Font name  = %@", temp);
-    }
     
-    
+    [self initBgScrollView];
     [self initTemperaturesShowView];
+    [self initFsLineTemperatureView];
     [self initBottomBtnsView];
+    
     
     [self initPopView];
     
@@ -66,23 +96,60 @@
 
 #pragma mark - init method
 
+- (void)initBgScrollView
+{
+    _bgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH,DynamicWidthValue640(587) + 55)];
+    _bgScrollView.pagingEnabled = YES;
+    _bgScrollView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:_bgScrollView];
+}
+
 - (void)initTemperaturesShowView
 {
     _temperaturesShowView = [[TemperaturesShowView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH,DynamicWidthValue640(587) + 55)];
     //[_temperaturesShowView setTemperature:0];
-    [self.view addSubview:_temperaturesShowView];
+    //[self.view addSubview:_temperaturesShowView];
+    [_bgScrollView addSubview:_temperaturesShowView];
+}
+
+- (void)initFsLineTemperatureView
+{
+    // Creating the line chart
+    _fsLineTemperatureView = [[FSLineChart alloc] initWithFrame:CGRectMake(IPHONE_WIDTH + 10, 20, IPHONE_WIDTH - 10, _temperaturesShowView.height - 20)];
+    _fsLineTemperatureView.backgroundColor = _temperaturesShowView.backgroundColor;
+    _fsLineTemperatureView.gridStep = 32;
+    _fsLineTemperatureView.verticalGridStep = 11;
+    _fsLineTemperatureView.horizontalGridStep = 6; // 151,187,205,0.2
+    _fsLineTemperatureView.color = Common_BlueColor;
+    _fsLineTemperatureView.fillColor = [_fsLineTemperatureView.color colorWithAlphaComponent:0.3];
+    _fsLineTemperatureView.valueLabelBackgroundColor = [UIColor clearColor];
+    _fsLineTemperatureView.margin = 35;
+    _fsLineTemperatureView.needVerticalLine = NO;
+    
+    _fsLineTemperatureView.labelForIndex = ^(NSUInteger item) {
+        return @"18:00";
+    };
+    
+    _fsLineTemperatureView.labelForValue = ^(CGFloat value) {
+        return [NSString stringWithFormat:@"%.0f°C", value - 1];
+    };
+    //[_fsLineTemperatureView setChartData:@[@(33),@(35),@(36),@(36.3),@(36.5),@(36.6),@(36.6),@(36.8),@(36.1),@(36.1),@(36.1),@(36.1),@(33),@(40),@(33),@(36.1)]];
+    
+    [_bgScrollView addSubview:_fsLineTemperatureView];
+    _bgScrollView.contentSize = CGSizeMake(_bgScrollView.width*2, 0);
 }
 
 - (void)initBottomBtnsView
 {
     CGFloat startX = DpToPx(24)/2;
     
-    UIView *bottomBgView = [[UIView alloc] initWithFrame:CGRectMake(startX, CGRectGetMaxY(_temperaturesShowView.frame) + 38, IPHONE_WIDTH - startX * 2, DynamicWidthValue640(150))];
+    UIView *bottomBgView = [[UIView alloc] initWithFrame:CGRectMake(startX, CGRectGetMaxY(_bgScrollView.frame) + 38, IPHONE_WIDTH - startX * 2, DynamicWidthValue640(150))];
     bottomBgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bottomBgView];
     
     NSArray *titleArray = @[@"预警",@"记录",@"佩戴方式",@"单位切换"];
     NSArray *imageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_wear_hand",@"home_icon_unit_c"];
+    NSArray *selectImageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_wear_head",@"home_icon_unit_f"];
     
     CGFloat btnWidth = (bottomBgView.width - startX * 5) / 4;
     
@@ -95,6 +162,7 @@
         //[btn setTitle:titleArray[i] forState:UIControlStateNormal];
         //[btn setTitleColor:Common_BlackColor forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:imageArray[i]] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:selectImageArray[i]] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(bottomBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
         //btn.titleLabel.font = [UIFont systemFontOfSize:10];
         //btn.titleEdgeInsets = UIEdgeInsetsMake(30, -20, 0, 0);
@@ -108,6 +176,7 @@
         
         [bottomBgView addSubview:titleLB];
         [bottomBgView addSubview:btn];
+        
         
         if (lastBtn)
         {
@@ -127,7 +196,6 @@
                 make.width.equalTo(btnWidth);
             }];
         }
-        
         [titleLB mas_updateConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(btn.mas_centerX);
             make.bottom.equalTo(btn.mas_bottom).offset(-12);
@@ -194,20 +262,61 @@
 
 
 #pragma mark - btn touch
+
+- (void)leftMenuBtnTouch:(UIButton*)btn
+{
+    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleMenu];
+}
+
+
 - (void)connectBluetoothBtnTouch:(UIButton*)btn
 {
     [_popBgView removeFromSuperview];
     _popBgView = nil;
     
-    //初始化BabyBluetooth 蓝牙库
-    _babyBluethooth = [BabyBluetooth shareBabyBluetooth];
-    //设置蓝牙委托
-    [self bluethoothDelegate];
+    _ysBluethooth = [YSBLEManager sharedInstance];
     
-    //停止之前的连接
-    [_babyBluethooth cancelAllPeripheralsConnection];
-    //设置委托后直接可以使用，无需等待CBCentralManagerStatePoweredOn状态。
-    _babyBluethooth.scanForPeripherals().begin();
+    WEAKSELF
+    
+    //实时温度
+    [_ysBluethooth setActualTimeValueCallBack:^(CGFloat newTemperature,CGFloat rssi, CGFloat newBettey){
+        STRONGSELF
+        if (!strongSelf->_temperaturesShowView.isShowTemperatureStatus) {
+            strongSelf->_temperaturesShowView.isShowTemperatureStatus = YES;
+            
+            //开始获取30秒的6组温度数据
+            [[YSBLEManager sharedInstance] writeIs30Second:YES];
+        }
+        [strongSelf->_temperaturesShowView setTemperature:newTemperature];
+        [strongSelf->_temperaturesShowView setBettey:newBettey];
+        [strongSelf->_temperaturesShowView setRssi:rssi];
+        
+    }];
+    
+    //组温度数据回调
+    [_ysBluethooth setGroupTemperatureCallBack:^(NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic){
+        STRONGSELF
+        NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
+        for (NSInteger i=1; i<= temperatureDic.allKeys.count; i++)
+        {
+            NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[NSString stringWithInt:i]];
+            for (BLECacheDataEntity *item in oneGroupItemArray)
+            {
+                [dataArray addObject:@(item.temperature)];
+                //[dataArray addObject:@(item.temperature + 9)];
+            }
+        }
+    
+        if ([dataArray isAbsoluteValid])
+        {
+            [strongSelf->_fsLineTemperatureView clearChartData];
+            [strongSelf->_fsLineTemperatureView setChartData:dataArray];
+            [weakSelf start30SecondCountdownTimer];
+        }
+    }];
+    
+    [_ysBluethooth startScanPeripherals];
+
 }
 
 - (void)monitorBtnTouch:(UIButton*)btn
@@ -224,16 +333,20 @@
     switch (index)
     {
         case 0://预警
-            
+        {
+            AlarmSettingVC *vc = [[AlarmSettingVC alloc] init];
+            [self pushViewController:vc];
+        }
             break;
         case 1://记录
             
             break;
         case 2://佩戴方式
-            
+            btn.selected = !btn.selected;
             break;
         case 3://单位切换
-            
+            btn.selected = !btn.selected;
+            _temperaturesShowView.isFTypeTemperature = btn.selected;
             break;
         default:
             break;
@@ -241,162 +354,61 @@
 }
 
 
-#pragma mark - 
-
-
-//蓝牙网关初始化和委托方法设置
--(void)bluethoothDelegate
+// 开启30秒倒计时
+- (void)start30SecondCountdownTimer
 {
-    WEAKSELF
-    [_babyBluethooth setBlockOnCentralManagerDidUpdateState:^(CBCentralManager *central) {
-        if (central.state == CBCentralManagerStatePoweredOn) {
-            DLog(@"设备打开成功，开始扫描设备");
-        }
-    }];
-
-    
-    //设置扫描到设备的委托
-    [_babyBluethooth setBlockOnDiscoverToPeripherals:^(CBCentralManager *central, CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
-        DLog(@"搜索到了设备:%@",peripheral.name);
-        STRONGSELF
-        if ([peripheral.name isEqualToString:@"Yushi_MODT"] || [peripheral.name isEqualToString:@"YuShi_MODT"])
-        {
-            //停止扫描
-            [strongSelf->_babyBluethooth cancelScan];
-            
-            strongSelf->_currPeripheral = peripheral;
-            
-            strongSelf->_babyBluethooth.having(strongSelf->_currPeripheral).and.channel(channelOnPeropheralView).then.connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
-        }
-    }];
-    
-    
-    //设置设备连接成功的委托,同一个baby对象，使用不同的channel切换委托回调
-    [_babyBluethooth setBlockOnConnectedAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral) {
-        DLog(@"连接成功");
-        
-        //[SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--连接成功",peripheral.name]];
-    }];
-    
-    //设置设备连接失败的委托
-    [_babyBluethooth setBlockOnFailToConnectAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
-        DLog(@"设备：%@--连接失败",peripheral.name);
-        //[SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--连接失败",peripheral.name]];
-    }];
-    
-    //设置设备断开连接的委托
-    [_babyBluethooth setBlockOnDisconnectAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
-        DLog(@"设备：%@--断开连接",peripheral.name);
-        //[SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--断开失败",peripheral.name]];
-    }];
-
-    
-    //设置发现设备的Services的委托
-    [_babyBluethooth setBlockOnDiscoverServicesAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, NSError *error) {
-        for (CBService *s in peripheral.services)
-        {
-            DLog(@"搜索到服务:%@",s.UUID.UUIDString);
-            ///插入section到tableview
-            //[weakSelf insertSectionToTableView:s];
-        }
-    }];
-    //设置发现设service的Characteristics的委托
-    [_babyBluethooth setBlockOnDiscoverCharacteristicsAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBService *service, NSError *error) {
-        DLog(@"===service name:%@",service.UUID);
-        STRONGSELF
-        if ([service.UUID.UUIDString isEqualToString:@"1809"])
-        {
-            strongSelf->_currTemperatureService = service;
-            
-            for (CBCharacteristic *c in service.characteristics)
-            {
-                DLog(@"uuid = %@   de = %@",c.UUID,c.description);
-            }
-            
-            [weakSelf setCurrTemperaturesNotifiy];
-        }
-        //插入row到tableview
-        //[weakSelf insertRowToTableView:service];
-    }];
-    //设置读取characteristics的委托
-    [_babyBluethooth setBlockOnReadValueForCharacteristicAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
-        NSLog(@"characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
-    }];
-    
-    
-    //设置读取Descriptor的委托
-    [_babyBluethooth setBlockOnReadValueForDescriptorsAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, CBDescriptor *descriptor, NSError *error) {
-        NSLog(@"Descriptor name:%@ value is:%@",descriptor.characteristic.UUID, descriptor.value);
-    }];
-    
-    
-    //设置发现characteristics的descriptors的委托
-    [_babyBluethooth setBlockOnDiscoverDescriptorsForCharacteristicAtChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
-        NSLog(@"CharacteristicViewController===characteristic name:%@",characteristic.service.UUID);
-        for (CBDescriptor *d in characteristic.descriptors) {
-             NSLog(@"CharacteristicViewController CBDescriptor name is :%@",d.UUID);
-            //[weakSelf insertDescriptor:d];
-        }
-    }];
-    
-    
-    
-    
-    //示例:
-    //扫描选项->CBCentralManagerScanOptionAllowDuplicatesKey:忽略同一个Peripheral端的多个发现事件被聚合成一个发现事件
-    NSDictionary *scanForPeripheralsWithOptions = @{CBCentralManagerScanOptionAllowDuplicatesKey:@YES};
-    //连接设备->
-    [_babyBluethooth setBabyOptionsWithScanForPeripheralsWithOptions:scanForPeripheralsWithOptions connectPeripheralWithOptions:nil scanForPeripheralsWithServices:nil discoverWithServices:nil discoverWithCharacteristics:nil];
+    if ([[ATTimerManager shardManager] hasTimerDelegate:self])
+    {
+        [[ATTimerManager shardManager] stopTimerDelegate:self];
+    }
+    [[ATTimerManager shardManager] addTimerDelegate:self interval:1];
 }
 
-- (void)setCurrTemperaturesNotifiy
+#pragma mark - ATTimerManagerDelegate methods
+
+- (void)timerManager:(ATTimerManager *)manager timerFireWithInfo:(ATTimerStepInfo)info
 {
-    
-    if(_currPeripheral.state != CBPeripheralStateConnected){
-        //[SVProgressHUD showErrorWithStatus:@"peripheral已经断开连接，请重新连接"];
-        return;
-    }
-    
-    WEAKSELF
-    for (CBCharacteristic *characteristic in _currTemperatureService.characteristics)
+    _countdownTimer--;
+    if (0 == _countdownTimer)
     {
-        DLog(@"uuid = %@   de = %@",characteristic.UUID,characteristic.description);
-        
-        if ([characteristic.UUID.UUIDString isEqualToString:@"2A1C"])
-        {
-            if (characteristic.properties & CBCharacteristicPropertyNotify ||  characteristic.properties & CBCharacteristicPropertyIndicate){
-                
-                if(characteristic.isNotifying)
-                {
-                    [_babyBluethooth cancelNotify:_currPeripheral characteristic:characteristic];
-                }
-                else
-                {
-                    [_currPeripheral setNotifyValue:YES forCharacteristic:characteristic];
-                    
-                    WEAKSELF
-                    [_babyBluethooth notify:_currPeripheral
-                             characteristic:characteristic
-                                      block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
-                            STRONGSELF
-                            [strongSelf->_temperaturesShowView setTemperature:[BLEManager getTemperatureWithBLEData:characteristics.value]];
-                                          
-                            NSLog(@"new value %@",characteristics.value);
-                               //[self insertReadValues:characteristics];
-                           }];
-                }
-            }
-            else{
-                //[SVProgressHUD showErrorWithStatus:@"这个characteristic没有nofity的权限"];
-                return;
-            }
-        }
-        
-        
-        
+        [[YSBLEManager sharedInstance] writeIs30Second:YES];
+        _countdownTimer = 30;
+        [[ATTimerManager shardManager] stopTimerDelegate:self];
     }
-    
-    
+}
+
+#pragma mark - LeftUserCenterVCDelegate
+- (void)LeftUserCenterVC:(LeftUserCenterVC*)vc didTouchUserItem:(UserItem*)item
+{
+    [self leftMenuBtnTouch:nil];
+}
+
+- (void)LeftUserCenterVC:(LeftUserCenterVC*)vc touchType:(LeftMenuTouchType)type
+{
+    [self leftMenuBtnTouch:nil];
+    switch (type)
+    {
+        case LeftMenuTouchType_AddUser:
+        {
+            AddUserVC *vc = [[AddUserVC alloc] init];
+            [self pushViewController:vc];
+        }
+            break;
+        case LeftMenuTouchType_Setting:
+        {
+            SetupVC *vc = [SetupVC new];
+            [self pushViewController:vc];
+        }
+            break;
+        case LeftMenuTouchType_About:
+        {
+            AboutVC *vc = [AboutVC loadFromNib];
+            [self pushViewController:vc];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 

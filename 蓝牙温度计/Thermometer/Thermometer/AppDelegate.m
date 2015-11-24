@@ -55,10 +55,9 @@
 //                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]],
 //                                              [[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]]];
 
+    /*
+    
     LeftUserCenterVC *leftMenuViewController = [[LeftUserCenterVC alloc] init];
-    
-//    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:_baseTabBarController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
-    
     RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:[[UINavigationController alloc] initWithRootViewController:[MainCenterVC new]] leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
     
     sideMenuViewController.backgroundImage = [UIImage imageNamed:@"Stars"];
@@ -69,10 +68,28 @@
     sideMenuViewController.contentViewShadowOpacity = 0.6;
     sideMenuViewController.contentViewShadowRadius = 12;
     sideMenuViewController.contentViewShadowEnabled = YES;
+    self.window.rootViewController = sideMenuViewController;
+     */
+    
+    MainCenterVC *mainVC = [[MainCenterVC alloc] init];
+    LeftUserCenterVC *leftVC = [[LeftUserCenterVC alloc] init];
+    leftVC.delegate = mainVC;
+    
+    self.slideMenuVC = [[HKSlideMenu3DController alloc] init];
+    self.slideMenuVC.view.frame =  [[UIScreen mainScreen] bounds];
+    self.slideMenuVC.mainViewController = [[UINavigationController alloc] initWithRootViewController:mainVC];
+    self.slideMenuVC.menuViewController = leftVC;
+    self.slideMenuVC.backgroundImage = [UIImage imageNamed:@"leftmenu_bg"];
+    self.slideMenuVC.backgroundImageContentMode = UIViewContentModeScaleAspectFill;
+    self.slideMenuVC.enablePan = YES;
+    self.window.rootViewController = _slideMenuVC;
+    
+    //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[TemperatureRecordVC new]];
+
     //self.window.rootViewController = sideMenuViewController;
 
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[LoginVC loadFromNib]];
-    
+    //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[LoginVC loadFromNib]];
+
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     

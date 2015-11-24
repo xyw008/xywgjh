@@ -7,12 +7,15 @@
 //
 
 #import "LeftUserCenterVC.h"
+#import "CommonEntity.h"
 
 static NSString *cellIdentifier_Title = @"cellIdentifier_Title";
 static NSString *cellIdentifier_User = @"cellIdentifier_User";
 
 @interface LeftUserCenterVC ()<UITableViewDataSource,UITableViewDelegate>
-
+{
+    
+}
 @end
 
 @implementation LeftUserCenterVC
@@ -65,8 +68,8 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     if (!cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier_Title];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor clearColor];
-        
         
         UILabel *titleLB = [[UILabel alloc] init];
         titleLB.backgroundColor = [UIColor clearColor];
@@ -114,6 +117,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     if (!cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier_Title];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor clearColor];
         
         UIImageView *headIV = [[UIImageView alloc] init];
@@ -181,7 +185,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (0 == section)
-        return 1 + 1;
+        return 1 + 2;
     if (1 == section)
         return 2;
     return 0;
@@ -194,6 +198,10 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
         if (0 == indexPath.row)
         {
             return [self getTitleCellForRowAtIndexPath:indexPath title:@"成员管理"];
+        }
+        else if (2 == indexPath.row)
+        {
+            return [self getUserCellForRowAtIndexPath:indexPath nickname:@"新增成员" image:@"leftmenu_icon_adduser"];
         }
         else
         {
@@ -217,7 +225,24 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (0 == indexPath.section)
+    {
+        if (2 == indexPath.row) {
+            [self touchDelegateCall:LeftMenuTouchType_AddUser];
+        }
+    }
+    else if (1 == indexPath.section)
+    {
+        LeftMenuTouchType type = 0 == indexPath.row ? LeftMenuTouchType_Setting : LeftMenuTouchType_About;
+        [self touchDelegateCall:type];
+    }
+}
+
+- (void)touchDelegateCall:(LeftMenuTouchType)type
+{
+    if ([_delegate respondsToSelector:@selector(LeftUserCenterVC:touchType:)]) {
+        [_delegate LeftUserCenterVC:self touchType:type];
+    }
 }
 
 @end

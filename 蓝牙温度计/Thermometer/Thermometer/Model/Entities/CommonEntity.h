@@ -8,6 +8,23 @@
 
 #import "NetItemList.h"
 
+
+///////////////////////////////////////////////////////////////
+//成员Item
+@interface UserItem : NetItem
+
+@property (nonatomic,assign)NSInteger       userId;
+@property (nonatomic,copy)NSString          *userName;
+
+
+@property (nonatomic,assign)NSInteger       gender;//性别
+@property (nonatomic,assign)NSInteger       age;//年龄
+@property (nonatomic,copy)NSString          *role;//角色
+
+@end
+
+
+
 @interface FAQEntity : NetItem
 
 @property (nonatomic, strong) NSString *questionStr;
