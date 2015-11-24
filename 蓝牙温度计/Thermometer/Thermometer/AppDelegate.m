@@ -82,13 +82,13 @@
     self.slideMenuVC.backgroundImage = [UIImage imageNamed:@"leftmenu_bg"];
     self.slideMenuVC.backgroundImageContentMode = UIViewContentModeScaleAspectFill;
     self.slideMenuVC.enablePan = YES;
-    self.window.rootViewController = _slideMenuVC;
+    //self.window.rootViewController = _slideMenuVC;
     
     //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[TemperatureRecordVC new]];
 
     //self.window.rootViewController = sideMenuViewController;
 
-    //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[LoginVC loadFromNib]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[LoginVC loadFromNib]];
 
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

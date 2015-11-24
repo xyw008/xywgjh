@@ -44,22 +44,24 @@
             NSURL *url = [UrlManager getRequestUrlByMethodName:methodNameStr];
             NSDictionary *dic = @{@"phone": userName,
                                   @"password": password};
-            NSString *dicJsonStr = [dic jsonStringByError:nil];
             
-            dicJsonStr = [NSString stringWithFormat:@"json=%@",dicJsonStr];
-            dicJsonStr = [dicJsonStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//            NSString *dicJsonStr = [dic jsonStringByError:nil];
+//            dicJsonStr = [NSString stringWithFormat:@"json=%@",dicJsonStr];
+//            dicJsonStr = [dicJsonStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//            dicJsonStr = [dicJsonStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+//            dicJsonStr = [dicJsonStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             
-            NSDictionary *jsonDic = @{@"json":dicJsonStr};
+            // NSDictionary *jsonDic = @{@"json":dicJsonStr};
             
             
-            //url = [UrlManager getRequestUrlByMethodName:methodNameStr andArgsDic:jsonDic];
+            // url = [UrlManager getRequestUrlByMethodName:methodNameStr andArgsDic:jsonDic];
             
-            NSString *urlString = [NSString stringWithFormat:@"%@?%@",url.absoluteString,dicJsonStr];
-            urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            url = [NSURL URLWithString:urlString];
+            //NSString *urlString = [NSString stringWithFormat:@"%@?%@",url.absoluteString,dicJsonStr];
+            //urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            //url = [NSURL URLWithString:urlString];
             
             [[NetRequestManager sharedInstance] sendRequest:url
-                                               parameterDic:nil
+                                               parameterDic:dic
                                           requestMethodType:RequestMethodType_POST
                                                  requestTag:NetUserCenterRequestType_Login
                                                    delegate:self

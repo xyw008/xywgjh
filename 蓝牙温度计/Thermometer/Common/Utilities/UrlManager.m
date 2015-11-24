@@ -94,7 +94,7 @@
     if (nameSpaceStr && 0 != nameSpaceStr.length)
     {
         // 不用stringByAppendingPathComponent:,这个会自动把http://中的一个/去掉
-        NSString *urlStr = [nameSpaceStr stringByAppendingFormat:@"/%@",methodName];
+        NSString *urlStr = [nameSpaceStr stringByAppendingFormat:@"/%@?",methodName];
         
         if (dic && 0 != dic.count)
         {

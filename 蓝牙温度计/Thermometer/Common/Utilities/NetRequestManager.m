@@ -67,39 +67,52 @@ static NSString * const CacheExpiresInSecondsKey = @"CacheExpiresInSecondsKey";
 //数据解析
 - (BOOL)isParseSuccessWithResponseData:(NSData *)data result:(id *)result
 {
+    NSString *resultStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSArray *resultArray = [resultStr componentsSeparatedByString:@"="];
+    if (resultArray.count < 2) return NO;
+    
+    resultStr = resultArray[1];
+    
+    /*
     if (!networkDataIsJsonType)
     {
         *result = data;
         
         return YES;
     }
+    */
     
     NSError *err = nil;
     
-//    NSLog(@"result = %@",resultStr);
+    // NSLog(@"result = %@",resultStr);
     
-    *result = [NSJSONSerialization JSONObjectWithData:[self JSONData:data] options:NSJSONReadingMutableContainers error:&err];
+    NSData *resultData = [resultStr dataUsingEncoding:NSUTF8StringEncoding];
+    
+    *result = [NSJSONSerialization JSONObjectWithData:[self JSONData:resultData] options:NSJSONReadingMutableContainers error:&err];
     if (err)
     {
         *result = err;
         
         return NO;
     }
-//    NSLog(@"resultDic = %@",*result);
+    // NSLog(@"resultDic = %@",*result);
     
     // 做服务器返回的业务code判断,因为如果服务器方法报错或者业务逻辑出错HTTP码还是返回的200,但是加了自己定义的一套code码(详情可参考WIKI上面的约定)
-    NSNumber *myCodeNum = [*result objectForKey:@"code"];
-    NSString *myMsgStr = [*result objectForKey:@"msg"];
+    NSNumber *myCode = [*result objectForKey:@"result"];
     
-    if (!myCodeNum || MyHTTPCodeType_Success != myCodeNum.integerValue)
+    // NSString *myMsgStr = [*result objectForKey:@"msg"];
+    
+    if (!myCode || 0 != myCode.integerValue)
     {
-        err = [[NSError alloc] initWithDomain:@"MYSERVER_ERROR_DOMAIN" code:myCodeNum.integerValue userInfo:[NSDictionary dictionaryWithObjectsAndKeys:myMsgStr, NSLocalizedDescriptionKey, nil]];
+        err = [[NSError alloc] initWithDomain:@"MYSERVER_ERROR_DOMAIN" code:myCode.integerValue userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"失败", NSLocalizedDescriptionKey, nil]];
         
         *result = err;
        
         return NO;
     }
-    *result = [*result objectForKey:@"data"];
+    // *result = [*result objectForKey:@"data"];
+    
+    // 返回的数据格式根据接口解析
     
     return YES;
 }
@@ -381,6 +394,12 @@ DEF_SINGLETON(NetRequestManager);
         if ([parameterDic isAbsoluteValid])
         {
             NSString *postBodyStr = [parameterDic jsonStringByError:NULL];
+            
+            postBodyStr = [NSString stringWithFormat:@"json=%@",postBodyStr];
+            postBodyStr = [postBodyStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            postBodyStr = [postBodyStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+            // postBodyStr = [postBodyStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            
             NSData *postBodyData = [postBodyStr dataUsingEncoding:NSUTF8StringEncoding];
             
             [netRequest.asiFormRequest setPostBody:[NSMutableData dataWithData:postBodyData]];
@@ -419,7 +438,7 @@ DEF_SINGLETON(NetRequestManager);
      @ 修改开始
      */
     // 修改开始
-    
+    /*
     if ([parameterDic isAbsoluteValid])
     {
         for (NSString *key in parameterDic.allKeys)
@@ -427,7 +446,7 @@ DEF_SINGLETON(NetRequestManager);
             [netRequest.asiFormRequest setPostValue:[parameterDic objectForKey:key] forKey:key];
         }
     }
-    
+    */
     // 修改结束
     
     // 判断是否要作数据缓存
