@@ -85,4 +85,8 @@ AS_SINGLETON(UserInfoModel);
 + (void)setUserDefaultNoFirstGoApp:(NSNumber*)noFirstGoApp;
 + (NSNumber *)getNoFirstGoApp;
 
+//温度显示模式是华氏还是摄氏(YES：F)
++ (void)setUserDefaultIsFUnit:(NSNumber*)isFUnit;
++ (NSNumber *)getIsFUnit;
+
 @end

@@ -18,6 +18,8 @@ typedef void (^GroupTemperatureCallBack) (NSDictionary<NSString *, NSArray<BLECa
 @property (nonatomic,strong)ActualTimeValueCallBack     actualTimeValueCallBack;//实时温度回调
 @property (nonatomic,strong)GroupTemperatureCallBack    groupTemperatureCallBack;//温度组的回调
 
+@property (nonatomic,assign)BOOL                        isFUnit;//是否是华氏单位显示(default:NO)
+
 @property (nonatomic,assign)BOOL                        is30Second;//是否是30秒一组的数据
 
 @property (nonatomic,assign)CGFloat                     rssi;//蓝牙信号强度（-50 -- 0 强  -70 --  -50 较强）

@@ -312,6 +312,12 @@
     _highestValueLB.text = [NSString stringWithFormat:@"%.1lf度",hightestTp];
 }
 
+- (void)setIsRemoteType:(BOOL)isRemoteType
+{
+    _isRemoteType = isRemoteType;
+    _searchLB.text = _isRemoteType ? @"同步中" : @"搜索中";
+}
+
 - (void)setIsShowTemperatureStatus:(BOOL)isShowTemperatureStatus
 {
     _isShowTemperatureStatus = isShowTemperatureStatus;

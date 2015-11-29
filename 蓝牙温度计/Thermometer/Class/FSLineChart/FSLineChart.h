@@ -93,4 +93,11 @@ typedef NS_ENUM(NSInteger, ValueLabelPositionType) {
 // Clear all rendered data from the view.
 - (void)clearChartData;
 
+
+//加载纵坐标值
+- (void)loadLabelForValue;
+
+//加载横坐标的单位
+- (void)loadLabelForIndex;
+
 @end

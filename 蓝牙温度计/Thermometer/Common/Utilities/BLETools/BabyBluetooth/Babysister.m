@@ -412,14 +412,14 @@
 
 #if  __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(nullable NSError *)error{
-    NSLog(@">>>peripheralDidUpdateRSSI -> RSSI:%@",peripheral.RSSI);
+    //NSLog(@">>>peripheralDidUpdateRSSI -> RSSI:%@",peripheral.RSSI);
     if ([currChannel blockOnDidReadRSSI]) {
         [currChannel blockOnDidReadRSSI](peripheral.RSSI,error);
     }
 }
 #else
 -(void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error{
-    NSLog(@">>>peripheralDidUpdateRSSI -> RSSI:%@",RSSI);
+    //NSLog(@">>>peripheralDidUpdateRSSI -> RSSI:%@",RSSI);
     if ([currChannel blockOnDidReadRSSI]) {
         [currChannel blockOnDidReadRSSI](RSSI,error);
     }

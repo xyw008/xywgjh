@@ -430,7 +430,6 @@
 		B3162C871BEA4DC2009E7C19 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3162C621BEA4DC2009E7C19 /* main.m */; };
 		B3162C881BEA4DC2009E7C19 /* CommonBC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3162C661BEA4DC2009E7C19 /* CommonBC.m */; };
 		B3162C891BEA4DC2009E7C19 /* CommonEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = B3162C691BEA4DC2009E7C19 /* CommonEntity.m */; };
-		B3162C8A1BEA4DC2009E7C19 /* 168BC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3162C6C1BEA4DC2009E7C19 /* 168BC.m */; };
 		B3162C8B1BEA4DC2009E7C19 /* ExamineVersionBC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3162C6F1BEA4DC2009E7C19 /* ExamineVersionBC.m */; };
 		B3162C8C1BEA4DC2009E7C19 /* LoginBC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3162C711BEA4DC2009E7C19 /* LoginBC.m */; };
 		B3162C8D1BEA4DC2009E7C19 /* RegisterBC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3162C731BEA4DC2009E7C19 /* RegisterBC.m */; };
@@ -554,6 +553,7 @@
 		B35A8FA31BFA2FEB0050E49B /* YSBLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B35A8FA21BFA2FEB0050E49B /* YSBLEManager.m */; };
 		B35A8FA91BFA475D0050E49B /* FSLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B35A8FA61BFA475D0050E49B /* FSLineChart.m */; };
 		B35A8FAA1BFA475D0050E49B /* UIColor+FSPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = B35A8FA81BFA475D0050E49B /* UIColor+FSPalette.m */; };
+		B35C39871C0ADF4D004325CA /* AccountStautsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B35C39861C0ADF4D004325CA /* AccountStautsManager.m */; };
 		FAF92EF61B6F103900DD06BC /* PRPAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EF51B6F103900DD06BC /* PRPAlertView.m */; };
 		FAF92F051B6F10A400DD06BC /* AppSmallUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EF81B6F10A400DD06BC /* AppSmallUtils.m */; };
 		FAF92F061B6F10A400DD06BC /* AppSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EFA1B6F10A400DD06BC /* AppSoundManager.m */; };
@@ -1396,8 +1396,6 @@
 		B3162C661BEA4DC2009E7C19 /* CommonBC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonBC.m; sourceTree = "<group>"; };
 		B3162C681BEA4DC2009E7C19 /* CommonEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonEntity.h; sourceTree = "<group>"; };
 		B3162C691BEA4DC2009E7C19 /* CommonEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonEntity.m; sourceTree = "<group>"; };
-		B3162C6B1BEA4DC2009E7C19 /* 168BC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 168BC.h; sourceTree = "<group>"; };
-		B3162C6C1BEA4DC2009E7C19 /* 168BC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = 168BC.m; sourceTree = "<group>"; };
 		B3162C6E1BEA4DC2009E7C19 /* ExamineVersionBC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExamineVersionBC.h; sourceTree = "<group>"; };
 		B3162C6F1BEA4DC2009E7C19 /* ExamineVersionBC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExamineVersionBC.m; sourceTree = "<group>"; };
 		B3162C701BEA4DC2009E7C19 /* LoginBC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginBC.h; sourceTree = "<group>"; };
@@ -1541,6 +1539,8 @@
 		B35A8FA61BFA475D0050E49B /* FSLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSLineChart.m; sourceTree = "<group>"; };
 		B35A8FA71BFA475D0050E49B /* UIColor+FSPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+FSPalette.h"; sourceTree = "<group>"; };
 		B35A8FA81BFA475D0050E49B /* UIColor+FSPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+FSPalette.m"; sourceTree = "<group>"; };
+		B35C39851C0ADF4D004325CA /* AccountStautsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountStautsManager.h; sourceTree = "<group>"; };
+		B35C39861C0ADF4D004325CA /* AccountStautsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountStautsManager.m; sourceTree = "<group>"; };
 		FAF92EF41B6F103900DD06BC /* PRPAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPAlertView.h; sourceTree = "<group>"; };
 		FAF92EF51B6F103900DD06BC /* PRPAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPAlertView.m; sourceTree = "<group>"; };
 		FAF92EF71B6F10A400DD06BC /* AppSmallUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSmallUtils.h; sourceTree = "<group>"; };
@@ -1895,11 +1895,11 @@
 				43D1CAF01A75E7EA004564C2 /* Security.framework */,
 				432C322A1A7244830094A27E /* CoreText.framework */,
 				432C32281A72446C0094A27E /* SystemConfiguration.framework */,
+				43D1CB011A75EBA5004564C2 /* Resource */,
 				43D1C68B1A75E692004564C2 /* Class */,
 				43D1CAFB1A75EBA5004564C2 /* Config */,
 				43D1CB071A75EBF9004564C2 /* Common */,
 				43D1CAFF1A75EBA5004564C2 /* Doc */,
-				43D1CB011A75EBA5004564C2 /* Resource */,
 				B3162C431BEA4DC2009E7C19 /* Thermometer */,
 				432C31A71A7243840094A27E /* MuBanTests */,
 				432C31891A7243840094A27E /* Products */,
@@ -3410,7 +3410,6 @@
 			children = (
 				B3162C641BEA4DC2009E7C19 /* BC */,
 				B3162C671BEA4DC2009E7C19 /* Entities */,
-				B3162C6A1BEA4DC2009E7C19 /* Product */,
 				B3162C6D1BEA4DC2009E7C19 /* Register&Login */,
 			);
 			path = Model;
@@ -3421,6 +3420,8 @@
 			children = (
 				B3162C651BEA4DC2009E7C19 /* CommonBC.h */,
 				B3162C661BEA4DC2009E7C19 /* CommonBC.m */,
+				B35C39851C0ADF4D004325CA /* AccountStautsManager.h */,
+				B35C39861C0ADF4D004325CA /* AccountStautsManager.m */,
 			);
 			path = BC;
 			sourceTree = "<group>";
@@ -3432,15 +3433,6 @@
 				B3162C691BEA4DC2009E7C19 /* CommonEntity.m */,
 			);
 			path = Entities;
-			sourceTree = "<group>";
-		};
-		B3162C6A1BEA4DC2009E7C19 /* Product */ = {
-			isa = PBXGroup;
-			children = (
-				B3162C6B1BEA4DC2009E7C19 /* 168BC.h */,
-				B3162C6C1BEA4DC2009E7C19 /* 168BC.m */,
-			);
-			path = Product;
 			sourceTree = "<group>";
 		};
 		B3162C6D1BEA4DC2009E7C19 /* Register&Login */ = {
@@ -4025,7 +4017,6 @@
 				43D1CC601A75EBFA004564C2 /* CycleScrollView.m in Sources */,
 				431F138D1A7762E9008C4544 /* PinyinHelper.m in Sources */,
 				43D1CC351A75EBFA004564C2 /* UIButton+Cache.m in Sources */,
-				B3162C8A1BEA4DC2009E7C19 /* 168BC.m in Sources */,
 				B3192FE11C02149600424A9B /* SlideActionSheet.m in Sources */,
 				43D1CA331A75E778004564C2 /* NIBadgeView.m in Sources */,
 				43D1CA031A75E778004564C2 /* MagicalImportFunctions.m in Sources */,
@@ -4146,6 +4137,7 @@
 				43D1CA1F1A75E778004564C2 /* MASConstraintMaker.m in Sources */,
 				2B709C041BFE1C470014020A /* InvitationViewControllerEx.m in Sources */,
 				43D1C9B11A75E778004564C2 /* AFHTTPRequestOperationManager.m in Sources */,
+				B35C39871C0ADF4D004325CA /* AccountStautsManager.m in Sources */,
 				43D1CA011A75E778004564C2 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				43D1C9EC1A75E778004564C2 /* UIImage+FlatUI.m in Sources */,
 				43D1CA361A75E778004564C2 /* NICollectionViewActions.m in Sources */,

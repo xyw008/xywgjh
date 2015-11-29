@@ -34,6 +34,8 @@
 #define UserDefault_DeviceTokenKey          @"userDefault_DeviceTokenKey"       // 用户注册通知成功后返回的token
 
 #define UserDefault_NoFirstAppKey          @"UserDefault_NoFirstAppKey"         //不是第一次进入app
+#define UserDefault_IsFUnitKey             @"UserDefault_IsFUnitKey"            //温度显示单位
+
 
 @implementation UserInfoModel
 
@@ -337,6 +339,19 @@ DEF_SINGLETON(UserInfoModel);
 + (NSNumber *)getNoFirstGoApp
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_NoFirstAppKey];
+}
+
+
+//温度显示模式是华氏还是摄氏(YES：F)
++ (void)setUserDefaultIsFUnit:(NSNumber *)isFUnit
+{
+    [[NSUserDefaults standardUserDefaults] setObject:isFUnit forKey:UserDefault_IsFUnitKey];
+    [self saveUserDefaultInfo];
+}
+
++ (NSNumber *)getIsFUnit
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_IsFUnitKey];
 }
 
 @end

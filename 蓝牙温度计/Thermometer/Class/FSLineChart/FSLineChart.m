@@ -137,6 +137,12 @@
         [self strokeDataPoints];
     }
     
+
+    //值加载横坐标（时间）
+    [self loadLabelForIndex];
+    
+    //下面是源代码
+    /*
     if(_labelForValue) {
         
         ////
@@ -182,11 +188,65 @@
             }
         }
     }
+     */
     
     [self setNeedsDisplay];
 }
 
 #pragma mark - Labels creation
+- (void)loadLabelForValue
+{
+    if(_labelForValue) {
+        
+        ////
+        //自己加的
+        for (UIView *subView in self.subviews) {
+            if ([subView isKindOfClass:[UILabel class]] && subView.tag >= kLabelForValueTag && subView.tag < kLabelForIndexTag) {
+                [subView removeFromSuperview];
+            }
+        }
+        /////////
+        
+        for(int i=0;i<_verticalGridStep;i++) {
+            UILabel* label = [self createLabelForValue:i];
+            
+            if(label) {
+                label.tag = kLabelForValueTag + i;
+                [self addSubview:label];
+            }
+        }
+    }
+}
+
+
+- (void)loadLabelForIndex
+{
+    if(_labelForIndex) {
+        
+        ////
+        //自己加的
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(_margin - 1, _axisHeight + _margin, self.frame.size.width - _margin, 40)];
+        view.backgroundColor = self.backgroundColor;
+        [self addSubview:view];
+        
+        for (UIView *subView in self.subviews) {
+            if ([subView isKindOfClass:[UILabel class]] && subView.tag >= kLabelForIndexTag) {
+                [subView removeFromSuperview];
+            }
+        }
+        /////////
+        
+        for(int i=0;i<_horizontalGridStep + 1;i++) {
+            UILabel* label = [self createLabelForIndex:i];
+            
+            if(label) {
+                label.tag = kLabelForIndexTag + i;
+                [self addSubview:label];
+            }
+        }
+    }
+}
+
 
 - (UILabel*)createLabelForValue: (NSUInteger)index
 {
@@ -242,8 +302,8 @@
         itemIndex = _data.count - 1;
     }
     
-    NSString* text = _labelForIndex(itemIndex);
-    
+    //NSString* text = _labelForIndex(itemIndex);
+    NSString* text = _labelForIndex(index);
     if(!text)
     {
         return nil;
@@ -258,12 +318,14 @@
                                   attributes:@{ NSFontAttributeName:_indexLabelFont }
                                      context:nil].size.width;
     
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(p.x - 4.0f, p.y + 2, width + 2, 14)];
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(p.x - 4.0f - 22, p.y + 2, width + 2, 14)];
+    if (index == 0) {
+        label.frameOriginX += 12;
+    }
     label.text = text;
     label.font = _indexLabelFont;
     label.textColor = _indexLabelTextColor;
     label.backgroundColor = _indexLabelBackgroundColor;
-    
     return label;
 }
 
@@ -594,7 +656,7 @@
         return CGPointMake(_margin, _axisHeight + _margin - [number floatValue] * scale);
     } else {
         
-        DLog(@"point x = %lf,  y = %lf",_margin + idx * (_axisWidth / (_data.count - 1)),_axisHeight + _margin - [number floatValue] * scale);
+        //DLog(@"point x = %lf,  y = %lf",_margin + idx * (_axisWidth / (_data.count - 1)),_axisHeight + _margin - [number floatValue] * scale);
         
         return CGPointMake(_margin + idx * (_axisWidth / (_data.count - 1)), _axisHeight + _margin - [number floatValue] * scale);
         

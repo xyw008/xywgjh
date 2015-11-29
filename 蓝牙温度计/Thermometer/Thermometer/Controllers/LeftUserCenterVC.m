@@ -8,13 +8,18 @@
 
 #import "LeftUserCenterVC.h"
 #import "CommonEntity.h"
+#import "LoginBC.h"
+#import "AccountStautsManager.h"
+
+#import "BaseNetworkViewController+NetRequestManager.h"
+#import "AddUserVC.h"
 
 static NSString *cellIdentifier_Title = @"cellIdentifier_Title";
 static NSString *cellIdentifier_User = @"cellIdentifier_User";
 
 @interface LeftUserCenterVC ()<UITableViewDataSource,UITableViewDelegate>
 {
-    
+    NSMutableArray      *_userItemArray;
 }
 @end
 
@@ -26,15 +31,26 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     bgIV.image = [UIImage imageNamed:@"leftmenu_bg"];
     [self.view addSubview:bgIV];
     
-    
     [self initTableView];
+    
+    
+    //登陆成功通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loginSuccess:)
+                                                 name:kLoginSuccessNotificationKey
+                                               object:nil];
+    
+    //登陆成功通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addUserSuccess:)
+                                                 name:kAddUserSuccessNotificationKey
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (void)initTableView
 {
@@ -52,6 +68,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     
     CGFloat headHeight = 72;
     UIImageView *headIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, headHeight, headHeight)];
+    headIV.image = [UIImage imageNamed:@"icon_userhead"];
     headIV.backgroundColor = [UIColor redColor];
     [headBgView addSubview:headIV];
     headIV.center = CGPointMake(headBgView.center.x - 22, headBgView.center.y);
@@ -60,6 +77,74 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     _tableView.tableHeaderView = headBgView;
     
 }
+
+
+#pragma mark - request
+
+- (void)setNetworkRequestStatusBlocks
+{
+    WEAKSELF
+    [self setNetSuccessBlock:^(NetRequest *request, id successInfoObj) {
+        
+        if (successInfoObj && [successInfoObj isKindOfClass:[NSDictionary class]])
+        {
+            STRONGSELF
+            switch (request.tag)
+            {
+                case NetUserRequestType_GetAllUserInfo:
+                {
+                    NSDictionary *userDic = [successInfoObj safeObjectForKey:@"user"];
+                    
+                    NSArray *memberList = [userDic safeObjectForKey:@"memberList"];
+                    if ([memberList isAbsoluteValid])
+                    {
+                        NSMutableArray  *tempArray = [NSMutableArray new];
+                        for (NSDictionary *obj in memberList)
+                        {
+                            UserItem *item = [UserItem initWithDict:obj];
+                            [tempArray addObject:item];
+                        }
+                        strongSelf->_userItemArray = tempArray;
+                        [strongSelf->_tableView reloadData];
+                        
+                        //如果是添加的第一个成员
+                        if (![AccountStautsManager sharedInstance].nowUserItem)
+                        {
+                            [AccountStautsManager sharedInstance].nowUserItem = [tempArray firstObject];
+                        }
+                    }
+                    else
+                    {
+                        //还没有成员
+                        if ([strongSelf->_delegate respondsToSelector:@selector(LeftUserCenterVCNoMember:)]) {
+                            [strongSelf->_delegate LeftUserCenterVCNoMember:strongSelf];
+                        }
+                    }
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+    } failedBlock:^(NetRequest *request, NSError *error) {
+        
+        switch (request.tag)
+        {
+                
+        }
+    }];
+}
+
+- (void)getNetworkData
+{
+    [self sendRequest:[[self class] getRequestURLStr:NetUserRequestType_GetAllUserInfo]
+         parameterDic:@{@"phone":[UserInfoModel getUserDefaultLoginName]}
+       requestHeaders:nil
+    requestMethodType:RequestMethodType_POST
+           requestTag:NetUserRequestType_GetAllUserInfo];
+}
+
+
 
 #pragma mark - get cell
 - (UITableViewCell*)getTitleCellForRowAtIndexPath:(NSIndexPath *)indexPath title:(NSString*)title
@@ -113,10 +198,10 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 
 - (UITableViewCell*)getUserCellForRowAtIndexPath:(NSIndexPath *)indexPath nickname:(NSString*)nickname image:(NSString*)imageStr
 {
-    UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:cellIdentifier_Title];
+    UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:cellIdentifier_User];
     if (!cell)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier_Title];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier_User];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor clearColor];
         
@@ -185,7 +270,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (0 == section)
-        return 1 + 2;
+        return _userItemArray.count + 2;
     if (1 == section)
         return 2;
     return 0;
@@ -199,13 +284,24 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
         {
             return [self getTitleCellForRowAtIndexPath:indexPath title:@"成员管理"];
         }
-        else if (2 == indexPath.row)
+        else if (_userItemArray.count + 1 == indexPath.row)
         {
             return [self getUserCellForRowAtIndexPath:indexPath nickname:@"新增成员" image:@"leftmenu_icon_adduser"];
         }
         else
         {
-            return [self getUserCellForRowAtIndexPath:indexPath nickname:@"熊爸爸" image:@"leftmenu_icon_father"];
+            UserItem *item = [_userItemArray objectAtIndex:indexPath.row - 1];
+            NSString *imageSting = @"leftmenu_icon_baby";
+            if (2 == item.role)
+                imageSting = @"leftmenu_icon_mother";
+            else if (3 == item.role)
+                imageSting = @"leftmenu_icon_father";
+            else if (4 == item.role)
+                imageSting = @"leftmenu_icon_grandm";
+            else if (5 == item.role)
+                imageSting = @"leftmenu_icon_grandf";
+            
+            return [self getUserCellForRowAtIndexPath:indexPath nickname:item.userName image:imageSting];
         }
     }
     else if (1 == indexPath.section)
@@ -227,8 +323,16 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 {
     if (0 == indexPath.section)
     {
-        if (2 == indexPath.row) {
+        if (_userItemArray.count + 1 == indexPath.row)
+        {
             [self touchDelegateCall:LeftMenuTouchType_AddUser];
+        }
+        else
+        {
+            if (0 != indexPath.row)
+            {
+                [AccountStautsManager sharedInstance].nowUserItem = (UserItem*)[_userItemArray objectAtIndex:indexPath.row - 1];
+            }
         }
     }
     else if (1 == indexPath.section)
@@ -243,6 +347,18 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     if ([_delegate respondsToSelector:@selector(LeftUserCenterVC:touchType:)]) {
         [_delegate LeftUserCenterVC:self touchType:type];
     }
+}
+
+
+#pragma mark - notification
+- (void)loginSuccess:(NSNotification*)notification
+{
+    [self getNetworkData];
+}
+
+- (void)addUserSuccess:(NSNotification*)notification
+{
+    [self getNetworkData];
 }
 
 @end

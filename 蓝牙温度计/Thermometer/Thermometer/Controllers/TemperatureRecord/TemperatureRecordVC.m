@@ -8,14 +8,26 @@
 
 #import "TemperatureRecordVC.h"
 #import "TemperatureRecordTabHeaderView.h"
+#import "FSLineChart.h"
+#import "BLEManager.h"
+#import "UserInfoModel.h"
 
 #define kTabHeaderHeight 55
 
+
 @interface TemperatureRecordVC ()
 {
-    NSMutableArray<UIButton *>  *_tabHeadersArray;
+    NSMutableArray<UIButton *>      *_tabHeadersArray;
     
-    UIButton                    *_curSelectedTabHeaderBtn;
+    UIButton                        *_curSelectedTabHeaderBtn;
+    
+    TemperatureRecordTabHeaderView  *_headerView;
+    
+    UIScrollView                    *_fsLineBgScrollView;
+    FSLineChart                     *_amFsLineView;//上午12小时温度曲线图
+    FSLineChart                     *_pmFsLineView;//下午12小时温度曲线图
+    
+    BOOL                            _isFUnit;//是否是华氏温度（默认是摄氏）
 }
 
 @end
@@ -24,6 +36,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _isFUnit = [[UserInfoModel getIsFUnit] boolValue];
     
     [self configureTabHeaders];
     [self initialization];
@@ -56,15 +70,15 @@
                   registerNibName:nil
                   reuseIdentifier:nil];
     
-    TemperatureRecordTabHeaderView *headerView = [TemperatureRecordTabHeaderView loadFromNib];
-    headerView.operationHandle = ^(TemperatureRecordTabHeaderView *view, HeaderViewOperationType type) {
+    _headerView = [TemperatureRecordTabHeaderView loadFromNib];
+    _headerView.operationHandle = ^(TemperatureRecordTabHeaderView *view, HeaderViewOperationType type) {
         if (HeaderViewOperationType_DatePre == type) {
             
         } else {
             
         }
     };
-    _tableView.tableHeaderView = headerView;
+    _tableView.tableHeaderView = _headerView;
     
     // navigation buttons
     CGFloat btnSize = 40;
@@ -146,6 +160,86 @@
     }
 }
 
+- (void)initFsLineView
+{
+    _fsLineBgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_headerView.frame), self.view.width, self.view.height - _headerView.height - 40)];
+    _fsLineBgScrollView.pagingEnabled = YES;
+    _fsLineBgScrollView.hidden = YES;
+    _fsLineBgScrollView.showsHorizontalScrollIndicator = NO;
+    _fsLineBgScrollView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_fsLineBgScrollView];
+    
+    _amFsLineView = [self createFSLineChartView:CGRectMake(10, 0, _fsLineBgScrollView.width - 10, _fsLineBgScrollView.height)];
+    
+    _pmFsLineView = [self createFSLineChartView:CGRectMake(_fsLineBgScrollView.width + 10, 0, _amFsLineView.width, _amFsLineView.height)];
+    
+    NSDate *currDate = [NSDate date];
+    NSArray *amString = @[@"00:00",@"02:00",@"04:00",@"06:00",@"08:00",@"10:00",@"12:00"];
+    NSArray *pmString = @[@"12:00",@"14:00",@"16:00",@"18:00",@"20:00",@"22:00",@"24:00"];
+    
+    _amFsLineView.labelForIndex = ^(NSUInteger item) {
+        return amString[item];
+    };
+    
+    //上午
+    WEAKSELF
+    _amFsLineView.labelForValue = ^(CGFloat value) {
+        STRONGSELF
+        CGFloat lastValue = value - 1;
+        NSString *unit = @"°C";
+        
+        if (strongSelf->_isFUnit)
+        {
+            lastValue = [BLEManager getFTemperatureWithC:lastValue];
+            unit = @"°F";
+        }
+        return [NSString stringWithFormat:@"%.0f%@", lastValue,unit];
+    };
+    [_amFsLineView setChartData:@[@(36.3),@(36.3),@(36.4),@(36.3),@(36.3),@(36.0),@(36.1),@(36.5),@(36.1),@(36.1),@(36.1),@(36.1),@(36.2),@(36.2),@(36.3),@(36.5)]];
+    [_amFsLineView loadLabelForValue];
+    
+    
+    //下午
+    _pmFsLineView.labelForIndex = ^(NSUInteger item) {
+        return pmString[item];
+    };
+    
+    _pmFsLineView.labelForValue = ^(CGFloat value) {
+        STRONGSELF
+        CGFloat lastValue = value - 1;
+        NSString *unit = @"°C";
+        
+        if (strongSelf->_isFUnit)
+        {
+            lastValue = [BLEManager getFTemperatureWithC:lastValue];
+            unit = @"°F";
+        }
+        return [NSString stringWithFormat:@"%.0f%@", lastValue,unit];
+    };
+    [_pmFsLineView setChartData:@[@(36.3),@(36.3),@(36.4),@(36.3),@(36.3),@(36.0),@(36.1),@(36.5),@(36.1),@(36.1),@(36.1),@(36.1),@(36.2),@(36.2),@(36.3),@(36.5)]];
+    [_pmFsLineView loadLabelForValue];
+    
+    _fsLineBgScrollView.contentSize = CGSizeMake(_fsLineBgScrollView.width*2, 0);
+}
+
+- (FSLineChart*)createFSLineChartView:(CGRect)frame
+{
+    FSLineChart *fsView = [[FSLineChart alloc] initWithFrame:frame];
+    fsView.backgroundColor = [UIColor whiteColor];
+    fsView.gridStep = 32;
+    fsView.verticalGridStep = 11;
+    fsView.horizontalGridStep = 6;
+    fsView.color = Common_BlueColor;
+    fsView.fillColor = [_amFsLineView.color colorWithAlphaComponent:0.3];
+    fsView.valueLabelBackgroundColor = [UIColor clearColor];
+    fsView.margin = 35;
+    fsView.needVerticalLine = NO;
+    [_fsLineBgScrollView addSubview:fsView];
+    return fsView;
+}
+
+
+#pragma mark - btn touch
 - (void)clickTabHeaderBtn:(UIButton *)sender
 {
     sender.selected = !sender.selected;
@@ -169,12 +263,41 @@
     }
 }
 
+
 - (void)clickBackBtn:(UIButton *)sender {
     [self backViewController];
 }
 
-- (void)clickRecordShowTypeChooseBtn:(UIButton *)sender {
+- (void)clickRecordShowTypeChooseBtn:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    
+    if (sender.selected)
+    {
+        _headerView.frameOriginY = 20;
+        [self.view addSubview:_headerView];
+        if (_fsLineBgScrollView == nil) {
+            [self initFsLineView];
+        }
+        _fsLineBgScrollView.hidden = NO;
+        _tableView.hidden = YES;
+    }
+    else
+    {
+        //_headerView.frameOriginY = 0;
+        [_headerView removeFromSuperview];
+        _tableView.tableHeaderView = _headerView;
+        _fsLineBgScrollView.hidden = YES;
+        _tableView.hidden = NO;
+    }
+    
+    for (UIView *subView in self.view.subviews) {
+        if ([subView isKindOfClass:[UIButton class]]) {
+            [self.view bringSubviewToFront:subView];
+        }
+    }
 }
+
 
 - (void)setupCellWithIndexPath:(NSIndexPath *)indexPath cell:(UITableViewCell *)cell
 {

@@ -18,6 +18,8 @@
 #import "XLWelcomeAppView.h"
 #import "AppPropertiesInitialize.h"
 #import "LoginBC.h"
+#import "UserInfoModel.h"
+#import "AccountStautsManager.h"
 
 #import "AlarmSettingVC.h"
 #import "LeftUserCenterVC.h"
@@ -39,6 +41,7 @@
     UIScrollView                *_bgScrollView;
     TemperaturesShowView        *_temperaturesShowView;
     FSLineChart                 *_fsLineTemperatureView;//温度线条
+    UILabel                     *_searchLB;//线条位置的状态提示
     
     UIView                      *_popBgView;//启动弹出的选择模式视图
     
@@ -46,8 +49,9 @@
 
     NSInteger                   _countdownTimer;//温度组30秒倒计时计算
     
-    BOOL                        _isVisitorType;//是否是游客模式
+    BOOL                        _isFUnit;//是否是华氏温度（默认是摄氏）
     
+    BOOL                        _isVisitorType;//是否是游客模式
     XLWelcomeAppView            *_welcomeAppView;//第一次启动app
 }
 @end
@@ -73,13 +77,14 @@
     [super viewDidAppear:animated];
     if ([[UserInfoModel getNoFirstGoApp] boolValue])
     {
-        [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:YES];
+        [self setSlideMenuVCEnablePan:[AccountStautsManager sharedInstance].isLogin];
     }
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:NO];
+    [self setSlideMenuVCEnablePan:NO];
     [super viewDidDisappear:animated];
 }
 
@@ -87,6 +92,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _countdownTimer = 30;
+    _isFUnit = [[UserInfoModel getIsFUnit] boolValue];
     self.view.backgroundColor = HEXCOLOR(0XF7F7F7);
     //[self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navigationbar_icon_menu"] highlightedImg:[UIImage imageNamed:@"navigationbar_icon_menu"] action:@selector(presentLeftMenuViewController:)];
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navigationbar_icon_menu"] highlightedImg:[UIImage imageNamed:@"navigationbar_icon_menu"] action:@selector(leftMenuBtnTouch:)];
@@ -108,13 +114,14 @@
     //[self initPopView];
     
     CGFloat height = 38;
-    _headIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, height, height)];
-    _headIV.backgroundColor = [UIColor redColor];
+    _headIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_userhead"]];
+    _headIV.frame = CGRectMake(0, 0, height, height);
     ViewRadius(_headIV, height/2);
-    self.navigationItem.titleView = _headIV;
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, height, height)];
+    [bgView addSubview:_headIV];
+    bgView.backgroundColor = [UIColor clearColor];
+    self.navigationItem.titleView = bgView;
     //self.view.backgroundColor = [UIColor redColor];
-    
-    
     [self judgeGoAppNum];
 }
 
@@ -152,15 +159,18 @@
             {
                 strongSelf->_isVisitorType = YES;
                 [weakSelf removeWelcomeAppView];
+                
             }
         }];
     }
+    else
+        [self initPopView];
 }
 
 - (void)removeWelcomeAppView
 {
-    [_welcomeAppView removeSelf];
     [self initPopView];
+    [_welcomeAppView removeSelf];
     [self hiddenNav:NO];
     [UserInfoModel setUserDefaultNoFirstGoApp:@(YES)];
     _welcomeAppView = nil;
@@ -169,10 +179,14 @@
 - (void)hiddenNav:(BOOL)hidden
 {
     self.navigationController.navigationBarHidden = hidden;
-    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:!hidden];
+    [self setSlideMenuVCEnablePan:!hidden];
     [AppPropertiesInitialize setBackgroundColorToStatusBar:hidden ? HEXCOLOR(0X3C3A47) : Common_ThemeColor];
 }
 
+- (void)setSlideMenuVCEnablePan:(BOOL)enable
+{
+    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:enable];
+}
 
 #pragma mark - init method
 
@@ -199,24 +213,45 @@
     _fsLineTemperatureView.backgroundColor = _temperaturesShowView.backgroundColor;
     _fsLineTemperatureView.gridStep = 32;
     _fsLineTemperatureView.verticalGridStep = 11;
-    _fsLineTemperatureView.horizontalGridStep = 6; // 151,187,205,0.2
+    _fsLineTemperatureView.horizontalGridStep = 5; // 151,187,205,0.2
     _fsLineTemperatureView.color = Common_BlueColor;
     _fsLineTemperatureView.fillColor = [_fsLineTemperatureView.color colorWithAlphaComponent:0.3];
     _fsLineTemperatureView.valueLabelBackgroundColor = [UIColor clearColor];
     _fsLineTemperatureView.margin = 35;
     _fsLineTemperatureView.needVerticalLine = NO;
     
+    NSDate *currDate = [NSDate date];
+    
     _fsLineTemperatureView.labelForIndex = ^(NSUInteger item) {
-        return @"18:00";
+        NSDate *beforeDate = [currDate dateBySubtractingMinutes:(6 - item - 1) * 5];
+        return [NSDate stringFromDate:beforeDate withFormatter:DataFormatter_TimeNoSecond];
     };
-    
+
+    WEAKSELF
     _fsLineTemperatureView.labelForValue = ^(CGFloat value) {
-        return [NSString stringWithFormat:@"%.0f°C", value - 1];
+        STRONGSELF
+        CGFloat lastValue = value - 1;
+        NSString *unit = @"°C";
+        
+        if (strongSelf->_isFUnit)
+        {
+            lastValue = [BLEManager getFTemperatureWithC:lastValue];
+            unit = @"°F";
+        }
+        return [NSString stringWithFormat:@"%.0f%@", lastValue,unit];
     };
-    //[_fsLineTemperatureView setChartData:@[@(33),@(35),@(36),@(36.3),@(36.5),@(36.6),@(36.6),@(36.8),@(36.1),@(36.1),@(36.1),@(36.1),@(33),@(40),@(33),@(36.1)]];
-    
+    [_fsLineTemperatureView setChartData:@[@(36.3),@(36.3),@(36.4),@(36.3),@(36.3),@(36.0),@(36.1),@(36.5),@(36.1),@(36.1),@(36.1),@(36.1),@(36.2),@(36.2),@(36.3),@(36.5)]];
+    [_fsLineTemperatureView loadLabelForValue];
+    _fsLineTemperatureView.hidden = YES;
     [_bgScrollView addSubview:_fsLineTemperatureView];
     _bgScrollView.contentSize = CGSizeMake(_bgScrollView.width*2, 0);
+    
+    _searchLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 100)];
+    _searchLB.center = _fsLineTemperatureView.center;
+    _searchLB.textColor = Common_GreenColor;
+    _searchLB.font = [UIFont systemFontOfSize:43];
+    _searchLB.text = @"搜索中";
+    [_bgScrollView addSubview:_searchLB];
 }
 
 - (void)initBottomBtnsView
@@ -227,9 +262,9 @@
     bottomBgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bottomBgView];
     
-    NSArray *titleArray = @[@"预警",@"记录",@"佩戴方式",@"单位切换"];
-    NSArray *imageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_wear_hand",@"home_icon_unit_c"];
-    NSArray *selectImageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_wear_head",@"home_icon_unit_f"];
+    NSArray *titleArray = @[@"预警",@"记录",@"数据同步",@"单位切换"];
+    NSArray *imageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_cloud_n",@"home_icon_unit_c"];
+    NSArray *selectImageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_cloud_f",@"home_icon_unit_f"];
     
     CGFloat btnWidth = (bottomBgView.width - startX * 5) / 4;
     
@@ -345,7 +380,10 @@
 
 - (void)leftMenuBtnTouch:(UIButton*)btn
 {
-    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleMenu];
+    if ([AccountStautsManager sharedInstance].isLogin)
+        [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleMenu];
+    else
+        [self goLoginView];
 }
 
 
@@ -382,13 +420,19 @@
             NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[NSString stringWithInt:i]];
             for (BLECacheDataEntity *item in oneGroupItemArray)
             {
-                [dataArray addObject:@(item.temperature)];
-                //[dataArray addObject:@(item.temperature + 9)];
+                //[dataArray addObject:@(item.temperature)];
+                [dataArray addObject:@(item.temperature + 9)];
             }
         }
     
         if ([dataArray isAbsoluteValid])
         {
+            if (strongSelf->_searchLB)
+            {
+                [strongSelf->_searchLB removeFromSuperview];
+                strongSelf->_searchLB = nil;
+                strongSelf->_fsLineTemperatureView.hidden = NO;
+            }
             [strongSelf->_fsLineTemperatureView clearChartData];
             [strongSelf->_fsLineTemperatureView setChartData:dataArray];
             [weakSelf start30SecondCountdownTimer];
@@ -403,6 +447,8 @@
 {
     [_popBgView removeFromSuperview];
     _popBgView = nil;
+    _temperaturesShowView.isRemoteType = YES;
+    _searchLB.text = @"同步中";
 }
 
 
@@ -413,6 +459,23 @@
     {
         [self goLoginView];
         return;
+    }
+    
+    
+    if (index != 3)
+    {
+        //没登陆
+        if (![AccountStautsManager sharedInstance].isLogin) {
+            [self goLoginView];
+            return;
+        }
+        
+        //登陆成功但是没有成员
+        if (![AccountStautsManager sharedInstance].nowUserItem)
+        {
+            [self goAddUserVC];
+            return;
+        }
     }
     
     switch (index)
@@ -435,12 +498,15 @@
         case 3://单位切换
             btn.selected = !btn.selected;
             _temperaturesShowView.isFTypeTemperature = btn.selected;
+            _isFUnit = btn.selected;
+            [_fsLineTemperatureView loadLabelForValue];
+            
+            [YSBLEManager sharedInstance].isFUnit = _isFUnit;
             break;
         default:
             break;
     }
 }
-
 
 // 开启30秒倒计时
 - (void)start30SecondCountdownTimer
@@ -451,6 +517,9 @@
     }
     [[ATTimerManager shardManager] addTimerDelegate:self interval:1];
 }
+
+
+
 
 #pragma mark - ATTimerManagerDelegate methods
 
@@ -478,8 +547,7 @@
     {
         case LeftMenuTouchType_AddUser:
         {
-            AddUserVC *vc = [[AddUserVC alloc] init];
-            [self pushViewController:vc];
+            [self goAddUserVC];
         }
             break;
         case LeftMenuTouchType_Setting:
@@ -499,6 +567,21 @@
     }
 }
 
+//没有成员通知
+- (void)LeftUserCenterVCNoMember:(LeftUserCenterVC*)vc
+{
+    [self goAddUserVC];
+    
+//    UINavigationController *addNav = [[UINavigationController alloc] initWithRootViewController:addVC];
+//    
+//    [self presentViewController:addNav
+//           modalTransitionStyle:UIModalTransitionStyleCoverVertical
+//                     completion:^{
+//                         
+//                     }];
+}
+
+
 #pragma mark - push
 - (void)goLoginView
 {
@@ -512,11 +595,20 @@
     }];
 }
 
+- (void)goAddUserVC
+{
+    AddUserVC *addVC = [[AddUserVC alloc] init];
+    [self pushViewController:addVC];
+}
 
 #pragma mark - notification
 - (void)loginSuccess:(NSNotification*)notification
 {
-    [self removeWelcomeAppView];
+    [self setSlideMenuVCEnablePan:YES];
+    
+    if (_welcomeAppView) {
+        [self removeWelcomeAppView];
+    }
 }
 
 @end

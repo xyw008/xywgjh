@@ -9,9 +9,13 @@
 #import "AddUserVC.h"
 #import "InterfaceHUDManager.h"
 #import "SlideActionSheet.h"
+#import "BaseNetworkViewController+NetRequestManager.h"
+#import "CommonEntity.h"
 
 #define kMargin 12
 #define kFont SP15Font
+
+#define kRoleBtnStartTag 1000
 
 @interface AddUserVC ()
 {
@@ -224,6 +228,7 @@
     for (NSInteger i=0; i<num; i++)
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.tag = kRoleBtnStartTag + i;
         [btn setImage:[UIImage imageNamed:imageArray[i]] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:selectImageArray[i]] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(roleBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
@@ -253,7 +258,6 @@
 }
 
 
-
 - (UIView*)createLineView:(BOOL)isHalf
 {
     
@@ -276,6 +280,47 @@
     return lineView;
 }
 
+#pragma mark - request 
+
+- (void)setNetworkRequestStatusBlocks
+{
+    WEAKSELF
+    [self setNetSuccessBlock:^(NetRequest *request, id successInfoObj) {
+        if (successInfoObj && [successInfoObj isKindOfClass:[NSDictionary class]])
+        {
+            switch (request.tag)
+            {
+                case NetUserRequestType_AddUser:
+                {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kAddUserSuccessNotificationKey object:nil];
+                    [weakSelf backViewController];
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+    } failedBlock:^(NetRequest *request, NSError *error) {
+        [weakSelf showHUDInfoByString:error.localizedDescription];
+    }];
+}
+
+- (void)getNetworkData
+{
+    NSDictionary *memberDic = @{@"name":_nameTF.text,
+                                @"gender":@([_sexString integerValue]),
+                                @"age":@([_ageString integerValue]),
+                                @"role":@(_lastSelectRoleBtn.tag - kRoleBtnStartTag + 1),
+                                @"image":@""};
+    NSArray *memberList = @[memberDic];
+    
+    [self sendRequest:[[self class] getRequestURLStr:NetUserRequestType_AddUser]
+         parameterDic:@{@"phone":[UserInfoModel getUserDefaultLoginName],@"memberList":memberList}
+       requestHeaders:nil
+    requestMethodType:RequestMethodType_POST
+           requestTag:NetUserRequestType_AddUser];
+    
+}
 
 #pragma mark - touch
 - (void)submitAddUser
@@ -291,7 +336,7 @@
         return;
     }
     
-    if (![_sexString isAbsoluteValid]) {
+    if (![_ageString isAbsoluteValid]) {
         [self showHUDInfoByString:@"请输入年龄"];
         return;
     }
@@ -302,7 +347,7 @@
     }
     
     [self showHUDInfoByString:@"提交成功"];
-    [self backViewController];
+    [self getNetworkData];
 }
 
 - (void)selectHeadImage

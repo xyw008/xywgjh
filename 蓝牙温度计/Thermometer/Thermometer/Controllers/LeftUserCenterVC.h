@@ -21,10 +21,13 @@ typedef enum
 @protocol LeftUserCenterVCDelegate <NSObject>
 
 @optional
+
 - (void)LeftUserCenterVC:(LeftUserCenterVC*)vc didTouchUserItem:(UserItem*)item;
 
 - (void)LeftUserCenterVC:(LeftUserCenterVC*)vc touchType:(LeftMenuTouchType)type;
 
+//没有成员通知
+- (void)LeftUserCenterVCNoMember:(LeftUserCenterVC*)vc;
 
 @end
 

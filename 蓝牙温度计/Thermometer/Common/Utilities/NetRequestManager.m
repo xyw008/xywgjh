@@ -104,15 +104,37 @@ static NSString * const CacheExpiresInSecondsKey = @"CacheExpiresInSecondsKey";
     
     if (!myCode || 0 != myCode.integerValue)
     {
-        err = [[NSError alloc] initWithDomain:@"MYSERVER_ERROR_DOMAIN" code:myCode.integerValue userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"失败", NSLocalizedDescriptionKey, nil]];
+        NSString *errorString = @"请求失败";
+        switch (myCode.integerValue) {
+            case 1:
+                errorString = @"手机号（用户）已经注册";
+                break;
+            case 2:
+                errorString = @"手机号（用户）未注册";
+                break;
+            case 3:
+                errorString = @"手机号或密码错误";
+                break;
+            case 4:
+                errorString = @"成员已存在";
+                break;
+            case 5:
+                errorString = @"成员未存在";
+                break;
+            case 6:
+                errorString = @"没有体温结果";
+                break;
+            default:
+                break;
+        }
+        
+        err = [[NSError alloc] initWithDomain:@"MYSERVER_ERROR_DOMAIN" code:myCode.integerValue userInfo:[NSDictionary dictionaryWithObjectsAndKeys:errorString, NSLocalizedDescriptionKey, nil]];
         
         *result = err;
        
         return NO;
     }
     // *result = [*result objectForKey:@"data"];
-    
-    // 返回的数据格式根据接口解析
     
     return YES;
 }

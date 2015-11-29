@@ -11,6 +11,7 @@
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "UrlManager.h"
 #import "InterfaceHUDManager.h"
+#import "AccountStautsManager.h"
 
 @interface LoginBC ()
 {
@@ -149,6 +150,7 @@
     
     if (_success)
     {
+        [AccountStautsManager sharedInstance].isLogin = YES;
         _success(infoObj);
     }
 }

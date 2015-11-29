@@ -11,12 +11,16 @@
 #import "BabyBluetooth.h"
 #import "SystemConvert.h"
 #import "BabyToy.h"
+#import "UserInfoModel.h"
+#import "AccountStautsManager.h"
+#import "NetRequestManager.h"
+#import "BaseNetworkViewController+NetRequestManager.h"
 
 #define channelOnPeropheralView @"peripheralView"
 #define channelOnCharacteristicView @"CharacteristicView"
 
 
-@interface YSBLEManager ()
+@interface YSBLEManager ()<NetRequestDelegate>
 {
     BabyBluetooth               *_babyBluethooth;
     CBPeripheral                *_currPeripheral;//现在的外围设备
@@ -26,6 +30,12 @@
     NSInteger                   _groupIndex;//取温度的组数从1开始(30秒 最大6，5分钟 最大30)
     NSMutableDictionary         *_groupTemperatureDic;//温度组
     
+    
+    NSInteger                   _uploadIndex;//上传数据计数，和rssi一个定时器。5秒一次回调，30秒请求一次上报
+    BOOL                        _isUploadRequesting;//数据上报状态
+    BOOL                        _hasReturnCurrTemp;//有开始返回实时温度了
+    NSMutableArray<NSDictionary*>  *_currTempArray;//实时温度保存数组(温度和对应的时间)
+    NSInteger                   _hasUploadIndex;//数组数据已经上传到的index
 }
 
 @end
@@ -43,6 +53,14 @@ DEF_SINGLETON(YSBLEManager);
         _hasGroupNotifiy = NO;
         _groupTemperatureDic = [[NSMutableDictionary alloc] init];
         
+        _uploadIndex = 1;
+        _isUploadRequesting = NO;
+        _hasReturnCurrTemp = NO;
+        _currTempArray = [NSMutableArray new];
+        _hasUploadIndex = 0;
+        
+        _isFUnit = [[UserInfoModel getIsFUnit] boolValue];
+        
         //初始化BabyBluetooth 蓝牙库
         _babyBluethooth = [BabyBluetooth shareBabyBluetooth];
         //设置蓝牙委托
@@ -57,6 +75,12 @@ DEF_SINGLETON(YSBLEManager);
     [_babyBluethooth cancelAllPeripheralsConnection];
     //设置委托后直接可以使用，无需等待CBCentralManagerStatePoweredOn状态。
     _babyBluethooth.scanForPeripherals().begin();
+}
+
+- (void)setIsFUnit:(BOOL)isFUnit
+{
+    _isFUnit = isFUnit;
+    [UserInfoModel setUserDefaultIsFUnit:@(_isFUnit)];
 }
 
 #pragma mark - write
@@ -174,21 +198,21 @@ DEF_SINGLETON(YSBLEManager);
         STRONGSELF
         
         //获取设备mac
-        if ([service.UUID.UUIDString isEqualToString:@"180A"])
-        {
-            for (CBCharacteristic *c in service.characteristics)
-            {
-                //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
-                NSString *cUUIDString = [c.UUID.UUIDString lowercaseString];
-                NSString *sysIdString = [@"2A23" lowercaseString];
-                
-                if ([cUUIDString isEqualToString:sysIdString])
-                {
-                    strongSelf->_babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(peripheral,c);
-                }
-            }
-            
-        }
+//        if ([service.UUID.UUIDString isEqualToString:@"180A"])
+//        {
+//            for (CBCharacteristic *c in service.characteristics)
+//            {
+//                //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
+//                NSString *cUUIDString = [c.UUID.UUIDString lowercaseString];
+//                NSString *sysIdString = [@"2A23" lowercaseString];
+//                
+//                if ([cUUIDString isEqualToString:sysIdString])
+//                {
+//                    strongSelf->_babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(peripheral,c);
+//                }
+//            }
+//            
+//        }
         
         
         if ([service.UUID.UUIDString isEqualToString:@"1809"])
@@ -250,7 +274,7 @@ DEF_SINGLETON(YSBLEManager);
     }];
     
     [_babyBluethooth setBlockOnDidReadRSSIAtChannel:channelOnPeropheralView block:^(NSNumber *RSSI, NSError *error) {
-        DLog(@"change  rssi = %@",RSSI);
+        //DLog(@"change  rssi = %@",RSSI);
         STRONGSELF
         strongSelf->_rssi = [RSSI floatValue];
     }];
@@ -274,7 +298,7 @@ DEF_SINGLETON(YSBLEManager);
     WEAKSELF
     for (CBCharacteristic *characteristic in _currTemperatureService.characteristics)
     {
-        DLog(@"uuid = %@   de = %@",characteristic.UUID,characteristic.description);
+        //DLog(@"uuid = %@   de = %@",characteristic.UUID,characteristic.description);
         
         if ([characteristic.UUID.UUIDString isEqualToString:@"2A1C"])
         {
@@ -315,7 +339,7 @@ DEF_SINGLETON(YSBLEManager);
     WEAKSELF
     for (CBCharacteristic *characteristic in _currTemperatureService.characteristics)
     {
-        DLog(@"uuid = %@   de = %@",characteristic.UUID,characteristic.description);
+        //DLog(@"uuid = %@   de = %@",characteristic.UUID,characteristic.description);
         
         if ([characteristic.UUID.UUIDString isEqualToString:@"FFF5"])
         {
@@ -354,6 +378,15 @@ DEF_SINGLETON(YSBLEManager);
         CGFloat newTemperature = [BLEManager getTemperatureWithBLEData:characteristic.value];
         CGFloat newBettey = [BLEManager getBatteryWithBLEData:characteristic.value];
         _actualTimeValueCallBack(newTemperature,_rssi,newBettey);
+        _hasReturnCurrTemp = YES;
+        
+        //保存数据，用于上传
+        NSMutableString *dateString = [NSMutableString stringWithString:[NSDate stringFromDate:[NSDate date] withFormatter:DataFormatter_DateAndTime]];
+        [dateString replaceCharactersInRange:NSMakeRange(10, 1) withString:@"/"];
+        
+        NSDictionary *tempDic = @{@"temp":[NSString stringWithFormat:@"%.1lf",newTemperature],
+                                  @"date":dateString};
+        [_currTempArray addObject:tempDic];
     }
 }
 
@@ -361,7 +394,7 @@ DEF_SINGLETON(YSBLEManager);
 - (void)giveGroupTemperature:(CBCharacteristic*)characteristic
 {
     NSDictionary *dic = [BLEManager getCacheTemperatureDataWithBLEData:characteristic.value error:nil];
-    DLog(@"dic   =%@",dic);
+    //DLog(@"dic   =%@",dic);
     
     [_groupTemperatureDic addEntriesFromDictionary:dic];
     
@@ -400,7 +433,65 @@ DEF_SINGLETON(YSBLEManager);
 
 - (void)refreshRssi
 {
+    //有蓝牙返回的实时温度 以及有选中成员
+    if (_hasReturnCurrTemp && [AccountStautsManager sharedInstance].nowUserItem)
+    {
+        _uploadIndex++;
+        if (6 <= _uploadIndex) {
+            _uploadIndex = 1;
+            [self uploadRequest];
+        }
+    }
     [_currPeripheral readRSSI];
+}
+
+#pragma mark - request
+- (void)uploadRequest
+{
+    if (_isUploadRequesting || ![_currTempArray isAbsoluteValid] || ![AccountStautsManager sharedInstance].nowUserItem)
+        return;
+    
+    _isUploadRequesting = YES;
+    
+    NSURL *url = [UrlManager getRequestUrlByMethodName:[BaseNetworkViewController getRequestURLStr:NetTempRequestType_UploadTemp] andArgsDic:nil];
+    
+    NSArray *tempArray = _currTempArray;
+    NSDictionary *dic = @{@"name":[AccountStautsManager sharedInstance].nowUserItem.userName,
+                          @"tempList":tempArray};
+    NSDictionary *parameterDic = @{@"phone":[UserInfoModel getUserDefaultLoginName],@"memberList":@[dic]};
+    
+    _hasUploadIndex = _currTempArray.count - 1;
+    
+    [[NetRequestManager sharedInstance] sendRequest:url
+                                       parameterDic:parameterDic
+                                  requestMethodType:RequestMethodType_POST
+                                         requestTag:NetTempRequestType_UploadTemp
+                                           delegate:self
+                                           userInfo:nil];
+}
+
+#pragma mark - NetRequest delegate
+- (void)netRequest:(NetRequest *)request successWithInfoObj:(id)infoObj
+{
+    if (request.tag == NetTempRequestType_UploadTemp)
+    {
+        _isUploadRequesting = NO;
+        
+        //移除已经上传成功的数据
+        for (NSInteger i=0; i<_hasUploadIndex; i++)
+        {
+            if ([_currTempArray isAbsoluteValid])
+                [_currTempArray removeObjectAtIndex:0];
+        }
+    }
+}
+
+- (void)netRequest:(NetRequest *)request failedWithError:(NSError *)error
+{
+    if (request.tag == NetTempRequestType_UploadTemp)
+    {
+        _isUploadRequesting = NO;
+    }
 }
 
 @end

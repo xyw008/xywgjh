@@ -23,16 +23,6 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <animations/>
                 </imageView>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="用户名" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a8S-B3-3C0" customClass="NITextField">
-                    <rect key="frame" x="57" y="144" width="251" height="40"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="cy0-XG-O7a"/>
-                    </constraints>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qL1-BS-PRX">
                     <rect key="frame" x="45" y="286" width="230" height="40"/>
                     <animations/>
@@ -124,6 +114,16 @@
                         <action selector="clickCloseBtn:" destination="-1" eventType="touchUpInside" id="Won-ig-TKZ"/>
                     </connections>
                 </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="用户名" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a8S-B3-3C0" customClass="NITextField">
+                    <rect key="frame" x="57" y="146" width="251" height="40"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="cy0-XG-O7a"/>
+                    </constraints>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
