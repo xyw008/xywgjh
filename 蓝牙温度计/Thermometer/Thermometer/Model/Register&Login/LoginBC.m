@@ -17,6 +17,8 @@
 {
     successHandle   _success;
     failedHandle    _failed;
+    NSString        *_userName;
+    NSString        *_password;
 }
 
 @end
@@ -31,6 +33,8 @@
         {
             _success = success;
             _failed = failed;
+            _userName = userName;
+            _password = password;
             
             if (show)
             {
@@ -144,6 +148,10 @@
 - (void)netRequest:(NetRequest *)request successWithInfoObj:(id)infoObj
 {
     [HUDManager hideHUD];
+    
+    [UserInfoModel setUserDefaultLoginName:_userName];
+    [UserInfoModel setUserDefaultPassword:_password];
+    
     
     // 发送通知
     [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessNotificationKey object:nil];
