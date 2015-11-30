@@ -20,6 +20,7 @@
 #import "LoginBC.h"
 #import "UserInfoModel.h"
 #import "AccountStautsManager.h"
+#import "BaseNetworkViewController+NetRequestManager.h"
 
 #import "AlarmSettingVC.h"
 #import "LeftUserCenterVC.h"
@@ -291,8 +292,8 @@
     [self.view addSubview:bottomBgView];
     
     NSArray *titleArray = @[@"预警",@"记录",@"数据同步",@"单位切换"];
-    NSArray *imageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_cloud_n",@"home_icon_unit_c"];
-    NSArray *selectImageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_cloud_f",@"home_icon_unit_f"];
+    NSArray *imageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_cloud_f",@"home_icon_unit_c"];
+    NSArray *selectImageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_cloud_n",@"home_icon_unit_f"];
     
     CGFloat btnWidth = (bottomBgView.width - startX * 5) / 4;
     
@@ -310,6 +311,10 @@
         //btn.titleLabel.font = [UIFont systemFontOfSize:10];
         //btn.titleEdgeInsets = UIEdgeInsetsMake(30, -20, 0, 0);
         btn.imageEdgeInsets = UIEdgeInsetsMake(-30, 0, 0, 0);
+        //默认同步数据
+        if (2 == i)
+            btn.selected = YES;
+        
         
         UILabel *titleLB = [[UILabel alloc] init];
         titleLB.font = SP10Font;
@@ -414,9 +419,11 @@
         [self goLoginView];
 }
 
-
+//蓝牙模式
 - (void)connectBluetoothBtnTouch:(UIButton*)btn
 {
+    [AccountStautsManager sharedInstance].isBluetoothType = YES;
+    
     [_popBgView removeFromSuperview];
     _popBgView = nil;
     
@@ -471,12 +478,16 @@
 
 }
 
+//远程模式
 - (void)monitorBtnTouch:(UIButton*)btn
 {
     [_popBgView removeFromSuperview];
     _popBgView = nil;
     _temperaturesShowView.isRemoteType = YES;
     _searchLB.text = @"同步中";
+    [AccountStautsManager sharedInstance].isBluetoothType = NO;
+    [self getNetworkData];
+    [self start30SecondCountdownTimer];
 }
 
 
@@ -520,8 +531,9 @@
                 [self pushViewController:vc];
             }
             break;
-        case 2://佩戴方式
+        case 2://数据同步
             btn.selected = !btn.selected;
+            [AccountStautsManager sharedInstance].uploadTempData = btn.selected;
             break;
         case 3://单位切换
             btn.selected = !btn.selected;
@@ -536,6 +548,74 @@
     }
 }
 
+
+#pragma mark - request
+
+- (void)setNetworkRequestStatusBlocks
+{
+    [self setStartedBlock:^(NetRequest *request){
+    
+    }];
+    
+    WEAKSELF
+    [self setNetSuccessBlock:^(NetRequest *request, id successInfoObj) {
+        
+        if (successInfoObj && [successInfoObj isKindOfClass:[NSDictionary class]])
+        {
+            STRONGSELF
+            switch (request.tag)
+            {
+                case NetTempRequestType_DownloadLastestTemp:
+                {
+                    NSArray *memberArray = [[successInfoObj safeObjectForKey:@"user"] safeObjectForKey:@"memberList"];
+                    
+                    if ([memberArray isAbsoluteValid])
+                    {
+                        NSDictionary *firstDic = [memberArray firstObject];
+                        NSArray *tempArray = [firstDic safeObjectForKey:@"tempList"];
+                        if ([tempArray isAbsoluteValid])
+                        {
+                            NSDictionary *firstTempDic = [tempArray firstObject];
+                            CGFloat newTemperature = [[firstTempDic safeObjectForKey:@"temp"] floatValue];
+                            [strongSelf->_temperaturesShowView setTemperature:newTemperature];
+                            strongSelf->_temperaturesShowView.isShowTemperatureStatus = YES;
+                        }
+                    }
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+    } failedBlock:^(NetRequest *request, NSError *error) {
+        switch (request.tag)
+        {
+            
+        }
+    }];
+}
+
+//同步拿去服务器数据 30秒一次
+- (void)getNetworkData
+{
+    if (![AccountStautsManager sharedInstance].isLogin || ![AccountStautsManager sharedInstance].nowUserItem)
+    {
+        [self goAddUserVC];
+        return;
+    }
+    
+    NSDictionary *memberDic = @{@"name":[AccountStautsManager sharedInstance].nowUserItem.userName};
+    NSDictionary *dic = @{@"phone":[UserInfoModel getUserDefaultLoginName],@"memberList":@[memberDic]};
+    [self sendRequest:[[self class] getRequestURLStr:NetTempRequestType_DownloadLastestTemp]
+         parameterDic:dic
+       requestHeaders:nil
+    requestMethodType:RequestMethodType_POST
+           requestTag:NetTempRequestType_DownloadLastestTemp];
+}
+
+
+
+#pragma mark - ATTimerManagerDelegate methods
 // 开启30秒倒计时
 - (void)start30SecondCountdownTimer
 {
@@ -546,19 +626,23 @@
     [[ATTimerManager shardManager] addTimerDelegate:self interval:1];
 }
 
-
-
-
-#pragma mark - ATTimerManagerDelegate methods
-
 - (void)timerManager:(ATTimerManager *)manager timerFireWithInfo:(ATTimerStepInfo)info
 {
     _countdownTimer--;
     if (0 == _countdownTimer)
     {
-        [[YSBLEManager sharedInstance] writeIs30Second:YES];
         _countdownTimer = 30;
-        [[ATTimerManager shardManager] stopTimerDelegate:self];
+        
+        //蓝牙模式
+        if ([AccountStautsManager sharedInstance].isBluetoothType)
+        {
+            [[YSBLEManager sharedInstance] writeIs30Second:YES];
+            [[ATTimerManager shardManager] stopTimerDelegate:self];
+        }
+        else
+        {
+            [self getNetworkData];
+        }
     }
 }
 

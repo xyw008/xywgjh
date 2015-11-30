@@ -19,7 +19,9 @@ static NSString * const kChangeNowUserNotificationKey = @"kChangeNowUserNotifica
 @property (nonatomic,assign)BOOL        isLogin;//登陆状态
 
 @property (nonatomic,strong)UserItem    *nowUserItem;//现在选择的成员，如果为空则有可能没登陆，或则登陆后账号没有成员
-@property (nonatomic,assign)BOOL        uploadTempData;//是否同步数据
+@property (nonatomic,assign)BOOL        uploadTempData;//是否同步数据(defalut:YES)
+
+@property (nonatomic,assign)BOOL        isBluetoothType;//是否是蓝牙模式
 
 #pragma mark 报警相关
 @property (nonatomic,assign)BOOL        highAndLowAlarm;//高低温报警开关

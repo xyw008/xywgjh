@@ -21,7 +21,8 @@
         urlForTypeArray = [NSMutableArray arrayWithObjects:
                            // 产品
                            @"uploadTemp",
-                           
+                           @"downloadLastestTemp",
+                           @"downloadIntervalTemp",
                            
                            // 用户中心
                            @"register",

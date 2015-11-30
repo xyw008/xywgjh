@@ -17,6 +17,8 @@ DEF_SINGLETON(AccountStautsManager);
 {
     self = [super init];
     if (self) {
+        _uploadTempData = YES;
+        
         _highAndLowAlarm = [[UserInfoModel getHighAndLowTepmAlarm] boolValue];
         _disconnectAlarm = [[UserInfoModel getDisconnectAlarm] boolValue];
         _bellAlarm = [[UserInfoModel getBellAlarm] boolValue];
