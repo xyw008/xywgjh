@@ -19,6 +19,7 @@
 #import <SMS_SDK/SMSSDK+DeprecatedMethods.h>
 
 #import "PasswordInputVC.h"
+#import "AppPropertiesInitialize.h"
 
 @interface VerifyViewController ()
 {
@@ -59,6 +60,20 @@ static int count = 0;
 static NSMutableArray* _userData2;
 
 @implementation VerifyViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
+}
 
 -(void)clickLeftButton
 {

@@ -213,7 +213,7 @@
 
 - (void)setSlideMenuVCEnablePan:(BOOL)enable
 {
-    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:enable];
+    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:NO];
 }
 
 #pragma mark - init method
@@ -312,7 +312,7 @@
         btn.imageEdgeInsets = UIEdgeInsetsMake(-30, 0, 0, 0);
         
         UILabel *titleLB = [[UILabel alloc] init];
-        titleLB.font = SP10Font;
+        titleLB.font = SP12Font;
         titleLB.tintColor = Common_BlackColor;
         titleLB.text = titleArray[i];
         titleLB.textAlignment = NSTextAlignmentCenter;
@@ -390,9 +390,9 @@
     
     [bluetoothBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(contentView.mas_left).offset(15);
-        make.bottom.equalTo(contentView.mas_bottom).offset(-10);
+        make.bottom.equalTo(contentView.mas_bottom).offset(-15);
         make.width.equalTo(105);
-        make.height.equalTo(28);
+        make.height.equalTo(35);
     }];
     
     [monitorBtn mas_updateConstraints:^(MASConstraintMaker *make) {

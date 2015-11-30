@@ -193,6 +193,8 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
         make.left.equalTo(cell.contentView.mas_left).offset(leftSpace);
     }];
     
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:HEXCOLOR(0XF6F6F6)]];
+    
     return cell;
 }
 
@@ -256,6 +258,8 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     [lineView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.contentView.mas_left).offset(leftSpace);
     }];
+    
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:HEXCOLOR(0XF6F6F6)]];
     
     return cell;
 }
