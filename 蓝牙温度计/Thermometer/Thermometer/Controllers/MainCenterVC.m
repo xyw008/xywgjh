@@ -37,6 +37,8 @@
 
 @interface MainCenterVC ()<ATTimerManagerDelegate>
 {
+    LoginBC                     *_loginBC;
+    
     UIImageView                 *_headIV;//头像
     UIScrollView                *_bgScrollView;
     TemperaturesShowView        *_temperaturesShowView;
@@ -91,6 +93,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self autoLogin];
+    
     _countdownTimer = 30;
     _isFUnit = [[UserInfoModel getIsFUnit] boolValue];
     self.view.backgroundColor = HEXCOLOR(0XF7F7F7);
@@ -124,6 +129,29 @@
     //self.view.backgroundColor = [UIColor redColor];
     [self judgeGoAppNum];
 }
+
+- (void)autoLogin
+{
+    
+    NSString *userName = [UserInfoModel getUserDefaultLoginName];
+    NSString *password = [UserInfoModel getUserDefaultPassword];
+    if ([userName isAbsoluteValid]) {
+        
+        if (!_loginBC) {
+            _loginBC = [[LoginBC alloc] init];
+        }
+        [_loginBC loginWithUserName:userName
+                           password:password
+                          autoLogin:YES
+                            showHUD:NO
+                      successHandle:^(id successInfoObj) {
+                          
+                      } failedHandle:^(NSError *error) {
+                          
+                      }];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
