@@ -70,6 +70,10 @@
 - (NSDate *) dateBySubtractingHours: (NSInteger) dHours;
 - (NSDate *) dateByAddingMinutes: (NSInteger) dMinutes;
 - (NSDate *) dateBySubtractingMinutes: (NSInteger) dMinutes;
+- (NSDate *) dateByAddingSecond: (NSInteger) dSecond;
+- (NSDate *) dateBySubtractingSecond: (NSInteger) dSecond;
+
+
 - (NSDate *) dateAtStartOfDay;
 
 // Retrieving intervals

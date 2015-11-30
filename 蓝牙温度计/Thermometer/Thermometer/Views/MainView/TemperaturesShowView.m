@@ -316,6 +316,15 @@
 {
     _isRemoteType = isRemoteType;
     _searchLB.text = _isRemoteType ? @"同步中" : @"搜索中";
+    
+    if (_isRemoteType)
+    {
+        _deviceLB.hidden = YES;
+        _deviceSignalIV.hidden = YES;
+        _deviceBatteryIV.hidden = YES;
+        _testTimeLB.hidden = YES;
+        _testTimeValueLB.hidden = YES;
+    }
 }
 
 - (void)setIsShowTemperatureStatus:(BOOL)isShowTemperatureStatus
@@ -327,6 +336,10 @@
                 subView.hidden = NO;
         }
         _searchLB.hidden = YES;
+        
+        if (_isRemoteType) {
+            self.isRemoteType = _isRemoteType;
+        }
     }
 }
 

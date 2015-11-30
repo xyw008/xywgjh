@@ -29,3 +29,20 @@
 @end
 
 
+
+@implementation RemoteTempItem
+
+- (id)initWithDict:(NSDictionary *)dict
+{
+    self = [super init];
+    if (self)
+    {
+        self.temp = [[dict objectForKey:@"temp"] floatValue];
+        self.time = [dict objectForKey:@"date"];
+        
+    }
+    return self;
+}
+
+
+@end

@@ -427,10 +427,12 @@
     [_popBgView removeFromSuperview];
     _popBgView = nil;
     
-    _ysBluethooth = [YSBLEManager sharedInstance];
+    if (!_ysBluethooth) {
+        _ysBluethooth = [YSBLEManager sharedInstance];
+        [_ysBluethooth initBluetoothInfo];
+    }
     
     WEAKSELF
-    
     //实时温度
     [_ysBluethooth setActualTimeValueCallBack:^(CGFloat newTemperature,CGFloat rssi, CGFloat newBettey){
         STRONGSELF
@@ -486,9 +488,40 @@
     _temperaturesShowView.isRemoteType = YES;
     _searchLB.text = @"同步中";
     [AccountStautsManager sharedInstance].isBluetoothType = NO;
+    
+    if (!_ysBluethooth) {
+        _ysBluethooth = [YSBLEManager sharedInstance];
+    }
+    
+    WEAKSELF
+    [_ysBluethooth setRemoteTempCallBack:^(NSArray<RemoteTempItem *> *tempArray,NSArray<RemoteTempItem *> *fillingTempArray, NSDate *beginDate, NSDate *endDate){
+        STRONGSELF
+        if (fillingTempArray && strongSelf)
+        {
+            NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
+            for (NSInteger i=0; i < fillingTempArray.count; i++)
+            {
+                RemoteTempItem *item = [fillingTempArray objectAtIndex:i];
+                [dataArray addObject:[NSNumber numberWithFloat:item.temp]];
+            }
+            if (strongSelf->_searchLB)
+            {
+                [strongSelf->_searchLB removeFromSuperview];
+                strongSelf->_searchLB = nil;
+                strongSelf->_fsLineTemperatureView.hidden = NO;
+            }
+            
+            [strongSelf->_fsLineTemperatureView clearChartData];
+            [strongSelf->_fsLineTemperatureView setChartData:dataArray];
+        }
+    }];
+    
     [self getNetworkData];
     [self start30SecondCountdownTimer];
+    
+    [self getRemoteTempGroup];
 }
+
 
 
 - (void)bottomBtnTouch:(UIButton*)btn
@@ -613,7 +646,13 @@
            requestTag:NetTempRequestType_DownloadLastestTemp];
 }
 
-
+- (void)getRemoteTempGroup
+{
+    NSDate *endDate = [NSDate date];
+    NSDate *beginDate = [endDate dateBySubtractingMinutes:30];
+    
+    [_ysBluethooth getRemoteTempBegin:beginDate end:endDate];
+}
 
 #pragma mark - ATTimerManagerDelegate methods
 // 开启30秒倒计时
@@ -642,6 +681,7 @@
         else
         {
             [self getNetworkData];
+            [self getRemoteTempGroup];
         }
     }
 }

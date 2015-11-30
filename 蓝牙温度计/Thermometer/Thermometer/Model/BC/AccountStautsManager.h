@@ -36,4 +36,7 @@ static NSString * const kChangeNowUserNotificationKey = @"kChangeNowUserNotifica
 AS_SINGLETON(AccountStautsManager);
 
 
+
+
+
 @end

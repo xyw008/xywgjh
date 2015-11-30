@@ -61,12 +61,17 @@ DEF_SINGLETON(YSBLEManager);
         
         _isFUnit = [[UserInfoModel getIsFUnit] boolValue];
         
-        //初始化BabyBluetooth 蓝牙库
-        _babyBluethooth = [BabyBluetooth shareBabyBluetooth];
-        //设置蓝牙委托
-        [self bluethoothDelegate];
+        
     }
     return self;
+}
+
+- (void)initBluetoothInfo
+{
+    //初始化BabyBluetooth 蓝牙库
+    _babyBluethooth = [BabyBluetooth shareBabyBluetooth];
+    //设置蓝牙委托
+    [self bluethoothDelegate];
 }
 
 - (void)startScanPeripherals
@@ -381,9 +386,7 @@ DEF_SINGLETON(YSBLEManager);
         _hasReturnCurrTemp = YES;
         
         //保存数据，用于上传
-        NSMutableString *dateString = [NSMutableString stringWithString:[NSDate stringFromDate:[NSDate date] withFormatter:DataFormatter_DateAndTime]];
-        [dateString replaceCharactersInRange:NSMakeRange(10, 1) withString:@"/"];
-        
+        NSString *dateString = [self getToSeviserTimeStr:[NSDate date]];
         NSDictionary *tempDic = @{@"temp":[NSString stringWithFormat:@"%.1lf",newTemperature],
                                   @"date":dateString};
         [_currTempArray addObject:tempDic];
@@ -445,10 +448,39 @@ DEF_SINGLETON(YSBLEManager);
     [_currPeripheral readRSSI];
 }
 
+#pragma mark - 远程获取温度方法
+- (NSString*)getToSeviserTimeStr:(NSDate*)date
+{
+    NSMutableString *dateString = [NSMutableString stringWithString:[NSDate stringFromDate:date withFormatter:DataFormatter_DateAndTime]];
+    [dateString replaceCharactersInRange:NSMakeRange(10, 1) withString:@"/"];
+    return dateString;
+}
+
+- (void)getRemoteTempBegin:(NSDate *)beginDate end:(NSDate *)endDate
+{
+    if (![AccountStautsManager sharedInstance].isLogin || ![AccountStautsManager sharedInstance].nowUserItem || !beginDate || !endDate)
+    {
+        return;
+    }
+    
+    NSURL *url = [UrlManager getRequestUrlByMethodName:[BaseNetworkViewController getRequestURLStr:NetTempRequestType_DownloadIntervalTemp] andArgsDic:nil];
+    
+    NSDictionary *dic = @{@"name":[AccountStautsManager sharedInstance].nowUserItem.userName,
+                          @"begin":[self getToSeviserTimeStr:beginDate],
+                          @"end":[self getToSeviserTimeStr:endDate]};
+    NSDictionary *parameterDic = @{@"phone":[UserInfoModel getUserDefaultLoginName],@"memberList":@[dic]};
+    [[NetRequestManager sharedInstance] sendRequest:url
+                                       parameterDic:parameterDic
+                                  requestMethodType:RequestMethodType_POST
+                                         requestTag:NetTempRequestType_DownloadIntervalTemp
+                                           delegate:self
+                                           userInfo:@{@"begin":beginDate,@"end":endDate}];
+}
+
 #pragma mark - request
 - (void)uploadRequest
 {
-    if (_isUploadRequesting || ![_currTempArray isAbsoluteValid] || ![AccountStautsManager sharedInstance].nowUserItem)
+    if (_isUploadRequesting || ![_currTempArray isAbsoluteValid] || ![AccountStautsManager sharedInstance].nowUserItem || ![AccountStautsManager sharedInstance].isBluetoothType)
         return;
     
     _isUploadRequesting = YES;
@@ -484,6 +516,90 @@ DEF_SINGLETON(YSBLEManager);
                 [_currTempArray removeObjectAtIndex:0];
         }
     }
+    else if (request.tag == NetTempRequestType_DownloadIntervalTemp)
+    {
+        if (infoObj && [infoObj isKindOfClass:[NSDictionary class]])
+        {
+            NSArray *memberArray = [[infoObj safeObjectForKey:@"user"] safeObjectForKey:@"memberList"];
+            
+            NSDate *beginDate = [request.userInfo safeObjectForKey:@"begin"];
+            NSDate *endDate = [request.userInfo safeObjectForKey:@"end"];
+            
+            if ([memberArray isAbsoluteValid])
+            {
+                NSDictionary *firstDic = [memberArray firstObject];
+                NSArray *tempArray = [firstDic safeObjectForKey:@"tempList"];
+                if ([tempArray isAbsoluteValid])
+                {
+                    NSMutableArray *array = [NSMutableArray new];
+                    for (NSDictionary *obj in tempArray)
+                    {
+                        RemoteTempItem *item = [RemoteTempItem initWithDict:obj];
+                        [array addObject:item];
+                    }
+                    
+                    //填充数据的数组
+                    NSMutableArray *fillingArray = [NSMutableArray new];
+                    //做数据填充，填充到每秒一个数据，否则返回的数据
+                    if ([array isAbsoluteValid])
+                    {
+                        NSTimeInterval interval = [endDate timeIntervalSinceDate:beginDate];
+                        NSInteger arrayIndex = 0;
+                        
+                        
+                        for (NSInteger i=0; i<(NSInteger)interval; i++)
+                        {
+                            NSDate *nextSencondDate = [beginDate dateByAddingSecond:i];
+                            NSString *timeStr = [self getToSeviserTimeStr:nextSencondDate];
+                            
+                            if (array.count > arrayIndex)
+                            {
+                                RemoteTempItem *hasItem = [array objectAtIndex:arrayIndex];
+                                if ([hasItem.time isEqualToString:timeStr])
+                                {
+                                    [fillingArray addObject:hasItem];
+                                    arrayIndex++;
+                                }
+                                else
+                                {
+                                    RemoteTempItem *fillingItem = [[RemoteTempItem alloc] init];
+                                    fillingItem.temp = 0;
+                                    fillingItem.time = timeStr;
+                                    [fillingArray addObject:fillingItem];
+                                }
+                            }
+                            else
+                            {
+                                RemoteTempItem *fillingItem = [[RemoteTempItem alloc] init];
+                                fillingItem.temp = 0;
+                                fillingItem.time = timeStr;
+                                [fillingArray addObject:fillingItem];
+                            }
+                        }
+                    }
+                
+                    if (_remoteTempCallBack)
+                    {
+                        _remoteTempCallBack(array,fillingArray,beginDate,endDate);
+                    }
+                }
+                else
+                {
+                    if (_remoteTempCallBack)
+                    {
+                        _remoteTempCallBack(nil,nil,beginDate,endDate);
+                    }
+                }
+            }
+            else
+            {
+                if (_remoteTempCallBack)
+                {
+                    _remoteTempCallBack(nil,nil,beginDate,endDate);
+                }
+            }
+        }
+    }
 }
 
 - (void)netRequest:(NetRequest *)request failedWithError:(NSError *)error
@@ -491,6 +607,15 @@ DEF_SINGLETON(YSBLEManager);
     if (request.tag == NetTempRequestType_UploadTemp)
     {
         _isUploadRequesting = NO;
+    }
+    else if (request.tag == NetTempRequestType_DownloadIntervalTemp)
+    {
+        if (_remoteTempCallBack)
+        {
+            _remoteTempCallBack(nil,nil,
+                                [request.userInfo safeObjectForKey:@"begin"],
+                                [request.userInfo safeObjectForKey:@"end"]);
+        }
     }
 }
 
