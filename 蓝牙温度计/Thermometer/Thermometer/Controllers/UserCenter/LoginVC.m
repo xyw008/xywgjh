@@ -105,8 +105,8 @@
                             lineColor:whiteColor
                             lineWidth:LineWidth];
     
-    _userNameLabel.text = @"18688897808";
-    _passwordLabel.text = @"123456";
+//    _userNameLabel.text = @"18688897808";
+//    _passwordLabel.text = @"123456";
 }
 
 - (void)setup
