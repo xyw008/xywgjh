@@ -49,16 +49,16 @@
     
     [_updateVersionBtn addLineWithPosition:ViewDrawLinePostionType_Top
                                  lineColor:CellSeparatorColor
-                                 lineWidth:LineWidth];
+                                 lineWidth:ThinLineWidth];
     [_updateVersionBtn addLineWithPosition:ViewDrawLinePostionType_Bottom
                                  lineColor:CellSeparatorColor
-                                 lineWidth:LineWidth];
+                                 lineWidth:ThinLineWidth];
     [_guideBtn addLineWithPosition:ViewDrawLinePostionType_Bottom
                          lineColor:CellSeparatorColor
-                         lineWidth:LineWidth];
+                         lineWidth:ThinLineWidth];
     [_followBtn addLineWithPosition:ViewDrawLinePostionType_Bottom
                           lineColor:CellSeparatorColor
-                          lineWidth:LineWidth];
+                          lineWidth:ThinLineWidth];
 }
 
 - (void)setup
