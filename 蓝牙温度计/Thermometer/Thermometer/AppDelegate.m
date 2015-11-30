@@ -81,7 +81,7 @@
     self.slideMenuVC.menuViewController = leftVC;
     self.slideMenuVC.backgroundImage = [UIImage imageNamed:@"leftmenu_bg"];
     self.slideMenuVC.backgroundImageContentMode = UIViewContentModeScaleAspectFill;
-    self.slideMenuVC.enablePan = YES;
+    self.slideMenuVC.enablePan = NO;
     self.window.rootViewController = _slideMenuVC;
     
     //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[TemperatureRecordVC new]];

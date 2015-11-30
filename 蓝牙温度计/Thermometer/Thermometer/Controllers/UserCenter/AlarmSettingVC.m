@@ -132,6 +132,7 @@
             // accessoryView.backgroundColor = [UIColor redColor];
             [accessoryView sizeToFit];
             accessoryView.frameWidth += 15;
+            accessoryView.userInteractionEnabled = NO;
             
             UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_dropdown"]];
             arrowImageView.frameSize = CGSizeMake(10, 10);
@@ -305,7 +306,6 @@
 {
     if (_selectTempView == nil)
     {
-        
         _selectTempView = [[SelectAlarmTempView alloc] initWithFrame:CGRectMake(20, 150, IPHONE_WIDTH - 20*2, 220)];
         
         [_selectTempView nowSelectTemp:isHigh ? [AccountStautsManager sharedInstance].highTemp : [AccountStautsManager sharedInstance].lowTemp];
@@ -331,7 +331,7 @@
         _popView.behavior = PopupBehavior_MessageBox;
         UIView *superView = [UIApplication sharedApplication].keyWindow;
         
-        [_popView showInView:superView animatedType:PopAnimatedType_Fade];
+        [_popView showInView:superView animatedType:PopAnimatedType_MiddleFlyIn];
         
     }
 }

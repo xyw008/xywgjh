@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ATTapView.h"
 
-#define kPopupControllerAnimationDruation 0.2
+#define kPopupControllerAnimationDruation 0.25
 
 @class PopupController;
 @protocol PopupControllerDelegate <NSObject>

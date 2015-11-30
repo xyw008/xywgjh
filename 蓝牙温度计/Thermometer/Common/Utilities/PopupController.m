@@ -233,9 +233,9 @@
                 animationBeginBlock = ^{
                     _contentView.transform = CGAffineTransformIdentity;
                     
-                    _contentView.alpha = 0.0;
+                    _contentView.alpha = 0.8;
                     _contentView.center = CGPointMake(CGRectGetWidth(inView.frame) / 2, CGRectGetHeight(inView.frame) / 2);
-                    _contentView.transform = CGAffineTransformMakeScale(2, 2);
+                    _contentView.transform = CGAffineTransformMakeScale(1.1, 1.1);
                 };
                 
                 animationExecuteBlock = ^{
@@ -309,8 +309,8 @@
             {
                 
                 animationExecuteBlock = ^{
-                    _contentView.alpha = 0.0;
-                    _contentView.transform = CGAffineTransformMakeScale(2, 2);
+                    _contentView.alpha = 0;
+                    _contentView.transform = CGAffineTransformMakeScale(1.1, 1.1);
                 };
             }
                 break;

@@ -70,7 +70,7 @@ DEF_SINGLETON(SlideActionSheet);
     [bgView addSubview:titleLB];
     
     //标题底部分割线
-    UIView *titleBottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(titleLB.frame) - LineWidth, bgView.width, LineWidth)];
+    UIView *titleBottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(titleLB.frame) - ThinLineWidth, bgView.width, ThinLineWidth)];
     titleBottomLineView.backgroundColor = CellSeparatorColor;
     [bgView addSubview:titleBottomLineView];
     
@@ -115,7 +115,7 @@ DEF_SINGLETON(SlideActionSheet);
             make.bottom.equalTo(cell.contentView.mas_bottom);
             make.left.equalTo(cell.contentView.mas_left);
             make.right.equalTo(cell.contentView.mas_right);
-            make.height.equalTo(LineWidth);
+            make.height.equalTo(ThinLineWidth);
         }];
     }
     cell.textLabel.text = [NSString stringWithFormat:@"%@",[_dataArray objectAtIndex:indexPath.row]];

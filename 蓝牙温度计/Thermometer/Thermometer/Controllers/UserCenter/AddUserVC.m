@@ -11,6 +11,7 @@
 #import "SlideActionSheet.h"
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "CommonEntity.h"
+#import "DateTools.h"
 
 #define kMargin 12
 #define kFont SP15Font
@@ -28,7 +29,7 @@
     
     NSString        *_sexString;
     NSString        *_ageString;
-    
+    NSString        *_birthdayStr;
 }
 @end
 
@@ -266,7 +267,7 @@
     [self.view addSubview:lineView];
     
     [lineView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(LineWidth);
+        make.height.equalTo(ThinLineWidth);
         if (isHalf)
         {
             make.width.equalTo((IPHONE_WIDTH - kMargin * 3)/2);
@@ -380,14 +381,22 @@
 //选择年龄
 - (void)selectAge:(UITapGestureRecognizer*)tap
 {
+    NSString *nowTimeStr = [NSDate stringFromDate:[NSDate date] withFormatter:DataFormatter_Date];
     WEAKSELF
-    [[InterfaceHUDManager sharedInstance] showPickerWithTitle:@"" PickerShowType:PickerShowType_Date pickerCancelBlock:^(NSString *pickedContent, NSArray *idsArray) {
+    [[InterfaceHUDManager sharedInstance] showPickerWithTitle:@"请选择年龄"
+                                               PickerShowType:PickerShowType_Date
+                                           defaultSelectedStr:_birthdayStr
+                                            pickerCancelBlock:^(NSString *pickedContent, NSArray *idsArray) {
         
     } pickerConfirmBlock:^(NSString *pickedContent, NSArray *idsArray) {
         STRONGSELF
         //2015-11-22
-        if ([pickedContent isAbsoluteValid])
+        NSString *noticeStr = @"请选择正确的年龄";
+        
+        if ([pickedContent isAbsoluteValid] && ![pickedContent isEqualToString:nowTimeStr])
         {
+            _birthdayStr = pickedContent;
+            
             NSArray *selectTimeArray = [pickedContent componentsSeparatedByString:@"-"];
             if ([selectTimeArray isAbsoluteValid] && selectTimeArray.count > 2)
             {
@@ -400,12 +409,12 @@
                 NSInteger currentMonth = [components month];
                 NSInteger currentDay   = [components day];
                 
-                
                 BOOL selectRightDate = YES;
                 if (currentYear < selectYear)
                 {
                     selectRightDate = NO;
                 }
+                /*
                 else
                 {
                     if (currentMonth < selectMonth)
@@ -419,6 +428,7 @@
                         }
                     }
                 }
+                */
                 if (selectRightDate)
                 {
                     // 计算年龄
@@ -432,10 +442,13 @@
                 }
                 else
                 {
-                   [strongSelf showHUDInfoByString:@"请选择正确年龄"];
+                   [strongSelf showHUDInfoByString:noticeStr];
                 }
-                
             }
+        }
+        else
+        {
+            [strongSelf showHUDInfoByString:noticeStr];
         }
     }];
 }

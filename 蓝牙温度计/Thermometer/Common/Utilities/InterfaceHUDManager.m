@@ -289,17 +289,20 @@ DEF_SINGLETON(InterfaceHUDManager);
     self.pickerConfirmBlock = pickerConfirmBlock;
     _pickerShowType = type;
     
-    UIBarButtonItem *negativeSeperator = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:NULL];
+    // UIBarButtonItem *negativeSeperator = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:NULL];
     // 定义一个关闭的barBtn
-    UIBarButtonItem *closeBarBtn = [[UIBarButtonItem alloc] initWithTitle:Cancel style:UIBarButtonItemStyleBordered target:self action:@selector(clickCancelOrConfirmBtn:)];
+    UIBarButtonItem *closeBarBtn = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"  %@", Cancel] style:UIBarButtonItemStyleBordered target:self action:@selector(clickCancelOrConfirmBtn:)];
     
     // 定义一个确定的barBtn
-    UIBarButtonItem *confirmBarBtn = [[UIBarButtonItem alloc] initWithTitle:Confirm style:UIBarButtonItemStylePlain target:self action:@selector(clickCancelOrConfirmBtn:)];
+    UIBarButtonItem *confirmBarBtn = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%@  ", Confirm] style:UIBarButtonItemStylePlain target:self action:@selector(clickCancelOrConfirmBtn:)];
     
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
     navItem.title = title;
-    navItem.leftBarButtonItems = @[negativeSeperator, closeBarBtn];
-    navItem.rightBarButtonItems = @[negativeSeperator, confirmBarBtn];
+    // navItem.leftBarButtonItems = @[negativeSeperator, closeBarBtn];
+    // navItem.rightBarButtonItems = @[negativeSeperator, confirmBarBtn];
+    
+    navItem.leftBarButtonItem = closeBarBtn;
+    navItem.rightBarButtonItem = confirmBarBtn;
     
     UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, 44)];
     navBar.items = [NSArray arrayWithObject:navItem];
@@ -370,7 +373,7 @@ DEF_SINGLETON(InterfaceHUDManager);
     [_popupController hide];
     
     // 点击事件处理
-    if ([sender.title isEqualToString:Cancel])
+    if ([sender.title containsString:Cancel])
     {
         if (_pickerCancelBlock) _pickerCancelBlock(nil, nil);
     }

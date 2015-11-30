@@ -148,8 +148,9 @@
         [self setAnchorPoint:CGPointMake(1.0, 0.5) forView:_menuContainer.view];
         
         _tAngleClose = CATransform3DIdentity;
-        _tAngleClose.m34 = 1.0/ -500;
-        _tAngleClose = CATransform3DRotate(_tAngleClose, -35.0f * M_PI / 180.0f, 0, 1, 0);
+        // _tAngleClose.m34 = 1.0/ -500;
+        // _tAngleClose = CATransform3DRotate(_tAngleClose, -35.0f * M_PI / 180.0f, 0, 1, 0);
+        _tAngleClose = CATransform3DRotate(_tAngleClose, 0.0f * M_PI / 180.0f, 0, 1, 0);
         
         _distanceOpenMenu = fabs(_distanceOpenMenu);
         
@@ -157,8 +158,9 @@
         [self setAnchorPoint:CGPointMake(0.0, 0.5) forView:_menuContainer.view];
         
         _tAngleClose = CATransform3DIdentity;
-        _tAngleClose.m34 = 1.0/ -500;
-        _tAngleClose = CATransform3DRotate(_tAngleClose, 35.0f * M_PI / 180.0f, 0, 1, 0);
+        // _tAngleClose.m34 = 1.0/ -500;
+        // _tAngleClose = CATransform3DRotate(_tAngleClose, 35.0f * M_PI / 180.0f, 0, 1, 0);
+        _tAngleClose = CATransform3DRotate(_tAngleClose, 0.0f * M_PI / 180.0f, 0, 1, 0);
         
         _distanceOpenMenu = -fabs(_distanceOpenMenu);
     }
@@ -194,11 +196,9 @@
     layer.transform = _tAngleClose;
     _menuContainer.view.alpha = 0.3;
     
-    [UIView animateWithDuration:1.0
+    [UIView animateWithDuration:0.25
                           delay:0.0
-         usingSpringWithDamping:0.5
-          initialSpringVelocity:0.5
-                        options:UIViewAnimationOptionCurveLinear
+                        options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          _mainContainer.view.frame = fMain;
                      } completion:^(BOOL finished) {
@@ -207,9 +207,9 @@
                          }
                      }];
     
-    [UIView animateWithDuration:0.3
-                          delay:0.1
-                        options:UIViewAnimationOptionCurveLinear
+    [UIView animateWithDuration:0.25
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          CALayer *layer = _menuContainer.view.layer;
                          CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
@@ -234,11 +234,9 @@
     CGRect fMain = _mainContainer.view.frame;
     fMain.origin.x = 0;
     
-    [UIView animateWithDuration:1.0
-                          delay:0.2
-         usingSpringWithDamping:0.5
-          initialSpringVelocity:0.5
-                        options:UIViewAnimationOptionCurveLinear
+    [UIView animateWithDuration:0.25
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          
                          _mainContainer.view.frame = fMain;
@@ -251,9 +249,9 @@
                      }];
     
     
-    [UIView animateWithDuration:0.3
+    [UIView animateWithDuration:0.25
                           delay:0.0
-                        options:UIViewAnimationOptionCurveLinear
+                        options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          CALayer *layer = _menuContainer.view.layer;
                          layer.zPosition = -1000;
@@ -360,7 +358,8 @@
         CATransform3D t = CATransform3DIdentity;
         layer.zPosition = -1000;
         t.m34 = 1.0/ -500;
-        t = CATransform3DRotate(t, newAngle * M_PI / 180.0f, 0, 1, 0);
+        // t = CATransform3DRotate(t, newAngle * M_PI / 180.0f, 0, 1, 0);
+        t = CATransform3DRotate(t, 0 * M_PI / 180.0f, 0, 1, 0);
         layer.transform = t;
         
         CGFloat newAlpha = ((0.7*(f.origin.x))/_distanceOpenMenu)+0.3;
@@ -374,7 +373,7 @@
         BOOL closeMenu = TRUE;
         CGFloat new3dSeg = 0.3;
         
-        if ( (fMain.origin.x >= _distanceOpenMenu/2 && self.sideMenu3D == MenuLeft) || (fMain.origin.x <= _distanceOpenMenu/2 && self.sideMenu3D == MenuRight) ) {
+        if ( (fMain.origin.x >= _distanceOpenMenu/4 && self.sideMenu3D == MenuLeft) || (fMain.origin.x <= _distanceOpenMenu/2 && self.sideMenu3D == MenuRight) ) {
             [self addTapGestures];
             newSeg = (_distanceOpenMenu-fMain.origin.x) / _distanceOpenMenu;
             new3dSeg = ((_distanceOpenMenu-fMain.origin.x) *0.3 ) / _distanceOpenMenu;
@@ -389,8 +388,6 @@
         
         [UIView animateWithDuration:newSeg
                               delay:0.0
-             usingSpringWithDamping:0.5
-              initialSpringVelocity:0.5
                             options:UIViewAnimationOptionCurveLinear
                          animations:^{
                              _mainContainer.view.frame = fMain;
@@ -417,7 +414,8 @@
                              layer.zPosition = -1000;
                              CATransform3D t = CATransform3DIdentity;
                              t.m34 = 1.0/ -500;
-                             t = CATransform3DRotate(t, newAngle * M_PI / 180.0f, 0, 1, 0);
+                             // t = CATransform3DRotate(t, newAngle * M_PI / 180.0f, 0, 1, 0);
+                             t = CATransform3DRotate(t, 0 * M_PI / 180.0f, 0, 1, 0);
                              layer.transform = t;
                              _menuContainer.view.alpha = newAlpha;
                          }
