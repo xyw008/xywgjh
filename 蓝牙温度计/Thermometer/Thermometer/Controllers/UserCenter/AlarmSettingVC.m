@@ -306,8 +306,8 @@
 {
     if (_selectTempView == nil)
     {
-        
         _selectTempView = [[SelectAlarmTempView alloc] initWithFrame:CGRectMake(20, 150, IPHONE_WIDTH - 20*2, 220)];
+        _selectTempView.isHighTemp = isHigh;
         
         [_selectTempView nowSelectTemp:isHigh ? [AccountStautsManager sharedInstance].highTemp : [AccountStautsManager sharedInstance].lowTemp];
         

@@ -32,9 +32,6 @@
         self.backgroundColor = [UIColor whiteColor];
         ViewRadius(self, 5);
         
-        _bigSelectValue = [NSString stringWithFormat:@"%.0lf", [AccountStautsManager sharedInstance].highTemp];
-        _smallSelectValue = [NSString stringWithFormat:@"%.0lf", [AccountStautsManager sharedInstance].lowTemp];
-        
         self.userInteractionEnabled = YES;
         _bigNumArray = @[@(30),@(31),@(32),@(33),@(34),@(35),@(36),@(37),@(38),@(39),@(40)];
         _smallNumArray = @[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9"];
@@ -112,7 +109,7 @@
     
     if ([_bigNumArray containsObject:@(bigNum)])
     {
-        //_bigSelectValue = [NSString stringWithFormat:@"%ld", (long)bigNum];
+        _bigSelectValue = [NSString stringWithFormat:@"%ld", (long)bigNum];
         
         NSInteger index = [_bigNumArray indexOfObject:@(bigNum)];
         [_pickerView selectRow:index inComponent:0 animated:NO];
@@ -120,7 +117,7 @@
     
     if ([_smallNumArray containsObject:smallStr]) {
         
-        //_smallSelectValue = smallStr;
+        _smallSelectValue = smallStr;
         
         NSInteger index = [_smallNumArray indexOfObject:smallStr];
         [_pickerView selectRow:index inComponent:1 animated:NO];
