@@ -10,6 +10,7 @@
 #import "NITextField.h"
 #import "PRPAlertView.h"
 #import "LoginBC.h"
+#import "BaseNetworkViewController+NetRequestManager.h"
 
 @interface PasswordInputVC ()
 {
@@ -75,28 +76,70 @@
 
 - (IBAction)clickCommitBtn:(UIButton *)sender
 {
-    _loginBC = [[LoginBC alloc] init];
+    [self getNetworkData];
+}
+
+#pragma mark - request
+
+- (void)setNetworkRequestStatusBlocks
+{
+    WEAKSELF
+    [self setNetSuccessBlock:^(NetRequest *request, id successInfoObj) {
+        if (successInfoObj && [successInfoObj isKindOfClass:[NSDictionary class]])
+        {
+            switch (request.tag)
+            {
+                case NetUserCenterRequestType_Register:
+                {
+                    [weakSelf loginRequest];
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+    } failedBlock:^(NetRequest *request, NSError *error) {
+        [weakSelf showHUDInfoByString:error.localizedDescription];
+    }];
+}
+
+- (void)getNetworkData
+{
+    if (![_passwordTF.text isAbsoluteValid]) {
+        [self showHUDInfoByString:@"请输入密码"];
+        return;
+    }
     
-    /*
-     userName ：用户名
-     userPassword  ：密码
-     */
-//    WEAKSELF
-//    [_loginBC loginWithUserName:_userNameLabel.text
-//                       password:_passwordLabel.text
-//                      autoLogin:YES
-//                        showHUD:YES
-//                  successHandle:^(id successInfoObj) {
-//                      
-//                      [UserInfoModel setUserDefaultLoginName:_userNameLabel.text];
-//                      [UserInfoModel setUserDefaultPassword:_passwordLabel.text];
-//                      
-//                      [weakSelf backViewController];
-//                      
-//                  } failedHandle:^(NSError *error) {
-//                      
-//                  }];
+    NSDictionary *dic = @{@"phone": _phoneNumStr,
+                          @"password": _passwordTF.text};
     
+    [self sendRequest:[[self class] getRequestURLStr:NetUserCenterRequestType_Register]
+         parameterDic:dic
+       requestHeaders:nil
+    requestMethodType:RequestMethodType_POST
+           requestTag:NetUserCenterRequestType_Register];
+    
+}
+
+
+- (void)loginRequest
+{
+    if (_loginBC == nil) {
+        _loginBC = [[LoginBC alloc] init];
+    }
+        WEAKSELF
+    [_loginBC loginWithUserName:_phoneNumStr
+                       password:_passwordTF.text
+                      autoLogin:YES
+                        showHUD:YES
+                  successHandle:^(id successInfoObj) {
+                      
+                      [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                      
+                  } failedHandle:^(NSError *error) {
+                      
+                  }];
+
 }
 
 @end
