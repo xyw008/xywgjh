@@ -37,6 +37,15 @@
 #define UserDefault_IsFUnitKey             @"UserDefault_IsFUnitKey"            //温度显示单位
 
 
+#define UserDefault_HighLowAlarmKey         @"UserDefault_HighLowAlarmKey"       //高低温报警开关
+#define UserDefault_DisconnectAlarmKey      @"UserDefault_DisconnectAlarmKey"    //断开报警开关
+#define UserDefault_BellAlarmKey            @"UserDefault_BellAlarmKey"          //报警铃声开关
+#define UserDefault_ShakeAlarmKey           @"UserDefault_ShakeAlarmKey"         //报警震动开关
+#define UserDefault_HighTempKey             @"UserDefault_HighTempKey"           //高温报警值
+#define UserDefault_LowTempKey              @"UserDefault_LowTempKey"            //低温报警值
+#define UserDefault_BellMp3NameKey              @"UserDefault_BellMp3NameKey"        //报警铃声
+
+
 @implementation UserInfoModel
 
 DEF_SINGLETON(UserInfoModel);
@@ -353,5 +362,97 @@ DEF_SINGLETON(UserInfoModel);
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_IsFUnitKey];
 }
+
+
+#pragma mark - Alarm
+//高低温报警开关
++ (void)setUserDefaultHighAndLowTepmAlarm:(NSNumber*)highLowAlarm
+{
+    [[NSUserDefaults standardUserDefaults] setObject:highLowAlarm forKey:UserDefault_HighLowAlarmKey];
+    [self saveUserDefaultInfo];
+}
+
++ (NSNumber *)getHighAndLowTepmAlarm
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_HighLowAlarmKey];
+}
+
+
+//断开报警开关
++ (void)setUserDefaultDisconnectAlarm:(NSNumber*)disconnectAlarm
+{
+    [[NSUserDefaults standardUserDefaults] setObject:disconnectAlarm forKey:UserDefault_DisconnectAlarmKey];
+    [self saveUserDefaultInfo];
+}
+
++ (NSNumber *)getDisconnectAlarm
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_DisconnectAlarmKey];
+}
+
+//报警铃声开关
++ (void)setUserDefaultBellAlarm:(NSNumber*)bellAlarm
+{
+    [[NSUserDefaults standardUserDefaults] setObject:bellAlarm forKey:UserDefault_BellAlarmKey];
+    [self saveUserDefaultInfo];
+}
+
++ (NSNumber *)getBellAlarm
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_BellAlarmKey];
+}
+
+//报警震动开关
++ (void)setUserDefaultShakeAlarm:(NSNumber*)shakeAlarm
+{
+    [[NSUserDefaults standardUserDefaults] setObject:shakeAlarm forKey:UserDefault_ShakeAlarmKey];
+    [self saveUserDefaultInfo];
+}
+
++ (NSNumber *)getShakeAlarm
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_ShakeAlarmKey];
+}
+
+//高温报警值
++ (void)setUserDefaultHighTemp:(NSNumber*)highTemp
+{
+    [[NSUserDefaults standardUserDefaults] setObject:highTemp forKey:UserDefault_HighTempKey];
+    [self saveUserDefaultInfo];
+}
+
++ (NSNumber *)getHighTemp
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_HighTempKey];
+}
+
+//低温报警值
++ (void)setUserDefaultLowTemp:(NSNumber*)lowTemp
+{
+    [[NSUserDefaults standardUserDefaults] setObject:lowTemp forKey:UserDefault_LowTempKey];
+    [self saveUserDefaultInfo];
+}
+
++ (NSNumber *)getLowTemp
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_LowTempKey];
+}
+
+
+//报警铃声名字
++ (void)setUserDefaultBellMp3Name:(NSString *)bellMp3Name
+{
+    [[NSUserDefaults standardUserDefaults] setObject:bellMp3Name forKey:UserDefault_BellMp3NameKey];
+    [self saveUserDefaultInfo];
+}
+
+
++ (NSString *)getBellMp3Name
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_BellMp3NameKey];
+}
+
+
+
 
 @end

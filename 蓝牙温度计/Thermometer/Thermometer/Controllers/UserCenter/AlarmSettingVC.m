@@ -7,11 +7,19 @@
 //
 
 #import "AlarmSettingVC.h"
+#import "AccountStautsManager.h"
+#import "YSBLEManager.h"
+#import "SelectAlarmTempView.h"
+#import "PopupController.h"
+#import "AlarmBellSelectVC.h"
 
 @interface AlarmSettingVC ()
 {
     NSArray    *_tabSectionTitleArray;
     NSArray    *_tabRowTitleArray;
+    
+    SelectAlarmTempView     *_selectTempView;
+    PopupController         *_popView;
 }
 
 @end
@@ -20,9 +28,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setNavigationItemTitle:@"报警设置"];
     [self loadLocalData];
     [self initialization];
+    
+    //选择铃声通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(selectNewBell:)
+                                                 name:kSelectBellNotificationKey
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,6 +76,8 @@
               forControlEvents:UIControlEventValueChanged];
             aSwitch.tag = [self viewTagWithIndexPath:indexPath];
             
+            aSwitch.on = indexPath.row == 0 ? [AccountStautsManager sharedInstance].highAndLowAlarm : [AccountStautsManager sharedInstance].disconnectAlarm;
+            
             accessoryView = aSwitch;
         }
             break;
@@ -75,14 +91,17 @@
                   forControlEvents:UIControlEventValueChanged];
                 aSwitch.tag = [self viewTagWithIndexPath:indexPath];
                 
+                aSwitch.on = indexPath.row == 0 ? [AccountStautsManager sharedInstance].bellAlarm : [AccountStautsManager sharedInstance].shakeAlarm;
+                
                 accessoryView = aSwitch;
             }
             else if (2 == indexPath.row)
             {
+                NSString *bell = [AccountStautsManager sharedInstance].bellMp3Name;
                 accessoryView = InsertLabel(nil,
                                             CGRectZero,
                                             NSTextAlignmentLeft,
-                                            @"测试铃声",
+                                            bell,
                                             kSystemFont_Size(16),
                                             Common_BlackColor,
                                             YES);
@@ -91,12 +110,20 @@
             break;
         case 2:
         {
+            CGFloat temp = indexPath.row == 0 ? [AccountStautsManager sharedInstance].highTemp : [AccountStautsManager sharedInstance].lowTemp;
+            if ([YSBLEManager sharedInstance].isFUnit) {
+                temp = [BLEManager getFTemperatureWithC:temp];
+            }
+            
+            NSString *unitStr = [YSBLEManager sharedInstance].isFUnit ? @"°F" : @"°C";
+            NSString *tempStr = [NSString stringWithFormat:@"%.1lf%@",temp,unitStr];
+            
             accessoryView = InsertImageButtonWithTitle(nil,
                                                        CGRectZero,
                                                        [self viewTagWithIndexPath:indexPath],
                                                        nil,
                                                        nil,
-                                                       @"88.8°C",
+                                                       tempStr,
                                                        UIEdgeInsetsMake(0, 0, 0, 5),
                                                        kSystemFont_Size(16),
                                                        Common_BlackColor,
@@ -123,16 +150,29 @@
 - (void)switchActionHandle:(UISwitch *)sender
 {
     NSIndexPath *indexPath = [self indexPathWithTag:sender.tag];
-    
     switch (indexPath.section) {
         case 0:
         {
-            
+            if (0 == indexPath.row)
+            {
+                [AccountStautsManager sharedInstance].highAndLowAlarm = sender.on;
+            }
+            else if (1 == indexPath.row)
+            {
+                [AccountStautsManager sharedInstance].disconnectAlarm = sender.on;
+            }
         }
             break;
         case 1:
         {
-            
+            if (0 == indexPath.row)
+            {
+                [AccountStautsManager sharedInstance].bellAlarm = sender.on;
+            }
+            else if (1 == indexPath.row)
+            {
+                [AccountStautsManager sharedInstance].shakeAlarm = sender.on;
+            }
         }
             break;
             
@@ -233,13 +273,80 @@
     
     cell.accessoryView = [self cellAccessoryViewWithIndexPath:indexPath];
     cell.textLabel.text = rowTitleArray[indexPath.row];
-    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section == 1)
+    {
+        if (2 == indexPath.row) {
+            AlarmBellSelectVC *vc = [AlarmBellSelectVC new];
+            [self pushViewController:vc];
+        }
+    }
+    else if (indexPath.section == 2)
+    {
+        if (0 == indexPath.row)
+        {
+            [self showAlarmTempValueSelectView:YES];
+        }
+        else if (1 == indexPath.row)
+        {
+            [self showAlarmTempValueSelectView:NO];
+        }
+    }
+    
+}
+
+- (void)showAlarmTempValueSelectView:(BOOL)isHigh
+{
+    if (_selectTempView == nil)
+    {
+        
+        _selectTempView = [[SelectAlarmTempView alloc] initWithFrame:CGRectMake(20, 150, IPHONE_WIDTH - 20*2, 220)];
+        
+        [_selectTempView nowSelectTemp:isHigh ? [AccountStautsManager sharedInstance].highTemp : [AccountStautsManager sharedInstance].lowTemp];
+        
+        WEAKSELF
+        [_selectTempView setBtnCallBack:^(BOOL isSubmit,CGFloat tempValue){
+            STRONGSELF
+            if (isSubmit)
+            {
+                if (isHigh)
+                    [AccountStautsManager sharedInstance].highTemp = tempValue;
+                else
+                    [AccountStautsManager sharedInstance].lowTemp = tempValue;
+                
+                [strongSelf->_tableView reloadData];
+            }
+            
+            [strongSelf->_popView hide];
+        }];
+        
+        _popView = [[PopupController alloc] initWithContentView:_selectTempView];
+        _popView.delegate = self;
+        _popView.behavior = PopupBehavior_MessageBox;
+        UIView *superView = [UIApplication sharedApplication].keyWindow;
+        
+        [_popView showInView:superView animatedType:PopAnimatedType_Fade];
+        
+    }
+}
+
+- (void)PopupControllerDidHidden:(PopupController *)aController
+{
+    [_selectTempView removeFromSuperview];
+    _selectTempView = nil;
+    _popView = nil;
+}
+
+#pragma mark - notification
+- (void)selectNewBell:(NSNotification*)notification
+{
+    [_tableView reloadData];
 }
 
 @end

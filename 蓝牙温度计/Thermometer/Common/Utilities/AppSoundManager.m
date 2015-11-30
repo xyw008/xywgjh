@@ -44,7 +44,7 @@
 }
 
 
-+ (void) playPaintingSoundWithPath:(NSString*)path
++ (void)playPaintingSoundWithPath:(NSString*)path
 {
     [[ATAudioPlayManager shardManager] stopAudioDelegate:nil tag:kPaintingSoundTag animation:YES];
     [[ATAudioPlayManager shardManager] playAudioPath:path delegate:nil tag:kPaintingSoundTag];

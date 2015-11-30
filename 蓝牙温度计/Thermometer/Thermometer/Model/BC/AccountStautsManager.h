@@ -16,11 +16,20 @@ static NSString * const kChangeNowUserNotificationKey = @"kChangeNowUserNotifica
 @interface AccountStautsManager : NSObject
 
 
-@property (nonatomic,assign)BOOL    isLogin;//登陆状态
+@property (nonatomic,assign)BOOL        isLogin;//登陆状态
 
 @property (nonatomic,strong)UserItem    *nowUserItem;//现在选择的成员，如果为空则有可能没登陆，或则登陆后账号没有成员
+@property (nonatomic,assign)BOOL        uploadTempData;//是否同步数据
 
-@property (nonatomic,assign)BOOL    uploadTempData;//是否同步数据
+#pragma mark 报警相关
+@property (nonatomic,assign)BOOL        highAndLowAlarm;//高低温报警开关
+@property (nonatomic,assign)BOOL        disconnectAlarm;//断开报警开关
+@property (nonatomic,assign)BOOL        bellAlarm;//报警铃声开关
+@property (nonatomic,assign)BOOL        shakeAlarm;//报警震动开关
+@property (nonatomic,assign)CGFloat     highTemp;//高温报警值
+@property (nonatomic,assign)CGFloat     lowTemp;//低温报警值
+@property (nonatomic,copy)NSString      *bellMp3Name;//报警铃声
+
 
 AS_SINGLETON(AccountStautsManager);
 

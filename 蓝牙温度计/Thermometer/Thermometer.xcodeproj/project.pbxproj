@@ -554,6 +554,14 @@
 		B35A8FA91BFA475D0050E49B /* FSLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B35A8FA61BFA475D0050E49B /* FSLineChart.m */; };
 		B35A8FAA1BFA475D0050E49B /* UIColor+FSPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = B35A8FA81BFA475D0050E49B /* UIColor+FSPalette.m */; };
 		B35C39871C0ADF4D004325CA /* AccountStautsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B35C39861C0ADF4D004325CA /* AccountStautsManager.m */; };
+		B35C398B1C0B6345004325CA /* SelectAlarmTempView.m in Sources */ = {isa = PBXBuildFile; fileRef = B35C398A1C0B6345004325CA /* SelectAlarmTempView.m */; };
+		B35C39931C0B775C004325CA /* beacon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B35C398D1C0B775C004325CA /* beacon.mp3 */; };
+		B35C39941C0B775C004325CA /* circuit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B35C398E1C0B775C004325CA /* circuit.mp3 */; };
+		B35C39951C0B775C004325CA /* hillside.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B35C398F1C0B775C004325CA /* hillside.mp3 */; };
+		B35C39961C0B775C004325CA /* night.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B35C39901C0B775C004325CA /* night.mp3 */; };
+		B35C39971C0B775C004325CA /* ring.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B35C39911C0B775C004325CA /* ring.mp3 */; };
+		B35C39981C0B775C004325CA /* senca.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B35C39921C0B775C004325CA /* senca.mp3 */; };
+		B35C399E1C0B79A7004325CA /* AlarmBellSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B35C399D1C0B79A7004325CA /* AlarmBellSelectVC.m */; };
 		FAF92EF61B6F103900DD06BC /* PRPAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EF51B6F103900DD06BC /* PRPAlertView.m */; };
 		FAF92F051B6F10A400DD06BC /* AppSmallUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EF81B6F10A400DD06BC /* AppSmallUtils.m */; };
 		FAF92F061B6F10A400DD06BC /* AppSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EFA1B6F10A400DD06BC /* AppSoundManager.m */; };
@@ -1541,6 +1549,16 @@
 		B35A8FA81BFA475D0050E49B /* UIColor+FSPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+FSPalette.m"; sourceTree = "<group>"; };
 		B35C39851C0ADF4D004325CA /* AccountStautsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountStautsManager.h; sourceTree = "<group>"; };
 		B35C39861C0ADF4D004325CA /* AccountStautsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountStautsManager.m; sourceTree = "<group>"; };
+		B35C39891C0B6345004325CA /* SelectAlarmTempView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectAlarmTempView.h; sourceTree = "<group>"; };
+		B35C398A1C0B6345004325CA /* SelectAlarmTempView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectAlarmTempView.m; sourceTree = "<group>"; };
+		B35C398D1C0B775C004325CA /* beacon.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beacon.mp3; sourceTree = "<group>"; };
+		B35C398E1C0B775C004325CA /* circuit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = circuit.mp3; sourceTree = "<group>"; };
+		B35C398F1C0B775C004325CA /* hillside.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hillside.mp3; sourceTree = "<group>"; };
+		B35C39901C0B775C004325CA /* night.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = night.mp3; sourceTree = "<group>"; };
+		B35C39911C0B775C004325CA /* ring.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ring.mp3; sourceTree = "<group>"; };
+		B35C39921C0B775C004325CA /* senca.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = senca.mp3; sourceTree = "<group>"; };
+		B35C399C1C0B79A7004325CA /* AlarmBellSelectVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmBellSelectVC.h; sourceTree = "<group>"; };
+		B35C399D1C0B79A7004325CA /* AlarmBellSelectVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmBellSelectVC.m; sourceTree = "<group>"; };
 		FAF92EF41B6F103900DD06BC /* PRPAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPAlertView.h; sourceTree = "<group>"; };
 		FAF92EF51B6F103900DD06BC /* PRPAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPAlertView.m; sourceTree = "<group>"; };
 		FAF92EF71B6F10A400DD06BC /* AppSmallUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSmallUtils.h; sourceTree = "<group>"; };
@@ -1683,6 +1701,8 @@
 				2B150A111BF379CF00315C66 /* AboutVC.xib */,
 				2B150A2C1BF38EA400315C66 /* AlarmSettingVC.h */,
 				2B150A2D1BF38EA400315C66 /* AlarmSettingVC.m */,
+				B35C399C1C0B79A7004325CA /* AlarmBellSelectVC.h */,
+				B35C399D1C0B79A7004325CA /* AlarmBellSelectVC.m */,
 				B3192E711C01CF7D00424A9B /* AddUserVC.h */,
 				B3192E721C01CF7D00424A9B /* AddUserVC.m */,
 				B3192FE21C02179000424A9B /* SetupVC.h */,
@@ -2943,6 +2963,7 @@
 		43D1CB011A75EBA5004564C2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B35C398C1C0B775C004325CA /* Raw */,
 				B30F5EC51BF8C51C00F33372 /* UnidreamLED.ttf */,
 				B338DB8E1BEA71DE0053DB4C /* Image */,
 				43D1CB021A75EBA5004564C2 /* AddressJson */,
@@ -3637,6 +3658,7 @@
 		B338DB871BEA5FAC0053DB4C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B35C39881C0B6318004325CA /* UserCenter */,
 				2BD263121BF8726E00640293 /* TemperatureRecordVC */,
 				B30CF1C51BEF31A000D6D63E /* MainView */,
 			);
@@ -3672,6 +3694,28 @@
 				B35A8FA81BFA475D0050E49B /* UIColor+FSPalette.m */,
 			);
 			path = FSLineChart;
+			sourceTree = "<group>";
+		};
+		B35C39881C0B6318004325CA /* UserCenter */ = {
+			isa = PBXGroup;
+			children = (
+				B35C39891C0B6345004325CA /* SelectAlarmTempView.h */,
+				B35C398A1C0B6345004325CA /* SelectAlarmTempView.m */,
+			);
+			path = UserCenter;
+			sourceTree = "<group>";
+		};
+		B35C398C1C0B775C004325CA /* Raw */ = {
+			isa = PBXGroup;
+			children = (
+				B35C398D1C0B775C004325CA /* beacon.mp3 */,
+				B35C398E1C0B775C004325CA /* circuit.mp3 */,
+				B35C398F1C0B775C004325CA /* hillside.mp3 */,
+				B35C39901C0B775C004325CA /* night.mp3 */,
+				B35C39911C0B775C004325CA /* ring.mp3 */,
+				B35C39921C0B775C004325CA /* senca.mp3 */,
+			);
+			path = Raw;
 			sourceTree = "<group>";
 		};
 		FAFD22C91BE0DBFB0004DD6F /* OBCConvertor */ = {
@@ -3766,6 +3810,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43D1CA2D1A75E778004564C2 /* deps in Resources */,
+				B35C39981C0B775C004325CA /* senca.mp3 in Resources */,
 				B3192F831C01D45500424A9B /* home_icon_histroy@2x.png in Resources */,
 				B338DB901BEA71DE0053DB4C /* Stars@2x.png in Resources */,
 				43D1CAD51A75E779004564C2 /* NimbusWebController.bundle in Resources */,
@@ -3784,6 +3829,7 @@
 				B3192FB01C01D45500424A9B /* toolbar_icon_bloodpressure_f@2x.png in Resources */,
 				43D1CC231A75EBFA004564C2 /* pinyin.correct in Resources */,
 				B3192F691C01D45500424A9B /* home_device_battery_01@2x.png in Resources */,
+				B35C39931C0B775C004325CA /* beacon.mp3 in Resources */,
 				B3192F771C01D45500424A9B /* home_device_wifi_02@2x.png in Resources */,
 				B3192F8D1C01D45500424A9B /* home_icon_wear_head@2x.png in Resources */,
 				2B1CC6DC1BFCCFA900C2F589 /* leftmenu_icon_father@2x.png in Resources */,
@@ -3811,11 +3857,13 @@
 				43D1CAC81A75E779004564C2 /* Default@2x.png in Resources */,
 				B3192FAA1C01D45500424A9B /* navigationbar_icon_close@2x.png in Resources */,
 				2B5C8BC11BFF3C4700F665BA /* icon_LOGO_120@2x.png in Resources */,
+				B35C39951C0B775C004325CA /* hillside.mp3 in Resources */,
 				B3192F741C01D45500424A9B /* home_device_wifi_00@3x.png in Resources */,
 				B3162C851BEA4DC2009E7C19 /* Images.xcassets in Resources */,
 				B3192F7C1C01D45500424A9B /* home_device_wifi_04@3x.png in Resources */,
 				B3192FD51C01D71700424A9B /* adduser_icon_father_f@2x.png in Resources */,
 				B3192FDC1C01D71700424A9B /* adduser_icon_mother_n@2x.png in Resources */,
+				B35C39961C0B775C004325CA /* night.mp3 in Resources */,
 				B3192F7A1C01D45500424A9B /* home_device_wifi_03@3x.png in Resources */,
 				B3192FAE1C01D45500424A9B /* navigationbar_icon_timetree@2x.png in Resources */,
 				B3192F701C01D45500424A9B /* home_device_battery_04@3x.png in Resources */,
@@ -3824,6 +3872,7 @@
 				43D1CB051A75EBA5004564C2 /* CHANGELOG in Resources */,
 				43D1CA891A75E778004564C2 /* deps in Resources */,
 				B310DEA81C035D09000A8CBC /* lead_02.png in Resources */,
+				B35C39941C0B775C004325CA /* circuit.mp3 in Resources */,
 				B3192F991C01D45500424A9B /* leftmenu_icon_baby@3x.png in Resources */,
 				B3192FBF1C01D45500424A9B /* toolbar_icon_o2_n@3x.png in Resources */,
 				B3192FBE1C01D45500424A9B /* toolbar_icon_o2_n@2x.png in Resources */,
@@ -3922,6 +3971,7 @@
 				B3192FAC1C01D45500424A9B /* navigationbar_icon_menu@2x.png in Resources */,
 				B3192FA31C01D45500424A9B /* icon_candle_right@2x.png in Resources */,
 				B3192F9C1C01D45500424A9B /* leftmenu_icon_grandf@2x.png in Resources */,
+				B35C39971C0B775C004325CA /* ring.mp3 in Resources */,
 				43D1CA261A75E778004564C2 /* .gitattributes in Resources */,
 				B3192F921C01D45500424A9B /* home_temperature_bg_t@3x.png in Resources */,
 				43D1CAA41A75E779004564C2 /* deps in Resources */,
@@ -4151,6 +4201,7 @@
 				43D1CC321A75EBFA004564C2 /* NSString+SSToolkitAdditions.m in Sources */,
 				43D1C9DE1A75E778004564C2 /* Reachability.m in Sources */,
 				43D1CA231A75E778004564C2 /* NSArray+MASAdditions.m in Sources */,
+				B35C399E1C0B79A7004325CA /* AlarmBellSelectVC.m in Sources */,
 				43D1CA061A75E778004564C2 /* NSNumber+MagicalDataImport.m in Sources */,
 				43D1CADA1A75E779004564C2 /* MKAnnotationView+WebCache.m in Sources */,
 				43D1CC1C1A75EBFA004564C2 /* ATAudioPlayManager.m in Sources */,
@@ -4206,6 +4257,7 @@
 				43D1CC0C1A75EBFA004564C2 /* ATBLibs+NSData+Base64.m in Sources */,
 				43D1CA2F1A75E778004564C2 /* NSMutableAttributedString+NimbusAttributedLabel.m in Sources */,
 				43D1CA471A75E778004564C2 /* NINonEmptyCollectionTesting.m in Sources */,
+				B35C398B1C0B6345004325CA /* SelectAlarmTempView.m in Sources */,
 				43D1CC4E1A75EBFA004564C2 /* DrawLineUIBtn.m in Sources */,
 				43D1C9DD1A75E778004564C2 /* ASINetworkQueue.m in Sources */,
 				43D1CADB1A75E779004564C2 /* NSData+ImageContentType.m in Sources */,

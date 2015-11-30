@@ -89,4 +89,33 @@ AS_SINGLETON(UserInfoModel);
 + (void)setUserDefaultIsFUnit:(NSNumber*)isFUnit;
 + (NSNumber *)getIsFUnit;
 
+
+//高低温报警开关
++ (void)setUserDefaultHighAndLowTepmAlarm:(NSNumber*)highLowAlarm;
++ (NSNumber *)getHighAndLowTepmAlarm;
+
+//断开报警开关
++ (void)setUserDefaultDisconnectAlarm:(NSNumber*)disconnectAlarm;
++ (NSNumber *)getDisconnectAlarm;
+
+//报警铃声开关
++ (void)setUserDefaultBellAlarm:(NSNumber*)bellAlarm;
++ (NSNumber *)getBellAlarm;
+
+//报警震动开关
++ (void)setUserDefaultShakeAlarm:(NSNumber*)shakeAlarm;
++ (NSNumber *)getShakeAlarm;
+
+//高温报警值
++ (void)setUserDefaultHighTemp:(NSNumber*)highTemp;
++ (NSNumber *)getHighTemp;
+
+//低温报警值
++ (void)setUserDefaultLowTemp:(NSNumber*)lowTemp;
++ (NSNumber *)getLowTemp;
+
+//报警铃声名字
++ (void)setUserDefaultBellMp3Name:(NSString*)bellMp3Name;
++ (NSString *)getBellMp3Name;
+
 @end
