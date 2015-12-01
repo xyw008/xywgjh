@@ -185,7 +185,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     titleLB.text = title;
     
     UIView *lineView = [cell.contentView viewWithTag:2000];
-    CGFloat leftSpace = DpToPx(12);
+    CGFloat leftSpace = DpToPx(24);
     if (1 == indexPath.section)
         leftSpace = DpToPx(24);
     
@@ -228,7 +228,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
             make.height.equalTo(32);
             make.width.equalTo(32);
             make.centerY.equalTo(cell.contentView.mas_centerY);
-            make.left.equalTo(DpToPx(24));
+            make.left.equalTo(DpToPx(20));
         }];
         
         [titleLB mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -251,9 +251,9 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     titleLB.text = nickname;
     
     UIView *lineView = [cell.contentView viewWithTag:2000];
-    CGFloat leftSpace = DpToPx(24);
+    CGFloat leftSpace = DpToPx(46);
     if (1 == indexPath.section)
-        leftSpace = DpToPx(24);
+        leftSpace = DpToPx(46);
     
     [lineView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.contentView.mas_left).offset(leftSpace);
