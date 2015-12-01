@@ -153,7 +153,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     if (!cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier_Title];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        // cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor clearColor];
         
         UILabel *titleLB = [[UILabel alloc] init];
@@ -193,7 +193,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
         make.left.equalTo(cell.contentView.mas_left).offset(leftSpace);
     }];
     
-    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:HEXCOLOR(0XF6F6F6)]];
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:HEXCOLORAL(0XDADADA, 0.2)]];
     
     return cell;
 }
@@ -204,7 +204,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     if (!cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier_User];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        // cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor clearColor];
         
         UIImageView *headIV = [[UIImageView alloc] init];
@@ -259,7 +259,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
         make.left.equalTo(cell.contentView.mas_left).offset(leftSpace);
     }];
     
-    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:HEXCOLOR(0XF6F6F6)]];
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:HEXCOLORAL(0XDADADA, 0.2)]];
     
     return cell;
 }
@@ -286,7 +286,10 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     {
         if (0 == indexPath.row)
         {
-            return [self getTitleCellForRowAtIndexPath:indexPath title:@"成员管理"];
+            UITableViewCell *cell = [self getTitleCellForRowAtIndexPath:indexPath title:@"成员管理"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            return cell;
         }
         else if (_userItemArray.count + 1 == indexPath.row)
         {
@@ -325,6 +328,8 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     if (0 == indexPath.section)
     {
         if (_userItemArray.count + 1 == indexPath.row)
