@@ -13,6 +13,7 @@
 #import "CommonEntity.h"
 #import "DateTools.h"
 #import "SystemConvert.h"
+#import "BabyToy.h"
 
 #define kMargin 12
 #define kFont SP15Font
@@ -343,6 +344,9 @@
         imageString = str;
         DLog(@"imagestrin = %@",imageString);
         
+//        NSData* newData= [str dataUsingEncoding:NSUTF16StringEncoding];
+//        _headIV.image = [UIImage imageWithData:data];
+        
         // NSString *hex = [SystemConvert binaryToHex:@"101"];
         
         // NSLog(@"%@", hex);
@@ -354,11 +358,11 @@
                                 @"image":imageString};
     NSArray *memberList = @[memberDic];
     
-    [self sendRequest:[[self class] getRequestURLStr:NetUserRequestType_AddUser]
-         parameterDic:@{@"phone":[UserInfoModel getUserDefaultLoginName],@"memberList":memberList}
-       requestHeaders:nil
-    requestMethodType:RequestMethodType_POST
-           requestTag:NetUserRequestType_AddUser];
+//    [self sendRequest:[[self class] getRequestURLStr:NetUserRequestType_AddUser]
+//         parameterDic:@{@"phone":[UserInfoModel getUserDefaultLoginName],@"memberList":memberList}
+//       requestHeaders:nil
+//    requestMethodType:RequestMethodType_POST
+//           requestTag:NetUserRequestType_AddUser];
     
 }
 
