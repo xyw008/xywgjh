@@ -63,7 +63,7 @@
 #define RemoteNotificationIntervalTime      60 * 10             // 10分钟
 
 // HUD显示文字
-#define HUDAutoHideTypeShowTime             2.5                 // HUD自动隐藏模式显示的时间:2.5秒
+#define HUDAutoHideTypeShowTime             3.0                 // HUD自动隐藏模式显示的时间:2.5秒
 
 // 基本动画时间
 #define AnimationShowTime                   0.25                // 常见动画的持续时间:0.25秒

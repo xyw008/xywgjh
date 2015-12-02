@@ -15,6 +15,7 @@
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "AddUserVC.h"
 #import "AppDelegate.h"
+#import "PRPAlertView.h"
 
 static NSString *cellIdentifier_Title = @"cellIdentifier_Title";
 static NSString *cellIdentifier_User = @"cellIdentifier_User";
@@ -341,13 +342,19 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
         {
             if (0 != indexPath.row)
             {
-                [[InterfaceHUDManager sharedInstance] showAlertWithTitle:@"" message:@"是否切换成员" alertShowType:AlertShowType_Informative cancelTitle:@"取消" cancelBlock:^(GJHAlertView *alertView, NSInteger index) {
-                    
-                } otherTitle:@"确定" otherBlock:^(GJHAlertView *alertView, NSInteger index) {
+                [PRPAlertView showWithTitle:nil message:@"是否切换成员" cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
                     [AccountStautsManager sharedInstance].nowUserItem = (UserItem*)[_userItemArray objectAtIndex:indexPath.row - 1];
                     
                     [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleMenu];
                 }];
+                
+                /*
+                [[InterfaceHUDManager sharedInstance] showAlertWithTitle:nil message: alertShowType:AlertShowType_Informative cancelTitle:@"取消" cancelBlock:^(GJHAlertView *alertView, NSInteger index) {
+                    
+                } otherTitle:@"确定" otherBlock:^(GJHAlertView *alertView, NSInteger index) {
+                    
+                }];
+                 */
             }
         }
     }
