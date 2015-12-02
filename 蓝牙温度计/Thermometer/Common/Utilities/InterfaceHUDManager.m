@@ -9,6 +9,7 @@
 #import "InterfaceHUDManager.h"
 #import "AppDelegate.h"
 #import "PopupController.h"
+#import "HUDManager.h"
 
 @interface InterfaceHUDManager () <GJHAlertViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 {
@@ -63,7 +64,11 @@ DEF_SINGLETON(InterfaceHUDManager);
 
 - (void)showAutoHideAlertWithMessage:(NSString *)message
 {
+    /*
     [self showAlertWithTitle:nil message:message buttonTitle:nil];
+     */
+    
+    [HUDManager showAutoHideHUDWithToShowStr:message HUDMode:MBProgressHUDModeText];
 }
 
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonTitle

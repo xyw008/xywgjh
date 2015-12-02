@@ -3825,7 +3825,7 @@
 				TargetAttributes = {
 					432C31871A7243840094A27E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 9B3CP7X5S2;
+						DevelopmentTeam = L8B9HKM574;
 					};
 					432C31A31A7243840094A27E = {
 						CreatedOnToolsVersion = 6.1;
@@ -4623,7 +4623,7 @@
 					"$(PROJECT_DIR)/Class/alipay",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yushi.Thermometer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gjh.Thermometer;
 				PRODUCT_NAME = Thermometer;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -4663,7 +4663,7 @@
 					"$(PROJECT_DIR)/Class/alipay",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yushi.Thermometer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gjh.Thermometer;
 				PRODUCT_NAME = Thermometer;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
