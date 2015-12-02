@@ -36,6 +36,8 @@
 
 @property (nonatomic,strong)welcomeFinishCallBack     callBack;
 
+@property (nonatomic,assign)BOOL                      isAboutType;//关于类型
+
 @end
 
 ////////////////////////////////////////////////////////
@@ -115,7 +117,10 @@
     return self;
 }
 
-
+- (void)setIsAboutType:(BOOL)isAboutType
+{
+    _isAboutType = isAboutType;
+}
 
 #pragma mark - touch event
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

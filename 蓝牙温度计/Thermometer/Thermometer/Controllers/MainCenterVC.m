@@ -170,6 +170,12 @@
 {
     if (![[UserInfoModel getNoFirstGoApp] boolValue])
     {
+        [AccountStautsManager sharedInstance].highAndLowAlarm = YES;
+        [AccountStautsManager sharedInstance].disconnectAlarm = YES;
+        [AccountStautsManager sharedInstance].bellAlarm = YES;
+        [AccountStautsManager sharedInstance].shakeAlarm = YES;
+        
+        
         [self hiddenNav:YES];
         NSArray *imageArray = @[@"lead_01.png",@"lead_02.png",@"lead_03.png"];
         WEAKSELF

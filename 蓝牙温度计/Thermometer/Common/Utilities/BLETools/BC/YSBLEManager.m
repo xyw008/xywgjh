@@ -44,6 +44,13 @@
 
 DEF_SINGLETON(YSBLEManager);
 
+- (void)dealloc
+{
+    if (_babyBluethooth) {
+        [_babyBluethooth cancelAllPeripheralsConnection];
+    }
+}
+
 - (instancetype)init
 {
     self = [super init];
