@@ -39,6 +39,9 @@
 // 以iPhone6为换算基数获得比例值
 #define kGetScaleValueBaseIP6(__A)  (__A * IPHONE_WIDTH / 375)
 
+// 版本号
+#define APP_VERSION  ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"])
+
 //dp 转换成 px
 #define DpToPx(dp) [UIView getDpToPx:dp]
 
