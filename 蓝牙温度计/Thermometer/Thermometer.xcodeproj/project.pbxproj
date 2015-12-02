@@ -4622,7 +4622,7 @@
 					"$(PROJECT_DIR)/Class/alipay",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yushi.Thermometer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gjh.Thermometer;
 				PRODUCT_NAME = Thermometer;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -4662,7 +4662,7 @@
 					"$(PROJECT_DIR)/Class/alipay",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yushi.Thermometer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gjh.Thermometer;
 				PRODUCT_NAME = Thermometer;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};

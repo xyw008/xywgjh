@@ -315,12 +315,35 @@
             STRONGSELF
             if (isSubmit)
             {
+                BOOL isValid = YES;
                 if (isHigh)
-                    [AccountStautsManager sharedInstance].highTemp = tempValue;
+                {
+                    if (tempValue <= [AccountStautsManager sharedInstance].lowTemp)
+                    {
+                        isValid = NO;
+                    }
+                }
                 else
-                    [AccountStautsManager sharedInstance].lowTemp = tempValue;
+                {
+                    if (tempValue >= [AccountStautsManager sharedInstance].highTemp)
+                    {
+                        isValid = NO;
+                    }
+                }
                 
-                [strongSelf->_tableView reloadData];
+                if (isValid)
+                {
+                    if (isHigh)
+                        [AccountStautsManager sharedInstance].highTemp = tempValue;
+                    else
+                        [AccountStautsManager sharedInstance].lowTemp = tempValue;
+                    
+                    [strongSelf->_tableView reloadData];
+                }
+                else
+                {
+                    [weakSelf showHUDInfoByString:@"报警温度设置时，高温要比低温高"];
+                }
             }
             
             [strongSelf->_popView hide];

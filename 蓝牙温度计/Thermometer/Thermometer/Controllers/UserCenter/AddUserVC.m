@@ -12,8 +12,12 @@
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "CommonEntity.h"
 #import "DateTools.h"
+
 #import "SystemConvert.h"
 #import "BabyToy.h"
+
+#import "AppPropertiesInitialize.h"
+
 
 #define kMargin 12
 #define kFont SP15Font
@@ -51,6 +55,13 @@
     [self initHeadAndNameView];
     [self initSexAndAgeView];
     [self initRoleView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
     
     if (_userItem)
     {
@@ -396,6 +407,8 @@
 
 - (void)selectHeadImage
 {
+    [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
+
     WEAKSELF
     [self pickSinglePhotoFromCameraOrAlbumByIsCropped:YES cancelHandle:nil finishPickingHandle:^(NSArray *pickedImageArray) {
         

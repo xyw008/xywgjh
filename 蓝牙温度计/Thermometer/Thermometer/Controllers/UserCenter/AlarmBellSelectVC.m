@@ -38,7 +38,6 @@
                   registerNibName:nil
                   reuseIdentifier:nil];
     _tableView.showsVerticalScrollIndicator = NO;
-    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -91,7 +91,9 @@
             {
                 case NetUserCenterRequestType_Register:
                 {
-                    [weakSelf loginRequest];
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                    
+                    // [weakSelf loginRequest];
                 }
                     break;
                 default:
