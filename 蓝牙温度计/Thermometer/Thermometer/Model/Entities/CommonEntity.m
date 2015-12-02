@@ -7,7 +7,8 @@
 //
 
 #import "CommonEntity.h"
-
+#import "SystemConvert.h"
+#import "BabyToy.h"
 
 @implementation UserItem
 
@@ -21,6 +22,15 @@
         self.gender = [[dict safeObjectForKey:@"gender"] integerValue];
         self.age = [[dict safeObjectForKey:@"age"] integerValue];
         self.role = [[dict safeObjectForKey:@"role"] integerValue];
+        NSString *str = [dict safeObjectForKey:@"image"];
+        if (str)
+        {
+            //NSString *dataStr = [NSString stringWithFormat:@"%@",str];
+            //NSString *dataStr = [SystemConvert hexToBinary:str];
+            //NSData* data= [BabyToy ConvertHexStringToData:str];
+            NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+            self.image = [UIImage imageWithData:data];
+        }
     }
     return self;
 }

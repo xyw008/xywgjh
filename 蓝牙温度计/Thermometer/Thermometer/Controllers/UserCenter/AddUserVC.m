@@ -12,6 +12,7 @@
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "CommonEntity.h"
 #import "DateTools.h"
+#import "SystemConvert.h"
 
 #define kMargin 12
 #define kFont SP15Font
@@ -30,6 +31,8 @@
     NSString        *_sexString;
     NSString        *_ageString;
     NSString        *_birthdayStr;
+    
+    UIImage         *_headImage;//选择的头像图片
 }
 @end
 
@@ -328,12 +331,27 @@
 - (void)getNetworkData
 {
     NSInteger gender = [_sexString isEqualToString:@"男"] ? 0 : 1;
-    
+    NSString *imageString = @"";
+    if (_headImage)
+    {
+        NSData *data = UIImageJPEGRepresentation(_headImage, .5);
+        NSString *str = [NSString stringWithFormat:@"%@", data];
+        str = [str stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+        str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
+        //imageString = [SystemConvert binaryToHex:str];
+        
+        imageString = str;
+        DLog(@"imagestrin = %@",imageString);
+        
+        // NSString *hex = [SystemConvert binaryToHex:@"101"];
+        
+        // NSLog(@"%@", hex);
+    }
     NSDictionary *memberDic = @{@"name":_nameTF.text,
                                 @"gender":@(gender),
                                 @"age":@([_ageString integerValue]),
                                 @"role":@(_lastSelectRoleBtn.tag - kRoleBtnStartTag + 1),
-                                @"image":@""};
+                                @"image":imageString};
     NSArray *memberList = @[memberDic];
     
     [self sendRequest:[[self class] getRequestURLStr:NetUserRequestType_AddUser]
@@ -383,7 +401,8 @@
             UIImage *pickerImage = pickedImageArray[0];
             
             //[headerView setUserHeaderImage:pickerImage];
-            strongSelf->_headIV.image =pickerImage;
+            strongSelf->_headIV.image = pickerImage;
+            strongSelf->_headImage = pickerImage;
         }
     }];
 }

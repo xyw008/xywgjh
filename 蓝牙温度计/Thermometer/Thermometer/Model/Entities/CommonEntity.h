@@ -23,6 +23,7 @@
 @property (nonatomic,assign)NSInteger       role;//角色
 
 @property (nonatomic,copy)NSString          *imageUrl;//头像url
+@property (nonatomic,strong)UIImage         *image;
 
 @end
 

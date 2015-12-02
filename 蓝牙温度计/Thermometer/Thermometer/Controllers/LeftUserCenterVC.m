@@ -22,6 +22,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 @interface LeftUserCenterVC ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSMutableArray      *_userItemArray;
+    UIImageView         *_headIV;
 }
 @end
 
@@ -69,12 +70,11 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     headBgView.backgroundColor = [UIColor clearColor];
     
     CGFloat headHeight = 72;
-    UIImageView *headIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, headHeight, headHeight)];
-    headIV.image = [UIImage imageNamed:@"icon_userhead"];
-    headIV.backgroundColor = [UIColor redColor];
-    [headBgView addSubview:headIV];
-    headIV.center = CGPointMake(headBgView.center.x - 22, headBgView.center.y);
-    ViewRadius(headIV, headHeight/2);
+    _headIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, headHeight, headHeight)];
+    _headIV.image = [UIImage imageNamed:@"icon_userhead"];
+    [headBgView addSubview:_headIV];
+    _headIV.center = CGPointMake(headBgView.center.x - 22, headBgView.center.y);
+    ViewRadius(_headIV, headHeight/2);
     
     _tableView.tableHeaderView = headBgView;
     
@@ -341,10 +341,19 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
         {
             if (0 != indexPath.row)
             {
+                WEAKSELF
                 [[InterfaceHUDManager sharedInstance] showAlertWithTitle:@"" message:@"是否切换成员" alertShowType:AlertShowType_Informative cancelTitle:@"取消" cancelBlock:^(GJHAlertView *alertView, NSInteger index) {
                     
                 } otherTitle:@"确定" otherBlock:^(GJHAlertView *alertView, NSInteger index) {
-                    [AccountStautsManager sharedInstance].nowUserItem = (UserItem*)[_userItemArray objectAtIndex:indexPath.row - 1];
+                    STRONGSELF
+                    UserItem *item = (UserItem*)[_userItemArray objectAtIndex:indexPath.row - 1];
+                    [AccountStautsManager sharedInstance].nowUserItem = item;
+                    if (item.image)
+                    {
+                        strongSelf->_headIV.image = item.image;
+                    }
+                    else
+                       strongSelf->_headIV.image = [UIImage imageNamed:@"icon_userhead"];
                     
                     [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleMenu];
                 }];

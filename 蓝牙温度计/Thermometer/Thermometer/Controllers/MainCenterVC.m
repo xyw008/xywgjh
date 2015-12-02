@@ -110,6 +110,11 @@
                                                  name:kLoginSuccessNotificationKey
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeUserSuccess:)
+                                                 name:kChangeNowUserNotificationKey
+                                               object:nil];
+    
     
     [self initBgScrollView];
     [self initTemperaturesShowView];
@@ -619,9 +624,11 @@
                         if ([tempArray isAbsoluteValid])
                         {
                             NSDictionary *firstTempDic = [tempArray firstObject];
-                            CGFloat newTemperature = [[firstTempDic safeObjectForKey:@"temp"] floatValue];
-                            [strongSelf->_temperaturesShowView setTemperature:newTemperature];
-                            strongSelf->_temperaturesShowView.isShowTemperatureStatus = YES;
+                            if ([firstTempDic isSafeObject]) {
+                                CGFloat newTemperature = [[firstTempDic safeObjectForKey:@"temp"] floatValue];
+                                [strongSelf->_temperaturesShowView setTemperature:newTemperature];
+                                strongSelf->_temperaturesShowView.isShowTemperatureStatus = YES;
+                            }
                         }
                     }
                 }
@@ -767,10 +774,19 @@
 - (void)loginSuccess:(NSNotification*)notification
 {
     [self setSlideMenuVCEnablePan:YES];
-    
+    _isVisitorType = NO;
     if (_welcomeAppView) {
         [self removeWelcomeAppView];
     }
+}
+
+- (void)changeUserSuccess:(NSNotification*)notification
+{
+    if ([AccountStautsManager sharedInstance].nowUserItem.image) {
+        _headIV.image = [AccountStautsManager sharedInstance].nowUserItem.image;
+    }
+    else
+        _headIV.image = [UIImage imageNamed:@"icon_userhead"];
 }
 
 @end
