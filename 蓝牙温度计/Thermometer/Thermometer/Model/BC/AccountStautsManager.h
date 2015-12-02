@@ -35,8 +35,10 @@ static NSString * const kChangeNowUserNotificationKey = @"kChangeNowUserNotifica
 
 AS_SINGLETON(AccountStautsManager);
 
+//检测温度
+- (void)checkTemp:(CGFloat)temp;
 
-
-
+//断开蓝牙报警
+- (void)disconnectBluetoothAlarm;
 
 @end

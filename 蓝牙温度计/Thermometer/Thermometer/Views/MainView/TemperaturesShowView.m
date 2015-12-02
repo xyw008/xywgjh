@@ -8,6 +8,7 @@
 
 #import "TemperaturesShowView.h"
 #import "BLEManager.h"
+#import "AccountStautsManager.h"
 
 @interface TemperaturesShowView ()
 {
@@ -346,6 +347,9 @@
 
 - (void)setTemperature:(CGFloat)temperature
 {
+    //检查温度是否需要报警
+    [[AccountStautsManager sharedInstance] checkTemp:temperature + 20];
+    
     CGFloat height = DynamicWidthValue640(275/1.5);
     
     if (temperature <= 32)

@@ -184,6 +184,8 @@ DEF_SINGLETON(YSBLEManager);
     //设置设备断开连接的委托
     [_babyBluethooth setBlockOnDisconnectAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
         DLog(@"设备：%@--断开连接",peripheral.name);
+        //断开连接报警
+        [[AccountStautsManager sharedInstance] disconnectBluetoothAlarm];
         //[SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--断开失败",peripheral.name]];
     }];
     
@@ -540,6 +542,7 @@ DEF_SINGLETON(YSBLEManager);
                     
                     //填充数据的数组
                     NSMutableArray *fillingArray = [NSMutableArray new];
+                    /*
                     //做数据填充，填充到每秒一个数据，否则返回的数据
                     if ([array isAbsoluteValid])
                     {
@@ -577,6 +580,7 @@ DEF_SINGLETON(YSBLEManager);
                             }
                         }
                     }
+                     */
                 
                     if (_remoteTempCallBack)
                     {

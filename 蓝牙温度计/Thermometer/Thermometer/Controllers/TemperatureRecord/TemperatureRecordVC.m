@@ -11,6 +11,7 @@
 #import "FSLineChart.h"
 #import "BLEManager.h"
 #import "UserInfoModel.h"
+#import "YSBLEManager.h"
 
 #define kTabHeaderHeight 55
 
@@ -28,6 +29,10 @@
     FSLineChart                     *_pmFsLineView;//下午12小时温度曲线图
     
     BOOL                            _isFUnit;//是否是华氏温度（默认是摄氏）
+    
+    BOOL                            _isListType;//列表模式
+    
+    YSBLEManager                    *_ysBluethooth;
 }
 
 @end
@@ -37,10 +42,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _isFUnit = [[UserInfoModel getIsFUnit] boolValue];
+    [self getOneDayTemp:[NSDate date]];
     
+    _isFUnit = [[UserInfoModel getIsFUnit] boolValue];
+    _isListType = YES;
     [self configureTabHeaders];
     [self initialization];
+    [self initFsLineView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,10 +79,16 @@
                   reuseIdentifier:nil];
     
     _headerView = [TemperatureRecordTabHeaderView loadFromNib];
-    _headerView.operationHandle = ^(TemperatureRecordTabHeaderView *view, HeaderViewOperationType type) {
-        if (HeaderViewOperationType_DatePre == type) {
+    
+    WEAKSELF
+    _headerView.operationHandle = ^(TemperatureRecordTabHeaderView *view, HeaderViewOperationType type,NSDate *nowDate) {
+        
+        [weakSelf getOneDayTemp:nowDate];
+        if (HeaderViewOperationType_DatePre == type)
+        {
             
-        } else {
+        } else
+        {
             
         }
     };
@@ -162,11 +176,14 @@
 
 - (void)initFsLineView
 {
-    _fsLineBgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_headerView.frame), self.view.width, self.view.height - _headerView.height - 40)];
+    _fsLineBgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_headerView.frame) + 20, self.view.width, self.view.height - _headerView.height - 20)];
+    //_fsLineBgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - _headerView.height - 40)];
+
     _fsLineBgScrollView.pagingEnabled = YES;
     _fsLineBgScrollView.hidden = YES;
     _fsLineBgScrollView.showsHorizontalScrollIndicator = NO;
     _fsLineBgScrollView.backgroundColor = [UIColor whiteColor];
+    [_fsLineBgScrollView keepAutoresizingInMiddle];
     [self.view addSubview:_fsLineBgScrollView];
     
     _amFsLineView = [self createFSLineChartView:CGRectMake(10, 0, _fsLineBgScrollView.width - 10, _fsLineBgScrollView.height)];
@@ -238,6 +255,53 @@
     return fsView;
 }
 
+#pragma mark - get temp
+- (void)getOneDayTemp:(NSDate*)date
+{
+    if (!_ysBluethooth) {
+        _ysBluethooth = [YSBLEManager sharedInstance];
+    }
+
+    NSString *dayString = [NSDate stringFromDate:date withFormatter:DataFormatter_Date];
+    NSDate *beginDate = [NSString dateFromString:[NSString stringWithFormat:@"%@ 00:00:00",dayString] withFormatter:DataFormatter_DateAndTime];
+    NSDate *endDate = [NSString dateFromString:[NSString stringWithFormat:@"%@ 23:59:59",dayString] withFormatter:DataFormatter_DateAndTime];
+    
+    WEAKSELF
+    [_ysBluethooth setRemoteTempCallBack:^(NSArray<RemoteTempItem *> *tempArray,NSArray<RemoteTempItem *> *fillingTempArray, NSDate *beginDate, NSDate *endDate){
+        STRONGSELF
+        if (tempArray && strongSelf)
+        {
+            NSMutableArray  *amDataArray = [[NSMutableArray alloc] init];
+            NSMutableArray  *pmDataArray = [[NSMutableArray alloc] init];
+            NSDate *date12 = [NSString dateFromString:[NSString stringWithFormat:@"%@ 12:00:00",dayString] withFormatter:DataFormatter_DateAndTime];
+            for (NSInteger i=0; i < tempArray.count; i++)
+            {
+                RemoteTempItem *item = [tempArray objectAtIndex:i];
+                item.temp += 14.0;
+                NSMutableString *timeString = [NSMutableString stringWithString:item.time];
+                [timeString replaceCharactersInRange:NSMakeRange(10, 1) withString:@" "];
+                NSDate *timeDate = [NSString dateFromString:timeString withFormatter:DataFormatter_DateAndTime];
+                if ([timeDate compare:date12] == NSOrderedAscending)
+                {
+                    [amDataArray addObject:[NSNumber numberWithFloat:item.temp]];
+                }
+                else
+                {
+                    [pmDataArray addObject:[NSNumber numberWithFloat:item.temp]];
+                }
+            }
+        
+            [strongSelf->_amFsLineView clearChartData];
+            [strongSelf->_amFsLineView setChartData:amDataArray];
+            
+            [strongSelf->_pmFsLineView clearChartData];
+            [strongSelf->_pmFsLineView setChartData:pmDataArray];
+        }
+    }];
+
+
+    [_ysBluethooth getRemoteTempBegin:beginDate end:endDate];
+}
 
 #pragma mark - btn touch
 - (void)clickTabHeaderBtn:(UIButton *)sender
@@ -271,31 +335,47 @@
 - (void)clickRecordShowTypeChooseBtn:(UIButton *)sender
 {
     sender.selected = !sender.selected;
-    
-    if (sender.selected)
-    {
-        _headerView.frameOriginY = 20;
-        [self.view addSubview:_headerView];
-        if (_fsLineBgScrollView == nil) {
-            [self initFsLineView];
-        }
-        _fsLineBgScrollView.hidden = NO;
-        _tableView.hidden = YES;
+    _isListType = !_isListType;
+    if (_fsLineBgScrollView == nil) {
+        [self initFsLineView];
     }
-    else
-    {
-        //_headerView.frameOriginY = 0;
-        [_headerView removeFromSuperview];
-        _tableView.tableHeaderView = _headerView;
+    
+    if (_isListType) {
         _fsLineBgScrollView.hidden = YES;
-        _tableView.hidden = NO;
+        _tableView.scrollEnabled = YES;
+    }
+    else{
+        _fsLineBgScrollView.hidden = NO;
+        _tableView.scrollEnabled = NO;
     }
     
-    for (UIView *subView in self.view.subviews) {
-        if ([subView isKindOfClass:[UIButton class]]) {
-            [self.view bringSubviewToFront:subView];
-        }
-    }
+    
+    [_tableView reloadData];
+    
+//    if (sender.selected)
+//    {
+//        _headerView.frameOriginY = 20;
+//        [self.view addSubview:_headerView];
+//        if (_fsLineBgScrollView == nil) {
+//            [self initFsLineView];
+//        }
+//        _fsLineBgScrollView.hidden = NO;
+//        _tableView.hidden = YES;
+//    }
+//    else
+//    {
+//        //_headerView.frameOriginY = 0;
+//        [_headerView removeFromSuperview];
+//        _tableView.tableHeaderView = _headerView;
+//        _fsLineBgScrollView.hidden = YES;
+//        _tableView.hidden = NO;
+//    }
+//    
+//    for (UIView *subView in self.view.subviews) {
+//        if ([subView isKindOfClass:[UIButton class]]) {
+//            [self.view bringSubviewToFront:subView];
+//        }
+//    }
 }
 
 
@@ -341,13 +421,16 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _tabHeadersArray.count;
+    if (_isListType) {
+        return _tabHeadersArray.count;
+    }
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     UIButton *headerBtn = _tabHeadersArray[section];
-    
+        
     return headerBtn.selected ? 8 : 0;
 }
 

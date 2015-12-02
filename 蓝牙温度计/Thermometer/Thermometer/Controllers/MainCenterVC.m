@@ -125,6 +125,7 @@
     ViewRadius(_headIV, height/2);
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, height, height)];
     [bgView addSubview:_headIV];
+    [_headIV addTarget:self action:@selector(goUserEidt)];
     bgView.backgroundColor = [UIColor clearColor];
     self.navigationItem.titleView = bgView;
     //self.view.backgroundColor = [UIColor redColor];
@@ -417,6 +418,15 @@
         [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleMenu];
     else
         [self goLoginView];
+}
+
+- (void)goUserEidt
+{
+    if ([AccountStautsManager sharedInstance].isLogin && [AccountStautsManager sharedInstance].nowUserItem) {
+        AddUserVC *vc = [[AddUserVC alloc] init];
+        vc.userItem = [AccountStautsManager sharedInstance].nowUserItem;
+        [self pushViewController:vc];
+    }
 }
 
 //蓝牙模式
