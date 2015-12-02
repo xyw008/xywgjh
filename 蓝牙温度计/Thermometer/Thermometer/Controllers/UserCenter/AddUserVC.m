@@ -45,7 +45,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavigationItemTitle:@"新增成员"];
+    [self setNavigationItemTitle:_userItem ? @"修改成员" : @"新增成员"];
     
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right
                                  normalImg:[UIImage imageNamed:@"navigationbar_icon_chose"]
@@ -321,12 +321,24 @@
 {
     WEAKSELF
     [self setNetSuccessBlock:^(NetRequest *request, id successInfoObj) {
+        STRONGSELF
         if (successInfoObj && [successInfoObj isKindOfClass:[NSDictionary class]])
         {
             switch (request.tag)
             {
                 case NetUserRequestType_AddUser:
                 {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kAddUserSuccessNotificationKey object:nil];
+                    [weakSelf backViewController];
+                }
+                    break;
+                case NetUserRequestType_ChangeUserInfo:
+                {
+                    strongSelf->_userItem.userName = strongSelf->_nameTF.text;
+                    strongSelf->_userItem.gender = [strongSelf->_sexString isEqualToString:@"男"] ? 0 : 1;
+                    strongSelf->_userItem.age = [strongSelf->_ageString integerValue];
+                    strongSelf->_userItem.role = strongSelf->_lastSelectRoleBtn.tag - kRoleBtnStartTag + 1;
+                    strongSelf->_userItem.image = strongSelf->_headImage;
                     [[NSNotificationCenter defaultCenter] postNotificationName:kAddUserSuccessNotificationKey object:nil];
                     [weakSelf backViewController];
                 }
@@ -367,13 +379,25 @@
                                 @"age":@([_ageString integerValue]),
                                 @"role":@(_lastSelectRoleBtn.tag - kRoleBtnStartTag + 1),
                                 @"image":imageString};
+    
+    
+    NetRequestType type = NetUserRequestType_AddUser;
+    if (_userItem) {
+        type = NetUserRequestType_ChangeUserInfo;
+        memberDic = @{@"name":_userItem.userName,
+                      @"gender":@(gender),
+                      @"age":@([_ageString integerValue]),
+                      @"role":@(_lastSelectRoleBtn.tag - kRoleBtnStartTag + 1),
+                      @"image":imageString,
+                      @"newName":_nameTF.text};
+    }
     NSArray *memberList = @[memberDic];
     
-//    [self sendRequest:[[self class] getRequestURLStr:NetUserRequestType_AddUser]
-//         parameterDic:@{@"phone":[UserInfoModel getUserDefaultLoginName],@"memberList":memberList}
-//       requestHeaders:nil
-//    requestMethodType:RequestMethodType_POST
-//           requestTag:NetUserRequestType_AddUser];
+    [self sendRequest:[[self class] getRequestURLStr:type]
+         parameterDic:@{@"phone":[UserInfoModel getUserDefaultLoginName],@"memberList":memberList}
+       requestHeaders:nil
+    requestMethodType:RequestMethodType_POST
+           requestTag:type];
     
 }
 

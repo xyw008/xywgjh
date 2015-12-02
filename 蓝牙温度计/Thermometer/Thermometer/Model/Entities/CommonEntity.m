@@ -17,8 +17,8 @@
     self = [super init];
     if (self)
     {
-        self.memberId = [[dict objectForKey:@"id"] integerValue];
-        self.userName = [dict objectForKey:@"name"];
+        self.memberId = [[dict safeObjectForKey:@"id"] integerValue];
+        self.userName = [dict safeObjectForKey:@"name"];
         self.gender = [[dict safeObjectForKey:@"gender"] integerValue];
         self.age = [[dict safeObjectForKey:@"age"] integerValue];
         self.role = [[dict safeObjectForKey:@"role"] integerValue];
