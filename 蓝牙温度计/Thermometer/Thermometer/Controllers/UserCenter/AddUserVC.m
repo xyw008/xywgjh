@@ -54,9 +54,8 @@
 {
     [super viewWillAppear:animated];
     
-<<<<<<< HEAD
     [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
-=======
+    
     if (_userItem)
     {
         _nameTF.text = _userItem.userName;
@@ -71,7 +70,6 @@
             _lastSelectRoleBtn = btn;
         }
     }
->>>>>>> d51e6502e070d61d43b5efb7189e775a5f249c8a
 }
 
 - (void)didReceiveMemoryWarning {
