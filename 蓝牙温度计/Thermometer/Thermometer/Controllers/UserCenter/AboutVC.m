@@ -7,12 +7,14 @@
 //
 
 #import "AboutVC.h"
+#import "PRPAlertView.h"
 
 @interface AboutVC ()
 
 @property (weak, nonatomic) IBOutlet UIButton *updateVersionBtn;
 @property (weak, nonatomic) IBOutlet UIButton *guideBtn;
 @property (weak, nonatomic) IBOutlet UIButton *followBtn;
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 
 @end
 
@@ -65,6 +67,29 @@
 {
     // 设置属性
     [self configureViewsProperties];
+    
+    _versionLabel.text = [NSString stringWithFormat:@"V%@", APP_VERSION];
 }
+
+- (IBAction)clickOperationBtn:(UIButton *)sender {
+    if (sender == _updateVersionBtn)
+    {
+        
+    }
+    else if (sender == _guideBtn)
+    {
+        
+    }
+    else if (sender == _followBtn)
+    {
+        UIPasteboard *paste = [UIPasteboard generalPasteboard];
+        [paste setString:@"于氏医疗"];
+        
+        [PRPAlertView showWithTitle:nil
+                            message:@"已复制于氏医疗微信号【于氏医疗】至剪切板"
+                        buttonTitle:Confirm];
+    }
+}
+
 
 @end

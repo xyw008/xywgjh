@@ -10,6 +10,7 @@
                 <outlet property="followBtn" destination="ma3-Vh-UX8" id="R5A-4i-UNn"/>
                 <outlet property="guideBtn" destination="NGK-PR-M3w" id="weU-Eg-Gsl"/>
                 <outlet property="updateVersionBtn" destination="HBP-nL-Sgh" id="Moy-1M-r4M"/>
+                <outlet property="versionLabel" destination="GfG-yl-DUF" id="fuO-4d-TdX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -47,6 +48,9 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="46" id="Y1Z-uM-7ei"/>
                     </constraints>
+                    <connections>
+                        <action selector="clickOperationBtn:" destination="-1" eventType="touchUpInside" id="Z9n-Ok-Q8Q"/>
+                    </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about_icon_download.png" translatesAutoresizingMaskIntoConstraints="NO" id="UJv-e6-ekT">
                     <rect key="frame" x="20" y="250" width="35" height="35"/>
@@ -77,6 +81,9 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="46" id="EI4-4e-mu9"/>
                     </constraints>
+                    <connections>
+                        <action selector="clickOperationBtn:" destination="-1" eventType="touchUpInside" id="qOc-a6-nX0"/>
+                    </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about_icon_lead.png" translatesAutoresizingMaskIntoConstraints="NO" id="xZL-Gw-PoR">
                     <rect key="frame" x="20" y="296" width="35" height="35"/>
@@ -100,6 +107,9 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="46" id="pb7-Ns-ify"/>
                     </constraints>
+                    <connections>
+                        <action selector="clickOperationBtn:" destination="-1" eventType="touchUpInside" id="nTp-g2-OI7"/>
+                    </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about_icon_eye.png" translatesAutoresizingMaskIntoConstraints="NO" id="G6R-nG-9Cv">
                     <rect key="frame" x="20" y="342" width="35" height="35"/>
