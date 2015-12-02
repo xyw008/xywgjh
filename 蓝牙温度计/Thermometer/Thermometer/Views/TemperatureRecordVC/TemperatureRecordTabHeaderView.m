@@ -49,7 +49,7 @@
     date = [date dateBySubtractingDays:1];
     _dateLabel.text = [NSDate stringFromDate:date withFormatter:DataFormatter_Date];
     
-    if (_operationHandle) _operationHandle(self, HeaderViewOperationType_DatePre);
+    if (_operationHandle) _operationHandle(self, HeaderViewOperationType_DatePre,date);
 }
 
 - (IBAction)clickDateNextBtn:(UIButton *)sender {
@@ -57,7 +57,7 @@
     date = [date dateByAddingDays:1];
     _dateLabel.text = [NSDate stringFromDate:date withFormatter:DataFormatter_Date];
     
-    if (_operationHandle) _operationHandle(self, HeaderViewOperationType_DateNext);
+    if (_operationHandle) _operationHandle(self, HeaderViewOperationType_DateNext,date);
 }
 
 @end

@@ -8,6 +8,17 @@
 
 #import "AccountStautsManager.h"
 #import "UserInfoModel.h"
+#import "ATAudioPlayManager.h"
+#import "InterfaceHUDManager.h"
+#import <AVFoundation/AVFoundation.h>
+
+@interface AccountStautsManager ()
+{
+    BOOL        _alarming;//警报状态
+}
+
+@end
+
 
 @implementation AccountStautsManager
 
@@ -17,6 +28,8 @@ DEF_SINGLETON(AccountStautsManager);
 {
     self = [super init];
     if (self) {
+        _uploadTempData = YES;
+        
         _highAndLowAlarm = [[UserInfoModel getHighAndLowTepmAlarm] boolValue];
         _disconnectAlarm = [[UserInfoModel getDisconnectAlarm] boolValue];
         _bellAlarm = [[UserInfoModel getBellAlarm] boolValue];
@@ -91,6 +104,90 @@ DEF_SINGLETON(AccountStautsManager);
     if (bellMp3Name) {
         _bellMp3Name = bellMp3Name;
         [UserInfoModel setUserDefaultBellMp3Name:_bellMp3Name];
+    }
+}
+
+
+#pragma mark - 
+- (void)checkTemp:(CGFloat)temp
+{
+    if (_highAndLowAlarm)
+    {
+        if (temp >= _highTemp)
+        {
+            [self startAlarm:@"高温警报"];
+        }
+        
+        if (temp <= _lowTemp)
+        {
+            [self startAlarm:@"低温警报"];
+        }
+    }
+}
+
+- (void)disconnectBluetoothAlarm
+{
+    if (_disconnectAlarm)
+    {
+        [self startAlarm:@"设备已断开"];
+    }
+}
+
+- (void)startAlarm:(NSString*)title
+{
+    //警报中
+    if (_alarming)
+        return;
+    
+    
+    if (_bellAlarm)
+    {
+        NSString *name = [NSString stringWithFormat:@"%@.mp3",_bellMp3Name];
+        [[ATAudioPlayManager shardManager] stopAudioDelegate:self];
+        AVAudioPlayer *player = [[ATAudioPlayManager shardManager] playAudioNamed:name delegate:self tag:1000];
+        player.numberOfLoops = 1000;
+    }
+    if (_shakeAlarm)
+    {
+        AudioServicesAddSystemSoundCompletion(kSystemSoundID_Vibrate, NULL, NULL, systemAudioCallback, NULL);
+        
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    }
+    
+    if (_bellAlarm || _shakeAlarm)
+    {
+        _alarming = YES;
+        [[InterfaceHUDManager sharedInstance] showAlertWithTitle:@"报警提示" message:title alertShowType:AlertShowType_Informative cancelTitle:@"确定" cancelBlock:^(GJHAlertView *alertView, NSInteger index) {
+            [[ATAudioPlayManager shardManager] stopAllAudio];
+            AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
+            _alarming = NO;
+        } otherTitle:nil otherBlock:nil];
+    }
+}
+
+
+//震动完成回调
+void systemAudioCallback()
+{
+    //延时震动
+    [NSTimer scheduledTimerWithTimeInterval:.8f target:[AccountStautsManager sharedInstance] selector:@selector(againShake) userInfo:nil repeats:NO];
+}
+
+- (void)againShake
+{
+    if (_alarming) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    }
+}
+
+#pragma mark -
+- (void) audioPlayerManager:(ATAudioPlayManager*)manager finishPlayTag:(NSInteger)tag error:(NSError*)error
+{
+    if (_alarming)
+    {
+//        NSString *name = [NSString stringWithFormat:@"%@.mp3",_bellMp3Name];
+//        [[ATAudioPlayManager shardManager] stopAudioDelegate:self];
+//        [[ATAudioPlayManager shardManager] playAudioNamed:name delegate:self tag:1000];
     }
 }
 

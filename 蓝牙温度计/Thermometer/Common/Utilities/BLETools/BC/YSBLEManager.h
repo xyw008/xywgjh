@@ -8,15 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "BLEManager.h"
+#import "CommonEntity.h"
 
 typedef void (^ActualTimeValueCallBack) (CGFloat newTemperature,CGFloat rssi, CGFloat newBettey);
 
 typedef void (^GroupTemperatureCallBack) (NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic);
 
+
+typedef void (^RemoteGroupTempCallBack) (NSArray<RemoteTempItem *> *tempArray,NSArray<RemoteTempItem *> *fillingTempArray, NSDate *beginDate, NSDate *endDate);
+
+
 @interface YSBLEManager : NSObject
 
 @property (nonatomic,strong)ActualTimeValueCallBack     actualTimeValueCallBack;//实时温度回调
 @property (nonatomic,strong)GroupTemperatureCallBack    groupTemperatureCallBack;//温度组的回调
+@property (nonatomic,strong)RemoteGroupTempCallBack     remoteTempCallBack;//远程获取时间段的温度数组
 
 @property (nonatomic,assign)BOOL                        isFUnit;//是否是华氏单位显示(default:NO)
 
@@ -27,10 +33,12 @@ typedef void (^GroupTemperatureCallBack) (NSDictionary<NSString *, NSArray<BLECa
 
 AS_SINGLETON(YSBLEManager);
 
-- (void)startScanPeripherals;
+- (void)initBluetoothInfo;
 
+- (void)startScanPeripherals;
 
 - (void)writeIs30Second:(BOOL)is30Second;
 
+- (void)getRemoteTempBegin:(NSDate*)beginDate end:(NSDate*)endDate;
 
 @end

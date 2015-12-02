@@ -10,9 +10,11 @@
 #import "CommonEntity.h"
 #import "LoginBC.h"
 #import "AccountStautsManager.h"
+#import "InterfaceHUDManager.h"
 
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "AddUserVC.h"
+#import "AppDelegate.h"
 
 static NSString *cellIdentifier_Title = @"cellIdentifier_Title";
 static NSString *cellIdentifier_User = @"cellIdentifier_User";
@@ -127,7 +129,6 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
             }
         }
     } failedBlock:^(NetRequest *request, NSError *error) {
-        
         switch (request.tag)
         {
                 
@@ -340,7 +341,13 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
         {
             if (0 != indexPath.row)
             {
-                [AccountStautsManager sharedInstance].nowUserItem = (UserItem*)[_userItemArray objectAtIndex:indexPath.row - 1];
+                [[InterfaceHUDManager sharedInstance] showAlertWithTitle:@"" message:@"是否切换成员" alertShowType:AlertShowType_Informative cancelTitle:@"取消" cancelBlock:^(GJHAlertView *alertView, NSInteger index) {
+                    
+                } otherTitle:@"确定" otherBlock:^(GJHAlertView *alertView, NSInteger index) {
+                    [AccountStautsManager sharedInstance].nowUserItem = (UserItem*)[_userItemArray objectAtIndex:indexPath.row - 1];
+                    
+                    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleMenu];
+                }];
             }
         }
     }

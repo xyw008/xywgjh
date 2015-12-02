@@ -8,6 +8,7 @@
 
 #import "TemperaturesShowView.h"
 #import "BLEManager.h"
+#import "AccountStautsManager.h"
 
 @interface TemperaturesShowView ()
 {
@@ -316,6 +317,15 @@
 {
     _isRemoteType = isRemoteType;
     _searchLB.text = _isRemoteType ? @"同步中" : @"搜索中";
+    
+    if (_isRemoteType)
+    {
+        _deviceLB.hidden = YES;
+        _deviceSignalIV.hidden = YES;
+        _deviceBatteryIV.hidden = YES;
+        _testTimeLB.hidden = YES;
+        _testTimeValueLB.hidden = YES;
+    }
 }
 
 - (void)setIsShowTemperatureStatus:(BOOL)isShowTemperatureStatus
@@ -327,12 +337,19 @@
                 subView.hidden = NO;
         }
         _searchLB.hidden = YES;
+        
+        if (_isRemoteType) {
+            self.isRemoteType = _isRemoteType;
+        }
     }
 }
 
 
 - (void)setTemperature:(CGFloat)temperature
 {
+    //检查温度是否需要报警
+    [[AccountStautsManager sharedInstance] checkTemp:temperature + 20];
+    
     CGFloat height = DynamicWidthValue640(275/1.5);
     
     if (temperature <= 32)

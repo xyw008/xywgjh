@@ -27,4 +27,15 @@
 @end
 
 
+///////////////////////////////////////////////////////////////
+//远程温度Item
+@interface RemoteTempItem : NetItem
+
+
+@property (nonatomic,assign)CGFloat         temp;//温度
+@property (nonatomic,copy)NSString          *time;//时间
+
+@end
+
+
 

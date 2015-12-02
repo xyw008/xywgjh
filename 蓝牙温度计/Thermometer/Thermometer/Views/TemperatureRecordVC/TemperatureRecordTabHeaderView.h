@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, HeaderViewOperationType)
 };
 
 typedef void (^HeaderViewOperationHandle) (TemperatureRecordTabHeaderView *view,
-                                           HeaderViewOperationType type);
+                                           HeaderViewOperationType type ,NSDate *nowDate);
 
 @interface TemperatureRecordTabHeaderView : ParallaxHeaderView
 

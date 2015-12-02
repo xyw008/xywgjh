@@ -54,7 +54,24 @@
 {
     [super viewWillAppear:animated];
     
+<<<<<<< HEAD
     [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
+=======
+    if (_userItem)
+    {
+        _nameTF.text = _userItem.userName;
+        _sexLB.text = _userItem.gender == 0 ? @"男" : @"女";
+        _ageLB.text = [NSString stringWithInt:_userItem.age];
+        _sexString = _sexLB.text;
+        _ageString = _ageLB.text;
+        
+        UIButton *btn = [self.view viewWithTag:_userItem.role - 1 + kRoleBtnStartTag];
+        if (btn && [btn isKindOfClass:[UIButton class]]) {
+            btn.selected = YES;
+            _lastSelectRoleBtn = btn;
+        }
+    }
+>>>>>>> d51e6502e070d61d43b5efb7189e775a5f249c8a
 }
 
 - (void)didReceiveMemoryWarning {
@@ -244,6 +261,11 @@
         
         if (0 == i)
         {
+            if (!_userItem)
+            {
+                _lastSelectRoleBtn = btn;
+                btn.selected = YES;
+            }
             [btn mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(roleTitleLB.mas_bottom).offset(15);
                 make.left.equalTo(roleTitleLB.mas_left);
@@ -315,8 +337,10 @@
 
 - (void)getNetworkData
 {
+    NSInteger gender = [_sexString isEqualToString:@"男"] ? 0 : 1;
+    
     NSDictionary *memberDic = @{@"name":_nameTF.text,
-                                @"gender":@([_sexString integerValue]),
+                                @"gender":@(gender),
                                 @"age":@([_ageString integerValue]),
                                 @"role":@(_lastSelectRoleBtn.tag - kRoleBtnStartTag + 1),
                                 @"image":@""};

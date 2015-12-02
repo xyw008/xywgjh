@@ -49,6 +49,14 @@
         unitLB.textColor = Common_BlackColor;
         [self addSubview:unitLB];
         
+        UIView *dotView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 2, 2)];
+        ViewRadius(dotView, 1);
+        dotView.backgroundColor = Common_BlackColor;
+        dotView.center = CGPointMake(_pickerView.center.x, unitLB.center.y + unitLB.height/4);
+        [self addSubview:dotView];
+        
+        
+        
         CGFloat btnHeight = 44;
         UIButton *submitBtn = InsertButton(self, CGRectMake(-1, self.height - btnHeight + ThinLineWidth, self.width/2 + 1, btnHeight), 1000, @"确定", self, @selector(btnTouch:));
         [submitBtn setTitleColor:Common_BlackColor forState:UIControlStateNormal];

@@ -12,7 +12,8 @@ typedef enum
 {
     // 温度
     NetTempRequestType_UploadTemp                               = 0, // 上传体温信息（30秒一次）
-    
+    NetTempRequestType_DownloadLastestTemp                         , // 服务器拿最新的温度信息
+    NetTempRequestType_DownloadIntervalTemp                        , // 服务器拿某诗句段的体温信息
     
     // 用户中心
     NetUserCenterRequestType_Register                              , // 注册(POST)

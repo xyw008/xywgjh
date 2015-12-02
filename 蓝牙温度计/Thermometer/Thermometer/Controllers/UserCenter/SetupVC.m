@@ -8,6 +8,7 @@
 
 #import "SetupVC.h"
 #import "YSBLEManager.h"
+#import "AccountStautsManager.h"
 
 @interface SetupVC ()
 {
@@ -58,7 +59,12 @@
 
 - (void)logoutBtnTouch:(UIButton*)btn
 {
+    [UserInfoModel setUserDefaultLoginName:@""];
+    [UserInfoModel setUserDefaultPassword:@""];
     
+    [AccountStautsManager sharedInstance].isLogin = NO;
+    [AccountStautsManager sharedInstance].nowUserItem = nil;
+    [self backViewController];
 }
 
 

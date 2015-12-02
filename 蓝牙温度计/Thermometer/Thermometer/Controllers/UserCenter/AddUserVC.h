@@ -7,6 +7,7 @@
 //
 
 #import "BaseNetworkViewController.h"
+#import "CommonEntity.h"
 
 #define kNewUserImageKey @"newUserImageKey"
 //添加用户成功通知
@@ -15,6 +16,7 @@ static NSString * const kAddUserSuccessNotificationKey = @"kAddUserSuccessNotifi
 
 @interface AddUserVC : BaseNetworkViewController
 
+@property (nonatomic,strong)UserItem    *userItem;
 
 
 @end
