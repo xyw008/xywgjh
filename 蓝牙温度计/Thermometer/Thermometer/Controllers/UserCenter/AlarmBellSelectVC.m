@@ -84,6 +84,7 @@
                                       reuseIdentifier:cellIdentifier];
         cell.textLabel.font = kSystemFont_Size(16);
         cell.textLabel.textColor = Common_BlackColor;
+        [cell addLineWithPosition:ViewDrawLinePostionType_Bottom lineColor:CellSeparatorColor lineWidth:ThinLineWidth];
     }
     cell.textLabel.text = [_soundArray objectAtIndex:indexPath.row];
     return cell;
