@@ -120,6 +120,19 @@
 - (void)setIsAboutType:(BOOL)isAboutType
 {
     _isAboutType = isAboutType;
+    for (NSInteger i=0; i<3; i++) {
+        UIButton *btn = (UIButton*)[_lastIV viewWithTag:kBtnStartTag + i];
+        if (i != 1) {
+            btn.hidden = YES;
+        }
+        else
+        {
+            if ([btn isKindOfClass:[UIButton class]]) {
+                [btn setTitle:@"确定" forState:UIControlStateNormal];
+            }
+        }
+    }
+    
 }
 
 #pragma mark - touch event
@@ -375,5 +388,9 @@ static XLWelcomeAppView *welcomeView;
     welcomeView = nil;
 }
 
+- (void)setIsAboutType:(BOOL)isAboutType
+{
+    _bgView.isAboutType = isAboutType;
+}
 
 @end

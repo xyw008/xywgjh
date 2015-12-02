@@ -24,6 +24,7 @@
 
 @property (nonatomic,copy)NSString          *imageUrl;//头像url
 @property (nonatomic,strong)UIImage         *image;
+@property (nonatomic,copy)NSString          *imageStr;//头像16进制字符串
 
 @end
 

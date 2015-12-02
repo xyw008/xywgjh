@@ -24,6 +24,8 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 {
     NSMutableArray      *_userItemArray;
     UIImageView         *_headIV;
+    
+    UserItem            *_willDeleteUserItem;
 }
 @end
 
@@ -125,6 +127,14 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                     }
                 }
                     break;
+                case NetUserRequestType_DeleteUser:
+                {
+                    if ([strongSelf->_userItemArray containsObject:strongSelf->_willDeleteUserItem]) {
+                        [strongSelf->_userItemArray removeObject:strongSelf->_willDeleteUserItem];
+                        [strongSelf->_tableView reloadData];
+                    }
+                }
+                    break;
                 default:
                     break;
             }
@@ -132,7 +142,13 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     } failedBlock:^(NetRequest *request, NSError *error) {
         switch (request.tag)
         {
-                
+            case NetUserRequestType_DeleteUser:
+            {
+                [weakSelf showHUDInfoByString:error.localizedDescription];
+            }
+                break;
+            default:
+                break;
         }
     }];
 }
@@ -146,7 +162,25 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
            requestTag:NetUserRequestType_GetAllUserInfo];
 }
 
-
+- (void)deleteUserRequest
+{
+    if (!_willDeleteUserItem) {
+        return;
+    }
+    NSDictionary* memberDic = @{@"name":_willDeleteUserItem.userName,
+                                @"gender":@(_willDeleteUserItem.gender),
+                                @"age":@(_willDeleteUserItem.age),
+                                @"role":@(_willDeleteUserItem.role),
+                                @"image":_willDeleteUserItem.imageStr};
+    
+    NSArray *memberList = @[memberDic];
+    
+    [self sendRequest:[[self class] getRequestURLStr:NetUserRequestType_DeleteUser]
+         parameterDic:@{@"phone":[UserInfoModel getUserDefaultLoginName],@"memberList":memberList}
+       requestHeaders:nil
+    requestMethodType:RequestMethodType_POST
+           requestTag:NetUserRequestType_DeleteUser];
+}
 
 #pragma mark - get cell
 - (UITableViewCell*)getTitleCellForRowAtIndexPath:(NSIndexPath *)indexPath title:(NSString*)title
@@ -200,6 +234,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     return cell;
 }
 
+
 - (UITableViewCell*)getUserCellForRowAtIndexPath:(NSIndexPath *)indexPath nickname:(NSString*)nickname image:(NSString*)imageStr
 {
     UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:cellIdentifier_User];
@@ -245,6 +280,10 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
             make.height.equalTo(LineWidth);
             make.right.equalTo(cell.contentView.mas_right);
         }];
+        
+        UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(deleteUser:)];
+        longGesture.minimumPressDuration = .7;
+        [cell.contentView addGestureRecognizer:longGesture];
     }
     UIImageView *headIV = [cell.contentView viewWithTag:3000];
     headIV.image = [UIImage imageNamed:imageStr];
@@ -320,8 +359,6 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     return nil;
 }
 
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
@@ -370,6 +407,42 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     {
         LeftMenuTouchType type = 0 == indexPath.row ? LeftMenuTouchType_Setting : LeftMenuTouchType_About;
         [self touchDelegateCall:type];
+    }
+}
+
+- (void)deleteUser:(UILongPressGestureRecognizer*)gesture
+{
+    if(gesture.state == UIGestureRecognizerStateBegan)
+    {
+        UITableViewCell *cell = (UITableViewCell*)[gesture.view superview];
+        if ([cell isKindOfClass:[UITableViewCell class]]) {
+            NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+            if (indexPath.section == 0)
+            {
+                
+                if (0 != indexPath.row || _userItemArray.count + 1 != indexPath.row)
+                {
+                    UserItem *item = (UserItem*)[_userItemArray objectAtIndex:indexPath.row - 1];
+                    if ([item.userName isEqualToString:[AccountStautsManager sharedInstance].nowUserItem.userName])
+                    {
+                        WEAKSELF
+                        [PRPAlertView showWithTitle:nil message:@"不能删除当前选择账号" cancelTitle:Confirm cancelBlock:nil otherTitle:nil otherBlock:nil];
+                    }
+                    else
+                    {
+                        WEAKSELF
+                        [PRPAlertView showWithTitle:nil message:@"是否删除次用户" cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
+                            STRONGSELF
+                            
+                            strongSelf->_willDeleteUserItem = item;
+                            [strongSelf deleteUserRequest];
+                        }];
+                    }
+                    
+                    
+                }
+            }
+        }
     }
 }
 

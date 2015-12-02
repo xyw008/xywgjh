@@ -19,6 +19,8 @@
 #define channelOnPeropheralView @"peripheralView"
 #define channelOnCharacteristicView @"CharacteristicView"
 
+#define channelOnCharacteristicMacView @"CharacteristicMacView"
+
 
 @interface YSBLEManager ()<NetRequestDelegate>
 {
@@ -211,6 +213,18 @@ DEF_SINGLETON(YSBLEManager);
         //DLog(@"===service name:%@   string = %@",service.UUID,service.UUID.UUIDString);
         STRONGSELF
         
+        if ([service.UUID.UUIDString isEqualToString:@"1809"])
+        {
+            strongSelf->_currTemperatureService = service;
+            
+            for (CBCharacteristic *c in service.characteristics)
+            {
+                DLog(@"uuid = %@   de = %@",c.UUID,c.description);
+            }
+            
+            [weakSelf setCurrTemperatureNotifiy];
+        }
+        
         //获取设备mac
 //        if ([service.UUID.UUIDString isEqualToString:@"180A"])
 //        {
@@ -225,21 +239,7 @@ DEF_SINGLETON(YSBLEManager);
 //                    strongSelf->_babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(peripheral,c);
 //                }
 //            }
-//            
 //        }
-        
-        
-        if ([service.UUID.UUIDString isEqualToString:@"1809"])
-        {
-            strongSelf->_currTemperatureService = service;
-            
-            for (CBCharacteristic *c in service.characteristics)
-            {
-                DLog(@"uuid = %@   de = %@",c.UUID,c.description);
-            }
-            
-            [weakSelf setCurrTemperatureNotifiy];
-        }
         //插入row到tableview
         //[weakSelf insertRowToTableView:service];
     }];

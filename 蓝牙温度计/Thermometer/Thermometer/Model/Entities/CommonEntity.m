@@ -25,12 +25,15 @@
         NSString *str = [dict safeObjectForKey:@"image"];
         if (str)
         {
+            self.imageStr = str;
             //NSString *dataStr = [NSString stringWithFormat:@"%@",str];
             //NSString *dataStr = [SystemConvert hexToBinary:str];
             //NSData* data= [BabyToy ConvertHexStringToData:str];
             NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
             self.image = [UIImage imageWithData:data];
         }
+        else
+            self.imageStr = @"";
     }
     return self;
 }

@@ -8,9 +8,13 @@
 
 #import "AboutVC.h"
 #import "PRPAlertView.h"
+#import "XLWelcomeAppView.h"
+#import "AppPropertiesInitialize.h"
 
 @interface AboutVC ()
-
+{
+    XLWelcomeAppView            *_welcomeAppView;//第一次启动app
+}
 @property (weak, nonatomic) IBOutlet UIButton *updateVersionBtn;
 @property (weak, nonatomic) IBOutlet UIButton *guideBtn;
 @property (weak, nonatomic) IBOutlet UIButton *followBtn;
@@ -78,7 +82,26 @@
     }
     else if (sender == _guideBtn)
     {
+        [self hiddenNav:YES];
+        NSArray *imageArray = @[@"lead_01.png",@"lead_02.png",@"lead_03.png"];
+        WEAKSELF
+        _welcomeAppView = [XLWelcomeAppView showSuperView:self.view welcomeImage:imageArray callBack:^(NSInteger touchBtnIndex){
+            if (0 == touchBtnIndex)//注册
+            {
+                
+                
+            }
+            else if(1 == touchBtnIndex)//确定
+            {
+                [weakSelf removeWelcomeAppView];
+            }
+            else if(2 == touchBtnIndex)//游客模式
+            {
+                
+            }
+        }];
         
+        _welcomeAppView.isAboutType = YES;
     }
     else if (sender == _followBtn)
     {
@@ -89,6 +112,20 @@
                             message:@"已复制于氏医疗微信号【于氏医疗】至剪切板"
                         buttonTitle:Confirm];
     }
+}
+
+
+- (void)hiddenNav:(BOOL)hidden
+{
+    self.navigationController.navigationBarHidden = hidden;
+    [AppPropertiesInitialize setBackgroundColorToStatusBar:hidden ? HEXCOLOR(0X3C3A47) : Common_ThemeColor];
+}
+
+- (void)removeWelcomeAppView
+{
+    [_welcomeAppView removeSelf];
+    _welcomeAppView = nil;
+    [self hiddenNav:NO];
 }
 
 

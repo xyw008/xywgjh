@@ -12,6 +12,9 @@ typedef void (^welcomeFinishCallBack)(NSInteger touchBtnIndex);
 
 @interface XLWelcomeAppView : NSObject
 
+@property (nonatomic,assign)BOOL                      isAboutType;//关于类型
+
+
 /**
  *  欢迎图片
  *
@@ -31,5 +34,7 @@ typedef void (^welcomeFinishCallBack)(NSInteger touchBtnIndex);
 
 
 - (void)removeSelf;
+
+
 
 @end
