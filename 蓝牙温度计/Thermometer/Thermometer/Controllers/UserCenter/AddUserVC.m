@@ -315,6 +315,13 @@
     return lineView;
 }
 
+- (void)setUserItem:(UserItem *)userItem
+{
+    _userItem = userItem;
+    
+    _birthdayStr = [NSDate stringFromDate:[[NSDate date] dateBySubtractingYears:userItem.age] withFormatter:DataFormatter_Date];
+}
+
 #pragma mark - request 
 
 - (void)setNetworkRequestStatusBlocks

@@ -163,9 +163,11 @@
     _temperaturesLB.textColor = _temperaturesColorView.backgroundColor;
     [self addSubview:_temperaturesLB];
     _temperaturesLB.hidden = YES;
+    // _temperaturesLB.transform = CGAffineTransformMakeRotation(M_PI / 10);
     
     _unitLB = [[UILabel alloc] init];
-    _unitLB.font = [UIFont systemFontOfSize:38];
+    // _unitLB.font = [UIFont systemFontOfSize:38];
+    _unitLB.font = [UIFont italicSystemFontOfSize:38];
     _unitLB.textColor = [TemperaturesShowView getTemperaturesColor:0];
     _unitLB.text = @"°C";
     [self addSubview:_unitLB];

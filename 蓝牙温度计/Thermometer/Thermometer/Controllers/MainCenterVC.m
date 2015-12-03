@@ -303,9 +303,9 @@
     bottomBgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bottomBgView];
     
-    NSArray *titleArray = @[@"预警",@"记录",@"数据同步",@"单位切换"];
-    NSArray *imageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_cloud_f",@"home_icon_unit_c"];
-    NSArray *selectImageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_cloud_n",@"home_icon_unit_f"];
+    NSArray *titleArray = @[@"报警设置",@"测量记录",@"数据同步",@"单位切换"];
+    NSArray *imageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_cloud_f",@"home_icon_unit_f"];
+    NSArray *selectImageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_cloud_n",@"home_icon_unit_c"];
     
     CGFloat btnWidth = (bottomBgView.width - startX * 5) / 4;
     
@@ -375,7 +375,6 @@
     _popBgView = [[UIView alloc] initWithFrame:superView.bounds];
     _popBgView.backgroundColor = [UIColor colorWithWhite:0 alpha:.5];
     [superView addSubview:_popBgView];
-
     
     UIView *contentView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 170)];
     contentView.backgroundColor = [UIColor whiteColor];
