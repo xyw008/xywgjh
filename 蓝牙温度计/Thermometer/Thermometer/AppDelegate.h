@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "HKSlideMenu3DController.h"
+#import "IIViewDeckController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic)  HKSlideMenu3DController *slideMenuVC;
+@property (strong, nonatomic) IIViewDeckController *slideMenuVC;
 
 
 @end

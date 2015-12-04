@@ -54,9 +54,12 @@
     
     BOOL                        _isFUnit;//是否是华氏温度（默认是摄氏）
     
-    BOOL                        _isVisitorType;//是否是游客模式
+    // BOOL                        _isVisitorType;//是否是游客模式
     XLWelcomeAppView            *_welcomeAppView;//第一次启动app
 }
+
+@property (nonatomic, assign) BOOL isVisitorType;
+
 @end
 
 @implementation MainCenterVC
@@ -82,7 +85,6 @@
     {
         [self setSlideMenuVCEnablePan:[AccountStautsManager sharedInstance].isLogin];
     }
-    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -166,6 +168,14 @@
 }
 
 #pragma mark - welcome
+
+- (void)setIsVisitorType:(BOOL)isVisitorType
+{
+    _isVisitorType = isVisitorType;
+    
+    [self setSlideMenuVCEnablePan:!_isVisitorType];
+}
+
 - (void)judgeGoAppNum
 {
     if (![[UserInfoModel getNoFirstGoApp] boolValue])
@@ -198,9 +208,8 @@
             }
             else if(2 == touchBtnIndex)//游客模式
             {
-                strongSelf->_isVisitorType = YES;
                 [weakSelf removeWelcomeAppView];
-                
+                strongSelf.isVisitorType = YES;
             }
         }];
     }
@@ -213,6 +222,7 @@
     [self initPopView];
     [_welcomeAppView removeSelf];
     [self hiddenNav:NO];
+    
     [UserInfoModel setUserDefaultNoFirstGoApp:@(YES)];
     _welcomeAppView = nil;
 }
@@ -221,12 +231,21 @@
 {
     self.navigationController.navigationBarHidden = hidden;
     [self setSlideMenuVCEnablePan:!hidden];
+    
     [AppPropertiesInitialize setBackgroundColorToStatusBar:hidden ? HEXCOLOR(0X3C3A47) : Common_ThemeColor];
 }
 
 - (void)setSlideMenuVCEnablePan:(BOOL)enable
 {
-    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnablePan:NO];
+    // [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC setEnabled:enable];
+    if (enable)
+    {
+        SharedAppDelegate.slideMenuVC.panningMode = IIViewDeckPanningViewPanning;
+    }
+    else
+    {
+        SharedAppDelegate.slideMenuVC.panningMode = IIViewDeckNoPanning;
+    }
 }
 
 #pragma mark - init method
@@ -425,7 +444,7 @@
 - (void)leftMenuBtnTouch:(UIButton*)btn
 {
     if ([AccountStautsManager sharedInstance].isLogin)
-        [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleMenu];
+        [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleLeftView];
     else
         [self goLoginView];
 }
@@ -717,6 +736,7 @@
 - (void)LeftUserCenterVC:(LeftUserCenterVC*)vc touchType:(LeftMenuTouchType)type
 {
     [self leftMenuBtnTouch:nil];
+    
     switch (type)
     {
         case LeftMenuTouchType_AddUser:
@@ -779,7 +799,8 @@
 - (void)loginSuccess:(NSNotification*)notification
 {
     [self setSlideMenuVCEnablePan:YES];
-    _isVisitorType = NO;
+    self.isVisitorType = NO;
+    
     if (_welcomeAppView) {
         [self removeWelcomeAppView];
     }

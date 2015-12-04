@@ -16,7 +16,7 @@
 #define UserDefault_IsNotFirstLoadAnswerQuestionVCKey   @"UserDefault_IsNotFirstLoadAnswerQuestionVCKey" // 是否第一次登陆答题界面
 
 #define TABBAR_HEIGHT           49
-#define IIDeckViewLeftSize      40
+#define IIDeckViewLeftSize      60 * (IPHONE_WIDTH / 320)
 
 // 字体大小
 #define NavTitleFontSize        20.0

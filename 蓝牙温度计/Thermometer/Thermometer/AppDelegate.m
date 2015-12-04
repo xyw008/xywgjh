@@ -76,6 +76,7 @@
     LeftUserCenterVC *leftVC = [[LeftUserCenterVC alloc] init];
     leftVC.delegate = mainVC;
     
+    /*
     self.slideMenuVC = [[HKSlideMenu3DController alloc] init];
     self.slideMenuVC.view.frame =  [[UIScreen mainScreen] bounds];
     self.slideMenuVC.mainViewController = [[UINavigationController alloc] initWithRootViewController:mainVC];
@@ -83,13 +84,26 @@
     self.slideMenuVC.backgroundImage = [UIImage imageNamed:@"leftmenu_bg"];
     self.slideMenuVC.backgroundImageContentMode = UIViewContentModeScaleAspectFill;
     self.slideMenuVC.enablePan = NO;
-    self.window.rootViewController = _slideMenuVC;
+    */
+    
+    self.slideMenuVC = [[IIViewDeckController alloc] initWithCenterViewController:[[UINavigationController alloc] initWithRootViewController:mainVC] leftViewController:leftVC];
+    
+    /* To adjust speed of open/close animations, set either of these two properties. */
+    self.slideMenuVC.leftSize = IIDeckViewLeftSize;
+    self.slideMenuVC.panningCancelsTouchesInView = YES;
+    self.slideMenuVC.panningMode = IIViewDeckPanningViewPanning;
+    self.slideMenuVC.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
+    self.slideMenuVC.openSlideAnimationDuration = 0.2f;
+    self.slideMenuVC.closeSlideAnimationDuration = 0.2f;
+    self.slideMenuVC.panningView = mainVC.view;
     
     //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[TemperatureRecordVC new]];
 
     //self.window.rootViewController = sideMenuViewController;
 
     //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[LoginVC loadFromNib]];
+    
+    self.window.rootViewController = _slideMenuVC;
 
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

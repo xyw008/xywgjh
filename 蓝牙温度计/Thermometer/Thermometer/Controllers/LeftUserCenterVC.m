@@ -390,7 +390,8 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                     }
                     else
                         strongSelf->_headIV.image = [UIImage imageNamed:@"icon_userhead"];
-                    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleMenu];
+                    
+                    [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleLeftView];
                 }];
                 
                 /*
@@ -448,6 +449,8 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 
 - (void)touchDelegateCall:(LeftMenuTouchType)type
 {
+    // [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleLeftView];
+    
     if ([_delegate respondsToSelector:@selector(LeftUserCenterVC:touchType:)]) {
         [_delegate LeftUserCenterVC:self touchType:type];
     }

@@ -12,6 +12,7 @@
 #import "BLEManager.h"
 #import "UserInfoModel.h"
 #import "YSBLEManager.h"
+#import "AppPropertiesInitialize.h"
 
 #define kTabHeaderHeight 55
 
@@ -56,6 +57,7 @@
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

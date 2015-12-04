@@ -74,6 +74,9 @@
 		2B709C191BFE20C60014020A /* country.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B709C1B1BFE20C60014020A /* country.plist */; };
 		2B7255731BFF44E000765F8A /* PasswordInputVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B7255711BFF44E000765F8A /* PasswordInputVC.m */; };
 		2B7255741BFF44E000765F8A /* PasswordInputVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B7255721BFF44E000765F8A /* PasswordInputVC.xib */; };
+		2B7DC4FA1C117D100013E5FD /* IISideController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DC4F41C117D100013E5FD /* IISideController.m */; };
+		2B7DC4FB1C117D100013E5FD /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DC4F61C117D100013E5FD /* IIViewDeckController.m */; };
+		2B7DC4FC1C117D100013E5FD /* IIWrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B7DC4F81C117D100013E5FD /* IIWrapController.m */; };
 		2BD263091BF86FAA00640293 /* ParallaxHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD263061BF86FAA00640293 /* ParallaxHeaderView.m */; };
 		2BD2630A1BF86FAA00640293 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD263081BF86FAA00640293 /* UIImage+ImageEffects.m */; };
 		2BD2630E1BF8714900640293 /* TemperatureRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD2630D1BF8714900640293 /* TemperatureRecordVC.m */; };
@@ -701,6 +704,13 @@
 		2B7255701BFF44E000765F8A /* PasswordInputVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordInputVC.h; sourceTree = "<group>"; };
 		2B7255711BFF44E000765F8A /* PasswordInputVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordInputVC.m; sourceTree = "<group>"; };
 		2B7255721BFF44E000765F8A /* PasswordInputVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordInputVC.xib; sourceTree = "<group>"; };
+		2B7DC4F31C117D100013E5FD /* IISideController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IISideController.h; sourceTree = "<group>"; };
+		2B7DC4F41C117D100013E5FD /* IISideController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IISideController.m; sourceTree = "<group>"; };
+		2B7DC4F51C117D100013E5FD /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
+		2B7DC4F61C117D100013E5FD /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
+		2B7DC4F71C117D100013E5FD /* IIWrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIWrapController.h; sourceTree = "<group>"; };
+		2B7DC4F81C117D100013E5FD /* IIWrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIWrapController.m; sourceTree = "<group>"; };
+		2B7DC4F91C117D100013E5FD /* ViewDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDeck.h; sourceTree = "<group>"; };
 		2BD263051BF86FAA00640293 /* ParallaxHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxHeaderView.h; sourceTree = "<group>"; };
 		2BD263061BF86FAA00640293 /* ParallaxHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParallaxHeaderView.m; sourceTree = "<group>"; };
 		2BD263071BF86FAA00640293 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -1879,6 +1889,20 @@
 			path = "Rigister By SMS";
 			sourceTree = "<group>";
 		};
+		2B7DC4F21C117D100013E5FD /* ViewDeck */ = {
+			isa = PBXGroup;
+			children = (
+				2B7DC4F31C117D100013E5FD /* IISideController.h */,
+				2B7DC4F41C117D100013E5FD /* IISideController.m */,
+				2B7DC4F51C117D100013E5FD /* IIViewDeckController.h */,
+				2B7DC4F61C117D100013E5FD /* IIViewDeckController.m */,
+				2B7DC4F71C117D100013E5FD /* IIWrapController.h */,
+				2B7DC4F81C117D100013E5FD /* IIWrapController.m */,
+				2B7DC4F91C117D100013E5FD /* ViewDeck.h */,
+			);
+			path = ViewDeck;
+			sourceTree = "<group>";
+		};
 		2BD263041BF86FAA00640293 /* ParallaxHeaderView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2002,6 +2026,7 @@
 		43D1C68B1A75E692004564C2 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				2B7DC4F21C117D100013E5FD /* ViewDeck */,
 				2B2138A31C0CA0E200E300F4 /* DateTools */,
 				B3192E6D1C01BB8600424A9B /* SlideMenu3DController */,
 				B35A8FA41BFA475D0050E49B /* FSLineChart */,
@@ -4176,6 +4201,7 @@
 				43D1CC121A75EBFA004564C2 /* ATBLibs+UIImage.m in Sources */,
 				43D1CAB71A75E779004564C2 /* NIOverviewView.m in Sources */,
 				43D1C9DF1A75E778004564C2 /* CTAssetsPickerController.m in Sources */,
+				2B7DC4FC1C117D100013E5FD /* IIWrapController.m in Sources */,
 				43D1CA981A75E779004564C2 /* NICellCatalog.m in Sources */,
 				43D1CC131A75EBFA004564C2 /* ATBLibs+UIView.m in Sources */,
 				43D1CC621A75EBFA004564C2 /* GJHSlideSwitchView.m in Sources */,
@@ -4251,6 +4277,7 @@
 				43D1CA9C1A75E779004564C2 /* NIRadioGroup.m in Sources */,
 				43D1CC021A75EBFA004564C2 /* ATB_BubbleMessageLabel.m in Sources */,
 				B338DB851BEA59D40053DB4C /* UIViewController+RESideMenu.m in Sources */,
+				2B7DC4FB1C117D100013E5FD /* IIViewDeckController.m in Sources */,
 				43D1CC321A75EBFA004564C2 /* NSString+SSToolkitAdditions.m in Sources */,
 				43D1C9DE1A75E778004564C2 /* Reachability.m in Sources */,
 				43D1CA231A75E778004564C2 /* NSArray+MASAdditions.m in Sources */,
@@ -4406,6 +4433,7 @@
 				43D1CA381A75E778004564C2 /* NICollectionViewModel.m in Sources */,
 				43D1C9E81A75E778004564C2 /* FUITextField.m in Sources */,
 				43D1CA8F1A75E778004564C2 /* NILauncherPageView.m in Sources */,
+				2B7DC4FA1C117D100013E5FD /* IISideController.m in Sources */,
 				2B2138BB1C0CA0E200E300F4 /* NSDate+DateTools.m in Sources */,
 				43D1CC4C1A75EBFA004564C2 /* DownloadCache.m in Sources */,
 				FAF92F071B6F10A400DD06BC /* AppUIElement.m in Sources */,
