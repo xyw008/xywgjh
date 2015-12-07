@@ -81,7 +81,8 @@
     _margin = 5.0f;
     _axisWidth = self.frame.size.width - 2 * _margin;
     _axisHeight = self.frame.size.height - 2 * _margin;
-    _axisColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+    //_axisColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+    _axisColor = [UIColor redColor];
     _innerGridColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     _drawInnerGrid = YES;
     _needVerticalLine = YES;
@@ -739,12 +740,12 @@
         
         
         //原有代码
-        /*
+        
         [path addLineToPoint:[self getPointForIndex:_data.count - 1 withScale:scale]];
         [path addLineToPoint:[self getPointForIndex:_data.count - 1 withScale:0]];
         [path addLineToPoint:[self getPointForIndex:0 withScale:0]];
         [path addLineToPoint:[self getPointForIndex:0 withScale:scale]];
-         */
+         
     }
     
     return path;

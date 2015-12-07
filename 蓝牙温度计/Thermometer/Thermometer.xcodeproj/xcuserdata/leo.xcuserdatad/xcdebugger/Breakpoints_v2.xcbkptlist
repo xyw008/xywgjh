@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Thermometer/Controllers/UserCenter/AddUserVC.m"
-            timestampString = "470761312.452031"
+            filePath = "Common/Utilities/NetRequestManager.m"
+            timestampString = "470761605.41915"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "329"
-            endingLineNumber = "329"
-            landmarkName = "-setNetworkRequestStatusBlocks"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
+            landmarkName = "-requestFailed:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Common/Utilities/NetRequestManager.m"
-            timestampString = "470761605.41915"
+            filePath = "Thermometer/Controllers/MainCenterVC.m"
+            timestampString = "471098939.292293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
-            landmarkName = "-requestFailed:"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
+            landmarkName = "-removeWelcomeAppView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

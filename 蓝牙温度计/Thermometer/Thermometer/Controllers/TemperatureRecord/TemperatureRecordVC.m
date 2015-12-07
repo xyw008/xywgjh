@@ -13,6 +13,8 @@
 #import "UserInfoModel.h"
 #import "YSBLEManager.h"
 #import "AppPropertiesInitialize.h"
+#import "XLChartView.h"
+#import "AccountStautsManager.h"
 
 #define kTabHeaderHeight 55
 
@@ -25,9 +27,7 @@
     
     TemperatureRecordTabHeaderView  *_headerView;
     
-    UIScrollView                    *_fsLineBgScrollView;
-    FSLineChart                     *_amFsLineView;//上午12小时温度曲线图
-    FSLineChart                     *_pmFsLineView;//下午12小时温度曲线图
+    XLChartView                     *_chartView;
     
     BOOL                            _isFUnit;//是否是华氏温度（默认是摄氏）
     
@@ -49,7 +49,8 @@
     _isListType = YES;
     [self configureTabHeaders];
     [self initialization];
-    [self initFsLineView];
+    [self initChartView];
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -176,88 +177,135 @@
     }
 }
 
-- (void)initFsLineView
+- (void)initChartView
 {
-    _fsLineBgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_headerView.frame) + 20, self.view.width, self.view.height - _headerView.height - 20)];
-    //_fsLineBgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - _headerView.height - 40)];
-
-    _fsLineBgScrollView.pagingEnabled = YES;
-    _fsLineBgScrollView.hidden = YES;
-    _fsLineBgScrollView.showsHorizontalScrollIndicator = NO;
-    _fsLineBgScrollView.backgroundColor = [UIColor whiteColor];
-    [_fsLineBgScrollView keepAutoresizingInMiddle];
-    [self.view addSubview:_fsLineBgScrollView];
+    _chartView = [[XLChartView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_headerView.frame) + 21, self.view.width - 20, DynamicWidthValue640(600))];
+    _chartView.backgroundColor = [UIColor whiteColor];
+    _chartView.linecolor = Common_BlueColor;
+    _chartView.fillColor = nil;
+    _chartView.needVerticalLine = NO;
+    _chartView.valueLBStrArray = [self getTempShowLBTextArray];
+    _chartView.indexStrArray = [self getDateShowLBTextArray];
+    _chartView.hidden = YES;
+    [self.view addSubview:_chartView];
     
-    _amFsLineView = [self createFSLineChartView:CGRectMake(10, 0, _fsLineBgScrollView.width - 10, _fsLineBgScrollView.height)];
-    
-    _pmFsLineView = [self createFSLineChartView:CGRectMake(_fsLineBgScrollView.width + 10, 0, _amFsLineView.width, _amFsLineView.height)];
-    
-    NSDate *currDate = [NSDate date];
-    NSArray *amString = @[@"00:00",@"02:00",@"04:00",@"06:00",@"08:00",@"10:00",@"12:00"];
-    NSArray *pmString = @[@"12:00",@"14:00",@"16:00",@"18:00",@"20:00",@"22:00",@"24:00"];
-    
-    _amFsLineView.labelForIndex = ^(NSUInteger item) {
-        return amString[item];
-    };
-    
-    //上午
-    WEAKSELF
-    _amFsLineView.labelForValue = ^(CGFloat value) {
-        STRONGSELF
-        CGFloat lastValue = value - 1;
-        NSString *unit = @"°C";
-        
-        if (strongSelf->_isFUnit)
-        {
-            lastValue = [BLEManager getFTemperatureWithC:lastValue];
-            unit = @"°F";
-        }
-        return [NSString stringWithFormat:@"%.0f%@", lastValue,unit];
-    };
-    [_amFsLineView setChartData:@[@(36.3),@(36.3),@(36.4),@(36.3),@(36.3),@(36.0),@(36.1),@(36.5),@(36.1),@(36.1),@(36.1),@(36.1),@(36.2),@(36.2),@(36.3),@(36.5)]];
-    [_amFsLineView loadLabelForValue];
-    
-    
-    //下午
-    _pmFsLineView.labelForIndex = ^(NSUInteger item) {
-        return pmString[item];
-    };
-    
-    _pmFsLineView.labelForValue = ^(CGFloat value) {
-        STRONGSELF
-        CGFloat lastValue = value - 1;
-        NSString *unit = @"°C";
-        
-        if (strongSelf->_isFUnit)
-        {
-            lastValue = [BLEManager getFTemperatureWithC:lastValue];
-            unit = @"°F";
-        }
-        return [NSString stringWithFormat:@"%.0f%@", lastValue,unit];
-    };
-    [_pmFsLineView setChartData:@[@(36.3),@(36.3),@(36.4),@(36.3),@(36.3),@(36.0),@(36.1),@(36.5),@(36.1),@(36.1),@(36.1),@(36.1),@(36.2),@(36.2),@(36.3),@(36.5)]];
-    [_pmFsLineView loadLabelForValue];
-    
-    _fsLineBgScrollView.contentSize = CGSizeMake(_fsLineBgScrollView.width*2, 0);
+//    _fsLineBgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_headerView.frame) + 20, self.view.width, self.view.height - _headerView.height - 20)];
+//    //_fsLineBgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - _headerView.height - 40)];
+//
+//    _fsLineBgScrollView.pagingEnabled = YES;
+//    _fsLineBgScrollView.hidden = YES;
+//    _fsLineBgScrollView.showsHorizontalScrollIndicator = NO;
+//    _fsLineBgScrollView.backgroundColor = [UIColor whiteColor];
+//    [_fsLineBgScrollView keepAutoresizingInMiddle];
+//    [self.view addSubview:_fsLineBgScrollView];
+//    
+//    _amFsLineView = [self createFSLineChartView:CGRectMake(10, 0, _fsLineBgScrollView.width - 10, _fsLineBgScrollView.height)];
+//    
+//    _pmFsLineView = [self createFSLineChartView:CGRectMake(_fsLineBgScrollView.width + 10, 0, _amFsLineView.width, _amFsLineView.height)];
+//    
+//    NSDate *currDate = [NSDate date];
+//    NSArray *amString = @[@"00:00",@"02:00",@"04:00",@"06:00",@"08:00",@"10:00",@"12:00"];
+//    NSArray *pmString = @[@"12:00",@"14:00",@"16:00",@"18:00",@"20:00",@"22:00",@"24:00"];
+//    
+//    _amFsLineView.labelForIndex = ^(NSUInteger item) {
+//        return amString[item];
+//    };
+//    
+//    //上午
+//    WEAKSELF
+//    _amFsLineView.labelForValue = ^(CGFloat value) {
+//        STRONGSELF
+//        CGFloat lastValue = value - 1;
+//        NSString *unit = @"°C";
+//        
+//        if (strongSelf->_isFUnit)
+//        {
+//            lastValue = [BLEManager getFTemperatureWithC:lastValue];
+//            unit = @"°F";
+//        }
+//        return [NSString stringWithFormat:@"%.0f%@", lastValue,unit];
+//    };
+//    [_amFsLineView setChartData:@[@(36.3),@(36.3),@(36.4),@(36.3),@(36.3),@(36.0),@(36.1),@(36.5),@(36.1),@(36.1),@(36.1),@(36.1),@(36.2),@(36.2),@(36.3),@(36.5)]];
+//    [_amFsLineView loadLabelForValue];
+//    
+//    
+//    //下午
+//    _pmFsLineView.labelForIndex = ^(NSUInteger item) {
+//        return pmString[item];
+//    };
+//    
+//    _pmFsLineView.labelForValue = ^(CGFloat value) {
+//        STRONGSELF
+//        CGFloat lastValue = value - 1;
+//        NSString *unit = @"°C";
+//        
+//        if (strongSelf->_isFUnit)
+//        {
+//            lastValue = [BLEManager getFTemperatureWithC:lastValue];
+//            unit = @"°F";
+//        }
+//        return [NSString stringWithFormat:@"%.0f%@", lastValue,unit];
+//    };
+//    [_pmFsLineView setChartData:@[@(36.3),@(36.3),@(36.4),@(36.3),@(36.3),@(36.0),@(36.1),@(36.5),@(36.1),@(36.1),@(36.1),@(36.1),@(36.2),@(36.2),@(36.3),@(36.5)]];
+//    [_pmFsLineView loadLabelForValue];
+//    
+//    _fsLineBgScrollView.contentSize = CGSizeMake(_fsLineBgScrollView.width*2, 0);
 }
 
-- (FSLineChart*)createFSLineChartView:(CGRect)frame
-{
-    FSLineChart *fsView = [[FSLineChart alloc] initWithFrame:frame];
-    fsView.backgroundColor = [UIColor whiteColor];
-    fsView.gridStep = 32;
-    fsView.verticalGridStep = 11;
-    fsView.horizontalGridStep = 6;
-    fsView.color = Common_BlueColor;
-    fsView.fillColor = [_amFsLineView.color colorWithAlphaComponent:0.3];
-    fsView.valueLabelBackgroundColor = [UIColor clearColor];
-    fsView.margin = 35;
-    fsView.needVerticalLine = NO;
-    [_fsLineBgScrollView addSubview:fsView];
-    return fsView;
-}
+//- (FSLineChart*)createFSLineChartView:(CGRect)frame
+//{
+//    FSLineChart *fsView = [[FSLineChart alloc] initWithFrame:frame];
+//    fsView.backgroundColor = [UIColor whiteColor];
+//    fsView.gridStep = 32;
+//    fsView.verticalGridStep = 11;
+//    fsView.horizontalGridStep = 6;
+//    fsView.color = Common_BlueColor;
+//    fsView.fillColor = [_amFsLineView.color colorWithAlphaComponent:0.3];
+//    fsView.valueLabelBackgroundColor = [UIColor clearColor];
+//    fsView.margin = 35;
+//    fsView.needVerticalLine = NO;
+//    [_fsLineBgScrollView addSubview:fsView];
+//    return fsView;
+//}
 
 #pragma mark - get temp
+- (NSArray*)getTempShowLBTextArray
+{
+    NSString *unit = @"°C";
+    if (_isFUnit)
+    {
+        unit = @"°F";
+    }
+    
+    NSMutableArray *array = [NSMutableArray new];
+    for (NSInteger i=32; i<43; i += 2)
+    {
+        [array addObject:[NSString stringWithFormat:@"%ld%@",i,unit]];
+    }
+    return array;
+}
+
+- (NSArray*)getDateShowLBTextArray
+{
+    NSDate *currDate = [NSDate date];
+    
+    NSString *dayString = [NSDate stringFromDate:currDate withFormatter:DataFormatter_Date];
+    //NSDate *beginDate = [NSString dateFromString:[NSString stringWithFormat:@"%@ 00:00:00",dayString] withFormatter:DataFormatter_DateAndTime];
+    NSDate *endDate = [NSString dateFromString:[NSString stringWithFormat:@"%@ 00:00:00",dayString] withFormatter:DataFormatter_DateAndTime];
+    
+    NSMutableArray *array = [NSMutableArray new];
+    for (NSInteger i=0; i<7; i++) {
+        NSDate *beforeDate = [endDate dateBySubtractingHours:(7 - i - 1) * 4];
+        if (6 == i)
+            [array addObject:@"24:00"];
+        else
+            [array addObject:[NSDate stringFromDate:beforeDate withFormatter:DataFormatter_TimeNoSecond]];
+        
+    }
+    return array;
+}
+
+
 - (void)getOneDayTemp:(NSDate*)date
 {
     if (!_ysBluethooth) {
@@ -265,44 +313,79 @@
     }
 
     NSString *dayString = [NSDate stringFromDate:date withFormatter:DataFormatter_Date];
-    NSDate *beginDate = [NSString dateFromString:[NSString stringWithFormat:@"%@ 00:00:00",dayString] withFormatter:DataFormatter_DateAndTime];
-    NSDate *endDate = [NSString dateFromString:[NSString stringWithFormat:@"%@ 23:59:59",dayString] withFormatter:DataFormatter_DateAndTime];
+    NSString *beginStr = [NSString stringWithFormat:@"%@ 00:00:00",dayString];
+    NSString *endStr = [NSString stringWithFormat:@"%@ 23:59:59",dayString];
+    NSDate *beginDate = [NSString dateFromString:beginStr withFormatter:DataFormatter_DateAndTime];
+    NSDate *endDate = [NSString dateFromString:endStr withFormatter:DataFormatter_DateAndTime];
     
-    WEAKSELF
-    [_ysBluethooth setRemoteTempCallBack:^(NSArray<RemoteTempItem *> *tempArray,NSArray<RemoteTempItem *> *fillingTempArray, NSDate *beginDate, NSDate *endDate){
-        STRONGSELF
-        if (tempArray && strongSelf)
-        {
-            NSMutableArray  *amDataArray = [[NSMutableArray alloc] init];
-            NSMutableArray  *pmDataArray = [[NSMutableArray alloc] init];
-            NSDate *date12 = [NSString dateFromString:[NSString stringWithFormat:@"%@ 12:00:00",dayString] withFormatter:DataFormatter_DateAndTime];
-            for (NSInteger i=0; i < tempArray.count; i++)
-            {
-                RemoteTempItem *item = [tempArray objectAtIndex:i];
-                item.temp += 14.0;
-                NSMutableString *timeString = [NSMutableString stringWithString:item.time];
-                [timeString replaceCharactersInRange:NSMakeRange(10, 1) withString:@" "];
-                NSDate *timeDate = [NSString dateFromString:timeString withFormatter:DataFormatter_DateAndTime];
-                if ([timeDate compare:date12] == NSOrderedAscending)
-                {
-                    [amDataArray addObject:[NSNumber numberWithFloat:item.temp]];
-                }
-                else
-                {
-                    [pmDataArray addObject:[NSNumber numberWithFloat:item.temp]];
-                }
-            }
-        
-            [strongSelf->_amFsLineView clearChartData];
-            [strongSelf->_amFsLineView setChartData:amDataArray];
+    //蓝牙模式
+    if ([AccountStautsManager sharedInstance].isBluetoothType)
+    {
+        //组温度数据回调
+        WEAKSELF
+        [_ysBluethooth setGroupTemperatureCallBack:^(NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic){
+            STRONGSELF
+            NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
+            NSArray *keyArray = temperatureDic.allKeys;
+            keyArray = [keyArray sortedArrayUsingComparator:(NSComparator)^(id obj1, id obj2) {
+                return [obj1 compare:obj2 options:NSNumericSearch];
+            }];
             
-            [strongSelf->_pmFsLineView clearChartData];
-            [strongSelf->_pmFsLineView setChartData:pmDataArray];
-        }
-    }];
-
-
-    [_ysBluethooth getRemoteTempBegin:beginDate end:endDate];
+            for (NSInteger i=0; i< keyArray.count; i++)
+            {
+                NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[keyArray objectAtIndex:i]];
+                [dataArray addObjectsFromArray:oneGroupItemArray];
+            }
+            
+            if ([dataArray isAbsoluteValid])
+            {
+                NSDate *endDate = [NSDate date];
+                [strongSelf->_chartView loadDataArray:dataArray startDate:beginDate endDate:endDate];
+                
+                //            [strongSelf->_fsLineTemperatureView clearChartData];
+                //            [strongSelf->_fsLineTemperatureView setChartData:dataArray];
+                
+            }
+        }];
+        //[_ysBluethooth startScanPeripherals];
+        [_ysBluethooth writeIs30Second:NO];
+    }
+    else
+    {
+        WEAKSELF
+        [_ysBluethooth setRemoteTempCallBack:^(NSArray<RemoteTempItem *> *tempArray,NSArray<RemoteTempItem *> *fillingTempArray, NSDate *beginDate, NSDate *endDate){
+            STRONGSELF
+            if (tempArray && strongSelf)
+            {
+                NSMutableArray  *amDataArray = [[NSMutableArray alloc] init];
+                NSMutableArray  *pmDataArray = [[NSMutableArray alloc] init];
+                NSDate *date12 = [NSString dateFromString:[NSString stringWithFormat:@"%@ 12:00:00",dayString] withFormatter:DataFormatter_DateAndTime];
+                for (NSInteger i=0; i < tempArray.count; i++)
+                {
+                    RemoteTempItem *item = [tempArray objectAtIndex:i];
+                    item.temp += 14.0;
+                    NSMutableString *timeString = [NSMutableString stringWithString:item.time];
+                    [timeString replaceCharactersInRange:NSMakeRange(10, 1) withString:@" "];
+                    NSDate *timeDate = [NSString dateFromString:timeString withFormatter:DataFormatter_DateAndTime];
+                    if ([timeDate compare:date12] == NSOrderedAscending)
+                    {
+                        [amDataArray addObject:[NSNumber numberWithFloat:item.temp]];
+                    }
+                    else
+                    {
+                        [pmDataArray addObject:[NSNumber numberWithFloat:item.temp]];
+                    }
+                }
+                
+                //[strongSelf->_amFsLineView clearChartData];
+                //[strongSelf->_amFsLineView setChartData:amDataArray];
+                
+                //[strongSelf->_pmFsLineView clearChartData];
+                //[strongSelf->_pmFsLineView setChartData:pmDataArray];
+            }
+        }];
+        [_ysBluethooth getRemoteTempBegin:beginDate end:endDate];
+    }
 }
 
 #pragma mark - btn touch
@@ -338,16 +421,16 @@
 {
     sender.selected = !sender.selected;
     _isListType = !_isListType;
-    if (_fsLineBgScrollView == nil) {
-        [self initFsLineView];
+    if (_chartView == nil) {
+        [self initChartView];
     }
     
     if (_isListType) {
-        _fsLineBgScrollView.hidden = YES;
+        _chartView.hidden = YES;
         _tableView.scrollEnabled = YES;
     }
     else{
-        _fsLineBgScrollView.hidden = NO;
+        _chartView.hidden = NO;
         _tableView.scrollEnabled = NO;
     }
     

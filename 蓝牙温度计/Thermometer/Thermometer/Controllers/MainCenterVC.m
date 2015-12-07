@@ -21,6 +21,7 @@
 #import "UserInfoModel.h"
 #import "AccountStautsManager.h"
 #import "BaseNetworkViewController+NetRequestManager.h"
+#import "XLChartView.h"
 
 #import "AlarmSettingVC.h"
 #import "LeftUserCenterVC.h"
@@ -44,6 +45,8 @@
     UIScrollView                *_bgScrollView;
     TemperaturesShowView        *_temperaturesShowView;
     FSLineChart                 *_fsLineTemperatureView;//温度线条
+    XLChartView                 *_chartView;
+    
     UILabel                     *_searchLB;//线条位置的状态提示
     
     UIView                      *_popBgView;//启动弹出的选择模式视图
@@ -248,6 +251,33 @@
     }
 }
 
+- (NSArray*)getTempShowLBTextArray
+{
+    NSString *unit = @"°C";
+    if (_isFUnit)
+    {
+        unit = @"°F";
+    }
+    
+    NSMutableArray *array = [NSMutableArray new];
+    for (NSInteger i=32; i<43; i++)
+    {
+        [array addObject:[NSString stringWithFormat:@"%ld%@",i,unit]];
+    }
+    return array;
+}
+
+- (NSArray*)getDateShowLBTextArray
+{
+    NSDate *currDate = [NSDate date];
+    NSMutableArray *array = [NSMutableArray new];
+    for (NSInteger i=0; i<6; i++) {
+        NSDate *beforeDate = [currDate dateBySubtractingMinutes:(6 - i - 1) * 5];
+        [array addObject:[NSDate stringFromDate:beforeDate withFormatter:DataFormatter_TimeNoSecond]];
+    }
+    return array;
+}
+
 #pragma mark - init method
 
 - (void)initBgScrollView
@@ -255,6 +285,7 @@
     _bgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH,DynamicWidthValue640(587) + 55)];
     _bgScrollView.pagingEnabled = YES;
     _bgScrollView.showsHorizontalScrollIndicator = NO;
+    
     [self.view addSubview:_bgScrollView];
 }
 
@@ -264,10 +295,30 @@
     //[_temperaturesShowView setTemperature:0];
     //[self.view addSubview:_temperaturesShowView];
     [_bgScrollView addSubview:_temperaturesShowView];
+    _bgScrollView.backgroundColor = _temperaturesShowView.backgroundColor;
 }
 
 - (void)initFsLineTemperatureView
 {
+    _chartView = [[XLChartView alloc] initWithFrame:CGRectMake(IPHONE_WIDTH + 10, 0, IPHONE_WIDTH - 10, _temperaturesShowView.height)];
+    _chartView.backgroundColor = _temperaturesShowView.backgroundColor;
+    _chartView.linecolor = Common_BlueColor;
+    _chartView.fillColor = [_chartView.linecolor colorWithAlphaComponent:0.3];
+    _chartView.needVerticalLine = NO;
+    _chartView.valueLBStrArray = [self getTempShowLBTextArray];
+    _chartView.indexStrArray = [self getDateShowLBTextArray];
+    
+    [_bgScrollView addSubview:_chartView];
+    _bgScrollView.contentSize = CGSizeMake(_bgScrollView.width*2, 0);
+    
+//    _searchLB = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 100)];
+//    _searchLB.center = _fsLineTemperatureView.center;
+//    _searchLB.textColor = Common_GreenColor;
+//    _searchLB.font = [UIFont systemFontOfSize:43];
+//    _searchLB.text = @"搜索中";
+//    [_bgScrollView addSubview:_searchLB];
+    
+    /*
     // Creating the line chart
     _fsLineTemperatureView = [[FSLineChart alloc] initWithFrame:CGRectMake(IPHONE_WIDTH + 10, 20, IPHONE_WIDTH - 10, _temperaturesShowView.height - 20)];
     _fsLineTemperatureView.backgroundColor = _temperaturesShowView.backgroundColor;
@@ -302,7 +353,7 @@
     };
     [_fsLineTemperatureView setChartData:@[@(36.3),@(36.3),@(36.4),@(36.3),@(36.3),@(36.0),@(36.1),@(36.5),@(36.1),@(36.1),@(36.1),@(36.1),@(36.2),@(36.2),@(36.3),@(36.5)]];
     [_fsLineTemperatureView loadLabelForValue];
-    _fsLineTemperatureView.hidden = YES;
+    //_fsLineTemperatureView.hidden = YES;
     [_bgScrollView addSubview:_fsLineTemperatureView];
     _bgScrollView.contentSize = CGSizeMake(_bgScrollView.width*2, 0);
     
@@ -312,6 +363,7 @@
     _searchLB.font = [UIFont systemFontOfSize:43];
     _searchLB.text = @"搜索中";
     [_bgScrollView addSubview:_searchLB];
+     */
 }
 
 - (void)initBottomBtnsView
@@ -389,7 +441,8 @@
 //启动时候弹出选择模式视图
 - (void)initPopView
 {
-    UIView *superView = [UIApplication sharedApplication].keyWindow;
+    //UIView *superView = [[[UIApplication sharedApplication] delegate] window];
+    UIView *superView = self.view;
     
     _popBgView = [[UIView alloc] initWithFrame:superView.bounds];
     _popBgView.backgroundColor = [UIColor colorWithWhite:0 alpha:.5];
@@ -491,14 +544,21 @@
     [_ysBluethooth setGroupTemperatureCallBack:^(NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic){
         STRONGSELF
         NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
-        for (NSInteger i=1; i<= temperatureDic.allKeys.count; i++)
+        NSArray *keyArray = temperatureDic.allKeys;
+        keyArray = [keyArray sortedArrayUsingComparator:(NSComparator)^(id obj1, id obj2) {
+            return [obj1 compare:obj2 options:NSNumericSearch];
+        }];
+        
+        for (NSInteger i=0; i< keyArray.count; i++)
         {
-            NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[NSString stringWithInt:i]];
-            for (BLECacheDataEntity *item in oneGroupItemArray)
-            {
-                //[dataArray addObject:@(item.temperature)];
-                [dataArray addObject:@(item.temperature + 9)];
-            }
+            NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[keyArray objectAtIndex:i]];
+            [dataArray addObjectsFromArray:oneGroupItemArray];
+            
+//            for (BLECacheDataEntity *item in oneGroupItemArray)
+//            {
+//                //[dataArray addObject:@(item.temperature)];
+//                [dataArray addObject:@(item.temperature + 9)];
+//            }
         }
     
         if ([dataArray isAbsoluteValid])
@@ -509,8 +569,13 @@
                 strongSelf->_searchLB = nil;
                 strongSelf->_fsLineTemperatureView.hidden = NO;
             }
-            [strongSelf->_fsLineTemperatureView clearChartData];
-            [strongSelf->_fsLineTemperatureView setChartData:dataArray];
+            NSDate *endDate = [NSDate date];
+            
+            NSDate *startDate = [endDate dateBySubtractingMinutes:30];
+            [strongSelf->_chartView loadDataArray:dataArray startDate:[startDate dateByAddingSecond:30] endDate:endDate];
+            
+//            [strongSelf->_fsLineTemperatureView clearChartData];
+//            [strongSelf->_fsLineTemperatureView setChartData:dataArray];
             [weakSelf start30SecondCountdownTimer];
         }
     }];
@@ -549,7 +614,6 @@
                 strongSelf->_searchLB = nil;
                 strongSelf->_fsLineTemperatureView.hidden = NO;
             }
-            
             [strongSelf->_fsLineTemperatureView clearChartData];
             [strongSelf->_fsLineTemperatureView setChartData:dataArray];
         }
@@ -573,21 +637,21 @@
     }
     
     
-    if (index != 3)
-    {
-        //没登陆
-        if (![AccountStautsManager sharedInstance].isLogin) {
-            [self goLoginView];
-            return;
-        }
-        
-        //登陆成功但是没有成员
-        if (![AccountStautsManager sharedInstance].nowUserItem)
-        {
-            [self goAddUserVC];
-            return;
-        }
-    }
+//    if (index != 3)
+//    {
+//        //没登陆
+//        if (![AccountStautsManager sharedInstance].isLogin) {
+//            [self goLoginView];
+//            return;
+//        }
+//        
+//        //登陆成功但是没有成员
+//        if (![AccountStautsManager sharedInstance].nowUserItem)
+//        {
+//            [self goAddUserVC];
+//            return;
+//        }
+//    }
     
     switch (index)
     {
@@ -801,9 +865,9 @@
     [self setSlideMenuVCEnablePan:YES];
     self.isVisitorType = NO;
     
-    if (_welcomeAppView) {
-        [self removeWelcomeAppView];
-    }
+//    if (_welcomeAppView) {
+//        [self removeWelcomeAppView];
+//    }
 }
 
 - (void)changeUserSuccess:(NSNotification*)notification

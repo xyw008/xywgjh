@@ -573,6 +573,7 @@
 		B35C39971C0B775C004325CA /* ring.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B35C39911C0B775C004325CA /* ring.mp3 */; };
 		B35C39981C0B775C004325CA /* senca.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B35C39921C0B775C004325CA /* senca.mp3 */; };
 		B35C399E1C0B79A7004325CA /* AlarmBellSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B35C399D1C0B79A7004325CA /* AlarmBellSelectVC.m */; };
+		B3760C991C1410D5007E7776 /* XLChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3760C981C1410D5007E7776 /* XLChartView.m */; };
 		FAF92EF61B6F103900DD06BC /* PRPAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EF51B6F103900DD06BC /* PRPAlertView.m */; };
 		FAF92F051B6F10A400DD06BC /* AppSmallUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EF81B6F10A400DD06BC /* AppSmallUtils.m */; };
 		FAF92F061B6F10A400DD06BC /* AppSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF92EFA1B6F10A400DD06BC /* AppSoundManager.m */; };
@@ -1593,6 +1594,8 @@
 		B35C39921C0B775C004325CA /* senca.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = senca.mp3; sourceTree = "<group>"; };
 		B35C399C1C0B79A7004325CA /* AlarmBellSelectVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmBellSelectVC.h; sourceTree = "<group>"; };
 		B35C399D1C0B79A7004325CA /* AlarmBellSelectVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmBellSelectVC.m; sourceTree = "<group>"; };
+		B3760C971C1410D5007E7776 /* XLChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLChartView.h; sourceTree = "<group>"; };
+		B3760C981C1410D5007E7776 /* XLChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLChartView.m; sourceTree = "<group>"; };
 		FAF92EF41B6F103900DD06BC /* PRPAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPAlertView.h; sourceTree = "<group>"; };
 		FAF92EF51B6F103900DD06BC /* PRPAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPAlertView.m; sourceTree = "<group>"; };
 		FAF92EF71B6F10A400DD06BC /* AppSmallUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSmallUtils.h; sourceTree = "<group>"; };
@@ -3410,6 +3413,8 @@
 				FAFD22C01BE0D5480004DD6F /* GridView.m */,
 				FAFD22C11BE0D5480004DD6F /* StyleSelectorView.h */,
 				FAFD22C21BE0D5480004DD6F /* StyleSelectorView.m */,
+				B3760C971C1410D5007E7776 /* XLChartView.h */,
+				B3760C981C1410D5007E7776 /* XLChartView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3850,7 +3855,6 @@
 				TargetAttributes = {
 					432C31871A7243840094A27E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 9B3CP7X5S2;
 					};
 					432C31A31A7243840094A27E = {
 						CreatedOnToolsVersion = 6.1;
@@ -4170,6 +4174,7 @@
 				43D1CA901A75E778004564C2 /* NILauncherView.m in Sources */,
 				43D1CC261A75EBFA004564C2 /* ATPageControl.m in Sources */,
 				43D1CA501A75E778004564C2 /* UIResponder+NimbusCore.m in Sources */,
+				B3760C991C1410D5007E7776 /* XLChartView.m in Sources */,
 				43D1CC6A1A75EBFA004564C2 /* UIRefreshTabView.m in Sources */,
 				43D1CC5F1A75EBFA004564C2 /* UrlManager.m in Sources */,
 				43D1CAE61A75E779004564C2 /* UIImage+WebP.m in Sources */,

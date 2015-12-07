@@ -12,5 +12,6 @@
 @interface BLECacheDataEntity : NSObject
 
 @property (nonatomic, assign) CGFloat temperature; // 温度
+@property (nonatomic, strong) NSDate  *date;//时间
 
 @end

@@ -155,11 +155,11 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 
 - (void)getNetworkData
 {
-    [self sendRequest:[[self class] getRequestURLStr:NetUserRequestType_GetAllUserInfo]
-         parameterDic:@{@"phone":[UserInfoModel getUserDefaultLoginName]}
-       requestHeaders:nil
-    requestMethodType:RequestMethodType_POST
-           requestTag:NetUserRequestType_GetAllUserInfo];
+//    [self sendRequest:[[self class] getRequestURLStr:NetUserRequestType_GetAllUserInfo]
+//         parameterDic:@{@"phone":[UserInfoModel getUserDefaultLoginName]}
+//       requestHeaders:nil
+//    requestMethodType:RequestMethodType_POST
+//           requestTag:NetUserRequestType_GetAllUserInfo];
 }
 
 - (void)deleteUserRequest

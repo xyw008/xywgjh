@@ -104,14 +104,25 @@
             NSString *byte1 = [hexStr substringWithRange:NSMakeRange(2, 2)];
             NSString *key = [NSString stringWithFormat:@"%ld", [SystemConvert hexToDecimal:byte1].integerValue];
             
-            for (int i = 4; i <= 23; i = i + 2) {
+            NSDate *date = [NSDate date];
+            NSInteger gourpNum = [key integerValue];
+            
+            CGFloat j=0;
+            for (int i = 4; i <= 23; i = i + 2)
+            {
                 NSString *hexSubStr = [hexStr substringWithRange:NSMakeRange(i, 2)];
                 CGFloat temperature = ([SystemConvert hexToDecimal:hexSubStr].integerValue + 200) / 10.0;
                 
                 BLECacheDataEntity *entity = [[BLECacheDataEntity alloc] init];
                 entity.temperature = temperature;
+                if (1 == byte0Num)
+                    entity.date = [date dateBySubtractingSecond:j * 30 + ((gourpNum - 1) * 10 * 30)];
+                else
+                    entity.date = [date dateBySubtractingMinutes:j * 5 + ((gourpNum - 1) * 10 * 5)];
                 
                 [resultArray addObject:entity];
+                
+                j++;
             }
             return @{key: resultArray};
         }
