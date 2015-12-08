@@ -795,6 +795,10 @@
 - (void)LeftUserCenterVC:(LeftUserCenterVC*)vc didTouchUserItem:(UserItem*)item
 {
     [self leftMenuBtnTouch:nil];
+    
+    if ([item.userName isEqualToString:[AccountStautsManager sharedInstance].nowUserItem.userName]) {
+        [self goUserEidt];
+    }
 }
 
 - (void)LeftUserCenterVC:(LeftUserCenterVC*)vc touchType:(LeftMenuTouchType)type

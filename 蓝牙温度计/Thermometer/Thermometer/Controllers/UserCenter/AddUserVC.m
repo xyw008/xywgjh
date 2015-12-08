@@ -335,7 +335,7 @@
             {
                 case NetUserRequestType_AddUser:
                 {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kAddUserSuccessNotificationKey object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kAddUserSuccessNotificationKey object:nil userInfo:@{kNewUserName : strongSelf->_nameTF.text}];
                     [weakSelf backViewController];
                 }
                     break;

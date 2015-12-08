@@ -26,6 +26,8 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     UIImageView         *_headIV;
     
     UserItem            *_willDeleteUserItem;
+
+    NSString            *_needChnageUserName;//需要切换到新用户的名字（如果有）
 }
 @end
 
@@ -69,6 +71,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     [self.view addSubview:_tableView];
     
     
+
     UIView *headBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tableView.width, DpDynamicWidthValue640(48 + 72 + 58) + 20)];
     headBgView.backgroundColor = [UIColor clearColor];
     
@@ -76,13 +79,20 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     _headIV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, headHeight, headHeight)];
     _headIV.image = [UIImage imageNamed:@"icon_userhead"];
     [headBgView addSubview:_headIV];
-    _headIV.center = CGPointMake(headBgView.center.x - 22, headBgView.center.y);
+    _headIV.center = CGPointMake((IPHONE_WIDTH - IIDeckViewLeftSize)/2, headBgView.center.y);
     ViewRadius(_headIV, headHeight/2);
-    
+    [_headIV addTarget:self action:@selector(goUserVC)];
     _tableView.tableHeaderView = headBgView;
     
 }
 
+#pragma mark - touch
+- (void)goUserVC
+{
+    if ([_delegate respondsToSelector:@selector(LeftUserCenterVC:didTouchUserItem:)]) {
+        [_delegate LeftUserCenterVC:self didTouchUserItem:[AccountStautsManager sharedInstance].nowUserItem];
+    }
+}
 
 #pragma mark - request
 
@@ -97,6 +107,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
             switch (request.tag)
             {
                 case NetUserRequestType_GetAllUserInfo:
+                case NetUserRequestType_GetAllUserInfoNoImage:
                 {
                     NSDictionary *userDic = [successInfoObj safeObjectForKey:@"user"];
                     
@@ -108,6 +119,14 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                         {
                             UserItem *item = [UserItem initWithDict:obj];
                             [tempArray addObject:item];
+                            
+                            //如果需要切换新用户
+                            if ([strongSelf->_needChnageUserName isAbsoluteValid]) {
+                                if ([item.userName isEqualToString:strongSelf->_needChnageUserName]) {
+                                    [AccountStautsManager sharedInstance].nowUserItem = item;
+                                    strongSelf->_needChnageUserName = nil;
+                                }
+                            }
                         }
                         strongSelf->_userItemArray = tempArray;
                         [strongSelf->_tableView reloadData];
@@ -155,11 +174,11 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 
 - (void)getNetworkData
 {
-//    [self sendRequest:[[self class] getRequestURLStr:NetUserRequestType_GetAllUserInfo]
-//         parameterDic:@{@"phone":[UserInfoModel getUserDefaultLoginName]}
-//       requestHeaders:nil
-//    requestMethodType:RequestMethodType_POST
-//           requestTag:NetUserRequestType_GetAllUserInfo];
+    [self sendRequest:[[self class] getRequestURLStr:NetUserRequestType_GetAllUserInfoNoImage]
+         parameterDic:@{@"phone":[UserInfoModel getUserDefaultLoginName]}
+       requestHeaders:nil
+    requestMethodType:RequestMethodType_POST
+           requestTag:NetUserRequestType_GetAllUserInfoNoImage];
 }
 
 - (void)deleteUserRequest
@@ -379,10 +398,15 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
         {
             if (0 != indexPath.row)
             {
+                UserItem *item = (UserItem*)[_userItemArray objectAtIndex:indexPath.row - 1];
+                if (item.memberId == [AccountStautsManager sharedInstance].nowUserItem.memberId) {
+                    return;
+                }
+                
                 WEAKSELF
                 [PRPAlertView showWithTitle:nil message:@"是否切换成员" cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
                     STRONGSELF
-                    UserItem *item = (UserItem*)[_userItemArray objectAtIndex:indexPath.row - 1];
+                    
                     [AccountStautsManager sharedInstance].nowUserItem = item;
                     if (item.image)
                     {
@@ -460,11 +484,15 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 #pragma mark - notification
 - (void)loginSuccess:(NSNotification*)notification
 {
+    _needChnageUserName = nil;
     [self getNetworkData];
 }
 
 - (void)addUserSuccess:(NSNotification*)notification
 {
+    if (notification.userInfo && [notification.userInfo.allKeys containsObject:kNewUserName]) {
+        _needChnageUserName = [notification.userInfo safeObjectForKey:kNewUserName];
+    }
     [self getNetworkData];
 }
 

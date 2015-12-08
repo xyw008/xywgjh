@@ -184,8 +184,8 @@
  
     _highestLB = [self creatLBText:@"最高温度:"];
     _highestValueLB = [self creatLBText:@"0.0度"];
-    _testTimeLB = [self creatLBText:@"已测:"];
-    _testTimeValueLB = [self creatLBText:@"58分钟"];
+    //_testTimeLB = [self creatLBText:@"已测:"];
+    //_testTimeValueLB = [self creatLBText:@"58分钟"];
     _deviceLB = [self creatLBText:@"设备:"];
     
     _deviceSignalIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_device_wifi_00"]];
@@ -234,25 +234,25 @@
         make.width.equalTo(highestValueLBWidth);
     }];
     
-    [_testTimeLB mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(_highestLB.mas_right);
-        make.top.equalTo(_highestLB.mas_bottom).offset(10);
-        make.height.equalTo(_highestLB.mas_height);
-        make.width.equalTo(_highestLB.mas_width);
-    }];
-    
-    [_testTimeValueLB mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(_highestValueLB.mas_right);
-        make.top.equalTo(_testTimeLB.mas_top);
-        make.height.equalTo(_testTimeLB.mas_height);
-        make.width.equalTo(_highestValueLB.mas_width);
-    }];
+//    [_testTimeLB mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(_highestLB.mas_right);
+//        make.top.equalTo(_highestLB.mas_bottom).offset(10);
+//        make.height.equalTo(_highestLB.mas_height);
+//        make.width.equalTo(_highestLB.mas_width);
+//    }];
+//    
+//    [_testTimeValueLB mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(_highestValueLB.mas_right);
+//        make.top.equalTo(_testTimeLB.mas_top);
+//        make.height.equalTo(_testTimeLB.mas_height);
+//        make.width.equalTo(_highestValueLB.mas_width);
+//    }];
     
     [_deviceLB mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_testTimeLB.mas_bottom).offset(10);
-        make.right.equalTo(_testTimeLB.mas_right);
-        make.width.equalTo(_testTimeLB.mas_width);
-        make.height.equalTo(_testTimeLB.mas_height);
+        make.top.equalTo(_highestLB.mas_bottom).offset(14);
+        make.right.equalTo(_highestLB.mas_right);
+        make.width.equalTo(_highestLB.mas_width);
+        make.height.equalTo(_highestLB.mas_height);
     }];
     
     [_deviceSignalIV mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -356,7 +356,7 @@
     
     if (temperature <= 32)
     {
-        
+        height -= 22;
     }
     else if (temperature >= 44)
     {
