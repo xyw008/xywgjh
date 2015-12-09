@@ -36,5 +36,7 @@ typedef void (^welcomeFinishCallBack)(NSInteger touchBtnIndex);
 - (void)removeSelf;
 
 
+- (void)setViewX:(CGFloat)x;
+
 
 @end

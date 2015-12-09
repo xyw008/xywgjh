@@ -54,7 +54,7 @@
     }
     else if (temperature <= 35.9)//蓝色
     {
-        return HEXCOLOR(0X6F70BA);
+        return HEXCOLOR(0X38b6ff);
     }
     else if(temperature <= 37.4)//绿色
     {
@@ -62,7 +62,7 @@
     }
     else if(temperature <= 37.9)//橙色
     {
-        return HEXCOLOR(0XFF4330);
+        return HEXCOLOR(0Xfa9d4d);
     }
     else//红色
     {
@@ -330,15 +330,16 @@
     }
 }
 
+
 - (void)setIsShowTemperatureStatus:(BOOL)isShowTemperatureStatus
 {
     _isShowTemperatureStatus = isShowTemperatureStatus;
     if (_isShowTemperatureStatus)
     {
-        for (UIView *subView in self.subviews) {
-                subView.hidden = NO;
-        }
-        _searchLB.hidden = YES;
+//        for (UIView *subView in self.subviews) {
+//                subView.hidden = NO;
+//        }
+//        _searchLB.hidden = YES;
         
         if (_isRemoteType) {
             self.isRemoteType = _isRemoteType;
@@ -349,10 +350,49 @@
 
 - (void)setTemperature:(CGFloat)temperature
 {
+    if (temperature == 0)
+        return;
     //检查温度是否需要报警
     [[AccountStautsManager sharedInstance] checkTemp:temperature];
     
     CGFloat height = DynamicWidthValue640(275/1.5);
+    
+    if (temperature <= 24)
+    {
+        if (_searchLB.hidden)
+        {
+            for (UIView *subView in self.subviews) {
+                subView.hidden = YES;
+            }
+            _searchLB.hidden = NO;
+        }
+        _searchLB.text = @"温度过低";
+        _searchLB.font = [UIFont systemFontOfSize:32];
+    }
+    else if (temperature >= 45)
+    {
+        if (_searchLB.hidden)
+        {
+            for (UIView *subView in self.subviews) {
+                subView.hidden = YES;
+            }
+            _searchLB.hidden = NO;
+        }
+        
+        _searchLB.text = @"温度异常";
+        _searchLB.font = [UIFont systemFontOfSize:32];
+    }
+    else
+    {
+        if (!_searchLB.hidden)
+        {
+            for (UIView *subView in self.subviews) {
+                subView.hidden = NO;
+            }
+            _searchLB.hidden = YES;
+            //_searchLB.text = @"温度异常";
+        }
+    }
     
     if (temperature <= 32)
     {

@@ -55,13 +55,6 @@
     [self initHeadAndNameView];
     [self initSexAndAgeView];
     [self initRoleView];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
     
     if (_userItem)
     {
@@ -77,6 +70,15 @@
             _lastSelectRoleBtn = btn;
         }
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

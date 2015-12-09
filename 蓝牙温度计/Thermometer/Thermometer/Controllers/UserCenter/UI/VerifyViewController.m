@@ -20,6 +20,8 @@
 
 #import "PasswordInputVC.h"
 #import "AppPropertiesInitialize.h"
+#import "AccountStautsManager.h"
+#import "LoginVC.h"
 
 @interface VerifyViewController ()
 {
@@ -66,6 +68,9 @@ static NSMutableArray* _userData2;
     [super viewWillAppear:animated];
     
     [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
+    
+    //手机校验通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkPhoneNum:) name:kCheckPhoneNumResultKey object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -73,6 +78,8 @@ static NSMutableArray* _userData2;
     [super viewWillDisappear:animated];
     
     [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)clickLeftButton
@@ -125,11 +132,13 @@ static NSMutableArray* _userData2;
                 _alert3 = alert;
                 */
                 
-                PasswordInputVC *passwordInput = [PasswordInputVC loadFromNib];
-                passwordInput.isModifyPassword = _isModifyPassword;
-                passwordInput.phoneNumStr = _phone;
+                [[AccountStautsManager sharedInstance] checkPhoneNumRequest:_phone];
                 
-                [self.navigationController pushViewController:passwordInput animated:YES];
+//                PasswordInputVC *passwordInput = [PasswordInputVC loadFromNib];
+//                passwordInput.isModifyPassword = _isModifyPassword;
+//                passwordInput.phoneNumStr = _phone;
+//                
+//                [self.navigationController pushViewController:passwordInput animated:YES];
             }
             else
             {
@@ -411,6 +420,31 @@ static NSMutableArray* _userData2;
     
     [_timer1 invalidate];
     return;
+}
+
+
+
+#pragma mark - notifiction
+- (void)checkPhoneNum:(NSNotification*)notification
+{
+    if (notification.userInfo)
+    {
+        BOOL hasRegister = [[notification.userInfo safeObjectForKey:@"hasRegister"] boolValue];
+        
+        if (hasRegister)
+        {
+            LoginVC *login = [LoginVC loadFromNib];
+            [self.navigationController pushViewController:login animated:YES];
+        }
+        else
+        {
+            PasswordInputVC *passwordInput = [PasswordInputVC loadFromNib];
+            passwordInput.isModifyPassword = _isModifyPassword;
+            passwordInput.phoneNumStr = _phone;
+            
+            [self.navigationController pushViewController:passwordInput animated:YES];
+        }
+    }
 }
 
 @end

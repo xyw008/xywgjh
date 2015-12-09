@@ -85,6 +85,10 @@ DEF_SINGLETON(YSBLEManager);
 
 - (void)startScanPeripherals
 {
+    if (_babyBluethooth == nil) {
+        [self initBluetoothInfo];
+    }
+    
     //停止之前的连接
     [_babyBluethooth cancelAllPeripheralsConnection];
     //设置委托后直接可以使用，无需等待CBCentralManagerStatePoweredOn状态。

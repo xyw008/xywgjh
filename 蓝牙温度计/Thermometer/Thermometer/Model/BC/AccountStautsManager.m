@@ -10,11 +10,17 @@
 #import "UserInfoModel.h"
 #import "ATAudioPlayManager.h"
 #import "InterfaceHUDManager.h"
+#import "LoginBC.h"
+#import "BaseNetworkViewController+NetRequestManager.h"
+#import "UrlManager.h"
+
 #import <AVFoundation/AVFoundation.h>
 
-@interface AccountStautsManager ()
+@interface AccountStautsManager ()<NetRequestDelegate>
 {
     BOOL        _alarming;//警报状态
+    NSDate      *_lastAlarmingTime;//最后一次提醒时间
+    NSInteger   _betweenTime;//警报间隔时间
 }
 
 @end
@@ -29,6 +35,13 @@ DEF_SINGLETON(AccountStautsManager);
     self = [super init];
     if (self) {
         _uploadTempData = YES;
+        
+        if ([[UserInfoModel getUserDefaultLoginName] isAbsoluteValid]) {
+            _isLogin = YES;
+            
+            //只要用户名就直接当做登陆处理
+            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessNotificationKey object:nil];
+        }
         
         _highAndLowAlarm = [[UserInfoModel getHighAndLowTepmAlarm] boolValue];
         _disconnectAlarm = [[UserInfoModel getDisconnectAlarm] boolValue];
@@ -135,8 +148,18 @@ DEF_SINGLETON(AccountStautsManager);
 
 - (void)startAlarm:(NSString*)title
 {
+    if (!_isLogin) {
+        return;
+    }
+    
     //警报中
     if (_alarming)
+        return;
+    
+    DLog(@"before = %ld  lasttime = %@   now = %@",[_lastAlarmingTime minutesBeforeDate:[NSDate date]],_lastAlarmingTime,[NSDate date]);
+    
+    //离上次报警时间低于10分钟
+    if (_lastAlarmingTime && [_lastAlarmingTime minutesBeforeDate:[NSDate date]] < _betweenTime)
         return;
     
     
@@ -157,11 +180,17 @@ DEF_SINGLETON(AccountStautsManager);
     if (_bellAlarm || _shakeAlarm)
     {
         _alarming = YES;
-        [[InterfaceHUDManager sharedInstance] showAlertWithTitle:@"报警提示" message:title alertShowType:AlertShowType_Informative cancelTitle:@"确定" cancelBlock:^(GJHAlertView *alertView, NSInteger index) {
-            [[ATAudioPlayManager shardManager] stopAllAudio];
-            AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
-            _alarming = NO;
-        } otherTitle:nil otherBlock:nil];
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"报警提示" message:@"报警提示" delegate:self cancelButtonTitle:nil otherButtonTitles:@"十分钟后再次提醒",@"二十分钟后再次提醒",@"三十分钟后再次提醒", nil];
+        [alert show];
+        
+//        [[InterfaceHUDManager sharedInstance] showAlertWithTitle:@"报警提示" message:title alertShowType:AlertShowType_Informative cancelTitle:@"十分钟后再次提醒" cancelBlock:^(GJHAlertView *alertView, NSInteger index) {
+//            [[ATAudioPlayManager shardManager] stopAllAudio];
+//            AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
+//            _alarming = NO;
+//            _lastAlarmingTime = [NSDate date];
+//        } otherTitle:@"三十分钟后再次提醒" otherBlock:nil];
     }
 }
 
@@ -189,6 +218,69 @@ void systemAudioCallback()
 //        [[ATAudioPlayManager shardManager] stopAudioDelegate:self];
 //        [[ATAudioPlayManager shardManager] playAudioNamed:name delegate:self tag:1000];
     }
+}
+
+
+#pragma mark - 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [[ATAudioPlayManager shardManager] stopAllAudio];
+    AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
+    _alarming = NO;
+    _lastAlarmingTime = [NSDate date];
+    if (buttonIndex == 0)
+        _betweenTime = 10;
+    else if (buttonIndex == 1)
+        _betweenTime = 20;
+    else if (buttonIndex == 2)
+        _betweenTime = 30;
+}
+
+
+#pragma mark - request
+- (void)checkPhoneNumRequest:(NSString *)phoneNum
+{
+    if (![phoneNum isAbsoluteValid]) {
+        return;
+    }
+    NSString *baseUrl = [UrlManager getRequestNameSpace];
+    NSString *addUrl = [[BaseNetworkViewController class] getRequestURLStr:NetUserRequestType_GetAllUserInfoNoImage];
+    
+    NSURL *url = [NSURL URLWithString:[UrlManager getImageRequestUrlStrByNameSpace:baseUrl urlComponent:addUrl]];
+    
+    [[NetRequestManager sharedInstance] sendRequest:url
+                                       parameterDic:@{@"phone":phoneNum}
+                                  requestMethodType:RequestMethodType_POST
+                                         requestTag:NetUserRequestType_GetAllUserInfoNoImage
+                                           delegate:self
+                                           userInfo:nil];
+}
+
+#pragma mark - NetRequest Delegate
+- (void)netRequest:(NetRequest *)request successWithInfoObj:(id)infoObj
+{
+    BOOL hasRegister = NO;
+    NSInteger result = [[infoObj safeObjectForKey:@"result"] integerValue];
+    if (result != 2) {
+        hasRegister = YES;
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kCheckPhoneNumResultKey object:nil userInfo:@{@"hasRegister":@(hasRegister)}];
+}
+
+- (void)netRequest:(NetRequest *)request failedWithError:(NSError *)error
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kCheckPhoneNumResultKey object:nil userInfo:@{@"hasRegister":@(NO)}];
+    
+    //    switch (request.tag)
+    //    {
+    //        case NetDeviceInfoRequestType_PostUserDevice:
+    //
+    //            break;
+    //
+    //        default:
+    //            break;
+    //    }
 }
 
 @end

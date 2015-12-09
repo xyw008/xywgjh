@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "CommonEntity.h"
 
+//校验手机结果通知
+static NSString * const kCheckPhoneNumResultKey = @"kCheckPhoneNumResultKey";
+
 //更换当前用户成功
 static NSString * const kChangeNowUserNotificationKey = @"kChangeNowUserNotificationKey";
 
@@ -40,5 +43,10 @@ AS_SINGLETON(AccountStautsManager);
 
 //断开蓝牙报警
 - (void)disconnectBluetoothAlarm;
+
+/**
+ *  校验手机号码是否注册，通过通知返回
+ */
+- (void)checkPhoneNumRequest:(NSString*)phoneNum;
 
 @end

@@ -151,7 +151,7 @@
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
     
-    if (!_autoHidden)
+    if (!_autoHidden && _nowShowIndex == 2)
     {
         for (NSInteger i=0; i<3; i++)
         {
@@ -379,6 +379,15 @@ static XLWelcomeAppView *welcomeView;
 //    }
 //    return self;
 //}
+
+- (void)setViewX:(CGFloat)x
+{
+    [UIView animateWithDuration:AnimationShowTime delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _bgView.frame = CGRectMake(x, _bgView.frameOriginY, _bgView.width, _bgView.height);
+    } completion:^(BOOL finished) {
+        
+    }];
+}
 
 - (void)removeSelf
 {

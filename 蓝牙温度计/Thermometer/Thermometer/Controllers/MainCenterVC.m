@@ -100,7 +100,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self autoLogin];
+    //[self autoLogin];
     
     _countdownTimer = 30;
     _isFUnit = [[UserInfoModel getIsFUnit] boolValue];
@@ -142,6 +142,17 @@
     [self judgeGoAppNum];
 }
 
+- (void)setLeftBtn
+{
+    if ([AccountStautsManager sharedInstance].isLogin) {
+        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left normalImg:[UIImage imageNamed:@"navigationbar_icon_menu"] highlightedImg:[UIImage imageNamed:@"navigationbar_icon_menu"] action:@selector(leftMenuBtnTouch:)];
+    }
+    else
+    {
+        [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Left barButtonTitle:@"返回" action:@selector(leftMenuBtnTouch:)];
+    }
+}
+
 - (void)autoLogin
 {
     
@@ -181,7 +192,7 @@
 
 - (void)judgeGoAppNum
 {
-    if (![[UserInfoModel getNoFirstGoApp] boolValue])
+    if (![[UserInfoModel getUserDefaultLoginName] isAbsoluteValid])
     {
         [AccountStautsManager sharedInstance].highAndLowAlarm = YES;
         [AccountStautsManager sharedInstance].disconnectAlarm = YES;
@@ -222,12 +233,14 @@
 
 - (void)removeWelcomeAppView
 {
-    [self initPopView];
-    [_welcomeAppView removeSelf];
-    [self hiddenNav:NO];
+    [_welcomeAppView setViewX:-self.view.width];
+    //[self initPopView];
+    //[_welcomeAppView removeSelf];
     
-    [UserInfoModel setUserDefaultNoFirstGoApp:@(YES)];
-    _welcomeAppView = nil;
+    //游客模式默认开启蓝牙模式
+    [self connectBluetoothBtnTouch:nil];
+    [self hiddenNav:NO];
+    //[UserInfoModel setUserDefaultNoFirstGoApp:@(YES)];
 }
 
 - (void)hiddenNav:(BOOL)hidden
@@ -285,6 +298,8 @@
     _bgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH,DynamicWidthValue640(587) + 55)];
     _bgScrollView.pagingEnabled = YES;
     _bgScrollView.showsHorizontalScrollIndicator = NO;
+    
+    _bgScrollView.scrollEnabled = [AccountStautsManager sharedInstance].isLogin;
     
     [self.view addSubview:_bgScrollView];
 }
@@ -499,7 +514,10 @@
     if ([AccountStautsManager sharedInstance].isLogin)
         [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleLeftView];
     else
-        [self goLoginView];
+    {
+        [self hiddenNav:YES];
+        [_welcomeAppView setViewX:0];
+    }
 }
 
 - (void)goUserEidt
@@ -632,7 +650,7 @@
     NSInteger index = btn.tag - kBottomBtnStartTag;
     if (index != 3 && _isVisitorType)
     {
-        [self goLoginView];
+        [self showHUDInfoByString:@"请先登录"];
         return;
     }
     
@@ -866,6 +884,7 @@
 #pragma mark - notification
 - (void)loginSuccess:(NSNotification*)notification
 {
+    _bgScrollView.scrollEnabled = YES;
     [self setSlideMenuVCEnablePan:YES];
     self.isVisitorType = NO;
     
