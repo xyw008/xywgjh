@@ -118,7 +118,8 @@
 - (void)hiddenNav:(BOOL)hidden
 {
     self.navigationController.navigationBarHidden = hidden;
-    [AppPropertiesInitialize setBackgroundColorToStatusBar:hidden ? HEXCOLOR(0X3C3A47) : Common_ThemeColor];
+    
+    // [AppPropertiesInitialize setBackgroundColorToStatusBar:hidden ? HEXCOLOR(0X3C3A47) : Common_ThemeColor];
 }
 
 - (void)removeWelcomeAppView

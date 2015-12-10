@@ -108,7 +108,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
+    // [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
     
     return YES;
 }

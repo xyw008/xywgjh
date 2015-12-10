@@ -57,14 +57,23 @@
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
+
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
     [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
+
+    [super viewDidDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning {

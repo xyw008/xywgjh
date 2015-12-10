@@ -45,14 +45,15 @@
     [super viewWillAppear:animated];
     
     [AppPropertiesInitialize setKeyboardManagerEnable:NO];
-    [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
+    
+    //[AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
+    // [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
 }
 
 -(void)clickLeftButton
