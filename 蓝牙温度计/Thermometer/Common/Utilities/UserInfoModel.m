@@ -45,7 +45,7 @@
 #define UserDefault_LowTempKey              @"UserDefault_LowTempKey"            //低温报警值
 #define UserDefault_BellMp3NameKey          @"UserDefault_BellMp3NameKey"        //报警铃声
 #define UserDefault_LastAlarmDateKey        @"UserDefault_LastAlarmDateKey"      //最后一次报警时间
-
+#define UserDefault_LastAlarmBetweenKey     @"UserDefault_LastAlarmBetweenKey"   //最后一次报警间隔时间
 
 @implementation UserInfoModel
 
@@ -480,6 +480,19 @@ DEF_SINGLETON(UserInfoModel);
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_LastAlarmDateKey];
 }
+
+//最后一次警告 后间隔时间
++ (void)setUserDefaultLastAlarmBetween:(NSNumber*)lastAlarmBetween
+{
+    [[NSUserDefaults standardUserDefaults] setObject:lastAlarmBetween forKey:UserDefault_LastAlarmBetweenKey];
+    [self saveUserDefaultInfo];
+}
+
++ (NSNumber *)getLastAlarmBetween
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_LastAlarmBetweenKey];
+}
+
 
 
 @end

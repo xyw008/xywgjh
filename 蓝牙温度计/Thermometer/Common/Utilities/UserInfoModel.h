@@ -127,4 +127,8 @@ AS_SINGLETON(UserInfoModel);
 + (void)setUserDefaultLastAlarmDate:(NSDate*)lastAlarmDate;
 + (NSDate *)getLastAlarmDate;
 
+//最后一次警告 后间隔时间
++ (void)setUserDefaultLastAlarmBetween:(NSNumber*)lastAlarmBetween;
++ (NSNumber *)getLastAlarmBetween;
+
 @end

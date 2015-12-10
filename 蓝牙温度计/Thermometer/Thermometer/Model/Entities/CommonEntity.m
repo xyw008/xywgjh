@@ -88,7 +88,12 @@
     {
         self.temp = [[dict objectForKey:@"temp"] floatValue];
         self.time = [dict objectForKey:@"date"];
-        
+        if (_time)
+        {
+            NSMutableString *timeString = [NSMutableString stringWithString:_time];
+            [timeString replaceCharactersInRange:NSMakeRange(10, 1) withString:@" "];
+            self.date = [NSString dateFromString:timeString withFormatter:DataFormatter_DateAndTime];
+        }
     }
     return self;
 }

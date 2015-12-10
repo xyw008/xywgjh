@@ -21,6 +21,7 @@
     BOOL        _alarming;//警报状态
     NSDate      *_lastAlarmingTime;//最后一次提醒时间
     NSInteger   _betweenTime;//警报间隔时间
+    BOOL        _isDisconnectAlarm;//是断开连接警报
 }
 
 @end
@@ -66,6 +67,12 @@ DEF_SINGLETON(AccountStautsManager);
         }
         
         _lastAlarmingTime = [UserInfoModel getLastAlarmDate];
+        if ([UserInfoModel getLastAlarmBetween]) {
+            _betweenTime = [[UserInfoModel getLastAlarmBetween] integerValue];
+        }
+        else
+            _betweenTime = -1;
+        
     }
     return self;
 }
@@ -126,15 +133,19 @@ DEF_SINGLETON(AccountStautsManager);
 #pragma mark - 
 - (void)checkTemp:(CGFloat)temp
 {
+    temp -= 20;
+    
     if (_highAndLowAlarm)
     {
         if (temp >= _highTemp)
         {
+            _isDisconnectAlarm = NO;
             [self startAlarm:@"高温警报"];
         }
         
         if (temp <= _lowTemp)
         {
+            _isDisconnectAlarm = NO;
             [self startAlarm:@"低温警报"];
         }
     }
@@ -144,6 +155,7 @@ DEF_SINGLETON(AccountStautsManager);
 {
     if (_disconnectAlarm)
     {
+        _isDisconnectAlarm = YES;
         [self startAlarm:@"设备已断开"];
     }
 }
@@ -158,19 +170,24 @@ DEF_SINGLETON(AccountStautsManager);
     if (_alarming)
         return;
     
-    DLog(@"before = %ld  lasttime = %@   now = %@",[_lastAlarmingTime minutesBeforeDate:[NSDate date]],_lastAlarmingTime,[NSDate date]);
+    //DLog(@"before = %ld  lasttime = %@   now = %@",[_lastAlarmingTime minutesBeforeDate:[NSDate date]],_lastAlarmingTime,[NSDate date]);
     
-    //离上次报警时间低于10分钟
-    if (_lastAlarmingTime && [_lastAlarmingTime minutesBeforeDate:[NSDate date]] < _betweenTime)
+    //不是断开连接警报   离上次报警时间低于10分钟
+//    if (!_isDisconnectAlarm && _lastAlarmingTime && [_lastAlarmingTime minutesBeforeDate:[NSDate date]] < _betweenTime)
+//        return;
+    
+    if (!_isDisconnectAlarm && _lastAlarmingTime && [_lastAlarmingTime minutesBeforeDate:[NSDate date]] < 1)
         return;
-    
     
     if (_bellAlarm)
     {
-        NSString *name = [NSString stringWithFormat:@"%@.mp3",_bellMp3Name];
-        [[ATAudioPlayManager shardManager] stopAudioDelegate:self];
-        AVAudioPlayer *player = [[ATAudioPlayManager shardManager] playAudioNamed:name delegate:self tag:1000];
-        player.numberOfLoops = 1000;
+        if (!_enterBackground)
+        {
+            NSString *name = [NSString stringWithFormat:@"%@.mp3",_bellMp3Name];
+            [[ATAudioPlayManager shardManager] stopAudioDelegate:self];
+            AVAudioPlayer *player = [[ATAudioPlayManager shardManager] playAudioNamed:name delegate:self tag:1000];
+            player.numberOfLoops = 1000;
+        }
     }
     if (_shakeAlarm)
     {
@@ -182,11 +199,45 @@ DEF_SINGLETON(AccountStautsManager);
     if (_bellAlarm || _shakeAlarm)
     {
         _alarming = YES;
-        _lastAlarmingTime = [NSDate date];
-        [UserInfoModel setUserDefaultLastAlarmDate:_lastAlarmingTime];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"报警提示" message:@"报警提示" delegate:self cancelButtonTitle:nil otherButtonTitles:@"十分钟后再次提醒",@"二十分钟后再次提醒",@"三十分钟后再次提醒", nil];
-        [alert show];
+        //不是断开警报
+        if (!_isDisconnectAlarm)
+        {
+            _lastAlarmingTime = [NSDate date];
+            [UserInfoModel setUserDefaultLastAlarmDate:_lastAlarmingTime];
+        }
+        
+        if (_enterBackground)
+        {
+            
+            //定义本地通知对象
+            UILocalNotification *notification=[[UILocalNotification alloc]init];
+            //设置调用时间
+            notification.fireDate=[NSDate dateWithTimeIntervalSinceNow:0];//通知触发的时间，10s以后
+            notification.repeatInterval = 15;//通知重复次数
+            //notification.repeatCalendar=[NSCalendar currentCalendar];//当前日历，使用前最好设置时区等信息以便能够自动同步时间
+            //设置通知属性
+            notification.alertBody = title; //通知主体
+            notification.applicationIconBadgeNumber=1;//应用程序图标右上角显示的消息数
+            notification.alertAction=@"打开应用"; //待机界面的滑动动作提示
+            notification.alertLaunchImage=@"Default";//通过点击通知打开应用时的启动图片,这里使用程序启动图片
+            //notification.soundName=UILocalNotificationDefaultSoundName;//收到通知时播放的声音，默认消息声音
+            notification.soundName=[NSString stringWithFormat:@"%@.mp3",_bellMp3Name];//通知声音（需要真机才能听到声音）
+            
+            //设置用户信息
+            notification.userInfo=@{@"id":@1,@"user":@"Kenshin Cui"};//绑定到通知上的其他附加信息
+            
+            //调用通知
+            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"报警提示" message:title delegate:self cancelButtonTitle:nil otherButtonTitles:@"十分钟后再次提醒",@"二十分钟后再次提醒",@"三十分钟后再次提醒", nil];
+            [alert show];
+        }
+        
+        
         
 //        [[InterfaceHUDManager sharedInstance] showAlertWithTitle:@"报警提示" message:title alertShowType:AlertShowType_Informative cancelTitle:@"十分钟后再次提醒" cancelBlock:^(GJHAlertView *alertView, NSInteger index) {
 //            [[ATAudioPlayManager shardManager] stopAllAudio];
@@ -237,6 +288,11 @@ void systemAudioCallback()
         _betweenTime = 20;
     else if (buttonIndex == 2)
         _betweenTime = 30;
+    
+    //不是断开警报 保存间隔时间
+    if (!_isDisconnectAlarm) {
+        [UserInfoModel setUserDefaultLastAlarmBetween:[NSNumber numberWithInteger:_betweenTime]];
+    }
 }
 
 

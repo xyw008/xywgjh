@@ -388,6 +388,14 @@
     CGFloat x = kValueLBWidth + _chartValueWidth * betweenTime / totalBetweenTime;
     CGFloat y = _topMargin + _chartValueHeight - _chartValueHeight * (temp - kMinTemp) / (kMaxTemp - kMinTemp);
     
+    if (x < kValueLBWidth) {
+        x = kValueLBWidth;
+    }
+    
+    if (y > _topMargin + _chartValueHeight) {
+        y = _topMargin + _chartValueHeight;
+    }
+    
     return CGPointMake(x, y);
 }
 

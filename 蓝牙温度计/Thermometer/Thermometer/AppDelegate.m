@@ -23,6 +23,7 @@
 #import <SMS_SDK/SMSSDK+AddressBookMethods.h>
 #import "PasswordInputVC.h"
 #import "BabyBluetooth.h"
+#import "AccountStautsManager.h"
 
 #define appKey      @"a8ea83ab1e88"
 #define appSecret   @"984b8c403f774dc553356467397313c7"
@@ -119,12 +120,14 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    [AccountStautsManager sharedInstance].enterBackground = YES;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    [AccountStautsManager sharedInstance].enterBackground = NO;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -144,36 +147,6 @@
 //        [self.centralManger scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"f3d9"]]
 //                                                   options:nil];
 //    }
-}
-
-
-
--(void)receiveData:(NSData*)data
-{
-    NSLog(@"收到数据了");
-    
-    //收到数据, 设置推送
-    UILocalNotification *noti = [[UILocalNotification alloc] init];
-    if (noti)
-    {
-        //设置时区
-        noti.timeZone = [NSTimeZone defaultTimeZone];
-        //设置重复间隔
-        noti.repeatInterval = NSWeekCalendarUnit;
-        //推送声音
-        noti.soundName = UILocalNotificationDefaultSoundName;
-        //内容
-        noti.alertBody = @"接收到数据了";
-        noti.alertAction = @"打开";
-        //显示在icon上的红色圈中的数子
-        noti.applicationIconBadgeNumber = 1;
-        //设置userinfo 方便在之后需要撤销的时候使用
-        NSDictionary *infoDic = [NSDictionary dictionaryWithObject:@"name" forKey:@"key"];
-        noti.userInfo = infoDic;
-        //添加推送到uiapplication
-        UIApplication *app = [UIApplication sharedApplication];
-        [app scheduleLocalNotification:noti];
-    }
 }
 
 #pragma mark - /***************************推送相关***************************/

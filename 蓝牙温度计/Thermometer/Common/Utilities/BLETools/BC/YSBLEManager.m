@@ -474,7 +474,7 @@ DEF_SINGLETON(YSBLEManager);
         }
         
         if (_groupTemperatureCallBack) {
-            _groupTemperatureCallBack(_groupTemperatureDic);
+            _groupTemperatureCallBack(_groupTemperatureDic,_is30Second);
         }
     }
 }

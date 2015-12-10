@@ -559,43 +559,48 @@
     }];
     
     //组温度数据回调
-    [_ysBluethooth setGroupTemperatureCallBack:^(NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic){
+    [_ysBluethooth setGroupTemperatureCallBack:^(NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic,BOOL is30Second){
         STRONGSELF
-        NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
-        NSArray *keyArray = temperatureDic.allKeys;
-        keyArray = [keyArray sortedArrayUsingComparator:(NSComparator)^(id obj1, id obj2) {
-            return [obj1 compare:obj2 options:NSNumericSearch];
-        }];
-        
-        for (NSInteger i=0; i< keyArray.count; i++)
+        if (is30Second)
         {
-            NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[keyArray objectAtIndex:i]];
-            [dataArray addObjectsFromArray:oneGroupItemArray];
+            NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
+            NSArray *keyArray = temperatureDic.allKeys;
+            keyArray = [keyArray sortedArrayUsingComparator:(NSComparator)^(id obj1, id obj2) {
+                return [obj1 compare:obj2 options:NSNumericSearch];
+            }];
             
-//            for (BLECacheDataEntity *item in oneGroupItemArray)
-//            {
-//                //[dataArray addObject:@(item.temperature)];
-//                [dataArray addObject:@(item.temperature + 9)];
-//            }
-        }
-    
-        if ([dataArray isAbsoluteValid])
-        {
-            if (strongSelf->_searchLB)
+            for (NSInteger i=0; i< keyArray.count; i++)
             {
-                [strongSelf->_searchLB removeFromSuperview];
-                strongSelf->_searchLB = nil;
-                strongSelf->_fsLineTemperatureView.hidden = NO;
+                NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[keyArray objectAtIndex:i]];
+                [dataArray addObjectsFromArray:oneGroupItemArray];
+                
+                //            for (BLECacheDataEntity *item in oneGroupItemArray)
+                //            {
+                //                //[dataArray addObject:@(item.temperature)];
+                //                [dataArray addObject:@(item.temperature + 9)];
+                //            }
             }
-            NSDate *endDate = [NSDate date];
             
-            NSDate *startDate = [endDate dateBySubtractingMinutes:30];
-            [strongSelf->_chartView loadDataArray:dataArray startDate:[startDate dateByAddingSecond:30] endDate:endDate];
-            
-//            [strongSelf->_fsLineTemperatureView clearChartData];
-//            [strongSelf->_fsLineTemperatureView setChartData:dataArray];
-            [weakSelf start30SecondCountdownTimer];
+            if ([dataArray isAbsoluteValid])
+            {
+                if (strongSelf->_searchLB)
+                {
+                    [strongSelf->_searchLB removeFromSuperview];
+                    strongSelf->_searchLB = nil;
+                    strongSelf->_fsLineTemperatureView.hidden = NO;
+                }
+                NSDate *endDate = [NSDate date];
+                
+                NSDate *startDate = [endDate dateBySubtractingMinutes:30];
+                [strongSelf->_chartView loadDataArray:dataArray startDate:[startDate dateByAddingSecond:30] endDate:endDate];
+                
+                //            [strongSelf->_fsLineTemperatureView clearChartData];
+                //            [strongSelf->_fsLineTemperatureView setChartData:dataArray];
+                [weakSelf start30SecondCountdownTimer];
+            }
         }
+        
+        
     }];
     
     [_ysBluethooth startScanPeripherals];
@@ -624,20 +629,19 @@
             for (NSInteger i=0; i < fillingTempArray.count; i++)
             {
                 RemoteTempItem *item = [fillingTempArray objectAtIndex:i];
-                [dataArray addObject:[NSNumber numberWithFloat:item.temp]];
+                BLECacheDataEntity *dataItem = [BLECacheDataEntity new];
+                dataItem.temperature = item.temp;
+                dataItem.date = item.date;
+                
+                [dataArray addObject:dataItem];
             }
-            if (strongSelf->_searchLB)
-            {
-                [strongSelf->_searchLB removeFromSuperview];
-                strongSelf->_searchLB = nil;
-                strongSelf->_fsLineTemperatureView.hidden = NO;
-            }
-            [strongSelf->_fsLineTemperatureView clearChartData];
-            [strongSelf->_fsLineTemperatureView setChartData:dataArray];
+            
+            [strongSelf->_chartView loadDataArray:dataArray startDate:beginDate endDate:endDate];
+
         }
     }];
     
-    [self getNetworkData];
+    //[self getNetworkData];
     [self start30SecondCountdownTimer];
     
     [self getRemoteTempGroup];
@@ -756,7 +760,8 @@
 {
     if (![AccountStautsManager sharedInstance].isLogin || ![AccountStautsManager sharedInstance].nowUserItem)
     {
-        [self goAddUserVC];
+        //[self goAddUserVC];
+        [self showHUDInfoByString:@"当前没有成员，请先添加成员"];
         return;
     }
     
@@ -803,7 +808,7 @@
         }
         else
         {
-            [self getNetworkData];
+            //[self getNetworkData];
             [self getRemoteTempGroup];
         }
     }

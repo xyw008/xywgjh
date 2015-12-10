@@ -18,6 +18,7 @@ static NSString * const kChangeNowUserNotificationKey = @"kChangeNowUserNotifica
 
 @interface AccountStautsManager : NSObject
 
+@property (nonatomic,assign)BOOL        enterBackground;//是否进入后台
 
 @property (nonatomic,assign)BOOL        isLogin;//登陆状态
 

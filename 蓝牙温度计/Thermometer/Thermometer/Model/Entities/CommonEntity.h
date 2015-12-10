@@ -36,6 +36,7 @@
 
 @property (nonatomic,assign)CGFloat         temp;//温度
 @property (nonatomic,copy)NSString          *time;//时间
+@property (nonatomic,strong)NSDate          *date;
 
 @end
 

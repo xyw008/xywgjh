@@ -11,6 +11,8 @@
 
 @interface XLChartView : UIView
 
+@property (nonatomic) BOOL              is30Second;//30秒类型
+
 @property (nonatomic, strong) UIFont    *indexLBFont;//水平index
 @property (nonatomic) UIColor           *indexLBTextColor;
 @property (nonatomic) UIColor           *indexLBBgColor;
