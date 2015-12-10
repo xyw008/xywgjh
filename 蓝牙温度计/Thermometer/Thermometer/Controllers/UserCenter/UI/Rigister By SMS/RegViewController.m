@@ -45,14 +45,20 @@
     [super viewWillAppear:animated];
     
     [AppPropertiesInitialize setKeyboardManagerEnable:NO];
-    [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    //[AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
+    if (IOS7)
+    {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
+    // [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
 }
 
 -(void)clickLeftButton

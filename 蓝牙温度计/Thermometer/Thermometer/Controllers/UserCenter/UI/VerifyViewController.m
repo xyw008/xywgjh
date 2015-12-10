@@ -67,7 +67,8 @@ static NSMutableArray* _userData2;
 {
     [super viewWillAppear:animated];
     
-    [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    // [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
     
     //手机校验通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkPhoneNum:) name:kCheckPhoneNumResultKey object:nil];
@@ -77,7 +78,11 @@ static NSMutableArray* _userData2;
 {
     [super viewWillDisappear:animated];
     
-    [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
+    if (IOS7)
+    {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
+    // [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

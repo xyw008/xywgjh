@@ -248,7 +248,7 @@
     self.navigationController.navigationBarHidden = hidden;
     [self setSlideMenuVCEnablePan:!hidden];
     
-    [AppPropertiesInitialize setBackgroundColorToStatusBar:hidden ? HEXCOLOR(0X3C3A47) : Common_ThemeColor];
+    // [AppPropertiesInitialize setBackgroundColorToStatusBar:hidden ? HEXCOLOR(0X3C3A47) : Common_ThemeColor];
 }
 
 - (void)setSlideMenuVCEnablePan:(BOOL)enable

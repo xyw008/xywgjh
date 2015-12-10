@@ -51,7 +51,7 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
-    [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
+    // [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
     [AppPropertiesInitialize setKeyboardManagerEnable:YES];
 }
 
@@ -59,8 +59,7 @@
 {
     [super viewWillDisappear:animated];
     
-    
-    [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
+    // [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
 }
 
 - (void)didReceiveMemoryWarning {

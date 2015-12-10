@@ -10,6 +10,8 @@
 #import "BLEManager.h"
 #import "AccountStautsManager.h"
 
+#define kTempFont [UIFont italicSystemFontOfSize:75]
+
 @interface TemperaturesShowView ()
 {
     UILabel         *_searchLB;//搜索中LB
@@ -159,7 +161,8 @@
     
     //UniDreamLED font name
     //_temperaturesLB = [[UILabel alloc] init];
-    _temperaturesLB = [[UILabel alloc] initWithText:@"38" font:[UIFont fontWithName:@"UniDreamLED" size:90]];
+    //_temperaturesLB = [[UILabel alloc] initWithText:@"38" font:[UIFont fontWithName:@"UniDreamLED" size:90]];
+    _temperaturesLB = [[UILabel alloc] initWithText:@"38" font:kTempFont];
     _temperaturesLB.textColor = _temperaturesColorView.backgroundColor;
     [self addSubview:_temperaturesLB];
     _temperaturesLB.hidden = YES;
@@ -429,7 +432,9 @@
     NSString *nowTemperatureString = [NSString stringWithFormat:@"%.1lf",temperature];
     
     //华式显示会有查过100的情况。
-    _temperaturesLB.font = nowTemperatureString.length > 4 ? [UIFont fontWithName:@"UniDreamLED" size:79] : [UIFont fontWithName:@"UniDreamLED" size:90];
+    //_temperaturesLB.font = nowTemperatureString.length > 4 ? [UIFont fontWithName:@"UniDreamLED" size:79] : [UIFont fontWithName:@"UniDreamLED" size:90];
+    _temperaturesLB.font = nowTemperatureString.length > 4 ? [UIFont italicSystemFontOfSize:65] : kTempFont;
+    
     _temperaturesLB.text = nowTemperatureString;
     _temperaturesLB.textColor = _temperaturesColorView.backgroundColor;
 }
