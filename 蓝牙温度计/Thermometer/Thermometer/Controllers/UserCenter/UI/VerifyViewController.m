@@ -439,9 +439,13 @@ static NSMutableArray* _userData2;
         
         if (hasRegister)
         {
-            LoginVC *login = [LoginVC loadFromNib];
-            login.isFromSMSVC = YES;
-            [self.navigationController pushViewController:login animated:YES];
+            
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+//            LoginVC *login = [LoginVC loadFromNib];
+//            login.isFromSMSVC = YES;
+//            [self.navigationController pushViewController:login animated:YES];
         }
         else
         {

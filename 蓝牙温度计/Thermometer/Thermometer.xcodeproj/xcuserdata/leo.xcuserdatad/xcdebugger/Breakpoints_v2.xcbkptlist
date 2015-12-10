@@ -67,13 +67,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Common/Utilities/BLETools/BC/YSBLEManager.m"
-            timestampString = "471377432.807949"
+            filePath = "Thermometer/Controllers/TemperatureRecord/TemperatureRecordVC.m"
+            timestampString = "471447859.362755"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
-            landmarkName = "-bluethoothDelegate"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
+            landmarkName = "-getOneDayTemp:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

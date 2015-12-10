@@ -34,12 +34,13 @@
     BOOL                        _hasGroupNotifiy;//是否已经设置温度组的通知（defalut:NO）
     NSInteger                   _groupIndex;//取温度的组数从1开始(30秒 最大6，5分钟 最大30)
     NSMutableDictionary         *_groupTemperatureDic;//温度组
-    
+    BOOL                        _isFirstGetGroupTemp;//是否是第一次获取温度数据（用于判断是否是蓝牙缓存数据，决定是否上传）
     
     NSInteger                   _uploadIndex;//上传数据计数，和rssi一个定时器。5秒一次回调，30秒请求一次上报
     BOOL                        _isUploadRequesting;//数据上报状态
     BOOL                        _hasReturnCurrTemp;//有开始返回实时温度了
-    NSMutableArray<NSDictionary*>  *_currTempArray;//实时温度保存数组(温度和对应的时间)
+    NSMutableArray<NSDictionary*>  *_currTempArray;//实时温度保存数组(温度和对应的时间字符串)
+    NSMutableArray<NSDate*>     *_currTempDateArray;//实时温度对应的时间数组
     NSInteger                   _hasUploadIndex;//数组数据已经上传到的index
 }
 
@@ -64,11 +65,13 @@ DEF_SINGLETON(YSBLEManager);
         _groupIndex = 1;
         _hasGroupNotifiy = NO;
         _groupTemperatureDic = [[NSMutableDictionary alloc] init];
+        _isFirstGetGroupTemp = YES;
         
         _uploadIndex = 1;
         _isUploadRequesting = NO;
         _hasReturnCurrTemp = NO;
         _currTempArray = [NSMutableArray new];
+        _currTempDateArray = [NSMutableArray new];
         _hasUploadIndex = 0;
         
         _isFUnit = [[UserInfoModel getIsFUnit] boolValue];
@@ -416,11 +419,13 @@ DEF_SINGLETON(YSBLEManager);
         _actualTimeValueCallBack(newTemperature,_rssi,newBettey);
         _hasReturnCurrTemp = YES;
         
+        NSDate *date = [NSDate date];
         //保存数据，用于上传
-        NSString *dateString = [self getToSeviserTimeStr:[NSDate date]];
+        NSString *dateString = [self getToSeviserTimeStr:date];
         NSDictionary *tempDic = @{@"temp":[NSString stringWithFormat:@"%.1lf",newTemperature],
                                   @"date":dateString};
         [_currTempArray addObject:tempDic];
+        [_currTempDateArray addObject:date];
     }
 }
 
@@ -429,7 +434,6 @@ DEF_SINGLETON(YSBLEManager);
 {
     NSDictionary *dic = [BLEManager getCacheTemperatureDataWithBLEData:characteristic.value error:nil];
     //DLog(@"dic   =%@",dic);
-    
     [_groupTemperatureDic addEntriesFromDictionary:dic];
     
     if ([dic isAbsoluteValid])
@@ -459,6 +463,16 @@ DEF_SINGLETON(YSBLEManager);
     
     if (1 == _groupIndex)
     {
+        //第一次获取温度组判断是否是蓝牙缓存数据，没有上报需要做上报处理
+        if (_isFirstGetGroupTemp)
+        {
+            NSDate *lastUploadDate = [UserInfoModel getLastUploadTempDate];
+            if (lastUploadDate)
+            {
+                
+            }
+        }
+        
         if (_groupTemperatureCallBack) {
             _groupTemperatureCallBack(_groupTemperatureDic);
         }
@@ -544,7 +558,15 @@ DEF_SINGLETON(YSBLEManager);
         for (NSInteger i=0; i<_hasUploadIndex; i++)
         {
             if ([_currTempArray isAbsoluteValid])
+            {
+                if (i == _hasUploadIndex - 1)
+                {
+                    NSDate *lastUploadTempDate = [_currTempDateArray objectAtIndex:0];
+                    [UserInfoModel setUserDefaultLastUploadTempDate:lastUploadTempDate];
+                }
                 [_currTempArray removeObjectAtIndex:0];
+                [_currTempDateArray removeObjectAtIndex:0];
+            }
         }
     }
     else if (request.tag == NetTempRequestType_DownloadIntervalTemp)

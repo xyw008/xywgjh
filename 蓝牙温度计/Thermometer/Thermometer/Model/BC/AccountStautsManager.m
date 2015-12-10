@@ -64,6 +64,8 @@ DEF_SINGLETON(AccountStautsManager);
         if (![_bellMp3Name isAbsoluteValid]) {
             self.bellMp3Name = @"beacon";
         }
+        
+        _lastAlarmingTime = [UserInfoModel getLastAlarmDate];
     }
     return self;
 }
@@ -180,7 +182,8 @@ DEF_SINGLETON(AccountStautsManager);
     if (_bellAlarm || _shakeAlarm)
     {
         _alarming = YES;
-        
+        _lastAlarmingTime = [NSDate date];
+        [UserInfoModel setUserDefaultLastAlarmDate:_lastAlarmingTime];
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"报警提示" message:@"报警提示" delegate:self cancelButtonTitle:nil otherButtonTitles:@"十分钟后再次提醒",@"二十分钟后再次提醒",@"三十分钟后再次提醒", nil];
         [alert show];

@@ -41,6 +41,10 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     
     [self initTableView];
     
+    if ([AccountStautsManager sharedInstance].isLogin) {
+        [self getNetworkData];
+    }
+    
     
     //登陆成功通知
     [[NSNotificationCenter defaultCenter] addObserver:self

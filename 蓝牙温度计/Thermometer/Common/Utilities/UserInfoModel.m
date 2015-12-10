@@ -35,7 +35,7 @@
 
 #define UserDefault_NoFirstAppKey          @"UserDefault_NoFirstAppKey"         //不是第一次进入app
 #define UserDefault_IsFUnitKey             @"UserDefault_IsFUnitKey"            //温度显示单位
-
+#define UserDefault_LastUploadTempDateKey  @"UserDefault_LastUploadTempDateKey" //最后一个上传温度的时间
 
 #define UserDefault_HighLowAlarmKey         @"UserDefault_HighLowAlarmKey"       //高低温报警开关
 #define UserDefault_DisconnectAlarmKey      @"UserDefault_DisconnectAlarmKey"    //断开报警开关
@@ -43,7 +43,8 @@
 #define UserDefault_ShakeAlarmKey           @"UserDefault_ShakeAlarmKey"         //报警震动开关
 #define UserDefault_HighTempKey             @"UserDefault_HighTempKey"           //高温报警值
 #define UserDefault_LowTempKey              @"UserDefault_LowTempKey"            //低温报警值
-#define UserDefault_BellMp3NameKey              @"UserDefault_BellMp3NameKey"        //报警铃声
+#define UserDefault_BellMp3NameKey          @"UserDefault_BellMp3NameKey"        //报警铃声
+#define UserDefault_LastAlarmDateKey        @"UserDefault_LastAlarmDateKey"      //最后一次报警时间
 
 
 @implementation UserInfoModel
@@ -364,6 +365,21 @@ DEF_SINGLETON(UserInfoModel);
 }
 
 
+
+//最后一次上传温度时间
++ (void)setUserDefaultLastUploadTempDate:(NSDate*)lastUploadTempDate
+{
+    [[NSUserDefaults standardUserDefaults] setObject:lastUploadTempDate forKey:UserDefault_LastUploadTempDateKey];
+    [self saveUserDefaultInfo];
+}
+
++ (NSDate *)getLastUploadTempDate
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_LastUploadTempDateKey];
+}
+
+
+
 #pragma mark - Alarm
 //高低温报警开关
 + (void)setUserDefaultHighAndLowTepmAlarm:(NSNumber*)highLowAlarm
@@ -453,6 +469,17 @@ DEF_SINGLETON(UserInfoModel);
 }
 
 
+//最后一次警告时间
++ (void)setUserDefaultLastAlarmDate:(NSDate*)lastAlarmDate
+{
+    [[NSUserDefaults standardUserDefaults] setObject:lastAlarmDate forKey:UserDefault_LastAlarmDateKey];
+    [self saveUserDefaultInfo];
+}
+
++ (NSDate *)getLastAlarmDate
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_LastAlarmDateKey];
+}
 
 
 @end

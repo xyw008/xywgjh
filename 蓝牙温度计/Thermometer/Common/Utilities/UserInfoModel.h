@@ -89,6 +89,11 @@ AS_SINGLETON(UserInfoModel);
 + (void)setUserDefaultIsFUnit:(NSNumber*)isFUnit;
 + (NSNumber *)getIsFUnit;
 
+//最后一次上传温度
++ (void)setUserDefaultLastUploadTempDate:(NSDate*)lastUploadTempDate;
++ (NSDate *)getLastUploadTempDate;
+
+
 
 //高低温报警开关
 + (void)setUserDefaultHighAndLowTepmAlarm:(NSNumber*)highLowAlarm;
@@ -117,5 +122,9 @@ AS_SINGLETON(UserInfoModel);
 //报警铃声名字
 + (void)setUserDefaultBellMp3Name:(NSString*)bellMp3Name;
 + (NSString *)getBellMp3Name;
+
+//最后一次警告时间
++ (void)setUserDefaultLastAlarmDate:(NSDate*)lastAlarmDate;
++ (NSDate *)getLastAlarmDate;
 
 @end
