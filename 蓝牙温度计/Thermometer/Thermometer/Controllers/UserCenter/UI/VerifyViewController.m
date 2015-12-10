@@ -132,13 +132,19 @@ static NSMutableArray* _userData2;
                 _alert3 = alert;
                 */
                 
-                [[AccountStautsManager sharedInstance] checkPhoneNumRequest:_phone];
+                //忘记密码
+                if (_isModifyPassword)
+                {
+                    PasswordInputVC *passwordInput = [PasswordInputVC loadFromNib];
+                    passwordInput.isModifyPassword = _isModifyPassword;
+                    passwordInput.phoneNumStr = _phone;
+                    
+                    [self.navigationController pushViewController:passwordInput animated:YES];
+                }
+                //注册，先校验是否已经是注册账号
+                else
+                   [[AccountStautsManager sharedInstance] checkPhoneNumRequest:_phone];
                 
-//                PasswordInputVC *passwordInput = [PasswordInputVC loadFromNib];
-//                passwordInput.isModifyPassword = _isModifyPassword;
-//                passwordInput.phoneNumStr = _phone;
-//                
-//                [self.navigationController pushViewController:passwordInput animated:YES];
             }
             else
             {
@@ -434,6 +440,7 @@ static NSMutableArray* _userData2;
         if (hasRegister)
         {
             LoginVC *login = [LoginVC loadFromNib];
+            login.isFromSMSVC = YES;
             [self.navigationController pushViewController:login animated:YES];
         }
         else

@@ -143,6 +143,7 @@
     if (1 == buttonIndex)
     {
         VerifyViewController* verify = [[VerifyViewController alloc] init];
+        verify.isModifyPassword = _isModifyPassword;
         NSString* str2 = [self.areaCodeField.text stringByReplacingOccurrencesOfString:@"+" withString:@""];
         [verify setPhone:self.telField.text AndAreaCode:str2];
         

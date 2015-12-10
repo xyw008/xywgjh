@@ -27,6 +27,7 @@
     [super viewDidLoad];
     
     [self setup];
+    [self setNavigationItemTitle:_isModifyPassword ? @"修改密码" : @"设置密码"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,7 +39,7 @@
 
 - (void)setPageLocalizableText
 {
-    [self setNavigationItemTitle:_isModifyPassword ? @"修改密码" : @"设置密码"];
+    
 }
 
 - (void)backViewController
@@ -96,6 +97,9 @@
                     // [weakSelf loginRequest];
                 }
                     break;
+                case NetUserCenterRequestType_ModifyPossword:
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                    break;
                 default:
                     break;
             }
@@ -115,11 +119,13 @@
     NSDictionary *dic = @{@"phone": _phoneNumStr,
                           @"password": _passwordTF.text};
     
-    [self sendRequest:[[self class] getRequestURLStr:NetUserCenterRequestType_Register]
+    NetRequestType type = _isModifyPassword ? NetUserCenterRequestType_ModifyPossword : NetUserCenterRequestType_Register;
+    
+    [self sendRequest:[[self class] getRequestURLStr:type]
          parameterDic:dic
        requestHeaders:nil
     requestMethodType:RequestMethodType_POST
-           requestTag:NetUserCenterRequestType_Register];
+           requestTag:type];
     
 }
 

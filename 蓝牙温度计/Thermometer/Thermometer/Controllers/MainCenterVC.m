@@ -888,9 +888,9 @@
     [self setSlideMenuVCEnablePan:YES];
     self.isVisitorType = NO;
     
-//    if (_welcomeAppView) {
-//        [self removeWelcomeAppView];
-//    }
+    if (_welcomeAppView) {
+        [self removeWelcomeAppView];
+    }
 }
 
 - (void)changeUserSuccess:(NSNotification*)notification

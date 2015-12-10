@@ -137,6 +137,16 @@
     // Saves changes in the application's managed object context before the application terminates.
 }
 
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central
+{
+    DLog(@"sss");
+//    if (central.state == CBCentralManagerStatePoweredOn) {
+//        [self.centralManger scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"f3d9"]]
+//                                                   options:nil];
+//    }
+}
+
+
 
 -(void)receiveData:(NSData*)data
 {

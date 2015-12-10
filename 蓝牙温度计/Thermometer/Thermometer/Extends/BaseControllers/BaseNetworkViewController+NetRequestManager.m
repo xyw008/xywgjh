@@ -27,7 +27,7 @@
                            // 用户中心
                            @"register",
                            @"login",
-                           @"user/changePwd",
+                           @"modifyUser",
                            
                            @"addMember",
                            @"deleteMember",

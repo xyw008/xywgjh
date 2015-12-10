@@ -10,4 +10,6 @@
 
 @interface LoginVC : BaseNetworkViewController
 
+@property (nonatomic)BOOL isFromSMSVC;
+
 @end

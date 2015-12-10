@@ -59,6 +59,7 @@
 {
     [super viewWillDisappear:animated];
     
+    
     [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
 }
 
@@ -156,7 +157,15 @@
 
 - (IBAction)clickCloseBtn:(UIButton *)btn
 {
-    [self backViewController];
+    if (_isFromSMSVC) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
+    else
+        [self backViewController];
+    
+    
 }
 
 @end

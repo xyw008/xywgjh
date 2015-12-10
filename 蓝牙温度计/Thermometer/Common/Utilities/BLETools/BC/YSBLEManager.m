@@ -27,6 +27,9 @@
     BabyBluetooth               *_babyBluethooth;
     CBPeripheral                *_currPeripheral;//现在的外围设备
     CBService                   *_currTemperatureService;//现在的服务
+    CBService                   *_macSerivce;//mac地址服务
+    CBPeripheral                *_macPeripheral;//mac地址的外围设备
+    
     
     BOOL                        _hasGroupNotifiy;//是否已经设置温度组的通知（defalut:NO）
     NSInteger                   _groupIndex;//取温度的组数从1开始(30秒 最大6，5分钟 最大30)
@@ -230,8 +233,10 @@ DEF_SINGLETON(YSBLEManager);
         }
         
         //获取设备mac
-//        if ([service.UUID.UUIDString isEqualToString:@"180A"])
-//        {
+        if ([service.UUID.UUIDString isEqualToString:@"180A"])
+        {
+            strongSelf->_macSerivce = service;
+            strongSelf->_macPeripheral = peripheral;
 //            for (CBCharacteristic *c in service.characteristics)
 //            {
 //                //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
@@ -243,7 +248,7 @@ DEF_SINGLETON(YSBLEManager);
 //                    strongSelf->_babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(peripheral,c);
 //                }
 //            }
-//        }
+        }
         //插入row到tableview
         //[weakSelf insertRowToTableView:service];
     }];
@@ -342,6 +347,19 @@ DEF_SINGLETON(YSBLEManager);
                 //[SVProgressHUD showErrorWithStatus:@"这个characteristic没有nofity的权限"];
                 return;
             }
+        }
+    }
+    
+    //获取蓝牙mac地址
+    for (CBCharacteristic *c in _macSerivce.characteristics)
+    {
+        //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
+        NSString *cUUIDString = [c.UUID.UUIDString lowercaseString];
+        NSString *sysIdString = [@"2A23" lowercaseString];
+        
+        if ([cUUIDString isEqualToString:sysIdString])
+        {
+            _babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(_macPeripheral,c);
         }
     }
 }
