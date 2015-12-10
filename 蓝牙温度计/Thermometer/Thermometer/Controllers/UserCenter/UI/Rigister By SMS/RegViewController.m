@@ -46,6 +46,7 @@
     
     [AppPropertiesInitialize setKeyboardManagerEnable:NO];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     //[AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
 }
 
@@ -53,6 +54,10 @@
 {
     [super viewWillDisappear:animated];
     
+    if (IOS7)
+    {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
     // [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
 }
 

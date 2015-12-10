@@ -67,6 +67,7 @@ static NSMutableArray* _userData2;
 {
     [super viewWillAppear:animated];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     // [AppPropertiesInitialize setBackgroundColorToStatusBar:Common_ThemeColor];
     
     //手机校验通知
@@ -77,6 +78,10 @@ static NSMutableArray* _userData2;
 {
     [super viewWillDisappear:animated];
     
+    if (IOS7)
+    {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
     // [AppPropertiesInitialize setBackgroundColorToStatusBar:[UIColor clearColor]];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
