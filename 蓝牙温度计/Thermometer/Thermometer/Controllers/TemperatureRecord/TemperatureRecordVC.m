@@ -412,53 +412,55 @@
     }
     else
     {
-        WEAKSELF
-        [_ysBluethooth setRemoteTempCallBack:^(NSArray<RemoteTempItem *> *tempArray,NSArray<RemoteTempItem *> *fillingTempArray, NSDate *beginDate, NSDate *endDate){
-            STRONGSELF
-            if (tempArray && strongSelf)
-            {
-                NSMutableArray  *allArray = [[NSMutableArray alloc] init];
-                
-                NSDate *lastAddDate;
-                
-                for (NSInteger i=0; i < tempArray.count; i++)
-                {
-                    RemoteTempItem *item = [tempArray objectAtIndex:i];
-                    
-                    if (i == 0)
-                    {
-                        BLECacheDataEntity *dataItem = [BLECacheDataEntity new];
-                        dataItem.temperature = item.temp;
-                        dataItem.date = item.date;
-                        [allArray addObject:dataItem];
-                        
-                        lastAddDate = dataItem.date;
-                    }
-                    else
-                    {
-                        //间隔5分钟才取数据
-                        if ([lastAddDate minutesBeforeDate:item.date] > 5)
-                        {
-                            BLECacheDataEntity *dataItem = [BLECacheDataEntity new];
-                            dataItem.temperature = item.temp;
-                            dataItem.date = item.date;
-                            [allArray addObject:dataItem];
-                            
-                            lastAddDate = dataItem.date;
-                        }
-                    }
-                }
-                
-                [weakSelf handleGroupTemperature:allArray needReverse:NO];
-                
-                //[strongSelf->_amFsLineView clearChartData];
-                //[strongSelf->_amFsLineView setChartData:amDataArray];
-                
-                //[strongSelf->_pmFsLineView clearChartData];
-                //[strongSelf->_pmFsLineView setChartData:pmDataArray];
-            }
-        }];
-        [_ysBluethooth getRemoteTempBegin:_beginDate end:_endDate];
+        //远程模式暂时屏蔽
+        
+//        WEAKSELF
+//        [_ysBluethooth setRemoteTempCallBack:^(NSArray<RemoteTempItem *> *tempArray,NSArray<RemoteTempItem *> *fillingTempArray, NSDate *beginDate, NSDate *endDate){
+//            STRONGSELF
+//            if (tempArray && strongSelf)
+//            {
+//                NSMutableArray  *allArray = [[NSMutableArray alloc] init];
+//                
+//                NSDate *lastAddDate;
+//                
+//                for (NSInteger i=0; i < tempArray.count; i++)
+//                {
+//                    RemoteTempItem *item = [tempArray objectAtIndex:i];
+//                    
+//                    if (i == 0)
+//                    {
+//                        BLECacheDataEntity *dataItem = [BLECacheDataEntity new];
+//                        dataItem.temperature = item.temp;
+//                        dataItem.date = item.date;
+//                        [allArray addObject:dataItem];
+//                        
+//                        lastAddDate = dataItem.date;
+//                    }
+//                    else
+//                    {
+//                        //间隔5分钟才取数据
+//                        if ([lastAddDate minutesBeforeDate:item.date] > 5)
+//                        {
+//                            BLECacheDataEntity *dataItem = [BLECacheDataEntity new];
+//                            dataItem.temperature = item.temp;
+//                            dataItem.date = item.date;
+//                            [allArray addObject:dataItem];
+//                            
+//                            lastAddDate = dataItem.date;
+//                        }
+//                    }
+//                }
+//                
+//                [weakSelf handleGroupTemperature:allArray needReverse:NO];
+//                
+//                //[strongSelf->_amFsLineView clearChartData];
+//                //[strongSelf->_amFsLineView setChartData:amDataArray];
+//                
+//                //[strongSelf->_pmFsLineView clearChartData];
+//                //[strongSelf->_pmFsLineView setChartData:pmDataArray];
+//            }
+//        }];
+//        [_ysBluethooth getRemoteTempBegin:_beginDate end:_endDate];
     }
 }
 
