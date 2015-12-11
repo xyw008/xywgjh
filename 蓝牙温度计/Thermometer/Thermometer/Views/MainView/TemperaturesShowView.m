@@ -10,7 +10,8 @@
 #import "BLEManager.h"
 #import "AccountStautsManager.h"
 
-#define kTempFont [UIFont italicSystemFontOfSize:73]
+#define kTempFont       [UIFont fontWithName:@"UniDreamLED" size:90]
+#define kSmallTempFont  [UIFont fontWithName:@"UniDreamLED" size:79]
 
 @interface TemperaturesShowView ()
 {
@@ -433,7 +434,7 @@
     
     //华式显示会有查过100的情况。
     //_temperaturesLB.font = nowTemperatureString.length > 4 ? [UIFont fontWithName:@"UniDreamLED" size:79] : [UIFont fontWithName:@"UniDreamLED" size:90];
-    _temperaturesLB.font = nowTemperatureString.length > 4 ? [UIFont italicSystemFontOfSize:65] : kTempFont;
+    _temperaturesLB.font = nowTemperatureString.length > 4 ? kSmallTempFont : kTempFont;
     
     _temperaturesLB.text = nowTemperatureString;
     _temperaturesLB.textColor = _temperaturesColorView.backgroundColor;

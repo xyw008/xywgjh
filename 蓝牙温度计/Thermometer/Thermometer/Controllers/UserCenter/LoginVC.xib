@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginVC">
             <connections>
+                <outlet property="closeBtn" destination="fMS-vh-eX2" id="keQ-kP-EWL"/>
                 <outlet property="loginBtn" destination="qL1-BS-PRX" id="xwO-E2-b0D"/>
                 <outlet property="passwordLabel" destination="wSC-o2-AJL" id="gzT-Tt-rdh"/>
                 <outlet property="registerBtn" destination="VQw-CI-kKa" id="tl6-UF-GJB"/>

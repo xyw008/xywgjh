@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *closeBtn;
+
 @end
 
 @implementation LoginVC
@@ -36,6 +38,7 @@
     if (self)
     {
         _loginBC = [[LoginBC alloc] init];
+        self.isShowCloseBtn = YES;
     }
     return self;
 }
@@ -107,6 +110,8 @@
     
 //    _userNameLabel.text = @"18688897808";
 //    _passwordLabel.text = @"123456";
+    
+    _closeBtn.hidden = !_isShowCloseBtn;
 }
 
 - (void)setup

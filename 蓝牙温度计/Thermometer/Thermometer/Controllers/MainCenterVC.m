@@ -223,7 +223,7 @@
             }
             else if(1 == touchBtnIndex)//登录
             {
-                [weakSelf goLoginView];
+                [weakSelf goLoginViewShowCloseBtn:YES];
             }
             else if(2 == touchBtnIndex)//游客模式
             {
@@ -331,6 +331,7 @@
     _chartView = [[XLChartView alloc] initWithFrame:CGRectMake(IPHONE_WIDTH + 10, 0, IPHONE_WIDTH - 10, _temperaturesShowView.height)];
     _chartView.backgroundColor = _temperaturesShowView.backgroundColor;
     _chartView.linecolor = Common_BlueColor;
+    _chartView.indexLBTextColor = [UIColor blackColor];
     _chartView.fillColor = [_chartView.linecolor colorWithAlphaComponent:0.3];
     _chartView.needVerticalLine = NO;
     _chartView.valueLBStrArray = [self getTempShowLBTextArray];
@@ -899,9 +900,10 @@
 
 
 #pragma mark - push
-- (void)goLoginView
+- (void)goLoginViewShowCloseBtn:(BOOL)isShowCloseBtn
 {
     LoginVC *login = [LoginVC loadFromNib];
+    login.isShowCloseBtn = isShowCloseBtn;
     UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:login];
     
     [self presentViewController:loginNav
@@ -944,6 +946,9 @@
 {
     [_bgScrollView setContentOffset:CGPointZero];
     _bgScrollView.scrollEnabled = NO;
+    
+    // 跳转到登录页
+    [self goLoginViewShowCloseBtn:NO];
 }
 
 @end

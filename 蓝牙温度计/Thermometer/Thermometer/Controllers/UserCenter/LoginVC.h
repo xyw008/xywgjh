@@ -12,4 +12,6 @@
 
 @property (nonatomic)BOOL isFromSMSVC;
 
+@property (nonatomic, assign) BOOL isShowCloseBtn; // default is YES
+
 @end

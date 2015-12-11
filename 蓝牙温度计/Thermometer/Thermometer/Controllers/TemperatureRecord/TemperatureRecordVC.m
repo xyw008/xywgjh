@@ -215,6 +215,7 @@
     _chartView = [[XLChartView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_headerView.frame) + 21, self.view.width - 20, DynamicWidthValue640(600))];
     _chartView.backgroundColor = [UIColor whiteColor];
     _chartView.linecolor = Common_BlueColor;
+    _chartView.indexLBTextColor = [UIColor blackColor];
     _chartView.fillColor = nil;
     _chartView.needVerticalLine = NO;
     _chartView.valueLBStrArray = [self getTempShowLBTextArray];
