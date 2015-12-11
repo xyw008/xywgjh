@@ -10,7 +10,7 @@
 #import "BLEManager.h"
 #import "AccountStautsManager.h"
 
-#define kTempFont [UIFont italicSystemFontOfSize:75]
+#define kTempFont [UIFont italicSystemFontOfSize:73]
 
 @interface TemperaturesShowView ()
 {
@@ -198,9 +198,9 @@
     _deviceBatteryIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_device_battery_00"]];
     [self addSubview:_deviceBatteryIV];
     _deviceBatteryIV.hidden = YES;
-    
+   
     [_temperaturesLB mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(_statusLB.mas_left).offset(0);
+        make.right.equalTo(_statusLB.mas_left).offset(-2);
         make.height.equalTo(90);
         make.top.equalTo(_temperaturesIV.mas_top).offset(53);
     }];
@@ -437,6 +437,12 @@
     
     _temperaturesLB.text = nowTemperatureString;
     _temperaturesLB.textColor = _temperaturesColorView.backgroundColor;
+    
+    
+    CGFloat width = [_temperaturesLB.text sizeWithFont:_temperaturesLB.font constrainedToWidth:200].width + 3;
+    [_temperaturesLB mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(width);
+    }];
 }
 
 

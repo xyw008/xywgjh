@@ -275,7 +275,11 @@
     NSMutableArray *array = [NSMutableArray new];
     for (NSInteger i=32; i<43; i++)
     {
-        [array addObject:[NSString stringWithFormat:@"%ld%@",i,unit]];
+        NSInteger value = i;
+        if (_isFUnit)
+            value = [BLEManager getFTemperatureWithC:i];
+        
+        [array addObject:[NSString stringWithFormat:@"%ld%@",value,unit]];
     }
     return array;
 }
@@ -442,9 +446,13 @@
                 make.width.equalTo(btnWidth);
             }];
         }
+        
+        CGFloat bottom = DynamicWidthValue640(12);
+        
+        
         [titleLB mas_updateConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(btn.mas_centerX);
-            make.bottom.equalTo(btn.mas_bottom).offset(-12);
+            make.bottom.equalTo(btn.mas_bottom).offset(-bottom);
             make.left.equalTo(btn.mas_left);
             make.right.equalTo(btn.mas_right);
             make.height.equalTo(13);
@@ -697,8 +705,8 @@
             btn.selected = !btn.selected;
             _temperaturesShowView.isFTypeTemperature = btn.selected;
             _isFUnit = btn.selected;
-            [_fsLineTemperatureView loadLabelForValue];
-            
+            //[_fsLineTemperatureView loadLabelForValue];
+            _chartView.valueLBStrArray = [self getTempShowLBTextArray];
             [YSBLEManager sharedInstance].isFUnit = _isFUnit;
             break;
         default:
