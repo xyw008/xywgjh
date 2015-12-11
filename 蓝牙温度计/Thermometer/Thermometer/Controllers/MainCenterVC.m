@@ -468,7 +468,7 @@
     [_popBgView removeFromSuperview];
     
     //UIView *superView = [[[UIApplication sharedApplication] delegate] window];
-    UIView *superView = self.view;
+    UIView *superView = self.navigationController.view;
     
     _popBgView = [[UIView alloc] initWithFrame:superView.bounds];
     [_popBgView keepAutoresizingInFull];
