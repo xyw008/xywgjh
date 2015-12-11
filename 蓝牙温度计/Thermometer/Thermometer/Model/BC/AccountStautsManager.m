@@ -173,11 +173,11 @@ DEF_SINGLETON(AccountStautsManager);
     //DLog(@"before = %ld  lasttime = %@   now = %@",[_lastAlarmingTime minutesBeforeDate:[NSDate date]],_lastAlarmingTime,[NSDate date]);
     
     //不是断开连接警报   离上次报警时间低于10分钟
-    if (!_isDisconnectAlarm && _lastAlarmingTime && [_lastAlarmingTime minutesBeforeDate:[NSDate date]] < _betweenTime)
-        return;
-//
-//    if (!_isDisconnectAlarm && _lastAlarmingTime && [_lastAlarmingTime minutesBeforeDate:[NSDate date]] < 1)
+//    if (!_isDisconnectAlarm && _lastAlarmingTime && [_lastAlarmingTime minutesBeforeDate:[NSDate date]] < _betweenTime)
 //        return;
+//
+    if (!_isDisconnectAlarm && _lastAlarmingTime && [_lastAlarmingTime minutesBeforeDate:[NSDate date]] < 1)
+        return;
     
     if (_bellAlarm)
     {
@@ -228,7 +228,7 @@ DEF_SINGLETON(AccountStautsManager);
             notification.userInfo=@{@"id":@1,@"user":@"Kenshin Cui"};//绑定到通知上的其他附加信息
             
             //调用通知
-            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+            [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
         
         }
         else

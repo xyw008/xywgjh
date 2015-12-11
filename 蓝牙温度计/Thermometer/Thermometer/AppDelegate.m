@@ -24,6 +24,7 @@
 #import "PasswordInputVC.h"
 #import "BabyBluetooth.h"
 #import "AccountStautsManager.h"
+#import "UIFactory.h"
 
 #define appKey      @"a8ea83ab1e88"
 #define appSecret   @"984b8c403f774dc553356467397313c7"
@@ -44,6 +45,9 @@
     
     // 进行应用程序一系列属性的初始化设置
     [AppPropertiesInitialize startAppPropertiesInitialize];
+    
+    // 注册通知
+    [UIFactory registerRemoteNotification];
     
     // 初始化应用，appKey和appSecret从后台申请得到
     [SMSSDK registerApp:appKey
@@ -154,29 +158,29 @@
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
     // register to receive notifications
-    [application registerForRemoteNotifications];
+    //[application registerForRemoteNotifications];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSString *deviceTokenStr = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-    deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
-    // DLog(@"token = %@", deviceTokenStr);
-    
-    // 保存token值
-    [UserInfoModel setUserDefaultDeviceToken:deviceTokenStr];
-    [self sendDeviceToken:deviceTokenStr];
+//    NSString *deviceTokenStr = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+//    deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    
+//    // DLog(@"token = %@", deviceTokenStr);
+//    
+//    // 保存token值
+//    [UserInfoModel setUserDefaultDeviceToken:deviceTokenStr];
+//    [self sendDeviceToken:deviceTokenStr];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    [self handleRemoteNotificationWithApplication:application notification:userInfo];
+    //[self handleRemoteNotificationWithApplication:application notification:userInfo];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    [self handleRemoteNotificationWithApplication:application notification:userInfo];
+    //[self handleRemoteNotificationWithApplication:application notification:userInfo];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
