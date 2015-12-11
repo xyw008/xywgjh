@@ -70,6 +70,8 @@
 - (void)dealloc
 {
     [[ATTimerManager shardManager] stopTimerDelegate:self];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 //- (void)viewWillAppear:(BOOL)animated
@@ -119,7 +121,10 @@
                                              selector:@selector(changeUserSuccess:)
                                                  name:kChangeNowUserNotificationKey
                                                object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(logout:)
+                                                 name:kLogoutNotificationKey
+                                               object:nil];
     
     [self initBgScrollView];
     [self initTemperaturesShowView];
@@ -222,7 +227,7 @@
             }
             else if(2 == touchBtnIndex)//游客模式
             {
-                [weakSelf removeWelcomeAppView];
+                [weakSelf removeWelcomeAppViewIsVisitorType:YES];
                 strongSelf.isVisitorType = YES;
             }
         }];
@@ -231,14 +236,18 @@
         [self initPopView];
 }
 
-- (void)removeWelcomeAppView
+- (void)removeWelcomeAppViewIsVisitorType:(BOOL)isVisitorType
 {
     [_welcomeAppView setViewX:-self.view.width];
     //[self initPopView];
     //[_welcomeAppView removeSelf];
     
-    //游客模式默认开启蓝牙模式
-    [self connectBluetoothBtnTouch:nil];
+    if (isVisitorType)
+    {
+        //游客模式默认开启蓝牙模式
+        [self connectBluetoothBtnTouch:nil];
+    }
+    
     [self hiddenNav:NO];
     //[UserInfoModel setUserDefaultNoFirstGoApp:@(YES)];
 }
@@ -456,10 +465,13 @@
 //启动时候弹出选择模式视图
 - (void)initPopView
 {
+    [_popBgView removeFromSuperview];
+    
     //UIView *superView = [[[UIApplication sharedApplication] delegate] window];
     UIView *superView = self.view;
     
     _popBgView = [[UIView alloc] initWithFrame:superView.bounds];
+    [_popBgView keepAutoresizingInFull];
     _popBgView.backgroundColor = [UIColor colorWithWhite:0 alpha:.5];
     [superView addSubview:_popBgView];
     
@@ -515,8 +527,15 @@
         [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleLeftView];
     else
     {
-        [self hiddenNav:YES];
-        [_welcomeAppView setViewX:0];
+        if (_welcomeAppView)
+        {
+            [self hiddenNav:YES];
+            [_welcomeAppView setViewX:0];
+        }
+        else
+        {
+            [self judgeGoAppNum];
+        }
     }
 }
 
@@ -532,6 +551,8 @@
 //蓝牙模式
 - (void)connectBluetoothBtnTouch:(UIButton*)btn
 {
+    _temperaturesShowView.isRemoteType = NO;
+    _searchLB.text = @"搜索中";
     [AccountStautsManager sharedInstance].isBluetoothType = YES;
     
     [_popBgView removeFromSuperview];
@@ -612,6 +633,7 @@
 {
     [_popBgView removeFromSuperview];
     _popBgView = nil;
+    
     _temperaturesShowView.isRemoteType = YES;
     _searchLB.text = @"同步中";
     [AccountStautsManager sharedInstance].isBluetoothType = NO;
@@ -652,7 +674,7 @@
 - (void)bottomBtnTouch:(UIButton*)btn
 {
     NSInteger index = btn.tag - kBottomBtnStartTag;
-    if (index != 3 && _isVisitorType)
+    if (index != 3 && (_isVisitorType || ![AccountStautsManager sharedInstance].isLogin))
     {
         [self showHUDInfoByString:@"请先登录"];
         return;
@@ -894,8 +916,10 @@
     self.isVisitorType = NO;
     
     if (_welcomeAppView) {
-        [self removeWelcomeAppView];
+        [self removeWelcomeAppViewIsVisitorType:NO];
     }
+    
+    [self initPopView];
 }
 
 - (void)changeUserSuccess:(NSNotification*)notification
@@ -905,6 +929,12 @@
     }
     else
         _headIV.image = [UIImage imageNamed:@"icon_userhead"];
+}
+
+- (void)logout:(NSNotification *)notification
+{
+    [_bgScrollView setContentOffset:CGPointZero];
+    _bgScrollView.scrollEnabled = NO;
 }
 
 @end

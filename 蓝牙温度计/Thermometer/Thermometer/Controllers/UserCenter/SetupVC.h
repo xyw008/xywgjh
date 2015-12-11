@@ -8,6 +8,8 @@
 
 #import "BaseNetworkViewController.h"
 
+static NSString * const kLogoutNotificationKey = @"kLogoutNotificationKey";
+
 @interface SetupVC : BaseNetworkViewController
 
 @end
