@@ -64,6 +64,9 @@
     
     [AccountStautsManager sharedInstance].isLogin = NO;
     [AccountStautsManager sharedInstance].nowUserItem = nil;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutNotificationKey object:nil];
+    
     [self backViewController];
 }
 

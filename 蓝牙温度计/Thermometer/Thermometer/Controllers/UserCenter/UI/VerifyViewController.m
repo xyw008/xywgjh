@@ -22,6 +22,7 @@
 #import "AppPropertiesInitialize.h"
 #import "AccountStautsManager.h"
 #import "LoginVC.h"
+#import "HUDManager.h"
 
 @interface VerifyViewController ()
 {
@@ -444,13 +445,20 @@ static NSMutableArray* _userData2;
         
         if (hasRegister)
         {
+            [HUDManager showAutoHideHUDWithToShowStr:@"此手机号码已经被注册" HUDMode:MBProgressHUDModeText];
             
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            /*
             [self dismissViewControllerAnimated:YES completion:^{
                 
             }];
-//            LoginVC *login = [LoginVC loadFromNib];
-//            login.isFromSMSVC = YES;
-//            [self.navigationController pushViewController:login animated:YES];
+             */
+            /*
+            LoginVC *login = [LoginVC loadFromNib];
+            login.isFromSMSVC = YES;
+            [self.navigationController pushViewController:login animated:YES];
+             */
         }
         else
         {
