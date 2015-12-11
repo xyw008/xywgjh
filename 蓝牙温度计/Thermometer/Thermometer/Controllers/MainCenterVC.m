@@ -729,6 +729,7 @@
             _isFUnit = btn.selected;
             //[_fsLineTemperatureView loadLabelForValue];
             _chartView.valueLBStrArray = [self getTempShowLBTextArray];
+            _chartView.indexStrArray = [self getDateShowLBTextArray];
             [YSBLEManager sharedInstance].isFUnit = _isFUnit;
             break;
         default:
