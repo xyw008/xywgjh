@@ -124,13 +124,17 @@
                        nil,
                        self,
                        @selector(clickBackBtn:)) setImage:[UIImage imageNamed:@"navigationbar_icon_back"] forState:UIControlStateNormal];
-    [InsertImageButton(self.view,
+   UIButton *rightBtn = InsertImageButton(self.view,
                        CGRectMake(self.viewFrameSize.width - btnSize, _tableView.frameOriginY, btnSize, btnSize),
                        1001,
                        nil,
                        nil,
                        self,
-                       @selector(clickRecordShowTypeChooseBtn:)) setImage:[UIImage imageNamed:@"navigationbar_icon_chart"] forState:UIControlStateNormal];
+                       @selector(clickRecordShowTypeChooseBtn:));
+    
+    [rightBtn setImage:[UIImage imageNamed:@"navigationbar_icon_chart"] forState:UIControlStateNormal];
+    [rightBtn setImage:[UIImage imageNamed:@"navigationbar_icon_timetree"] forState:UIControlStateSelected];
+    
 }
 
 - (void)configureTabHeaders
@@ -309,7 +313,11 @@
     NSMutableArray *array = [NSMutableArray new];
     for (NSInteger i=32; i<43; i += 2)
     {
-        [array addObject:[NSString stringWithFormat:@"%ld%@",i,unit]];
+        NSInteger value = i;
+        if (_isFUnit)
+            value = [BLEManager getFTemperatureWithC:i];
+        
+        [array addObject:[NSString stringWithFormat:@"%ld%@",value,unit]];
     }
     return array;
 }

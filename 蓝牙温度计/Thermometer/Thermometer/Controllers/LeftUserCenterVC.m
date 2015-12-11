@@ -170,6 +170,16 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                 [weakSelf showHUDInfoByString:error.localizedDescription];
             }
                 break;
+            case NetUserRequestType_GetAllUserInfo:
+            case NetUserRequestType_GetAllUserInfoNoImage:
+            {
+                if (error.code == 2) {
+                    [UserInfoModel setUserDefaultLoginName:@""];
+                    [UserInfoModel setUserDefaultPassword:@""];
+                    [AccountStautsManager sharedInstance].isLogin = NO;
+                }
+            }
+                break;
             default:
                 break;
         }

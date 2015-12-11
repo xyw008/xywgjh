@@ -653,12 +653,12 @@
     WEAKSELF
     [_ysBluethooth setRemoteTempCallBack:^(NSArray<RemoteTempItem *> *tempArray,NSArray<RemoteTempItem *> *fillingTempArray, NSDate *beginDate, NSDate *endDate){
         STRONGSELF
-        if (fillingTempArray && strongSelf)
+        if (tempArray && strongSelf)
         {
             NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
-            for (NSInteger i=0; i < fillingTempArray.count; i++)
+            for (NSInteger i=0; i < tempArray.count; i++)
             {
-                RemoteTempItem *item = [fillingTempArray objectAtIndex:i];
+                RemoteTempItem *item = [tempArray objectAtIndex:i];
                 BLECacheDataEntity *dataItem = [BLECacheDataEntity new];
                 dataItem.temperature = item.temp;
                 dataItem.date = item.date;
@@ -671,7 +671,7 @@
         }
     }];
     
-    //[self getNetworkData];
+    [self getNetworkData];
     [self start30SecondCountdownTimer];
     
     [self getRemoteTempGroup];
@@ -838,7 +838,7 @@
         }
         else
         {
-            //[self getNetworkData];
+            [self getNetworkData];
             [self getRemoteTempGroup];
         }
     }
