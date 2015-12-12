@@ -153,6 +153,23 @@
 //    }
 }
 
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"报警提示"
+                                                    message:notification.alertBody
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"十分钟后再次提醒",@"二十分钟后再次提醒",@"三十分钟后再次提醒", nil];
+    [alert show];
+}
+
+#pragma mark - UIAlert Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [[AccountStautsManager sharedInstance] handleThermometerAlertActionWithAlertButtonIndex:buttonIndex];
+}
+
 #pragma mark - /***************************推送相关***************************/
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings

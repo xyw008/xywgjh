@@ -133,7 +133,7 @@ DEF_SINGLETON(AccountStautsManager);
 #pragma mark - 
 - (void)checkTemp:(CGFloat)temp
 {
-    temp -= 20;
+    // temp += 10;
     
     if (_highAndLowAlarm)
     {
@@ -179,6 +179,8 @@ DEF_SINGLETON(AccountStautsManager);
     if (!_isDisconnectAlarm && _lastAlarmingTime && [_lastAlarmingTime minutesBeforeDate:[NSDate date]] < 1)
         return;
     
+    /*用通知去实现铃声的播放
+     ************************************
     if (_bellAlarm)
     {
         if (!_enterBackground)
@@ -189,6 +191,7 @@ DEF_SINGLETON(AccountStautsManager);
             player.numberOfLoops = 1000;
         }
     }
+    */
     if (_shakeAlarm)
     {
         AudioServicesAddSystemSoundCompletion(kSystemSoundID_Vibrate, NULL, NULL, systemAudioCallback, NULL);
@@ -207,9 +210,9 @@ DEF_SINGLETON(AccountStautsManager);
             [UserInfoModel setUserDefaultLastAlarmDate:_lastAlarmingTime];
         }
         
-        if (_enterBackground)
+        // 统一用通知去触发报警,不用做APP是在前端还是后端的判断
+        // if (_enterBackground)
         {
-            
             //定义本地通知对象
             UILocalNotification *notification=[[UILocalNotification alloc]init];
             //设置调用时间
@@ -218,26 +221,40 @@ DEF_SINGLETON(AccountStautsManager);
             //notification.repeatCalendar=[NSCalendar currentCalendar];//当前日历，使用前最好设置时区等信息以便能够自动同步时间
             //设置通知属性
             notification.alertBody = title; //通知主体
-            notification.applicationIconBadgeNumber=1;//应用程序图标右上角显示的消息数
+            // notification.applicationIconBadgeNumber=1;//应用程序图标右上角显示的消息数
             notification.alertAction=@"打开应用"; //待机界面的滑动动作提示
             notification.alertLaunchImage=@"Default";//通过点击通知打开应用时的启动图片,这里使用程序启动图片
             //notification.soundName=UILocalNotificationDefaultSoundName;//收到通知时播放的声音，默认消息声音
-            notification.soundName=[NSString stringWithFormat:@"%@.mp3",_bellMp3Name];//通知声音（需要真机才能听到声音）
+            notification.soundName = nil;
+            if (_bellAlarm)
+            {
+                NSString *name = [NSString stringWithFormat:@"%@.mp3",_bellMp3Name];
+
+                if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
+                {
+                    [[ATAudioPlayManager shardManager] stopAudioDelegate:self];
+                    AVAudioPlayer *player = [[ATAudioPlayManager shardManager] playAudioNamed:name delegate:self tag:1000];
+                    player.numberOfLoops = 1000;
+                }
+                else
+                {
+                    notification.soundName = name; //通知声音（需要真机才能听到声音）
+                }
+            }
             
             //设置用户信息
             notification.userInfo=@{@"id":@1,@"user":@"Kenshin Cui"};//绑定到通知上的其他附加信息
             
             //调用通知
             [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-        
         }
+        /*
         else
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"报警提示" message:title delegate:self cancelButtonTitle:nil otherButtonTitles:@"十分钟后再次提醒",@"二十分钟后再次提醒",@"三十分钟后再次提醒", nil];
             [alert show];
         }
-        
-        
+        */
         
 //        [[InterfaceHUDManager sharedInstance] showAlertWithTitle:@"报警提示" message:title alertShowType:AlertShowType_Informative cancelTitle:@"十分钟后再次提醒" cancelBlock:^(GJHAlertView *alertView, NSInteger index) {
 //            [[ATAudioPlayManager shardManager] stopAllAudio];
@@ -295,6 +312,24 @@ void systemAudioCallback()
     }
 }
 
+- (void)handleThermometerAlertActionWithAlertButtonIndex:(NSInteger)buttonIndex
+{
+    [[ATAudioPlayManager shardManager] stopAllAudio];
+    AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
+    _alarming = NO;
+    _lastAlarmingTime = [NSDate date];
+    if (buttonIndex == 0)
+        _betweenTime = 10;
+    else if (buttonIndex == 1)
+        _betweenTime = 20;
+    else if (buttonIndex == 2)
+        _betweenTime = 30;
+    
+    //不是断开警报 保存间隔时间
+    if (!_isDisconnectAlarm) {
+        [UserInfoModel setUserDefaultLastAlarmBetween:[NSNumber numberWithInteger:_betweenTime]];
+    }
+}
 
 #pragma mark - request
 - (void)checkPhoneNumRequest:(NSString *)phoneNum

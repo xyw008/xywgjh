@@ -50,4 +50,13 @@ AS_SINGLETON(AccountStautsManager);
  */
 - (void)checkPhoneNumRequest:(NSString*)phoneNum;
 
+/**
+ @ 方法描述: 处理appDelegate温度报警通知alert的点击事件
+ @ 输入参数: alert被点击的button index
+ @ 返回值:   void
+ @ 创建人:   龚俊慧
+ @ Creat:   2015-12-12
+ */
+- (void)handleThermometerAlertActionWithAlertButtonIndex:(NSInteger)buttonIndex;
+
 @end
