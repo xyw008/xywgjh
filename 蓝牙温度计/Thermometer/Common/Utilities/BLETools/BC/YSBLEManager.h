@@ -12,7 +12,14 @@
 
 typedef void (^ActualTimeValueCallBack) (CGFloat newTemperature,CGFloat rssi, CGFloat newBettey);
 
-typedef void (^GroupTemperatureCallBack) (NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic,BOOL is30Second);
+/**
+ *  获取蓝牙温度组数据
+ *
+ *  @param temperatureDic        没有排序有key是所在组的数据
+ *  @param tempArray             排序后的数组
+ *  @param is30Second            YES：30s类型数据
+ */
+typedef void (^GroupTemperatureCallBack) (NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic,NSArray<BLECacheDataEntity *> *tempArray,BOOL is30Second);
 
 
 typedef void (^RemoteGroupTempCallBack) (NSArray<RemoteTempItem *> *tempArray,NSArray<RemoteTempItem *> *fillingTempArray, NSDate *beginDate, NSDate *endDate);

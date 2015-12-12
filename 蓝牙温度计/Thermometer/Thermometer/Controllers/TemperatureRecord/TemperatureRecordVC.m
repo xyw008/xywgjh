@@ -371,34 +371,34 @@
             }
             //组温度数据回调
             WEAKSELF
-            [_ysBluethooth setGroupTemperatureCallBack:^(NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic,BOOL is30Second){
+            [_ysBluethooth setGroupTemperatureCallBack:^(NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic,NSArray<BLECacheDataEntity *> *tempArray,BOOL is30Second){
                 STRONGSELF
                 if (strongSelf && !is30Second)
                 {
-                    NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
-                    NSArray *keyArray = temperatureDic.allKeys;
-                    keyArray = [keyArray sortedArrayUsingComparator:(NSComparator)^(id obj1, id obj2) {
-                        return [obj1 compare:obj2 options:NSNumericSearch];
-                    }];
+//                    NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
+//                    NSArray *keyArray = temperatureDic.allKeys;
+//                    keyArray = [keyArray sortedArrayUsingComparator:(NSComparator)^(id obj1, id obj2) {
+//                        return [obj1 compare:obj2 options:NSNumericSearch];
+//                    }];
+//                    
+//                    for (NSInteger i=0; i< keyArray.count; i++)
+//                    {
+//                        NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[keyArray objectAtIndex:i]];
+//                        NSMutableArray *dayTempArray = [NSMutableArray new];
+//                        
+//                        for (BLECacheDataEntity *obj in oneGroupItemArray)
+//                        {
+//                            //不是当天的过滤掉
+//                            if ([obj.date isEqualToDateIgnoringTime:strongSelf->_endDate])
+//                            {
+//                                [dayTempArray addObject:obj];
+//                            }
+//                        }
+//                        [dataArray addObjectsFromArray:dayTempArray];
+//                    }
                     
-                    for (NSInteger i=0; i< keyArray.count; i++)
-                    {
-                        NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[keyArray objectAtIndex:i]];
-                        NSMutableArray *dayTempArray = [NSMutableArray new];
-                        
-                        for (BLECacheDataEntity *obj in oneGroupItemArray)
-                        {
-                            //不是当天的过滤掉
-                            if ([obj.date isEqualToDateIgnoringTime:strongSelf->_endDate])
-                            {
-                                [dayTempArray addObject:obj];
-                            }
-                        }
-                        [dataArray addObjectsFromArray:dayTempArray];
-                    }
-                    
-                    strongSelf->_todayBLTempArray = dataArray;
-                    [weakSelf handleGroupTemperature:dataArray needReverse:YES];
+                    strongSelf->_todayBLTempArray = tempArray;
+                    [weakSelf handleGroupTemperature:tempArray needReverse:YES];
                 }
             }];
             //[_ysBluethooth startScanPeripherals];

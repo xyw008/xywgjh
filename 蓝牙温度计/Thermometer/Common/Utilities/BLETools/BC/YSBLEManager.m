@@ -36,12 +36,12 @@
     NSMutableDictionary         *_groupTemperatureDic;//温度组
     BOOL                        _isFirstGetGroupTemp;//是否是第一次获取温度数据（用于判断是否是蓝牙缓存数据，决定是否上传）
     
-    NSInteger                   _uploadIndex;//上传数据计数，和rssi一个定时器。5秒一次回调，30秒请求一次上报
+    NSDate                      *_lastUploadTempDate;//最后上传温度数据的时间，这个后面的30s的温度组数据都要上传
+    NSDate                      *_nowUploadLastDate;//正在上传的最后一个温度的时间
+    
     BOOL                        _isUploadRequesting;//数据上报状态
     BOOL                        _hasReturnCurrTemp;//有开始返回实时温度了
-    NSMutableArray<NSDictionary*>  *_currTempArray;//实时温度保存数组(温度和对应的时间字符串)
-    NSMutableArray<NSDate*>     *_currTempDateArray;//实时温度对应的时间数组
-    NSInteger                   _hasUploadIndex;//数组数据已经上传到的index
+    NSMutableArray<BLECacheDataEntity*>  *_willUploadTempArray;//将要上传的温度数组
 }
 
 @end
@@ -67,12 +67,13 @@ DEF_SINGLETON(YSBLEManager);
         _groupTemperatureDic = [[NSMutableDictionary alloc] init];
         _isFirstGetGroupTemp = YES;
         
-        _uploadIndex = 1;
+        _willUploadTempArray = [NSMutableArray new];
+//        _uploadIndex = 1;
         _isUploadRequesting = NO;
         _hasReturnCurrTemp = NO;
-        _currTempArray = [NSMutableArray new];
-        _currTempDateArray = [NSMutableArray new];
-        _hasUploadIndex = 0;
+//        _currTempArray = [NSMutableArray new];
+//        _currTempDateArray = [NSMutableArray new];
+//        _hasUploadIndex = 0;
         
         _isFUnit = [[UserInfoModel getIsFUnit] boolValue];
         
@@ -115,6 +116,11 @@ DEF_SINGLETON(YSBLEManager);
     _is30Second = is30Second;
     _groupIndex = 1;
     
+    //如果是第一次读取组数据，请求服务器获取最后一个上传的温度时间，来判定哪些缓存数据是否需要上传
+    if (_isFirstGetGroupTemp) {
+        [self getDownloadLastestTemp];
+    }
+    
     if (!_hasGroupNotifiy) {
         [self setTemperatureGroupNotifiy];
     }
@@ -133,6 +139,7 @@ DEF_SINGLETON(YSBLEManager);
     {
         if ([characteristic.UUID.UUIDString isEqualToString:@"FFF3"])
         {
+            //30s 和 5分钟类型数据
             NSInteger type = _is30Second ? 1 : 2;
             NSInteger total = type + _groupIndex;
             
@@ -367,7 +374,7 @@ DEF_SINGLETON(YSBLEManager);
     }
 }
 
-//温度组通知
+//温度组 通知
 - (void)setTemperatureGroupNotifiy
 {
     if(_currPeripheral.state != CBPeripheralStateConnected){
@@ -419,13 +426,13 @@ DEF_SINGLETON(YSBLEManager);
         _actualTimeValueCallBack(newTemperature,_rssi,newBettey);
         _hasReturnCurrTemp = YES;
         
-        NSDate *date = [NSDate date];
-        //保存数据，用于上传
-        NSString *dateString = [self getToSeviserTimeStr:date];
-        NSDictionary *tempDic = @{@"temp":[NSString stringWithFormat:@"%.1lf",newTemperature],
-                                  @"date":dateString};
-        [_currTempArray addObject:tempDic];
-        [_currTempDateArray addObject:date];
+//        NSDate *date = [NSDate date];
+//        //保存数据，用于上传
+//        NSString *dateString = [self getToSeviserTimeStr:date];
+//        NSDictionary *tempDic = @{@"temp":[NSString stringWithFormat:@"%.1lf",newTemperature],
+//                                  @"date":dateString};
+//        [_currTempArray addObject:tempDic];
+//        [_currTempDateArray addObject:date];
     }
 }
 
@@ -463,18 +470,33 @@ DEF_SINGLETON(YSBLEManager);
     
     if (1 == _groupIndex)
     {
-        //第一次获取温度组判断是否是蓝牙缓存数据，没有上报需要做上报处理
-        if (_isFirstGetGroupTemp)
+        //排序
+        NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
+        NSArray *keyArray = _groupTemperatureDic.allKeys;
+        keyArray = [keyArray sortedArrayUsingComparator:(NSComparator)^(id obj1, id obj2) {
+            return [obj1 compare:obj2 options:NSNumericSearch];
+        }];
+        for (NSInteger i=0; i< keyArray.count; i++)
         {
-            NSDate *lastUploadDate = [UserInfoModel getLastUploadTempDate];
-            if (lastUploadDate)
-            {
-                
-            }
+            NSArray *oneGroupItemArray = [_groupTemperatureDic safeObjectForKey:[keyArray objectAtIndex:i]];
+            [dataArray addObjectsFromArray:oneGroupItemArray];
         }
         
+        //没有上报需要做上报处理，只有30s 的数据才上报
+        if (_is30Second)
+        {
+            [_willUploadTempArray addObjectsFromArray:dataArray];
+            if (_lastUploadTempDate)
+            {
+                [self uploadRequest];
+            }
+            else
+            {
+                [self getDownloadLastestTemp];
+            }
+        }
         if (_groupTemperatureCallBack) {
-            _groupTemperatureCallBack(_groupTemperatureDic,_is30Second);
+            _groupTemperatureCallBack(_groupTemperatureDic,dataArray,_is30Second);
         }
     }
 }
@@ -482,14 +504,14 @@ DEF_SINGLETON(YSBLEManager);
 - (void)refreshRssi
 {
     //有蓝牙返回的实时温度 以及有选中成员
-    if (_hasReturnCurrTemp && [AccountStautsManager sharedInstance].nowUserItem)
-    {
-        _uploadIndex++;
-        if (6 <= _uploadIndex) {
-            _uploadIndex = 1;
-            [self uploadRequest];
-        }
-    }
+//    if (_hasReturnCurrTemp && [AccountStautsManager sharedInstance].nowUserItem)
+//    {
+//        _uploadIndex++;
+//        if (6 <= _uploadIndex) {
+//            _uploadIndex = 1;
+//            [self uploadRequest];
+//        }
+//    }
     [_currPeripheral readRSSI];
 }
 
@@ -525,27 +547,89 @@ DEF_SINGLETON(YSBLEManager);
 #pragma mark - request
 - (void)uploadRequest
 {
-    if (_isUploadRequesting || ![_currTempArray isAbsoluteValid] || ![AccountStautsManager sharedInstance].nowUserItem || ![AccountStautsManager sharedInstance].isBluetoothType)
+    if (_isUploadRequesting ||
+        !_lastUploadTempDate ||
+        ![_willUploadTempArray isAbsoluteValid] ||
+        ![_willUploadTempArray isAbsoluteValid] ||
+        ![AccountStautsManager sharedInstance].nowUserItem ||
+        ![AccountStautsManager sharedInstance].isBluetoothType)
         return;
     
-    _isUploadRequesting = YES;
     
-    NSURL *url = [UrlManager getRequestUrlByMethodName:[BaseNetworkViewController getRequestURLStr:NetTempRequestType_UploadTemp] andArgsDic:nil];
+    NSMutableArray *tempArray = [NSMutableArray new];
     
-    NSArray *tempArray = _currTempArray;
-    NSDictionary *dic = @{@"name":[AccountStautsManager sharedInstance].nowUserItem.userName,
-                          @"tempList":tempArray};
-    NSDictionary *parameterDic = @{@"phone":[UserInfoModel getUserDefaultLoginName],@"memberList":@[dic]};
+    for (NSInteger i=0; i<_willUploadTempArray.count; i++)
+    {
+        BLECacheDataEntity *item = [_willUploadTempArray objectAtIndex:i];
+        if ([item.date isLaterThanDate:_lastUploadTempDate])
+        {
+            if (_nowUploadLastDate)
+            {
+                //蓝牙返回的数据是从现在开往回退30分钟的
+                if ([item.date isLaterThanDate:_nowUploadLastDate])
+                {
+                    _nowUploadLastDate = item.date;
+                }
+            }
+            else
+                _nowUploadLastDate = item.date;
+            
+            NSString *dateString = [self getToSeviserTimeStr:item.date];
+            NSDictionary *tempDic = @{@"temp":[NSString stringWithFormat:@"%.1lf",item.temperature],
+                                      @"date":dateString};
+            [tempArray addObject:tempDic];
+            //[tempArray addObject:item];
+        }
+    }
     
-    _hasUploadIndex = _currTempArray.count - 1;
+    //如果有未上传的温度
+    if ([tempArray isAbsoluteValid])
+    {
+        _isUploadRequesting = YES;
+        
+        NSURL *url = [UrlManager getRequestUrlByMethodName:[BaseNetworkViewController getRequestURLStr:NetTempRequestType_UploadTemp] andArgsDic:nil];
+        
+        NSDictionary *dic = @{@"name":[AccountStautsManager sharedInstance].nowUserItem.userName,
+                              @"tempList":tempArray};
+        NSDictionary *parameterDic = @{@"phone":[UserInfoModel getUserDefaultLoginName],@"memberList":@[dic]};
+        
+        [[NetRequestManager sharedInstance] sendRequest:url
+                                           parameterDic:parameterDic
+                                      requestMethodType:RequestMethodType_POST
+                                             requestTag:NetTempRequestType_UploadTemp
+                                               delegate:self
+                                               userInfo:nil];
+    }
+    else
+    {
+        [_willUploadTempArray removeAllObjects];
+    }
+}
+
+
+//去服务器拿最后一次上传的数据，通过时间来判定后面获取的数据那些需要上传
+- (void)getDownloadLastestTemp
+{
+    if (![AccountStautsManager sharedInstance].isLogin || ![AccountStautsManager sharedInstance].nowUserItem)
+    {
+        return;
+    }
+    
+    NSURL *url = [UrlManager getRequestUrlByMethodName:[BaseNetworkViewController getRequestURLStr:NetTempRequestType_DownloadLastestTemp] andArgsDic:nil];
+    
+    NSDictionary *memberDic = @{@"name":[AccountStautsManager sharedInstance].nowUserItem.userName};
+    NSDictionary *dic = @{@"phone":[UserInfoModel getUserDefaultLoginName],@"memberList":@[memberDic]};
     
     [[NetRequestManager sharedInstance] sendRequest:url
-                                       parameterDic:parameterDic
+                                       parameterDic:dic
                                   requestMethodType:RequestMethodType_POST
-                                         requestTag:NetTempRequestType_UploadTemp
+                                         requestTag:NetTempRequestType_DownloadLastestTemp
                                            delegate:self
                                            userInfo:nil];
+
 }
+
+
 
 #pragma mark - NetRequest delegate
 - (void)netRequest:(NetRequest *)request successWithInfoObj:(id)infoObj
@@ -554,21 +638,22 @@ DEF_SINGLETON(YSBLEManager);
     {
         _isUploadRequesting = NO;
         
-        //移除已经上传成功的数据
-        for (NSInteger i=0; i<_hasUploadIndex; i++)
+        _lastUploadTempDate = _nowUploadLastDate;
+        
+        //移除已经上传成功的数据,保留未上传的温度数据
+        NSMutableArray *tempArray = [NSMutableArray new];
+        for (NSInteger i=0; i<_willUploadTempArray.count; i++)
         {
-            if ([_currTempArray isAbsoluteValid])
+            BLECacheDataEntity *item = [_willUploadTempArray objectAtIndex:i];
+            if ([item.date isLaterThanDate:_lastUploadTempDate])
             {
-                if (i == _hasUploadIndex - 1)
-                {
-                    NSDate *lastUploadTempDate = [_currTempDateArray objectAtIndex:0];
-                    [UserInfoModel setUserDefaultLastUploadTempDate:lastUploadTempDate];
-                }
-                [_currTempArray removeObjectAtIndex:0];
-                [_currTempDateArray removeObjectAtIndex:0];
+                [tempArray addObject:item];
             }
         }
+        _willUploadTempArray = tempArray;
     }
+    
+    //服务器同步一段时间的数据
     else if (request.tag == NetTempRequestType_DownloadIntervalTemp)
     {
         if (infoObj && [infoObj isKindOfClass:[NSDictionary class]])
@@ -591,51 +676,9 @@ DEF_SINGLETON(YSBLEManager);
                         [array addObject:item];
                     }
                     
-                    //填充数据的数组
-                    NSMutableArray *fillingArray = [NSMutableArray new];
-                    /*
-                    //做数据填充，填充到每秒一个数据，否则返回的数据
-                    if ([array isAbsoluteValid])
-                    {
-                        NSTimeInterval interval = [endDate timeIntervalSinceDate:beginDate];
-                        NSInteger arrayIndex = 0;
-                        
-                        
-                        for (NSInteger i=0; i<(NSInteger)interval; i++)
-                        {
-                            NSDate *nextSencondDate = [beginDate dateByAddingSecond:i];
-                            NSString *timeStr = [self getToSeviserTimeStr:nextSencondDate];
-                            
-                            if (array.count > arrayIndex)
-                            {
-                                RemoteTempItem *hasItem = [array objectAtIndex:arrayIndex];
-                                if ([hasItem.time isEqualToString:timeStr])
-                                {
-                                    [fillingArray addObject:hasItem];
-                                    arrayIndex++;
-                                }
-                                else
-                                {
-                                    RemoteTempItem *fillingItem = [[RemoteTempItem alloc] init];
-                                    fillingItem.temp = 0;
-                                    fillingItem.time = timeStr;
-                                    [fillingArray addObject:fillingItem];
-                                }
-                            }
-                            else
-                            {
-                                RemoteTempItem *fillingItem = [[RemoteTempItem alloc] init];
-                                fillingItem.temp = 0;
-                                fillingItem.time = timeStr;
-                                [fillingArray addObject:fillingItem];
-                            }
-                        }
-                    }
-                     */
-                
                     if (_remoteTempCallBack)
                     {
-                        _remoteTempCallBack(array,fillingArray,beginDate,endDate);
+                        _remoteTempCallBack(array,nil,beginDate,endDate);
                     }
                 }
                 else
@@ -651,6 +694,27 @@ DEF_SINGLETON(YSBLEManager);
                 if (_remoteTempCallBack)
                 {
                     _remoteTempCallBack(nil,nil,beginDate,endDate);
+                }
+            }
+        }
+    }
+    
+    //服务器拿取最有一个上传的数据
+    else if (request.tag == NetTempRequestType_DownloadLastestTemp)
+    {
+        NSArray *memberArray = [[infoObj safeObjectForKey:@"user"] safeObjectForKey:@"memberList"];
+        
+        if ([memberArray isAbsoluteValid])
+        {
+            NSDictionary *firstDic = [memberArray firstObject];
+            NSArray *tempArray = [firstDic safeObjectForKey:@"tempList"];
+            if ([tempArray isAbsoluteValid])
+            {
+                NSDictionary *firstTempDic = [tempArray firstObject];
+                if ([firstTempDic isSafeObject])
+                {
+                    RemoteTempItem *item = [RemoteTempItem initWithDict:firstTempDic];
+                    _lastUploadTempDate = item.date;
                 }
             }
         }
@@ -671,6 +735,10 @@ DEF_SINGLETON(YSBLEManager);
                                 [request.userInfo safeObjectForKey:@"begin"],
                                 [request.userInfo safeObjectForKey:@"end"]);
         }
+    }
+    else if (request.tag == NetTempRequestType_DownloadLastestTemp)
+    {
+        
     }
 }
 

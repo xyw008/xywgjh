@@ -589,29 +589,29 @@
     }];
     
     //组温度数据回调
-    [_ysBluethooth setGroupTemperatureCallBack:^(NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic,BOOL is30Second){
+    [_ysBluethooth setGroupTemperatureCallBack:^(NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic,NSArray<BLECacheDataEntity *> *tempArray,BOOL is30Second){
         STRONGSELF
         if (is30Second)
         {
-            NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
-            NSArray *keyArray = temperatureDic.allKeys;
-            keyArray = [keyArray sortedArrayUsingComparator:(NSComparator)^(id obj1, id obj2) {
-                return [obj1 compare:obj2 options:NSNumericSearch];
-            }];
+//            NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
+//            NSArray *keyArray = temperatureDic.allKeys;
+//            keyArray = [keyArray sortedArrayUsingComparator:(NSComparator)^(id obj1, id obj2) {
+//                return [obj1 compare:obj2 options:NSNumericSearch];
+//            }];
+//            
+//            for (NSInteger i=0; i< keyArray.count; i++)
+//            {
+//                NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[keyArray objectAtIndex:i]];
+//                [dataArray addObjectsFromArray:oneGroupItemArray];
+//                
+//                //            for (BLECacheDataEntity *item in oneGroupItemArray)
+//                //            {
+//                //                //[dataArray addObject:@(item.temperature)];
+//                //                [dataArray addObject:@(item.temperature + 9)];
+//                //            }
+//            }
             
-            for (NSInteger i=0; i< keyArray.count; i++)
-            {
-                NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[keyArray objectAtIndex:i]];
-                [dataArray addObjectsFromArray:oneGroupItemArray];
-                
-                //            for (BLECacheDataEntity *item in oneGroupItemArray)
-                //            {
-                //                //[dataArray addObject:@(item.temperature)];
-                //                [dataArray addObject:@(item.temperature + 9)];
-                //            }
-            }
-            
-            if ([dataArray isAbsoluteValid])
+            if ([tempArray isAbsoluteValid])
             {
                 if (strongSelf->_searchLB)
                 {
@@ -622,7 +622,7 @@
                 NSDate *endDate = [NSDate date];
                 
                 NSDate *startDate = [endDate dateBySubtractingMinutes:30];
-                [strongSelf->_chartView loadDataArray:dataArray startDate:[startDate dateByAddingSecond:30] endDate:endDate];
+                [strongSelf->_chartView loadDataArray:tempArray startDate:[startDate dateByAddingSecond:30] endDate:endDate];
                 
                 //            [strongSelf->_fsLineTemperatureView clearChartData];
                 //            [strongSelf->_fsLineTemperatureView setChartData:dataArray];
