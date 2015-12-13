@@ -44,6 +44,11 @@
     ViewRadius(logoutBtn, 5);
     [self.view addSubview:logoutBtn];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(logout:)
+                                                 name:kLogoutNotificationKey
+                                               object:nil];
+    
 }
 
 - (NSString *)macString:(NSString*)string
@@ -71,6 +76,13 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutNotificationKey object:nil];
     
     [self backViewController];
+}
+
+
+- (void)logout:(NSNotification *)notification
+{
+    [YSBLEManager sharedInstance].macAdd = nil;
+    _macLB.text = [self macString:@"还未连接设备"];
 }
 
 

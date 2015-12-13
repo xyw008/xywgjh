@@ -104,6 +104,15 @@ DEF_SINGLETON(YSBLEManager);
 
 - (void)cancelAllPeripheralsConnection
 {
+    _groupIndex = 1;
+    _hasGroupNotifiy = NO;
+    _groupTemperatureDic = [[NSMutableDictionary alloc] init];
+    _isFirstGetGroupTemp = YES;
+    
+    _willUploadTempArray = [NSMutableArray new];
+    _isUploadRequesting = NO;
+    _hasReturnCurrTemp = NO;
+    
     [_babyBluethooth cancelAllPeripheralsConnection];
 }
 

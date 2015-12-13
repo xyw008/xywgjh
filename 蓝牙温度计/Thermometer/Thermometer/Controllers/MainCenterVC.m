@@ -59,6 +59,8 @@
     
     // BOOL                        _isVisitorType;//是否是游客模式
     XLWelcomeAppView            *_welcomeAppView;//第一次启动app
+    
+    NSTimer                     *_gourTime;
 }
 
 @property (nonatomic, assign) BOOL isVisitorType;
@@ -569,7 +571,12 @@
     
     if (!_ysBluethooth) {
         _ysBluethooth = [YSBLEManager sharedInstance];
-        [_ysBluethooth initBluetoothInfo];
+    }
+    [_ysBluethooth initBluetoothInfo];
+    
+    if (_gourTime == nil)
+    {
+        _gourTime = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(getGourpTemp) userInfo:nil repeats:YES];
     }
     
     WEAKSELF
@@ -627,8 +634,8 @@
                 
                 //            [strongSelf->_fsLineTemperatureView clearChartData];
                 //            [strongSelf->_fsLineTemperatureView setChartData:dataArray];
-                [weakSelf start30SecondCountdownTimer];
             }
+            //[weakSelf start30SecondCountdownTimer];
         }
         
         
@@ -669,14 +676,20 @@
             }
             
             [strongSelf->_chartView loadDataArray:dataArray startDate:beginDate endDate:endDate];
-
+            strongSelf->_chartView.indexStrArray = [weakSelf getDateShowLBTextArray];
         }
     }];
     
     [self getNetworkData];
-    [self start30SecondCountdownTimer];
-    
     [self getRemoteTempGroup];
+    //[self start30SecondCountdownTimer];
+    
+    if (_gourTime == nil)
+    {
+        _gourTime = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(getGourpTemp) userInfo:nil repeats:YES];
+    }
+    
+    
 }
 
 
@@ -821,9 +834,10 @@
 {
     if ([[ATTimerManager shardManager] hasTimerDelegate:self])
     {
-        [[ATTimerManager shardManager] stopTimerDelegate:self];
+        //[[ATTimerManager shardManager] stopTimerDelegate:self];
     }
-    [[ATTimerManager shardManager] addTimerDelegate:self interval:1];
+    else
+        [[ATTimerManager shardManager] addTimerDelegate:self interval:1];
 }
 
 - (void)timerManager:(ATTimerManager *)manager timerFireWithInfo:(ATTimerStepInfo)info
@@ -837,13 +851,28 @@
         if ([AccountStautsManager sharedInstance].isBluetoothType)
         {
             [[YSBLEManager sharedInstance] writeIs30Second:YES];
-            [[ATTimerManager shardManager] stopTimerDelegate:self];
+            //[[ATTimerManager shardManager] stopTimerDelegate:self];
         }
         else
         {
             [self getNetworkData];
             [self getRemoteTempGroup];
         }
+    }
+}
+
+- (void)getGourpTemp
+{
+    //蓝牙模式
+    if ([AccountStautsManager sharedInstance].isBluetoothType)
+    {
+        [[YSBLEManager sharedInstance] writeIs30Second:YES];
+        //[[ATTimerManager shardManager] stopTimerDelegate:self];
+    }
+    else
+    {
+        [self getNetworkData];
+        [self getRemoteTempGroup];
     }
 }
 
@@ -936,10 +965,16 @@
 
 - (void)changeUserSuccess:(NSNotification*)notification
 {
-    if (![AccountStautsManager sharedInstance].isBluetoothType) {
+    
+    if (![AccountStautsManager sharedInstance].isBluetoothType)
+    {
         [_temperaturesShowView setSearchLBText:@"同步中"];
-        [_chartView loadDataArray:nil startDate:nil endDate:nil];
+        //[_gourTime invalidate];
+        //_gourTime = nil;
+//        [self getNetworkData];
+//        [self getRemoteTempGroup];
     }
+    [_chartView loadDataArray:nil startDate:nil endDate:nil];
     
     if ([AccountStautsManager sharedInstance].nowUserItem.image)
     {
@@ -951,8 +986,12 @@
 
 - (void)logout:(NSNotification *)notification
 {
+    [_gourTime invalidate];
+    _gourTime = nil;
+    
     [_bgScrollView setContentOffset:CGPointZero];
     _bgScrollView.scrollEnabled = NO;
+    _temperaturesShowView.isShowTemperatureStatus = NO;
     // 跳转到登录页
     [self goLoginViewShowCloseBtn:NO];
     

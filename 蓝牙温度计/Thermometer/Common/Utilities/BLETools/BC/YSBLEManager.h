@@ -36,7 +36,7 @@ typedef void (^RemoteGroupTempCallBack) (NSArray<RemoteTempItem *> *tempArray,NS
 @property (nonatomic,assign)BOOL                        is30Second;//是否是30秒一组的数据
 
 @property (nonatomic,assign)CGFloat                     rssi;//蓝牙信号强度（-50 -- 0 强  -70 --  -50 较强）
-@property (nonatomic,readonly,strong)NSString           *macAdd;//mac地址
+@property (nonatomic,strong)NSString                    *macAdd;//mac地址
 
 AS_SINGLETON(YSBLEManager);
 
