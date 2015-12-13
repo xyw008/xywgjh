@@ -936,6 +936,11 @@
 
 - (void)changeUserSuccess:(NSNotification*)notification
 {
+    if (![AccountStautsManager sharedInstance].isBluetoothType) {
+        [_temperaturesShowView setSearchLBText:@"同步中"];
+        [_chartView loadDataArray:nil startDate:nil endDate:nil];
+    }
+    
     if ([AccountStautsManager sharedInstance].nowUserItem.image)
     {
         _headIV.image = [AccountStautsManager sharedInstance].nowUserItem.image;
