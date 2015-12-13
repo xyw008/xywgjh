@@ -623,6 +623,7 @@
                 
                 NSDate *startDate = [endDate dateBySubtractingMinutes:30];
                 [strongSelf->_chartView loadDataArray:tempArray startDate:[startDate dateByAddingSecond:30] endDate:endDate];
+                strongSelf->_chartView.indexStrArray = [weakSelf getDateShowLBTextArray];
                 
                 //            [strongSelf->_fsLineTemperatureView clearChartData];
                 //            [strongSelf->_fsLineTemperatureView setChartData:dataArray];
@@ -935,7 +936,8 @@
 
 - (void)changeUserSuccess:(NSNotification*)notification
 {
-    if ([AccountStautsManager sharedInstance].nowUserItem.image) {
+    if ([AccountStautsManager sharedInstance].nowUserItem.image)
+    {
         _headIV.image = [AccountStautsManager sharedInstance].nowUserItem.image;
     }
     else
@@ -946,9 +948,11 @@
 {
     [_bgScrollView setContentOffset:CGPointZero];
     _bgScrollView.scrollEnabled = NO;
-    
     // 跳转到登录页
     [self goLoginViewShowCloseBtn:NO];
+    
+    [_temperaturesShowView setSearchLBText:@"搜索中"];
+    [_chartView loadDataArray:nil startDate:nil endDate:nil];
 }
 
 @end

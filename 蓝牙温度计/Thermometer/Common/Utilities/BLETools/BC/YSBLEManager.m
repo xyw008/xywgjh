@@ -102,6 +102,11 @@ DEF_SINGLETON(YSBLEManager);
     _babyBluethooth.scanForPeripherals().begin();
 }
 
+- (void)cancelAllPeripheralsConnection
+{
+    [_babyBluethooth cancelAllPeripheralsConnection];
+}
+
 - (void)setIsFUnit:(BOOL)isFUnit
 {
     _isFUnit = isFUnit;

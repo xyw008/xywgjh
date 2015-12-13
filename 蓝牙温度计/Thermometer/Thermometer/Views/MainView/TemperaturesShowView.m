@@ -323,7 +323,7 @@
 {
     _isRemoteType = isRemoteType;
     _searchLB.text = _isRemoteType ? @"同步中" : @"搜索中";
-    
+    _searchLB.hidden = NO;
     if (_isRemoteType)
     {
         _deviceLB.hidden = YES;
@@ -332,6 +332,22 @@
         _testTimeLB.hidden = YES;
         _testTimeValueLB.hidden = YES;
     }
+}
+
+- (void)setSearchLBText:(NSString *)text
+{
+    for (UIView *subView in self.subviews)
+    {
+        if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView]) {
+            subView.hidden = YES;
+        }
+    }
+    
+    CGFloat height = DynamicWidthValue640(275/1.5) - 22;
+    _temperaturesColorView.frame = CGRectMake(_temperaturesColorView.frameOriginX, CGRectGetMaxY(_temperaturesIV.frame) - height, _temperaturesColorView.width, height);
+    _temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:0];
+    _searchLB.hidden = NO;
+    _searchLB.text = text;
 }
 
 
@@ -365,8 +381,11 @@
     {
         if (_searchLB.hidden)
         {
-            for (UIView *subView in self.subviews) {
-                subView.hidden = YES;
+            for (UIView *subView in self.subviews)
+            {
+                if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView]) {
+                    subView.hidden = YES;
+                }
             }
             _searchLB.hidden = NO;
         }
@@ -378,7 +397,9 @@
         if (_searchLB.hidden)
         {
             for (UIView *subView in self.subviews) {
-                subView.hidden = YES;
+                if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView]) {
+                    subView.hidden = YES;
+                }
             }
             _searchLB.hidden = NO;
         }

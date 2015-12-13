@@ -19,5 +19,6 @@
 
 - (void)setBettey:(CGFloat)bettey;
 
+- (void)setSearchLBText:(NSString*)text;
 
 @end

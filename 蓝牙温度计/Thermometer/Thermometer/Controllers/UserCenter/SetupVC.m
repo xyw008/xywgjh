@@ -59,6 +59,9 @@
 
 - (void)logoutBtnTouch:(UIButton*)btn
 {
+    //停止蓝牙
+    [[YSBLEManager sharedInstance] cancelAllPeripheralsConnection];
+    
     [UserInfoModel setUserDefaultLoginName:@""];
     [UserInfoModel setUserDefaultPassword:@""];
     

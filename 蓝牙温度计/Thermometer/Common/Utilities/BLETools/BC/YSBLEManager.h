@@ -42,10 +42,16 @@ AS_SINGLETON(YSBLEManager);
 
 - (void)initBluetoothInfo;
 
+//开始扫描链接
 - (void)startScanPeripherals;
+
+//断开所有链接
+- (void)cancelAllPeripheralsConnection;
 
 - (void)writeIs30Second:(BOOL)is30Second;
 
 - (void)getRemoteTempBegin:(NSDate*)beginDate end:(NSDate*)endDate;
+
+
 
 @end
