@@ -323,7 +323,6 @@
 {
     _isRemoteType = isRemoteType;
     _searchLB.text = _isRemoteType ? @"同步中" : @"搜索中";
-    _searchLB.hidden = NO;
     if (_isRemoteType)
     {
         _deviceLB.hidden = YES;
