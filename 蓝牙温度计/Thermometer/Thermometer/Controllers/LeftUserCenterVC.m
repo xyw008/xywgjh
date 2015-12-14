@@ -52,10 +52,15 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                                                  name:kLoginSuccessNotificationKey
                                                object:nil];
     
-    //登陆成功通知
+    //添加用户成功
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(addUserSuccess:)
                                                  name:kAddUserSuccessNotificationKey
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeUserInfoSuccess:)
+                                                 name:kChangeUserSuccessNotificationKey
                                                object:nil];
 }
 
@@ -102,6 +107,10 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 
 - (void)setNetworkRequestStatusBlocks
 {
+    [self setStartedBlock:^(NetRequest *request) {
+    
+    }];
+    
     WEAKSELF
     [self setNetSuccessBlock:^(NetRequest *request, id successInfoObj) {
         
@@ -506,6 +515,14 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 {
     _needChnageUserName = nil;
     [self getNetworkData];
+    
+//    if ([AccountStautsManager sharedInstance].nowUserItem.image)
+//    {
+//        _headIV.image = [AccountStautsManager sharedInstance].nowUserItem.image;
+//    }
+//    else
+//        _headIV.image = [UIImage imageNamed:@"icon_userhead"];
+    
 }
 
 - (void)addUserSuccess:(NSNotification*)notification
@@ -514,6 +531,27 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
         _needChnageUserName = [notification.userInfo safeObjectForKey:kNewUserName];
     }
     [self getNetworkData];
+}
+
+- (void)changeUserInfoSuccess:(NSNotification*)notification
+{
+    if ([AccountStautsManager sharedInstance].nowUserItem.image)
+    {
+        _headIV.image = [AccountStautsManager sharedInstance].nowUserItem.image;
+        
+        [self getNetworkData];
+//        for (NSInteger i=0 ; i < _userItemArray.count; i++)
+//        {
+//            UserItem *item = [_userItemArray objectAtIndex:i];
+//            if ([item.userName isEqualToString:[AccountStautsManager sharedInstance].nowUserItem.userName])
+//            {
+//                [_userItemArray replaceObjectAtIndex:i withObject:[AccountStautsManager sharedInstance].nowUserItem];
+//                break;
+//            }
+//        }
+    }
+    else
+        _headIV.image = [UIImage imageNamed:@"icon_userhead"];
 }
 
 @end

@@ -12,6 +12,7 @@
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "CommonEntity.h"
 #import "DateTools.h"
+#import "AccountStautsManager.h"
 
 #import "SystemConvert.h"
 #import "BabyToy.h"
@@ -348,7 +349,11 @@
                     strongSelf->_userItem.age = [strongSelf->_ageString integerValue];
                     strongSelf->_userItem.role = strongSelf->_lastSelectRoleBtn.tag - kRoleBtnStartTag + 1;
                     strongSelf->_userItem.image = strongSelf->_headImage;
+                    
+                    [AccountStautsManager sharedInstance].nowUserItem = strongSelf->_userItem;
                     [[NSNotificationCenter defaultCenter] postNotificationName:kAddUserSuccessNotificationKey object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kChangeUserSuccessNotificationKey object:nil];
+                    
                     [weakSelf backViewController];
                 }
                     break;

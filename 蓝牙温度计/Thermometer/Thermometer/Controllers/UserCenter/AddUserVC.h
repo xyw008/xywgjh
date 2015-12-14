@@ -16,6 +16,12 @@
 static NSString * const kAddUserSuccessNotificationKey = @"kAddUserSuccessNotificationKey";
 
 
+#define kUserItemKey @"userItemKey"
+//修改用户成功
+static NSString * const kChangeUserSuccessNotificationKey = @"kChangeUserSuccessNotificationKey";
+
+
+
 @interface AddUserVC : BaseNetworkViewController
 
 @property (nonatomic,strong)UserItem    *userItem;
