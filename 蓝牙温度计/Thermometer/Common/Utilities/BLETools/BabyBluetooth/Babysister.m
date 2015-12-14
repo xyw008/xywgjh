@@ -10,6 +10,7 @@
 
 #import "Babysister.h"
 #import "BabyCallback.h"
+#import "AccountStautsManager.h"
 
 @implementation Babysister
 
@@ -224,6 +225,8 @@
     if (error)
     {
         NSLog(@">>> didDisconnectPeripheral for %@ with error: %@", peripheral.name, [error localizedDescription]);
+        
+        [[AccountStautsManager sharedInstance] disconnectBluetoothAlarm];
     }
     
     [self deletePeripheral:peripheral];

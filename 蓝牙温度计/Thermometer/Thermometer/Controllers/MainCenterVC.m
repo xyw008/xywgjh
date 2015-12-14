@@ -119,19 +119,31 @@
                                                  name:kLoginSuccessNotificationKey
                                                object:nil];
     
+    //退出登录
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(logout:)
+                                                 name:kLogoutNotificationKey
+                                               object:nil];
+    
+    //切换成员
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(changeUserSuccess:)
                                                  name:kChangeNowUserNotificationKey
                                                object:nil];
+    
+    //修改成员信息成功
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(changeUserInfoSuccess:)
                                                  name:kChangeUserSuccessNotificationKey
                                                object:nil];
     
+    
+    //蓝牙断开连接
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(logout:)
-                                                 name:kLogoutNotificationKey
+                                             selector:@selector(bluetoothDisconnect:)
+                                                 name:BluetoothDisconnectNotificationKey
                                                object:nil];
+    
     
     [self initBgScrollView];
     [self initTemperaturesShowView];
@@ -1024,5 +1036,14 @@
     [_temperaturesShowView setSearchLBText:@"搜索中"];
     [_chartView loadDataArray:nil startDate:nil endDate:nil];
 }
+
+- (void)bluetoothDisconnect:(NSNotification *)notification
+{
+    [_temperaturesShowView setSearchLBText:@"搜索中"];
+    [_chartView loadDataArray:nil startDate:nil endDate:nil];
+    [_ysBluethooth initBluetoothInfo];
+    [_ysBluethooth startScanPeripherals];
+}
+
 
 @end

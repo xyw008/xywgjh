@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "CommonEntity.h"
 
+//蓝牙断开连接通知
+static NSString * const BluetoothDisconnectNotificationKey = @"BluetoothDisconnectNotificationKey";
+
+
 //校验手机结果通知
 static NSString * const kCheckPhoneNumResultKey = @"kCheckPhoneNumResultKey";
 

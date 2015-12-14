@@ -158,6 +158,8 @@ DEF_SINGLETON(AccountStautsManager);
     {
         _isDisconnectAlarm = YES;
         [self startAlarm:@"设备已断开"];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:BluetoothDisconnectNotificationKey object:nil userInfo:nil];
     }
 }
 

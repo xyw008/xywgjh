@@ -374,8 +374,6 @@
 
 - (void)setTemperature:(CGFloat)temperature
 {
-    temperature -= 6;
-    
     if (temperature == 0)
         return;
     //检查温度是否需要报警

@@ -225,10 +225,16 @@ DEF_SINGLETON(YSBLEManager);
     [_babyBluethooth setBlockOnDisconnectAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
         DLog(@"设备：%@--断开连接",peripheral.name);
         //断开连接报警
-        [[AccountStautsManager sharedInstance] disconnectBluetoothAlarm];
+        //[[AccountStautsManager sharedInstance] disconnectBluetoothAlarm];
         //[SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--断开失败",peripheral.name]];
     }];
     
+    [_babyBluethooth setBlockOnDisconnect:^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {
+        
+        DLog(@"连接：%@--连接断开",peripheral.name);
+        //断开连接报警
+        //[[AccountStautsManager sharedInstance] disconnectBluetoothAlarm];
+    }];
     
     //设置发现设备的Services的委托
     [_babyBluethooth setBlockOnDiscoverServicesAtChannel:channelOnPeropheralView block:^(CBPeripheral *peripheral, NSError *error) {
@@ -688,9 +694,9 @@ DEF_SINGLETON(YSBLEManager);
                     {
                         RemoteTempItem *item = [RemoteTempItem initWithDict:obj];
                         //没有超出这个时间的才需要
-//                        if ([item.date isEarlierThanDate:beginDate] && [item.date isEqualToDateIgnoringTime:endDate]) {
-//                            [array addObject:item];
-//                        }
+                        if ([item.date isEarlierThanDate:beginDate] && [item.date isEqualToDateIgnoringTime:endDate]) {
+                            [array addObject:item];
+                        }
                         [array addObject:item];
                     }
                     
