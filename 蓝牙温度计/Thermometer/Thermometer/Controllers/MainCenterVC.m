@@ -124,6 +124,11 @@
                                                  name:kChangeNowUserNotificationKey
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeUserInfoSuccess:)
+                                                 name:kChangeUserSuccessNotificationKey
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(logout:)
                                                  name:kLogoutNotificationKey
                                                object:nil];
@@ -867,6 +872,8 @@
     if ([AccountStautsManager sharedInstance].isBluetoothType)
     {
         [[YSBLEManager sharedInstance] writeIs30Second:YES];
+        
+        _chartView.indexStrArray = [self getDateShowLBTextArray];
         //[[ATTimerManager shardManager] stopTimerDelegate:self];
     }
     else
@@ -959,8 +966,16 @@
     if (_welcomeAppView) {
         [self removeWelcomeAppViewIsVisitorType:NO];
     }
-    
     [self initPopView];
+    
+    
+//    if ([AccountStautsManager sharedInstance].nowUserItem.image)
+//    {
+//        _headIV.image = [AccountStautsManager sharedInstance].nowUserItem.image;
+//    }
+//    else
+//        _headIV.image = [UIImage imageNamed:@"icon_userhead"];
+    
 }
 
 - (void)changeUserSuccess:(NSNotification*)notification
@@ -983,6 +998,17 @@
     else
         _headIV.image = [UIImage imageNamed:@"icon_userhead"];
 }
+
+- (void)changeUserInfoSuccess:(NSNotification*)notification
+{
+    if ([AccountStautsManager sharedInstance].nowUserItem.image)
+    {
+        _headIV.image = [AccountStautsManager sharedInstance].nowUserItem.image;
+    }
+    else
+        _headIV.image = [UIImage imageNamed:@"icon_userhead"];
+}
+
 
 - (void)logout:(NSNotification *)notification
 {
