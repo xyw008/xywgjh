@@ -3855,7 +3855,6 @@
 				TargetAttributes = {
 					432C31871A7243840094A27E = {
 						CreatedOnToolsVersion = 6.1;
-						
 					};
 					432C31A31A7243840094A27E = {
 						CreatedOnToolsVersion = 6.1;
