@@ -64,6 +64,8 @@
         _sexString = _sexLB.text;
         _ageString = _ageLB.text;
         
+        _headIV.image = _userItem.image;
+        
         UIButton *btn = [self.view viewWithTag:_userItem.role - 1 + kRoleBtnStartTag];
         if (btn && [btn isKindOfClass:[UIButton class]]) {
             btn.selected = YES;

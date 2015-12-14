@@ -524,20 +524,20 @@
                     [oneHourArray addObject:item];
                 }
                 
-                //如果是最后一个了
-                if (i == tempArray.count - 1)
-                {
-                    //倒序
-                    //NSArray *tempArray = [[oneHourArray reverseObjectEnumerator] allObjects];
-                    NSArray *tempArray = needReverse ? [[oneHourArray reverseObjectEnumerator] allObjects] : oneHourArray;
-                    
-                    NSString *keyStr = [NSString stringWithFormat:@"%ld:00",nowHour];
-                    [_allHourTempDic setObject:tempArray forKey:keyStr];
-                    [_allHourKeyArray addObject:keyStr];
-                    CGFloat averageTemp = oneHourTotalTemp / oneHourArray.count;
-                    [_allHourAverageTempArray addObject:@(averageTemp)];
-                    
-                }
+//                //如果是最后一个了
+//                if (i == tempArray.count - 1)
+//                {
+//                    //倒序
+//                    //NSArray *tempArray = [[oneHourArray reverseObjectEnumerator] allObjects];
+//                    NSArray *tempArray = needReverse ? [[oneHourArray reverseObjectEnumerator] allObjects] : oneHourArray;
+//                    
+//                    NSString *keyStr = [NSString stringWithFormat:@"%ld:00",nowHour];
+//                    [_allHourTempDic setObject:tempArray forKey:keyStr];
+//                    [_allHourKeyArray addObject:keyStr];
+//                    CGFloat averageTemp = oneHourTotalTemp / oneHourArray.count;
+//                    [_allHourAverageTempArray addObject:@(averageTemp)];
+//                    
+//                }
             }
         }
         

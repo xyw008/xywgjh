@@ -140,6 +140,12 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                         {
                             [AccountStautsManager sharedInstance].nowUserItem = [tempArray firstObject];
                         }
+                        
+                        if ([AccountStautsManager sharedInstance].nowUserItem.image)
+                        {
+                            strongSelf->_headIV.image = [AccountStautsManager sharedInstance].nowUserItem.image;
+                        }
+                        
                     }
                     else
                     {

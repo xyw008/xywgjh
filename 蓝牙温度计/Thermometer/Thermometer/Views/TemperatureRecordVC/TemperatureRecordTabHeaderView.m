@@ -7,6 +7,7 @@
 //
 
 #import "TemperatureRecordTabHeaderView.h"
+#import "AccountStautsManager.h"
 
 @interface TemperatureRecordTabHeaderView ()
 
@@ -32,6 +33,7 @@
     self.frame = CGRectMake(0, 0, IPHONE_WIDTH, kGetScaleValueBaseIP6(195));
     self.headerImage = [UIImage imageWithColor:Common_ThemeColor];
     // self.headerImage = [UIImage imageNamed:@"FriendsBackground"];
+    
 }
 
 - (void)setup
@@ -40,6 +42,14 @@
     [self configureViewsProperties];
     
     _dateLabel.text = [NSDate stringFromDate:[NSDate date] withFormatter:DataFormatter_Date];
+    
+    ViewRadius(_userHeaderImageView, 64/2);
+    if ([AccountStautsManager sharedInstance].nowUserItem.image)
+    {
+        _userHeaderImageView.image = [AccountStautsManager sharedInstance].nowUserItem.image;
+    }
+    else
+        _userHeaderImageView.image = [UIImage imageNamed:@"icon_userhead"];
 }
 
 //////////////////////////////////////////////////////////////////////
