@@ -88,7 +88,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([[UserInfoModel getNoFirstGoApp] boolValue])
+    // if ([[UserInfoModel getNoFirstGoApp] boolValue])
     {
         [self setSlideMenuVCEnablePan:[AccountStautsManager sharedInstance].isLogin];
     }
@@ -96,7 +96,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [self setSlideMenuVCEnablePan:NO];
+    //[self setSlideMenuVCEnablePan:NO];
     [super viewDidDisappear:animated];
 }
 
