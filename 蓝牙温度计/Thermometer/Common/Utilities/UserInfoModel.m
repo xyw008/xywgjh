@@ -34,6 +34,7 @@
 #define UserDefault_DeviceTokenKey          @"userDefault_DeviceTokenKey"       // 用户注册通知成功后返回的token
 
 #define UserDefault_NoFirstAppKey          @"UserDefault_NoFirstAppKey"         //不是第一次进入app
+#define UserDefault_SelectMemberKey        @"UserDefault_SelectMemberKey"       //选中了成员id
 #define UserDefault_IsFUnitKey             @"UserDefault_IsFUnitKey"            //温度显示单位
 #define UserDefault_LastUploadTempDateKey  @"UserDefault_LastUploadTempDateKey" //最后一个上传温度的时间
 
@@ -349,6 +350,19 @@ DEF_SINGLETON(UserInfoModel);
 + (NSNumber *)getNoFirstGoApp
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_NoFirstAppKey];
+}
+
+
+//选中了的成员id
++ (void)setUserDefaultSelectMemberId:(NSNumber*)selectMemberId
+{
+    [[NSUserDefaults standardUserDefaults] setObject:selectMemberId forKey:UserDefault_SelectMemberKey];
+    [self saveUserDefaultInfo];
+}
+
++ (NSNumber *)getSelectMemberId
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:UserDefault_SelectMemberKey];
 }
 
 

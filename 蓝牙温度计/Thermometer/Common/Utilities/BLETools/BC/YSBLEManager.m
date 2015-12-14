@@ -687,6 +687,10 @@ DEF_SINGLETON(YSBLEManager);
                     for (NSDictionary *obj in tempArray)
                     {
                         RemoteTempItem *item = [RemoteTempItem initWithDict:obj];
+                        //没有超出这个时间的才需要
+//                        if ([item.date isEarlierThanDate:beginDate] && [item.date isEqualToDateIgnoringTime:endDate]) {
+//                            [array addObject:item];
+//                        }
                         [array addObject:item];
                     }
                     

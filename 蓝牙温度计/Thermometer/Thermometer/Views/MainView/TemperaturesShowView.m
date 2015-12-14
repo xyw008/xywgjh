@@ -20,6 +20,7 @@
     
     UIView          *_temperaturesColorView;//显示温度计颜色的视图
     UIImageView     *_temperaturesIV;//温度计图片
+    UIImageView     *_lightIV;//玻璃效果图片
     
     UILabel         *_temperaturesLB;//温度LB
     UILabel         *_unitLB;//单位LB
@@ -138,9 +139,9 @@
     [self addSubview:_temperaturesIV];
     
     //温度计高亮效果图片
-    UIImageView *lightIV = [[UIImageView alloc] initWithFrame:_temperaturesColorView.frame];
-    lightIV.image = [UIImage imageNamed:@"home_temperature_light"];
-    [self addSubview:lightIV];
+    _lightIV = [[UIImageView alloc] initWithFrame:_temperaturesColorView.frame];
+    _lightIV.image = [UIImage imageNamed:@"home_temperature_light"];
+    [self addSubview:_lightIV];
 }
 
 //温度文字
@@ -316,7 +317,10 @@
     _temperaturesIV.image = [UIImage imageNamed:temperatureImgStr];
     _unitLB.text = unitStr;
     [self setNowTemperatureText:nowTp];
-    _highestValueLB.text = [NSString stringWithFormat:@"%.1lf度",hightestTp];
+    
+    CGFloat showHighestTemp = _isFTypeTemperature ? [BLEManager getFTemperatureWithC:_highestTemperature] : _highestTemperature;
+    
+    _highestValueLB.text = [NSString stringWithFormat:@"%.1lf%@",showHighestTemp,unitStr];
 }
 
 - (void)setIsRemoteType:(BOOL)isRemoteType
@@ -337,7 +341,7 @@
 {
     for (UIView *subView in self.subviews)
     {
-        if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView]) {
+        if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView] && ![subView isEqual:_lightIV]) {
             subView.hidden = YES;
         }
     }
@@ -347,6 +351,7 @@
     _temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:0];
     _searchLB.hidden = NO;
     _searchLB.text = text;
+    _searchLB.textColor = Common_GreenColor;
 }
 
 
@@ -369,6 +374,8 @@
 
 - (void)setTemperature:(CGFloat)temperature
 {
+    temperature -= 6;
+    
     if (temperature == 0)
         return;
     //检查温度是否需要报警
@@ -376,34 +383,57 @@
     
     CGFloat height = DynamicWidthValue640(275/1.5);
     
+    UIColor *tempColor = [TemperaturesShowView getTemperaturesColor:temperature];
+    
     if (temperature <= 24)
     {
         if (_searchLB.hidden)
         {
-            for (UIView *subView in self.subviews)
-            {
-                if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView]) {
-                    subView.hidden = YES;
-                }
-            }
-            _searchLB.hidden = NO;
+//            for (UIView *subView in self.subviews)
+//            {
+//                if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView] && ![subView isEqual:_lightIV]) {
+//                    subView.hidden = YES;
+//                }
+//            }
+            
         }
-        _searchLB.text = @"温度过低";
+        
+        _temperaturesLB.hidden = YES;
+        _unitLB.hidden = YES;
+        _statusLB.hidden = YES;
+        _highestLB.hidden = NO;
+        _highestValueLB.hidden = NO;
+        _deviceLB.hidden = NO;
+        _deviceBatteryIV.hidden = NO;
+        _deviceSignalIV.hidden = NO;
+        _searchLB.hidden = NO;
+        
+        _searchLB.text = @"温度低";
+        _searchLB.textColor = tempColor;
         _searchLB.font = [UIFont systemFontOfSize:32];
     }
     else if (temperature >= 45)
     {
         if (_searchLB.hidden)
         {
-            for (UIView *subView in self.subviews) {
-                if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView]) {
-                    subView.hidden = YES;
-                }
-            }
-            _searchLB.hidden = NO;
+//            for (UIView *subView in self.subviews) {
+//                if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView] && ![subView isEqual:_lightIV]) {
+//                    subView.hidden = YES;
+//                }
+//            }
         }
+        _temperaturesLB.hidden = YES;
+        _unitLB.hidden = YES;
+        _statusLB.hidden = YES;
+        _highestLB.hidden = NO;
+        _highestValueLB.hidden = NO;
+        _deviceLB.hidden = NO;
+        _deviceBatteryIV.hidden = NO;
+        _deviceSignalIV.hidden = NO;
+        _searchLB.hidden = NO;
         
-        _searchLB.text = @"温度异常";
+        _searchLB.text = @"温度高";
+        _searchLB.textColor = tempColor;
         _searchLB.font = [UIFont systemFontOfSize:32];
     }
     else
@@ -442,10 +472,14 @@
     _statusLB.backgroundColor = _temperaturesColorView.backgroundColor;
     _statusLB.text = [TemperaturesShowView getTemperaturesStatus:temperature];
     
-    if (nowTemperature > _highestTemperature) {
-        _highestTemperature = nowTemperature;
-        _highestValueLB.text = [NSString stringWithFormat:@"%.1lf度",nowTemperature];
+    if (temperature > _highestTemperature) {
+        _highestTemperature = temperature;
     }
+    
+    CGFloat showHighestTemp = _isFTypeTemperature ? [BLEManager getFTemperatureWithC:_highestTemperature] : _highestTemperature;
+    
+    NSString *unitStr = _isFTypeTemperature ? @"°F" : @"°C";
+    _highestValueLB.text = [NSString stringWithFormat:@"%.1lf%@",showHighestTemp,unitStr];
 }
 
 - (void)setNowTemperatureText:(CGFloat)temperature

@@ -85,6 +85,11 @@ AS_SINGLETON(UserInfoModel);
 + (void)setUserDefaultNoFirstGoApp:(NSNumber*)noFirstGoApp;
 + (NSNumber *)getNoFirstGoApp;
 
+
+//选中了的成员id
++ (void)setUserDefaultSelectMemberId:(NSNumber*)selectMemberId;
++ (NSNumber *)getSelectMemberId;
+
 //温度显示模式是华氏还是摄氏(YES：F)
 + (void)setUserDefaultIsFUnit:(NSNumber*)isFUnit;
 + (NSNumber *)getIsFUnit;

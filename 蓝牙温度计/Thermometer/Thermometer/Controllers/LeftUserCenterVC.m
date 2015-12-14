@@ -147,7 +147,19 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                         //如果是添加的第一个成员
                         if (![AccountStautsManager sharedInstance].nowUserItem)
                         {
-                            [AccountStautsManager sharedInstance].nowUserItem = [tempArray firstObject];
+                            NSNumber *selectId = [UserInfoModel getSelectMemberId];
+                            if (selectId)
+                            {
+                                for (UserItem *item in tempArray)
+                                {
+                                    if (item.memberId == [selectId integerValue]) {
+                                        [AccountStautsManager sharedInstance].nowUserItem = item;
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                                [AccountStautsManager sharedInstance].nowUserItem = [tempArray firstObject];
                         }
                         
                         if ([AccountStautsManager sharedInstance].nowUserItem.image)

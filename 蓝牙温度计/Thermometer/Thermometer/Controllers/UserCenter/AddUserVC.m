@@ -64,8 +64,9 @@
         _ageLB.text = [NSString stringWithInt:_userItem.age];
         _sexString = _sexLB.text;
         _ageString = _ageLB.text;
-        
-        _headIV.image = _userItem.image;
+        if (_userItem.image) {
+            _headIV.image = _userItem.image;
+        }
         
         UIButton *btn = [self.view viewWithTag:_userItem.role - 1 + kRoleBtnStartTag];
         if (btn && [btn isKindOfClass:[UIButton class]]) {
@@ -348,7 +349,9 @@
                     strongSelf->_userItem.gender = [strongSelf->_sexString isEqualToString:@"男"] ? 0 : 1;
                     strongSelf->_userItem.age = [strongSelf->_ageString integerValue];
                     strongSelf->_userItem.role = strongSelf->_lastSelectRoleBtn.tag - kRoleBtnStartTag + 1;
-                    strongSelf->_userItem.image = strongSelf->_headImage;
+                    if (strongSelf->_headImage) {
+                        strongSelf->_userItem.image = strongSelf->_headImage;
+                    }
                     
                     [AccountStautsManager sharedInstance].nowUserItem = strongSelf->_userItem;
                     [[NSNotificationCenter defaultCenter] postNotificationName:kAddUserSuccessNotificationKey object:nil];
@@ -372,7 +375,16 @@
     NSString *imageString = @"";
     if (_headImage)
     {
-        NSData *data = UIImageJPEGRepresentation(_headImage, .5);
+        //压缩图片到宽度最大
+        CGFloat maxWidth = 200;
+        UIImage *resizeImg = _headImage;
+        if (resizeImg.size.width > maxWidth)
+        {
+            CGSize originalSize = resizeImg.size;
+            resizeImg = [resizeImg resize:CGSizeMake(maxWidth, originalSize.height*maxWidth/originalSize.width)];
+        }
+        
+        NSData *data = UIImageJPEGRepresentation(resizeImg, .3);
         NSString *str = [NSString stringWithFormat:@"%@", data];
         str = [str stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
         str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
