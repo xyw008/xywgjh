@@ -515,6 +515,7 @@ DEF_SINGLETON(YSBLEManager);
                 [self getDownloadLastestTemp];
             }
         }
+        
         if (_groupTemperatureCallBack) {
             _groupTemperatureCallBack(_groupTemperatureDic,dataArray,_is30Second);
         }

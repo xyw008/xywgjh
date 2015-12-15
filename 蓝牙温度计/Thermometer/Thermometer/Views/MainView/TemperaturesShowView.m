@@ -341,7 +341,7 @@
 {
     for (UIView *subView in self.subviews)
     {
-        if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView] && ![subView isEqual:_lightIV]) {
+        if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView] && ![subView isEqual:_lightIV] && ![subView isEqual:_lightIV]) {
             subView.hidden = YES;
         }
     }

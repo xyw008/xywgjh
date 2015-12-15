@@ -119,7 +119,7 @@
                     entity.date = [date dateBySubtractingSecond:j * 30 + ((gourpNum - 1) * 10 * 30)];
                 else
                     entity.date = [date dateBySubtractingMinutes:j * 5 + ((gourpNum - 1) * 10 * 5)];
-                
+
                 [resultArray addObject:entity];
                 
                 j++;

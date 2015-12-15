@@ -50,6 +50,7 @@
     }
     else
         _userHeaderImageView.image = [UIImage imageNamed:@"icon_userhead"];
+    _userNameLabel.text = [AccountStautsManager sharedInstance].nowUserItem.userName;
 }
 
 //////////////////////////////////////////////////////////////////////

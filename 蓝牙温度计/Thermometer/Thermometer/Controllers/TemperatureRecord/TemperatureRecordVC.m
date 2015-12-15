@@ -191,7 +191,7 @@
             averageTemp = [BLEManager getFTemperatureWithC:averageTemp];
         }
         
-        NSString *averageStr = [NSString stringWithFormat:@"平均温度%.1lf度",averageTemp];
+        NSString *averageStr = [NSString stringWithFormat:@"最高温度%.1lf度",averageTemp];
         UILabel *temperatureLabel = InsertLabel(headerBtn,
                                                 CGRectZero,
                                                 NSTextAlignmentLeft,
@@ -476,68 +476,94 @@
 {
     if ([tempArray isAbsoluteValid])
     {
+        NSMutableArray *newArray = [NSMutableArray new];
+        for (BLECacheDataEntity *obj in tempArray) {
+            if (obj.temperature != 20) {
+                [newArray addObject:obj];
+            }
+            //[newArray addObject:obj];
+        }
+        
         //所有小时数组
         _allHourTempDic = [NSMutableDictionary new];
         _allHourKeyArray = [NSMutableArray new];
         _allHourAverageTempArray = [NSMutableArray new];
         
         NSMutableArray *oneHourArray = [NSMutableArray new];
-        NSInteger nowHour = -1;
+        NSInteger nowHour = 50;
         CGFloat oneHourTotalTemp = 0.0 ;//一个小时的总温度
         
         //对所有数据根据小时时间来分组
-        for (NSInteger i=0;i<tempArray.count;i++)
+        for (NSInteger i=0;i<newArray.count;i++)
         {
-            BLECacheDataEntity *item = [tempArray objectAtIndex:i];
+            BLECacheDataEntity *item = [newArray objectAtIndex:i];
             
-            NSString *dateString = [NSDate stringFromDate:item.date withFormatter:DataFormatter_TimeNoSecond];
-            NSString *hourStr = [dateString substringToIndex:2];
-            NSInteger hour = [hourStr integerValue];
-            
-            if (nowHour != hour)
+            if ([item.date compare:_beginDate] == NSOrderedAscending || [item.date compare:_endDate] == NSOrderedDescending)
             {
-                if ([oneHourArray isAbsoluteValid])
-                {
-                    //倒序
-                    //NSArray *tempArray = [[oneHourArray reverseObjectEnumerator] allObjects];
-                    NSArray *tempArray = needReverse ? [[oneHourArray reverseObjectEnumerator] allObjects] : oneHourArray;
-                    
-                    NSString *keyStr = [NSString stringWithFormat:@"%ld:00",nowHour];
-                    [_allHourTempDic setObject:tempArray forKey:keyStr];
-                    [_allHourKeyArray addObject:keyStr];
-                    CGFloat averageTemp = oneHourTotalTemp / oneHourArray.count;
-                    [_allHourAverageTempArray addObject:@(averageTemp)];
-                }
-                oneHourArray = [NSMutableArray new];
-                oneHourTotalTemp = 0.0;
-                nowHour = hour;
+                
             }
             else
             {
-                //超出当天的不用显示
-                if ([item.date compare:_beginDate] == NSOrderedAscending || [item.date compare:_endDate] == NSOrderedDescending)
+                NSString *dateString = [NSDate stringFromDate:item.date withFormatter:DataFormatter_TimeNoSecond];
+                NSString *hourStr = [dateString substringToIndex:2];
+                NSInteger hour = [hourStr integerValue];
+                
+                DLog(@"datestr = %@  hour = %ld",dateString,hour);
+                
+                if (nowHour > hour)
                 {
+                    if ([oneHourArray isAbsoluteValid])
+                    {
+                        //倒序
+                        //NSArray *tempArray = [[oneHourArray reverseObjectEnumerator] allObjects];
+                        NSArray *oneTempArray = needReverse ? [[oneHourArray reverseObjectEnumerator] allObjects] : oneHourArray;
+                        
+                        NSString *keyStr = [NSString stringWithFormat:@"%ld:00",nowHour];
+                        [_allHourTempDic setObject:oneTempArray forKey:keyStr];
+                        [_allHourKeyArray addObject:keyStr];
+//                        CGFloat averageTemp = oneHourTotalTemp / oneHourArray.count;
+//                        [_allHourAverageTempArray addObject:@(averageTemp)];
+                        //CGFloat averageTemp = oneHourTotalTemp / oneHourArray.count;
+                        [_allHourAverageTempArray addObject:@(oneHourTotalTemp)];
+                    }
+                    
+                    oneHourArray = [NSMutableArray new];
+                    oneHourTotalTemp = 0.0;
+                    nowHour = hour;
+                    
+                    
+                    if (oneHourTotalTemp < item.temperature) {
+                        oneHourTotalTemp = item.temperature;
+                    }
+                    
+                    [oneHourArray addObject:item];
                 }
                 else
                 {
-                    oneHourTotalTemp += item.temperature;
+                    
+                    if (oneHourTotalTemp < item.temperature) {
+                        oneHourTotalTemp = item.temperature;
+                    }
+                    //oneHourTotalTemp += item.temperature;
                     [oneHourArray addObject:item];
+                    
+                    //如果是最后一个了
+                    if (i == newArray.count - 1)
+                    {
+                        if ([oneHourArray isAbsoluteValid])
+                        {
+                            //倒序
+                            //NSArray *tempArray = [[oneHourArray reverseObjectEnumerator] allObjects];
+                            NSArray *oneTempArray = needReverse ? [[oneHourArray reverseObjectEnumerator] allObjects] : oneHourArray;
+                            
+                            NSString *keyStr = [NSString stringWithFormat:@"%ld:00",nowHour];
+                            [_allHourTempDic setObject:oneTempArray forKey:keyStr];
+                            [_allHourKeyArray addObject:keyStr];
+                            CGFloat averageTemp = oneHourTotalTemp;
+                            [_allHourAverageTempArray addObject:@(averageTemp)];
+                        }
+                    }
                 }
-                
-//                //如果是最后一个了
-//                if (i == tempArray.count - 1)
-//                {
-//                    //倒序
-//                    //NSArray *tempArray = [[oneHourArray reverseObjectEnumerator] allObjects];
-//                    NSArray *tempArray = needReverse ? [[oneHourArray reverseObjectEnumerator] allObjects] : oneHourArray;
-//                    
-//                    NSString *keyStr = [NSString stringWithFormat:@"%ld:00",nowHour];
-//                    [_allHourTempDic setObject:tempArray forKey:keyStr];
-//                    [_allHourKeyArray addObject:keyStr];
-//                    CGFloat averageTemp = oneHourTotalTemp / oneHourArray.count;
-//                    [_allHourAverageTempArray addObject:@(averageTemp)];
-//                    
-//                }
             }
         }
         

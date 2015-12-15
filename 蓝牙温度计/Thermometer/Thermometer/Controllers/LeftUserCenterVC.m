@@ -24,6 +24,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 {
     NSMutableArray      *_userItemArray;
     UIImageView         *_headIV;
+    UILabel             *_userNameLB;//用户名字
     
     UserItem            *_willDeleteUserItem;
 
@@ -91,6 +92,15 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     _headIV.center = CGPointMake((IPHONE_WIDTH - IIDeckViewLeftSize)/2, headBgView.center.y);
     ViewRadius(_headIV, headHeight/2);
     [_headIV addTarget:self action:@selector(goUserVC)];
+    
+    
+    _userNameLB =[[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_headIV.frame) + 12, (IPHONE_WIDTH - IIDeckViewLeftSize), 17)];
+    _userNameLB.center = CGPointMake(_headIV.center.x, CGRectGetMaxY(_headIV.frame) + 18);
+    _userNameLB.font = SP14Font;
+    _userNameLB.textColor = [UIColor whiteColor];
+    _userNameLB.textAlignment = NSTextAlignmentCenter;
+    [headBgView addSubview:_userNameLB];
+    
     _tableView.tableHeaderView = headBgView;
     
 }
@@ -158,8 +168,10 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                                     }
                                 }
                             }
-                            else
-                                [AccountStautsManager sharedInstance].nowUserItem = [tempArray firstObject];
+                        }
+                        
+                        if (![AccountStautsManager sharedInstance].nowUserItem) {
+                            [AccountStautsManager sharedInstance].nowUserItem = [tempArray firstObject];
                         }
                         
                         if ([AccountStautsManager sharedInstance].nowUserItem.image)
@@ -167,6 +179,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                             strongSelf->_headIV.image = [AccountStautsManager sharedInstance].nowUserItem.image;
                         }
                         
+                        strongSelf->_userNameLB.text = [AccountStautsManager sharedInstance].nowUserItem.userName;
                     }
                     else
                     {
@@ -456,6 +469,9 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                     else
                         strongSelf->_headIV.image = [UIImage imageNamed:@"icon_userhead"];
                     
+                    
+                    strongSelf->_userNameLB.text = [AccountStautsManager sharedInstance].nowUserItem.userName;
+                    
                     [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleLeftView];
                 }];
                 
@@ -564,6 +580,9 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     }
     else
         _headIV.image = [UIImage imageNamed:@"icon_userhead"];
+    
+    
+    _userNameLB.text = [AccountStautsManager sharedInstance].nowUserItem.userName;
 }
 
 @end
