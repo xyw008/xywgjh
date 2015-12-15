@@ -81,7 +81,9 @@ DEF_SINGLETON(AccountStautsManager);
 - (void)setNowUserItem:(UserItem *)nowUserItem
 {
     _nowUserItem = nowUserItem;
-    [UserInfoModel setUserDefaultSelectMemberId:[NSNumber numberWithInteger:_nowUserItem.memberId]];
+    if (_nowUserItem != nil) {
+        [UserInfoModel setUserDefaultSelectMemberId:[NSNumber numberWithInteger:_nowUserItem.memberId]];
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:kChangeNowUserNotificationKey object:nil];
 }
 
