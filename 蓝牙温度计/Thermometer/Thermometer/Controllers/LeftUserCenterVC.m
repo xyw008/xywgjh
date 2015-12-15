@@ -10,6 +10,7 @@
 #import "CommonEntity.h"
 #import "LoginBC.h"
 #import "AccountStautsManager.h"
+#import "YSBLEManager.h"
 #import "InterfaceHUDManager.h"
 
 #import "BaseNetworkViewController+NetRequestManager.h"
@@ -473,6 +474,9 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                     strongSelf->_userNameLB.text = [AccountStautsManager sharedInstance].nowUserItem.userName;
                     
                     [((AppDelegate*)[UIApplication sharedApplication].delegate).slideMenuVC toggleLeftView];
+                    
+                    [YSBLEManager sharedInstance].lastUploadTempDate = nil;
+                    
                 }];
                 
                 /*

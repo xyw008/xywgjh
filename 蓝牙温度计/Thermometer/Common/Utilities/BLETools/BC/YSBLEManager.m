@@ -36,7 +36,7 @@
     NSMutableDictionary         *_groupTemperatureDic;//温度组
     BOOL                        _isFirstGetGroupTemp;//是否是第一次获取温度数据（用于判断是否是蓝牙缓存数据，决定是否上传）
     
-    NSDate                      *_lastUploadTempDate;//最后上传温度数据的时间，这个后面的30s的温度组数据都要上传
+    BOOL                        _isGetLastUploadTimeRequesting;//获取最后一个上传时间的请求
     NSDate                      *_nowUploadLastDate;//正在上传的最后一个温度的时间
     
     BOOL                        _isUploadRequesting;//数据上报状态
@@ -121,6 +121,7 @@ DEF_SINGLETON(YSBLEManager);
     _isFUnit = isFUnit;
     [UserInfoModel setUserDefaultIsFUnit:@(_isFUnit)];
 }
+
 
 #pragma mark - write
 
@@ -631,10 +632,16 @@ DEF_SINGLETON(YSBLEManager);
 //去服务器拿最后一次上传的数据，通过时间来判定后面获取的数据那些需要上传
 - (void)getDownloadLastestTemp
 {
-    if (![AccountStautsManager sharedInstance].isLogin || ![AccountStautsManager sharedInstance].nowUserItem)
+    if (_isGetLastUploadTimeRequesting ||
+        _lastUploadTempDate ||
+        ![AccountStautsManager sharedInstance].isLogin ||
+        ![AccountStautsManager sharedInstance].nowUserItem)
     {
         return;
     }
+    
+    _isGetLastUploadTimeRequesting = YES;
+    
     
     NSURL *url = [UrlManager getRequestUrlByMethodName:[BaseNetworkViewController getRequestURLStr:NetTempRequestType_DownloadLastestTemp] andArgsDic:nil];
     
@@ -655,6 +662,7 @@ DEF_SINGLETON(YSBLEManager);
 #pragma mark - NetRequest delegate
 - (void)netRequest:(NetRequest *)request successWithInfoObj:(id)infoObj
 {
+    //上传温度数据
     if (request.tag == NetTempRequestType_UploadTemp)
     {
         _isUploadRequesting = NO;
@@ -741,8 +749,19 @@ DEF_SINGLETON(YSBLEManager);
                     RemoteTempItem *item = [RemoteTempItem initWithDict:firstTempDic];
                     _lastUploadTempDate = item.date;
                 }
+                else
+                {
+                    NSDate *date = [NSDate date];
+                    _lastUploadTempDate = [date dateBySubtractingMinutes:40];
+                }
+            }
+            else
+            {
+                NSDate *date = [NSDate date];
+                _lastUploadTempDate = [date dateBySubtractingMinutes:40];
             }
         }
+        _isGetLastUploadTimeRequesting = NO;
     }
 }
 
@@ -763,7 +782,7 @@ DEF_SINGLETON(YSBLEManager);
     }
     else if (request.tag == NetTempRequestType_DownloadLastestTemp)
     {
-        
+        _isGetLastUploadTimeRequesting = NO;
     }
 }
 

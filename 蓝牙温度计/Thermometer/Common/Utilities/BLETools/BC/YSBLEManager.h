@@ -38,6 +38,9 @@ typedef void (^RemoteGroupTempCallBack) (NSArray<RemoteTempItem *> *tempArray,NS
 @property (nonatomic,assign)CGFloat                     rssi;//蓝牙信号强度（-50 -- 0 强  -70 --  -50 较强）
 @property (nonatomic,strong)NSString                    *macAdd;//mac地址
 
+@property (nonatomic,strong)NSDate                      *lastUploadTempDate;//最后上传温度数据的时间，这个后面的30s的温度组数据都要上传
+
+
 AS_SINGLETON(YSBLEManager);
 
 - (void)initBluetoothInfo;

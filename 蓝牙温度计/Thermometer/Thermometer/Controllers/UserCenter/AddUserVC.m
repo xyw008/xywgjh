@@ -408,13 +408,16 @@
     
     
     NetRequestType type = NetUserRequestType_AddUser;
-    if (_userItem) {
+    if (_userItem)
+    {
+        NSString *nowImageStr = [imageString isAbsoluteValid] ? imageString : _userItem.imageStr;
+        
         type = NetUserRequestType_ChangeUserInfo;
         memberDic = @{@"name":_userItem.userName,
                       @"gender":@(gender),
                       @"age":@([_ageString integerValue]),
                       @"role":@(_lastSelectRoleBtn.tag - kRoleBtnStartTag + 1),
-                      @"image":imageString,
+                      @"image":nowImageStr,
                       @"newName":_nameTF.text};
     }
     NSArray *memberList = @[memberDic];
