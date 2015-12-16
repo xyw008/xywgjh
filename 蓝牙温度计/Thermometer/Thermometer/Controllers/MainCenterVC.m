@@ -1038,8 +1038,8 @@
 {
     [_temperaturesShowView setSearchLBText:@"搜索中"];
     [_chartView loadDataArray:nil startDate:nil endDate:nil];
-    [_ysBluethooth initBluetoothInfo];
-    [_ysBluethooth startScanPeripherals];
+//    [_ysBluethooth initBluetoothInfo];
+//    [_ysBluethooth startScanPeripherals];
 }
 
 

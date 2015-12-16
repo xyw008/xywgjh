@@ -320,6 +320,7 @@ DEF_SINGLETON(YSBLEManager);
     [_babyBluethooth setBlockOnConnectedAtChannel:channelOnPeropheralView block:^(CBCentralManager *central, CBPeripheral *peripheral) {
         DLog(@"连接成功");
         
+        [[AccountStautsManager sharedInstance] cancelAlarmAlert];
         //[SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"设备：%@--连接成功",peripheral.name]];
     }];
     
@@ -426,6 +427,15 @@ DEF_SINGLETON(YSBLEManager);
             
             STRONGSELF
             strongSelf->_macAdd = macString;
+            
+            for (CBCharacteristic *c in strongSelf->_currTemperatureService.characteristics) {
+                NSString *cUUIDString = [c.UUID.UUIDString lowercaseString];
+                //fff3 2a1c fff5
+                if ([cUUIDString isEqualToString:@"fff5"]) {
+                    strongSelf->_babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(strongSelf->_currPeripheral,c);
+                }
+            }
+            
             /*
             
             //如果有默认mac地址
@@ -603,18 +613,19 @@ DEF_SINGLETON(YSBLEManager);
         }
     }
     
-    //获取蓝牙mac地址
-    for (CBCharacteristic *c in _macSerivce.characteristics)
-    {
-        //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
-        NSString *cUUIDString = [c.UUID.UUIDString lowercaseString];
-        NSString *sysIdString = [@"2A23" lowercaseString];
-        
-        if ([cUUIDString isEqualToString:sysIdString])
-        {
-            _babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(_macPeripheral,c);
-        }
-    }
+    //切换到 读取mac地址的 per后，rssi 读取不到了 why
+//    //获取蓝牙mac地址
+//    for (CBCharacteristic *c in _macSerivce.characteristics)
+//    {
+//        //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
+//        NSString *cUUIDString = [c.UUID.UUIDString lowercaseString];
+//        NSString *sysIdString = [@"2A23" lowercaseString];
+//        
+//        if ([cUUIDString isEqualToString:sysIdString])
+//        {
+//            _babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(_macPeripheral,c);
+//        }
+//    }
 }
 
 //温度组 通知

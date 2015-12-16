@@ -35,13 +35,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Common/Utilities/BLETools/BC/YSBLEManager.m"
-            timestampString = "471940011.967609"
+            filePath = "Thermometer/Controllers/UserCenter/PasswordInputVC.m"
+            timestampString = "471943343.209169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "-writeIs30Second:"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "-getNetworkData"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Thermometer/Controllers/UserCenter/PasswordInputVC.m"
+            timestampString = "471943375.698489"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "-setNetworkRequestStatusBlocks"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Common/Utilities/NetRequestManager.m"
+            timestampString = "471943391.886668"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
+            landmarkName = "-requestFailed:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -52,12 +84,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Common/Utilities/BLETools/BC/YSBLEManager.m"
-            timestampString = "471940082.497054"
+            timestampString = "471951061.169009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "623"
-            endingLineNumber = "623"
-            landmarkName = "-setTemperatureGroupNotifiy"
+            startingLineNumber = "435"
+            endingLineNumber = "435"
+            landmarkName = "-bluethoothDelegate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -67,13 +99,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Common/Utilities/BLETools/BC/YSBLEManager.m"
-            timestampString = "471940093.826971"
+            filePath = "Thermometer/Model/BC/AccountStautsManager.m"
+            timestampString = "471951426.240969"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "685"
-            endingLineNumber = "685"
-            landmarkName = "-giveGroupTemperature:"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
+            landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

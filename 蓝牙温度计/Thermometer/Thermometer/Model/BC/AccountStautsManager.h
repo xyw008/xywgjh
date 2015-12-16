@@ -62,5 +62,9 @@ AS_SINGLETON(AccountStautsManager);
  @ Creat:   2015-12-12
  */
 - (void)handleThermometerAlertActionWithAlertButtonIndex:(NSInteger)buttonIndex;
+//显示报警
+- (void)showAlarmAlert:(NSString*)title;
+//取消报警
+- (void)cancelAlarmAlert;
 
 @end

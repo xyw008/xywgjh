@@ -38,7 +38,7 @@
     _macLB.userInteractionEnabled = YES;
     UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clearMacAdd)];
     [_macLB addGestureRecognizer:longGesture];
-    
+    _macLB.hidden = YES;
     
     
     UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -13,6 +13,7 @@
 #import "LoginBC.h"
 #import "BaseNetworkViewController+NetRequestManager.h"
 #import "UrlManager.h"
+#import "YSBLEManager.h"
 
 #import <AVFoundation/AVFoundation.h>
 
@@ -22,6 +23,7 @@
     NSDate      *_lastAlarmingTime;//最后一次提醒时间
     NSInteger   _betweenTime;//警报间隔时间
     BOOL        _isDisconnectAlarm;//是断开连接警报
+    UIAlertView *_alarmAlert;
 }
 
 @end
@@ -271,6 +273,40 @@ DEF_SINGLETON(AccountStautsManager);
 }
 
 
+- (void)showAlarmAlert:(NSString*)title
+{
+    if (_isDisconnectAlarm) {
+        _alarmAlert = [[UIAlertView alloc] initWithTitle:@"报警提示" message:title delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [_alarmAlert show];
+        
+        [[YSBLEManager sharedInstance] initBluetoothInfo];
+        [[YSBLEManager sharedInstance] startScanPeripherals];
+    }
+    else
+    {
+        
+        _alarmAlert = [[UIAlertView alloc] initWithTitle:@"报警提示" message:title delegate:self cancelButtonTitle:nil otherButtonTitles:@"十分钟后再次提醒",@"二十分钟后再次提醒",@"三十分钟后再次提醒", nil];
+        [_alarmAlert show];
+    }
+}
+
+- (void)cancelAlarmAlert
+{
+    if (_alarmAlert)
+    {
+        [_alarmAlert dismissWithClickedButtonIndex:-1 animated:YES];
+        
+        [_alarmAlert removeFromSuperview];
+        _alarmAlert = nil;
+        
+        [[ATAudioPlayManager shardManager] stopAllAudio];
+        AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
+        _alarming = NO;
+    }
+    
+    
+}
+
 //震动完成回调
 void systemAudioCallback()
 {
@@ -307,7 +343,10 @@ void systemAudioCallback()
     
     if (_isDisconnectAlarm) {
         _isDisconnectAlarm = NO;
-        [[NSNotificationCenter defaultCenter] postNotificationName:BluetoothDisconnectNotificationKey object:nil userInfo:nil];
+        if (buttonIndex != -1) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:BluetoothDisconnectNotificationKey object:nil userInfo:nil];
+        }
+        
     }
     else
     {
@@ -323,7 +362,6 @@ void systemAudioCallback()
     [[ATAudioPlayManager shardManager] stopAllAudio];
     AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
     _alarming = NO;
-   
 }
 
 - (void)handleThermometerAlertActionWithAlertButtonIndex:(NSInteger)buttonIndex
