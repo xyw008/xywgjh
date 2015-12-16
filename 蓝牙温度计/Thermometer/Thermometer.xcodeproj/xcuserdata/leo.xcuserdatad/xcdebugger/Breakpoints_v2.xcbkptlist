@@ -19,29 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Thermometer/Controllers/TemperatureRecord/TemperatureRecordVC.m"
-            timestampString = "471843530.19377"
+            filePath = "Thermometer/Model/BC/AccountStautsManager.m"
+            timestampString = "471899006.144387"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "513"
-            endingLineNumber = "513"
-            landmarkName = "-handleGroupTemperature:needReverse:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Common/Utilities/BLETools/BC/YSBLEManager.m"
-            timestampString = "471867294.427559"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "510"
-            endingLineNumber = "510"
-            landmarkName = "-giveGroupTemperature:"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "-disconnectBluetoothAlarm"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

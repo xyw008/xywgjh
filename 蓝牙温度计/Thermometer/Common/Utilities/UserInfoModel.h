@@ -90,6 +90,12 @@ AS_SINGLETON(UserInfoModel);
 + (void)setUserDefaultSelectMemberId:(NSNumber*)selectMemberId;
 + (NSNumber *)getSelectMemberId;
 
+
+//蓝牙设备mac地址
++ (void)setUserDefaultDeviceMacAddr:(NSString *)deviceMacAddr;
++ (NSString *)getDeviceMacAddr;
+
+
 //温度显示模式是华氏还是摄氏(YES：F)
 + (void)setUserDefaultIsFUnit:(NSNumber*)isFUnit;
 + (NSNumber *)getIsFUnit;

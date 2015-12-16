@@ -14,6 +14,7 @@
 #import "UserInfoModel.h"
 #import "AccountStautsManager.h"
 #import "NetRequestManager.h"
+#import "PRPAlertView.h"
 #import "BaseNetworkViewController+NetRequestManager.h"
 
 #define channelOnPeropheralView @"peripheralView"
@@ -25,6 +26,15 @@
 @interface YSBLEManager ()<NetRequestDelegate>
 {
     BabyBluetooth               *_babyBluethooth;
+    NSDate                      *_startScanBluethoothDate;//开始扫描蓝牙时间
+    
+    
+    NSString                    *_defaultMacAddrStr;//默认设备mac地址
+    NSMutableArray              *_ysPeripheralArray;//搜索到的于氏温度设备
+    NSInteger                   _currLinkIndex;//现在链接设备所在数组的index
+    BOOL                        _isShowAlerting;//显示提示状态
+    BOOL                        _hasNotifiy;
+    
     CBPeripheral                *_currPeripheral;//现在的外围设备
     CBService                   *_currTemperatureService;//现在的服务
     CBService                   *_macSerivce;//mac地址服务
@@ -62,6 +72,9 @@ DEF_SINGLETON(YSBLEManager);
     self = [super init];
     if (self) {
         
+        _ysPeripheralArray = [NSMutableArray new];
+        _currLinkIndex = 0;
+        
         _groupIndex = 1;
         _hasGroupNotifiy = NO;
         _groupTemperatureDic = [[NSMutableDictionary alloc] init];
@@ -77,6 +90,7 @@ DEF_SINGLETON(YSBLEManager);
         
         _isFUnit = [[UserInfoModel getIsFUnit] boolValue];
         
+        _defaultMacAddrStr = [UserInfoModel getDeviceMacAddr];
         
     }
     return self;
@@ -84,10 +98,16 @@ DEF_SINGLETON(YSBLEManager);
 
 - (void)initBluetoothInfo
 {
+    [_ysPeripheralArray removeAllObjects];
+    _currPeripheral = nil;
+    _hasNotifiy = NO;
+    _isShowAlerting = NO;
+    
     //初始化BabyBluetooth 蓝牙库
     _babyBluethooth = [BabyBluetooth shareBabyBluetooth];
     //设置蓝牙委托
     [self bluethoothDelegate];
+    
 }
 
 - (void)startScanPeripherals
@@ -100,6 +120,7 @@ DEF_SINGLETON(YSBLEManager);
     [_babyBluethooth cancelAllPeripheralsConnection];
     //设置委托后直接可以使用，无需等待CBCentralManagerStatePoweredOn状态。
     _babyBluethooth.scanForPeripherals().begin();
+    _startScanBluethoothDate = [NSDate date];
 }
 
 - (void)cancelAllPeripheralsConnection
@@ -172,8 +193,15 @@ DEF_SINGLETON(YSBLEManager);
     }
 }
 
-
 #pragma mark - bluethooth
+
+//链接外围设备
+- (void)bluethoothchannelOnPeropheralView
+{
+    _babyBluethooth.having(_currPeripheral).and.channel(channelOnPeropheralView).then.connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
+}
+
+
 //蓝牙网关初始化和委托方法设置
 -(void)bluethoothDelegate
 {
@@ -195,16 +223,57 @@ DEF_SINGLETON(YSBLEManager);
         
         if ([name isEqualToString:ys])
         {
+            if (![strongSelf->_ysPeripheralArray containsObject:peripheral]) {
+                [strongSelf->_ysPeripheralArray addObject:peripheral];
+            }
+            
+            //有默认地址
+            if ([strongSelf->_defaultMacAddrStr isAbsoluteValid])
+            {
+                if (strongSelf->_currPeripheral)
+                {
+                    
+                }
+                else
+                {
+                    strongSelf->_currPeripheral = peripheral;
+                    strongSelf->_rssi = [RSSI floatValue];
+                    strongSelf->_currLinkIndex = 0;
+                    [strongSelf bluethoothchannelOnPeropheralView];
+                }
+            }
+            else
+            {
+                if (strongSelf->_isShowAlerting)
+                {
+                    
+                }
+                else
+                {
+                    strongSelf->_isShowAlerting = YES;
+                    [PRPAlertView showWithTitle:nil message:@"搜索到温度计是否链接" cancelTitle:Cancel cancelBlock:^{
+                        
+                        strongSelf->_isShowAlerting = NO;
+                        
+                    } otherTitle:Confirm otherBlock:^{
+                        
+                        strongSelf->_isShowAlerting = NO;
+                        
+                        strongSelf->_currPeripheral = peripheral;
+                        strongSelf->_rssi = [RSSI floatValue];
+                        strongSelf->_currLinkIndex = 0;
+                        [strongSelf bluethoothchannelOnPeropheralView];
+                    }];
+                }
+            }
+            
             //停止扫描
+            /*
             [strongSelf->_babyBluethooth cancelScan];
+            _babyBluethooth.having(_currPeripheral).and.channel(channelOnPeropheralView).then.connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
+            */
             
-            strongSelf->_currPeripheral = peripheral;
-            strongSelf->_rssi = [RSSI floatValue];
-            
-            strongSelf->_babyBluethooth.having(strongSelf->_currPeripheral).and.channel(channelOnPeropheralView).then.connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
-            
-            //定时刷新rssi
-            [NSTimer scheduledTimerWithTimeInterval:5.0f target:strongSelf selector:@selector(refreshRssi) userInfo:nil repeats:YES];
+
         }
     }];
     
@@ -259,8 +328,8 @@ DEF_SINGLETON(YSBLEManager);
             {
                 DLog(@"uuid = %@   de = %@",c.UUID,c.description);
             }
-            
-            [weakSelf setCurrTemperatureNotifiy];
+            [weakSelf getMacChannle];
+            //[weakSelf setCurrTemperatureNotifiy];
         }
         
         //获取设备mac
@@ -268,6 +337,12 @@ DEF_SINGLETON(YSBLEManager);
         {
             strongSelf->_macSerivce = service;
             strongSelf->_macPeripheral = peripheral;
+        }
+        
+        //获取设备mac
+//        if ([service.UUID.UUIDString isEqualToString:@"180A"])
+//        {
+//            //获取蓝牙mac地址
 //            for (CBCharacteristic *c in service.characteristics)
 //            {
 //                //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
@@ -279,13 +354,18 @@ DEF_SINGLETON(YSBLEManager);
 //                    strongSelf->_babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(peripheral,c);
 //                }
 //            }
-        }
+//        }
+        
         //插入row到tableview
         //[weakSelf insertRowToTableView:service];
     }];
     //设置读取characteristics的委托
     [_babyBluethooth setBlockOnReadValueForCharacteristicAtChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
         NSLog(@"characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
+        STRONGSELF
+        if ([strongSelf->_macAdd isAbsoluteValid] || strongSelf->_hasNotifiy) {
+            return ;
+        }
         
         NSString *cUUIDString = [characteristics.UUID.UUIDString lowercaseString];
         NSString *sysIdString = [@"2A23" lowercaseString];
@@ -306,8 +386,77 @@ DEF_SINGLETON(YSBLEManager);
             [macString appendString:@":"];
             [macString appendString:[[value substringWithRange:NSMakeRange(1, 2)] uppercaseString]];
             
-            STRONGSELF
-            strongSelf->_macAdd = macString;
+            
+            
+            //如果有默认mac地址
+            if ([strongSelf->_defaultMacAddrStr isAbsoluteValid])
+            {
+                //搜到默认地址设备直接链接
+                if ([strongSelf->_defaultMacAddrStr isEqualToString:macString])
+                {
+                    strongSelf->_macAdd = macString;
+                    [weakSelf setCurrTemperatureNotifiy];
+                }
+                else
+                {
+                    //没搜索到默认地址设备
+                    NSInteger scanTime = [strongSelf->_startScanBluethoothDate timeIntervalSinceNow];
+                    //扫描超过10秒
+                    if (labs(scanTime) > 10)
+                    {
+                        [PRPAlertView showWithTitle:nil message:@"未搜到默认设备，发现新设备，是否链接" cancelTitle:Cancel cancelBlock:^{
+                            
+                            NSInteger perCount = strongSelf->_ysPeripheralArray.count;
+                            //如果还有其他设备
+                            if (perCount > 1)
+                            {
+                                //还有没有链接过得设备，继续链接获取mac地址判断
+                                if (strongSelf->_currLinkIndex + 1 < perCount)
+                                {
+                                    strongSelf->_currLinkIndex ++;
+                                    strongSelf->_currPeripheral = [strongSelf->_ysPeripheralArray objectAtIndex:strongSelf->_currLinkIndex];
+                                    [weakSelf bluethoothchannelOnPeropheralView];
+                                }
+                            }
+                            else
+                            {
+                                strongSelf->_currPeripheral = nil;
+                                strongSelf->_currLinkIndex = 0;
+                            }
+                            
+                        } otherTitle:Confirm otherBlock:^{
+                            strongSelf->_macAdd = macString;
+                            [weakSelf setCurrTemperatureNotifiy];
+                        }];
+                    }
+                    else
+                    {
+                        NSInteger perCount = strongSelf->_ysPeripheralArray.count;
+                        
+                        //如果还有其他设备
+                        if (perCount > 1)
+                        {
+                            //还有没有链接过得设备，继续链接获取mac地址判断
+                            if (strongSelf->_currLinkIndex + 1 < perCount)
+                            {
+                                strongSelf->_currLinkIndex ++;
+                                strongSelf->_currPeripheral = [strongSelf->_ysPeripheralArray objectAtIndex:strongSelf->_currLinkIndex];
+                                [weakSelf bluethoothchannelOnPeropheralView];
+                            }
+                        }
+                        else
+                        {
+                            strongSelf->_macAdd = macString;
+                            [weakSelf setCurrTemperatureNotifiy];
+                        }
+                    }
+                }
+            }
+            else
+            {
+                strongSelf->_macAdd = macString;
+                [weakSelf setCurrTemperatureNotifiy];
+            }
         }
     }];
     
@@ -340,9 +489,37 @@ DEF_SINGLETON(YSBLEManager);
     [_babyBluethooth setBabyOptionsWithScanForPeripheralsWithOptions:scanForPeripheralsWithOptions connectPeripheralWithOptions:nil scanForPeripheralsWithServices:nil discoverWithServices:nil discoverWithCharacteristics:nil];
 }
 
+- (void)getMacChannle
+{
+    //获取蓝牙mac地址
+    for (CBCharacteristic *c in _macSerivce.characteristics)
+    {
+        //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
+        NSString *cUUIDString = [c.UUID.UUIDString lowercaseString];
+        NSString *sysIdString = [@"2A23" lowercaseString];
+
+        if ([cUUIDString isEqualToString:sysIdString])
+        {
+            _babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(_macPeripheral,c);
+        }
+    }
+}
+
 //当前温度通知
 - (void)setCurrTemperatureNotifiy
 {
+    
+    _hasNotifiy = YES;
+    //停止扫描
+    [_babyBluethooth cancelScan];
+    
+    //定时刷新rssi
+    [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(refreshRssi) userInfo:nil repeats:YES];
+    
+    
+    if ([_macAdd isAbsoluteValid]) {
+        [UserInfoModel setUserDefaultDeviceMacAddr:_macAdd];
+    }
     
     if(_currPeripheral.state != CBPeripheralStateConnected){
         //[SVProgressHUD showErrorWithStatus:@"peripheral已经断开连接，请重新连接"];
@@ -381,18 +558,18 @@ DEF_SINGLETON(YSBLEManager);
         }
     }
     
-    //获取蓝牙mac地址
-    for (CBCharacteristic *c in _macSerivce.characteristics)
-    {
-        //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
-        NSString *cUUIDString = [c.UUID.UUIDString lowercaseString];
-        NSString *sysIdString = [@"2A23" lowercaseString];
-        
-        if ([cUUIDString isEqualToString:sysIdString])
-        {
-            _babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(_macPeripheral,c);
-        }
-    }
+//    //获取蓝牙mac地址
+//    for (CBCharacteristic *c in _macSerivce.characteristics)
+//    {
+//        //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
+//        NSString *cUUIDString = [c.UUID.UUIDString lowercaseString];
+//        NSString *sysIdString = [@"2A23" lowercaseString];
+//        
+//        if ([cUUIDString isEqualToString:sysIdString])
+//        {
+//            _babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(_macPeripheral,c);
+//        }
+//    }
 }
 
 //温度组 通知

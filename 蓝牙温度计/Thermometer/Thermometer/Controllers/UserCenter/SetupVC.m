@@ -9,6 +9,7 @@
 #import "SetupVC.h"
 #import "YSBLEManager.h"
 #import "AccountStautsManager.h"
+#import "PRPAlertView.h"
 
 @interface SetupVC ()
 {
@@ -33,6 +34,12 @@
     _macLB.textColor = Common_BlackColor;
     _macLB.text = [macAdd isAbsoluteValid] ? [self macString:macAdd] : [self macString:@"还未连接设备"];
     [self.view addSubview:_macLB];
+    
+    _macLB.userInteractionEnabled = YES;
+    UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clearMacAdd)];
+    [_macLB addGestureRecognizer:longGesture];
+    
+    
     
     UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     logoutBtn.frame = CGRectMake(margin, CGRectGetMaxY(_macLB.frame) + 35, _macLB.width, 40);
@@ -76,6 +83,21 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kLogoutNotificationKey object:nil];
     
     [self backViewController];
+}
+
+- (void)clearMacAdd
+{
+    if ([[YSBLEManager sharedInstance].macAdd isAbsoluteValid])
+    {
+        WEAKSELF
+        [PRPAlertView showWithTitle:nil message:@"是否清楚默认设备" cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
+            STRONGSELF
+            strongSelf->_macLB.text = [strongSelf macString:@"还未连接设备"];
+            [YSBLEManager sharedInstance].macAdd = nil;
+            
+            [UserInfoModel setUserDefaultDeviceMacAddr:@""];
+        }];
+    }
 }
 
 

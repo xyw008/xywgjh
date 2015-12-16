@@ -366,6 +366,20 @@ DEF_SINGLETON(UserInfoModel);
 }
 
 
+
+//蓝牙设备mac地址
++ (void)setUserDefaultDeviceMacAddr:(NSString *)deviceMacAddr
+{
+    [[NSUserDefaults standardUserDefaults] setObject:deviceMacAddr forKey:@"userDefaultDeviceMacAddr"];
+    [self saveUserDefaultInfo];
+}
+
++ (NSString *)getDeviceMacAddr
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"userDefaultDeviceMacAddr"];
+}
+
+
 //温度显示模式是华氏还是摄氏(YES：F)
 + (void)setUserDefaultIsFUnit:(NSNumber *)isFUnit
 {

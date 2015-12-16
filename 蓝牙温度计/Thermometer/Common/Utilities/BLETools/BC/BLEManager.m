@@ -105,6 +105,21 @@
             NSString *key = [NSString stringWithFormat:@"%ld", [SystemConvert hexToDecimal:byte1].integerValue];
             
             NSDate *date = [NSDate date];
+            
+            if (2 == byte0Num)
+            {
+                NSString *dateStr = [NSDate stringFromDate:date withFormatter:DataFormatter_TimeNoSecond];
+                dateStr = [dateStr substringFromIndex:3];
+                
+                NSInteger mm = [dateStr integerValue];
+                NSInteger between = mm%5;
+                mm -= between;
+                
+                NSString *allDateStr = [NSDate stringFromDate:date withFormatter:@"yyyy-MM-dd HH"];
+                allDateStr = [NSString stringWithFormat:@"%@:%ld:00",allDateStr,mm];
+                date = [NSString dateFromString:allDateStr withFormatter:DataFormatter_DateAndTime];
+            }
+            
             NSInteger gourpNum = [key integerValue];
             
             CGFloat j=0;

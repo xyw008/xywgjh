@@ -67,11 +67,11 @@ DEF_SINGLETON(AccountStautsManager);
         }
         
         _lastAlarmingTime = [UserInfoModel getLastAlarmDate];
-        if ([UserInfoModel getLastAlarmBetween]) {
-            _betweenTime = [[UserInfoModel getLastAlarmBetween] integerValue];
-        }
-        else
-            _betweenTime = -1;
+//        if ([UserInfoModel getLastAlarmBetween]) {
+//            _betweenTime = [[UserInfoModel getLastAlarmBetween] integerValue];
+//        }
+//        else
+        _betweenTime = -1;
         
     }
     return self;
@@ -222,7 +222,7 @@ DEF_SINGLETON(AccountStautsManager);
             UILocalNotification *notification=[[UILocalNotification alloc]init];
             //设置调用时间
             notification.fireDate=[NSDate dateWithTimeIntervalSinceNow:0];//通知触发的时间，10s以后
-            notification.repeatInterval = 15;//通知重复次数
+            notification.repeatInterval = 100;//通知重复次数
             //notification.repeatCalendar=[NSCalendar currentCalendar];//当前日历，使用前最好设置时区等信息以便能够自动同步时间
             //设置通知属性
             notification.alertBody = title; //通知主体
@@ -313,7 +313,7 @@ void systemAudioCallback()
     
     //不是断开警报 保存间隔时间
     if (!_isDisconnectAlarm) {
-        [UserInfoModel setUserDefaultLastAlarmBetween:[NSNumber numberWithInteger:_betweenTime]];
+        //[UserInfoModel setUserDefaultLastAlarmBetween:[NSNumber numberWithInteger:_betweenTime]];
     }
 }
 

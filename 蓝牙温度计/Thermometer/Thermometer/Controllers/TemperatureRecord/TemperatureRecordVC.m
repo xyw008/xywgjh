@@ -478,7 +478,7 @@
     {
         NSMutableArray *newArray = [NSMutableArray new];
         for (BLECacheDataEntity *obj in tempArray) {
-            if (obj.temperature != 20) {
+            if (obj.temperature >= 25) {
                 [newArray addObject:obj];
             }
             //[newArray addObject:obj];
@@ -516,10 +516,10 @@
                     {
                         //倒序
                         //NSArray *tempArray = [[oneHourArray reverseObjectEnumerator] allObjects];
-                        NSArray *oneTempArray = needReverse ? [[oneHourArray reverseObjectEnumerator] allObjects] : oneHourArray;
+                        //NSArray *oneTempArray = needReverse ? [[oneHourArray reverseObjectEnumerator] allObjects] : oneHourArray;
                         
                         NSString *keyStr = [NSString stringWithFormat:@"%ld:00",nowHour];
-                        [_allHourTempDic setObject:oneTempArray forKey:keyStr];
+                        [_allHourTempDic setObject:oneHourArray forKey:keyStr];
                         [_allHourKeyArray addObject:keyStr];
 //                        CGFloat averageTemp = oneHourTotalTemp / oneHourArray.count;
 //                        [_allHourAverageTempArray addObject:@(averageTemp)];
@@ -554,10 +554,10 @@
                         {
                             //倒序
                             //NSArray *tempArray = [[oneHourArray reverseObjectEnumerator] allObjects];
-                            NSArray *oneTempArray = needReverse ? [[oneHourArray reverseObjectEnumerator] allObjects] : oneHourArray;
+                            //NSArray *oneTempArray = needReverse ? [[oneHourArray reverseObjectEnumerator] allObjects] : oneHourArray;
                             
                             NSString *keyStr = [NSString stringWithFormat:@"%ld:00",nowHour];
-                            [_allHourTempDic setObject:oneTempArray forKey:keyStr];
+                            [_allHourTempDic setObject:oneHourArray forKey:keyStr];
                             [_allHourKeyArray addObject:keyStr];
                             CGFloat averageTemp = oneHourTotalTemp;
                             [_allHourAverageTempArray addObject:@(averageTemp)];
@@ -568,11 +568,11 @@
         }
         
         //倒序
-        NSArray *keyArray = needReverse ? [[_allHourKeyArray reverseObjectEnumerator] allObjects] :_allHourKeyArray;
-        _allHourKeyArray = [NSMutableArray arrayWithArray:keyArray];
+        //NSArray *keyArray = needReverse ? [[_allHourKeyArray reverseObjectEnumerator] allObjects] :_allHourKeyArray;
+        //_allHourKeyArray = [NSMutableArray arrayWithArray:keyArray];
         
-        NSArray *tempArray = needReverse ? [[_allHourAverageTempArray reverseObjectEnumerator] allObjects] : _allHourAverageTempArray;
-        _allHourAverageTempArray = [NSMutableArray arrayWithArray:tempArray];
+        //NSArray *tempArray = needReverse ? [[_allHourAverageTempArray reverseObjectEnumerator] allObjects] : _allHourAverageTempArray;
+        //_allHourAverageTempArray = [NSMutableArray arrayWithArray:tempArray];
         
         [self configureTabHeaders];
     }

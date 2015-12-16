@@ -19,6 +19,7 @@
 
     
     UIView          *_temperaturesColorView;//显示温度计颜色的视图
+    UIView          *_temperaturesBgGrayColorView;//灰色底
     UIImageView     *_temperaturesIV;//温度计图片
     UIImageView     *_lightIV;//玻璃效果图片
     
@@ -133,8 +134,12 @@
     
     //温度计颜色视图
     _temperaturesColorView = [[UIView alloc] initWithFrame:_temperaturesIV.frame];
-    _temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:0];
+    //_temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:0];
     
+    _temperaturesBgGrayColorView = [[UIView alloc] initWithFrame:_temperaturesColorView.frame];
+    _temperaturesBgGrayColorView.backgroundColor = HEXCOLOR(0XE9E9E9);
+    
+    [self addSubview:_temperaturesBgGrayColorView];
     [self addSubview:_temperaturesColorView];
     [self addSubview:_temperaturesIV];
     
@@ -142,6 +147,9 @@
     _lightIV = [[UIImageView alloc] initWithFrame:_temperaturesColorView.frame];
     _lightIV.image = [UIImage imageNamed:@"home_temperature_light"];
     [self addSubview:_lightIV];
+    
+    //设置温度计颜色初始化高度，最后执行
+    [self setTemperatureColorViewInitHeight];
 }
 
 //温度文字
@@ -149,7 +157,7 @@
 {
     _searchLB = [[UILabel alloc] init];
     _searchLB.textColor = Common_GreenColor;
-    _searchLB.font = [UIFont systemFontOfSize:43];
+    _searchLB.font = [UIFont systemFontOfSize:45];
     _searchLB.text = @"搜索中";
     [self addSubview:_searchLB];
     
@@ -289,6 +297,12 @@
     return lb;
 }
 
+- (void)setTemperatureColorViewInitHeight
+{
+    CGFloat height = DynamicWidthValue640(275/1.5) - 22;
+    _temperaturesColorView.frame = CGRectMake(_temperaturesColorView.frameOriginX, CGRectGetMaxY(_temperaturesIV.frame) - height, _temperaturesColorView.width, height);
+    _temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:0];
+}
 
 #pragma mark - set
 - (void)setIsFTypeTemperature:(BOOL)isFTypeTemperature
@@ -341,14 +355,15 @@
 {
     for (UIView *subView in self.subviews)
     {
-        if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView] && ![subView isEqual:_lightIV] && ![subView isEqual:_lightIV]) {
+        if (![subView isEqual:_temperaturesIV] && ![subView isEqual:_temperaturesColorView] && ![subView isEqual:_temperaturesBgGrayColorView] && ![subView isEqual:_lightIV] && ![subView isEqual:_lightIV]) {
             subView.hidden = YES;
         }
     }
     
-    CGFloat height = DynamicWidthValue640(275/1.5) - 22;
-    _temperaturesColorView.frame = CGRectMake(_temperaturesColorView.frameOriginX, CGRectGetMaxY(_temperaturesIV.frame) - height, _temperaturesColorView.width, height);
-    _temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:0];
+//    CGFloat height = DynamicWidthValue640(275/1.5) - 22;
+//    _temperaturesColorView.frame = CGRectMake(_temperaturesColorView.frameOriginX, CGRectGetMaxY(_temperaturesIV.frame) - height, _temperaturesColorView.width, height);
+//    _temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:0];
+    [self setTemperatureColorViewInitHeight];
     _searchLB.hidden = NO;
     _searchLB.text = text;
     _searchLB.textColor = Common_GreenColor;
@@ -408,7 +423,7 @@
         
         _searchLB.text = @"温度低";
         _searchLB.textColor = tempColor;
-        _searchLB.font = [UIFont systemFontOfSize:32];
+        _searchLB.font = [UIFont systemFontOfSize:45];
     }
     else if (temperature >= 45)
     {
@@ -432,7 +447,7 @@
         
         _searchLB.text = @"温度高";
         _searchLB.textColor = tempColor;
-        _searchLB.font = [UIFont systemFontOfSize:32];
+        _searchLB.font = [UIFont systemFontOfSize:45];
     }
     else
     {
