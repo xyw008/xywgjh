@@ -103,6 +103,7 @@ DEF_SINGLETON(YSBLEManager);
 {
     [_ysPeripheralArray removeAllObjects];
     _currPeripheral = nil;
+    _hasGroupNotifiy = NO;
     _hasNotifiy = NO;
     _isShowAlerting = NO;
     _isConnectPeripheraling = NO;
@@ -132,8 +133,12 @@ DEF_SINGLETON(YSBLEManager);
 {
     _groupIndex = 1;
     _hasGroupNotifiy = NO;
+    _hasNotifiy = NO;
+    
     _groupTemperatureDic = [[NSMutableDictionary alloc] init];
     _isFirstGetGroupTemp = YES;
+    _lastUploadTempDate = nil;
+    
     
     _willUploadTempArray = [NSMutableArray new];
     _isUploadRequesting = NO;
@@ -158,7 +163,8 @@ DEF_SINGLETON(YSBLEManager);
     _groupIndex = 1;
     
     //如果是第一次读取组数据，请求服务器获取最后一个上传的温度时间，来判定哪些缓存数据是否需要上传
-    if (_isFirstGetGroupTemp) {
+    if (!_lastUploadTempDate) {
+        //_lastUploadTempDate = nil;
         [self getDownloadLastestTemp];
     }
     
