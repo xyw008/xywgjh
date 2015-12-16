@@ -25,6 +25,8 @@
 
 @interface YSBLEManager ()<NetRequestDelegate>
 {
+    NSString                    *_deviceIdentifier;//设备id
+    
     BabyBluetooth               *_babyBluethooth;
     NSDate                      *_startScanBluethoothDate;//开始扫描蓝牙时间
     
@@ -32,8 +34,10 @@
     NSString                    *_defaultMacAddrStr;//默认设备mac地址
     NSMutableArray              *_ysPeripheralArray;//搜索到的于氏温度设备
     NSInteger                   _currLinkIndex;//现在链接设备所在数组的index
+    BOOL                        _isConnectPeripheraling;//连接per中
     BOOL                        _isShowAlerting;//显示提示状态
     BOOL                        _hasNotifiy;
+    
     
     CBPeripheral                *_currPeripheral;//现在的外围设备
     CBService                   *_currTemperatureService;//现在的服务
@@ -91,7 +95,7 @@ DEF_SINGLETON(YSBLEManager);
         _isFUnit = [[UserInfoModel getIsFUnit] boolValue];
         
         _defaultMacAddrStr = [UserInfoModel getDeviceMacAddr];
-        
+        _deviceIdentifier = [UserInfoModel getDeviceIdentifier];
     }
     return self;
 }
@@ -102,6 +106,7 @@ DEF_SINGLETON(YSBLEManager);
     _currPeripheral = nil;
     _hasNotifiy = NO;
     _isShowAlerting = NO;
+    _isConnectPeripheraling = NO;
     
     //初始化BabyBluetooth 蓝牙库
     _babyBluethooth = [BabyBluetooth shareBabyBluetooth];
@@ -116,11 +121,12 @@ DEF_SINGLETON(YSBLEManager);
         [self initBluetoothInfo];
     }
     
+    _startScanBluethoothDate = [NSDate date];
     //停止之前的连接
     [_babyBluethooth cancelAllPeripheralsConnection];
     //设置委托后直接可以使用，无需等待CBCentralManagerStatePoweredOn状态。
     _babyBluethooth.scanForPeripherals().begin();
-    _startScanBluethoothDate = [NSDate date];
+    
 }
 
 - (void)cancelAllPeripheralsConnection
@@ -198,6 +204,8 @@ DEF_SINGLETON(YSBLEManager);
 //链接外围设备
 - (void)bluethoothchannelOnPeropheralView
 {
+    _isConnectPeripheraling = YES;
+    
     _babyBluethooth.having(_currPeripheral).and.channel(channelOnPeropheralView).then.connectToPeripherals().discoverServices().discoverCharacteristics().readValueForCharacteristic().discoverDescriptorsForCharacteristic().readValueForDescriptors().begin();
 }
 
@@ -226,6 +234,9 @@ DEF_SINGLETON(YSBLEManager);
             if (![strongSelf->_ysPeripheralArray containsObject:peripheral]) {
                 [strongSelf->_ysPeripheralArray addObject:peripheral];
             }
+            
+            if (strongSelf->_isConnectPeripheraling)
+                return ;
             
             //有默认地址
             if ([strongSelf->_defaultMacAddrStr isAbsoluteValid])
@@ -415,6 +426,7 @@ DEF_SINGLETON(YSBLEManager);
                                 {
                                     strongSelf->_currLinkIndex ++;
                                     strongSelf->_currPeripheral = [strongSelf->_ysPeripheralArray objectAtIndex:strongSelf->_currLinkIndex];
+                                    strongSelf->_isConnectPeripheraling = NO;
                                     [weakSelf bluethoothchannelOnPeropheralView];
                                 }
                             }
@@ -422,6 +434,7 @@ DEF_SINGLETON(YSBLEManager);
                             {
                                 strongSelf->_currPeripheral = nil;
                                 strongSelf->_currLinkIndex = 0;
+                                strongSelf->_isConnectPeripheraling = NO;
                             }
                             
                         } otherTitle:Confirm otherBlock:^{
@@ -441,6 +454,7 @@ DEF_SINGLETON(YSBLEManager);
                             {
                                 strongSelf->_currLinkIndex ++;
                                 strongSelf->_currPeripheral = [strongSelf->_ysPeripheralArray objectAtIndex:strongSelf->_currLinkIndex];
+                                strongSelf->_isConnectPeripheraling = NO;
                                 [weakSelf bluethoothchannelOnPeropheralView];
                             }
                         }

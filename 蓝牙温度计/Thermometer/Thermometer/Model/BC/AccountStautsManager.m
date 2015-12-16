@@ -161,7 +161,7 @@ DEF_SINGLETON(AccountStautsManager);
         _isDisconnectAlarm = YES;
         [self startAlarm:@"设备已断开"];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:BluetoothDisconnectNotificationKey object:nil userInfo:nil];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:BluetoothDisconnectNotificationKey object:nil userInfo:nil];
     }
 }
 
@@ -300,21 +300,30 @@ void systemAudioCallback()
 #pragma mark - 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [[ATAudioPlayManager shardManager] stopAllAudio];
-    AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
-    _alarming = NO;
-    _lastAlarmingTime = [NSDate date];
-    if (buttonIndex == 0)
-        _betweenTime = 10;
-    else if (buttonIndex == 1)
-        _betweenTime = 20;
-    else if (buttonIndex == 2)
-        _betweenTime = 30;
-    
     //不是断开警报 保存间隔时间
     if (!_isDisconnectAlarm) {
         //[UserInfoModel setUserDefaultLastAlarmBetween:[NSNumber numberWithInteger:_betweenTime]];
     }
+    
+    if (_isDisconnectAlarm) {
+        _isDisconnectAlarm = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:BluetoothDisconnectNotificationKey object:nil userInfo:nil];
+    }
+    else
+    {
+        _lastAlarmingTime = [NSDate date];
+        if (buttonIndex == 0)
+            _betweenTime = 10;
+        else if (buttonIndex == 1)
+            _betweenTime = 20;
+        else if (buttonIndex == 2)
+            _betweenTime = 30;
+    }
+    
+    [[ATAudioPlayManager shardManager] stopAllAudio];
+    AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
+    _alarming = NO;
+   
 }
 
 - (void)handleThermometerAlertActionWithAlertButtonIndex:(NSInteger)buttonIndex
