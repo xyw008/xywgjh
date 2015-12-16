@@ -92,6 +92,16 @@
     {
         [self setSlideMenuVCEnablePan:[AccountStautsManager sharedInstance].isLogin];
     }
+    
+    if (_ysBluethooth) {
+        if ([AccountStautsManager sharedInstance].isBluetoothType)
+        {
+            [self setGroupTemperatureCallBack];
+        }
+        else
+            [self setRemoteTempCallBack];
+    }
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -576,6 +586,67 @@
     }
 }
 
+
+- (void)bottomBtnTouch:(UIButton*)btn
+{
+    NSInteger index = btn.tag - kBottomBtnStartTag;
+    if (index != 3 && (_isVisitorType || ![AccountStautsManager sharedInstance].isLogin))
+    {
+        [self showHUDInfoByString:@"请先登录"];
+        return;
+    }
+    
+    
+    //    if (index != 3)
+    //    {
+    //        //没登陆
+    //        if (![AccountStautsManager sharedInstance].isLogin) {
+    //            [self goLoginView];
+    //            return;
+    //        }
+    //
+    //        //登陆成功但是没有成员
+    //        if (![AccountStautsManager sharedInstance].nowUserItem)
+    //        {
+    //            [self goAddUserVC];
+    //            return;
+    //        }
+    //    }
+    
+    switch (index)
+    {
+        case 0://预警
+        {
+            AlarmSettingVC *vc = [[AlarmSettingVC alloc] init];
+            [self pushViewController:vc];
+        }
+            break;
+        case 1://记录
+        {
+            TemperatureRecordVC *vc = [TemperatureRecordVC new];
+            [self pushViewController:vc];
+        }
+            break;
+        case 2://数据同步
+            btn.selected = !btn.selected;
+            [AccountStautsManager sharedInstance].uploadTempData = btn.selected;
+            break;
+        case 3://单位切换
+            btn.selected = !btn.selected;
+            _temperaturesShowView.isFTypeTemperature = btn.selected;
+            _isFUnit = btn.selected;
+            //[_fsLineTemperatureView loadLabelForValue];
+            _chartView.valueLBStrArray = [self getTempShowLBTextArray];
+            _chartView.indexStrArray = [self getDateShowLBTextArray];
+            [YSBLEManager sharedInstance].isFUnit = _isFUnit;
+            break;
+        default:
+            break;
+    }
+}
+
+
+
 //蓝牙模式
 - (void)connectBluetoothBtnTouch:(UIButton*)btn
 {
@@ -612,28 +683,62 @@
         
     }];
     
+    [self setGroupTemperatureCallBack];
+    [_ysBluethooth startScanPeripherals];
+}
+
+//远程模式
+- (void)monitorBtnTouch:(UIButton*)btn
+{
+    [_popBgView removeFromSuperview];
+    _popBgView = nil;
+    
+    _temperaturesShowView.isRemoteType = YES;
+    _searchLB.text = @"同步中";
+    [AccountStautsManager sharedInstance].isBluetoothType = NO;
+    
+    if (!_ysBluethooth) {
+        _ysBluethooth = [YSBLEManager sharedInstance];
+    }
+    
+    [self setRemoteTempCallBack];
+    
+    [self getNetworkData];
+    [self getRemoteTempGroup];
+    //[self start30SecondCountdownTimer];
+    
+    if (_gourTime == nil)
+    {
+        _gourTime = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(getGourpTemp) userInfo:nil repeats:YES];
+    }
+}
+
+//设置温度组的callback  由于_ysBluethooth是单例，所以其他地方用来 这里要处理下
+- (void)setGroupTemperatureCallBack
+{
+    WEAKSELF
     //组温度数据回调
     [_ysBluethooth setGroupTemperatureCallBack:^(NSDictionary<NSString *, NSArray<BLECacheDataEntity *> *> *temperatureDic,NSArray<BLECacheDataEntity *> *tempArray,BOOL is30Second){
         STRONGSELF
         if (is30Second)
         {
-//            NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
-//            NSArray *keyArray = temperatureDic.allKeys;
-//            keyArray = [keyArray sortedArrayUsingComparator:(NSComparator)^(id obj1, id obj2) {
-//                return [obj1 compare:obj2 options:NSNumericSearch];
-//            }];
-//            
-//            for (NSInteger i=0; i< keyArray.count; i++)
-//            {
-//                NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[keyArray objectAtIndex:i]];
-//                [dataArray addObjectsFromArray:oneGroupItemArray];
-//                
-//                //            for (BLECacheDataEntity *item in oneGroupItemArray)
-//                //            {
-//                //                //[dataArray addObject:@(item.temperature)];
-//                //                [dataArray addObject:@(item.temperature + 9)];
-//                //            }
-//            }
+            //            NSMutableArray  *dataArray = [[NSMutableArray alloc] init];
+            //            NSArray *keyArray = temperatureDic.allKeys;
+            //            keyArray = [keyArray sortedArrayUsingComparator:(NSComparator)^(id obj1, id obj2) {
+            //                return [obj1 compare:obj2 options:NSNumericSearch];
+            //            }];
+            //
+            //            for (NSInteger i=0; i< keyArray.count; i++)
+            //            {
+            //                NSArray *oneGroupItemArray = [temperatureDic safeObjectForKey:[keyArray objectAtIndex:i]];
+            //                [dataArray addObjectsFromArray:oneGroupItemArray];
+            //
+            //                //            for (BLECacheDataEntity *item in oneGroupItemArray)
+            //                //            {
+            //                //                //[dataArray addObject:@(item.temperature)];
+            //                //                [dataArray addObject:@(item.temperature + 9)];
+            //                //            }
+            //            }
             
             if ([tempArray isAbsoluteValid])
             {
@@ -655,24 +760,10 @@
             //[weakSelf start30SecondCountdownTimer];
         }
     }];
-    
-    [_ysBluethooth startScanPeripherals];
 }
 
-//远程模式
-- (void)monitorBtnTouch:(UIButton*)btn
+- (void)setRemoteTempCallBack
 {
-    [_popBgView removeFromSuperview];
-    _popBgView = nil;
-    
-    _temperaturesShowView.isRemoteType = YES;
-    _searchLB.text = @"同步中";
-    [AccountStautsManager sharedInstance].isBluetoothType = NO;
-    
-    if (!_ysBluethooth) {
-        _ysBluethooth = [YSBLEManager sharedInstance];
-    }
-    
     WEAKSELF
     [_ysBluethooth setRemoteTempCallBack:^(NSArray<RemoteTempItem *> *tempArray,NSArray<RemoteTempItem *> *fillingTempArray, NSDate *beginDate, NSDate *endDate){
         STRONGSELF
@@ -693,78 +784,8 @@
             strongSelf->_chartView.indexStrArray = [weakSelf getDateShowLBTextArray];
         }
     }];
-    
-    [self getNetworkData];
-    [self getRemoteTempGroup];
-    //[self start30SecondCountdownTimer];
-    
-    if (_gourTime == nil)
-    {
-        _gourTime = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(getGourpTemp) userInfo:nil repeats:YES];
-    }
-    
-    
 }
 
-
-
-- (void)bottomBtnTouch:(UIButton*)btn
-{
-    NSInteger index = btn.tag - kBottomBtnStartTag;
-    if (index != 3 && (_isVisitorType || ![AccountStautsManager sharedInstance].isLogin))
-    {
-        [self showHUDInfoByString:@"请先登录"];
-        return;
-    }
-    
-    
-//    if (index != 3)
-//    {
-//        //没登陆
-//        if (![AccountStautsManager sharedInstance].isLogin) {
-//            [self goLoginView];
-//            return;
-//        }
-//        
-//        //登陆成功但是没有成员
-//        if (![AccountStautsManager sharedInstance].nowUserItem)
-//        {
-//            [self goAddUserVC];
-//            return;
-//        }
-//    }
-    
-    switch (index)
-    {
-        case 0://预警
-        {
-            AlarmSettingVC *vc = [[AlarmSettingVC alloc] init];
-            [self pushViewController:vc];
-        }
-            break;
-        case 1://记录
-            {
-                TemperatureRecordVC *vc = [TemperatureRecordVC new];
-                [self pushViewController:vc];
-            }
-            break;
-        case 2://数据同步
-            btn.selected = !btn.selected;
-            [AccountStautsManager sharedInstance].uploadTempData = btn.selected;
-            break;
-        case 3://单位切换
-            btn.selected = !btn.selected;
-            _temperaturesShowView.isFTypeTemperature = btn.selected;
-            _isFUnit = btn.selected;
-            //[_fsLineTemperatureView loadLabelForValue];
-            _chartView.valueLBStrArray = [self getTempShowLBTextArray];
-            _chartView.indexStrArray = [self getDateShowLBTextArray];
-            [YSBLEManager sharedInstance].isFUnit = _isFUnit;
-            break;
-        default:
-            break;
-    }
-}
 
 
 #pragma mark - request
