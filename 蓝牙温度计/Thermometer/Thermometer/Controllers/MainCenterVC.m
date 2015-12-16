@@ -654,12 +654,9 @@
             }
             //[weakSelf start30SecondCountdownTimer];
         }
-        
-        
     }];
     
     [_ysBluethooth startScanPeripherals];
-
 }
 
 //远程模式

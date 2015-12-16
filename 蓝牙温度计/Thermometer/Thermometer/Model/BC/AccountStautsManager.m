@@ -328,21 +328,29 @@ void systemAudioCallback()
 
 - (void)handleThermometerAlertActionWithAlertButtonIndex:(NSInteger)buttonIndex
 {
+    if (_isDisconnectAlarm) {
+        _isDisconnectAlarm = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:BluetoothDisconnectNotificationKey object:nil userInfo:nil];
+    }
+    else
+    {
+        
+        _lastAlarmingTime = [NSDate date];
+        if (buttonIndex == 0)
+            _betweenTime = 10;
+        else if (buttonIndex == 1)
+            _betweenTime = 20;
+        else if (buttonIndex == 2)
+            _betweenTime = 30;
+    }
+    _alarming = NO;
     [[ATAudioPlayManager shardManager] stopAllAudio];
     AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
-    _alarming = NO;
-    _lastAlarmingTime = [NSDate date];
-    if (buttonIndex == 0)
-        _betweenTime = 10;
-    else if (buttonIndex == 1)
-        _betweenTime = 20;
-    else if (buttonIndex == 2)
-        _betweenTime = 30;
     
-    //不是断开警报 保存间隔时间
-    if (!_isDisconnectAlarm) {
-        [UserInfoModel setUserDefaultLastAlarmBetween:[NSNumber numberWithInteger:_betweenTime]];
-    }
+//    //不是断开警报 保存间隔时间
+//    if (!_isDisconnectAlarm) {
+//        [UserInfoModel setUserDefaultLastAlarmBetween:[NSNumber numberWithInteger:_betweenTime]];
+//    }
 }
 
 #pragma mark - request

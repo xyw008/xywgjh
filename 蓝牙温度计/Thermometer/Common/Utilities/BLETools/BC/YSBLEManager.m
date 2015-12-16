@@ -25,7 +25,6 @@
 
 @interface YSBLEManager ()<NetRequestDelegate>
 {
-    NSString                    *_deviceIdentifier;//设备id
     
     BabyBluetooth               *_babyBluethooth;
     NSDate                      *_startScanBluethoothDate;//开始扫描蓝牙时间
@@ -238,19 +237,37 @@ DEF_SINGLETON(YSBLEManager);
             if (strongSelf->_isConnectPeripheraling)
                 return ;
             
+            NSString *identifier = peripheral.identifier.UUIDString;
+            
             //有默认地址
-            if ([strongSelf->_defaultMacAddrStr isAbsoluteValid])
+            if ([strongSelf->_deviceIdentifier isAbsoluteValid])
             {
-                if (strongSelf->_currPeripheral)
-                {
-                    
-                }
-                else
+                if ([identifier isEqualToString:strongSelf->_deviceIdentifier])
                 {
                     strongSelf->_currPeripheral = peripheral;
                     strongSelf->_rssi = [RSSI floatValue];
                     strongSelf->_currLinkIndex = 0;
                     [strongSelf bluethoothchannelOnPeropheralView];
+                    
+                    [strongSelf->_babyBluethooth cancelScan];
+                }
+                else
+                {
+                    //没搜索到默认地址设备
+                    NSInteger scanTime = [strongSelf->_startScanBluethoothDate timeIntervalSinceNow];
+                    //扫描超过10秒
+                    if (labs(scanTime) > 10)
+                    {
+                        strongSelf->_currPeripheral = peripheral;
+                        strongSelf->_rssi = [RSSI floatValue];
+                        strongSelf->_currLinkIndex = 0;
+                        [strongSelf bluethoothchannelOnPeropheralView];
+                        
+                        strongSelf->_deviceIdentifier = identifier;
+                        [UserInfoModel setUserDefaultDeviceIdentifier:identifier];
+                        
+                        [strongSelf->_babyBluethooth cancelScan];
+                    }
                 }
             }
             else
@@ -274,6 +291,10 @@ DEF_SINGLETON(YSBLEManager);
                         strongSelf->_rssi = [RSSI floatValue];
                         strongSelf->_currLinkIndex = 0;
                         [strongSelf bluethoothchannelOnPeropheralView];
+                        strongSelf->_deviceIdentifier = identifier;
+                        [UserInfoModel setUserDefaultDeviceIdentifier:identifier];
+                        
+                        [strongSelf->_babyBluethooth cancelScan];
                     }];
                 }
             }
@@ -339,8 +360,8 @@ DEF_SINGLETON(YSBLEManager);
             {
                 DLog(@"uuid = %@   de = %@",c.UUID,c.description);
             }
-            [weakSelf getMacChannle];
-            //[weakSelf setCurrTemperatureNotifiy];
+            //[weakSelf getMacChannle];
+            [weakSelf setCurrTemperatureNotifiy];
         }
         
         //获取设备mac
@@ -373,10 +394,10 @@ DEF_SINGLETON(YSBLEManager);
     //设置读取characteristics的委托
     [_babyBluethooth setBlockOnReadValueForCharacteristicAtChannel:channelOnCharacteristicView block:^(CBPeripheral *peripheral, CBCharacteristic *characteristics, NSError *error) {
         NSLog(@"characteristic name:%@ value is:%@",characteristics.UUID,characteristics.value);
-        STRONGSELF
-        if ([strongSelf->_macAdd isAbsoluteValid] || strongSelf->_hasNotifiy) {
-            return ;
-        }
+//        STRONGSELF
+//        if ([strongSelf->_macAdd isAbsoluteValid] || strongSelf->_hasNotifiy) {
+//            return ;
+//        }
         
         NSString *cUUIDString = [characteristics.UUID.UUIDString lowercaseString];
         NSString *sysIdString = [@"2A23" lowercaseString];
@@ -397,7 +418,9 @@ DEF_SINGLETON(YSBLEManager);
             [macString appendString:@":"];
             [macString appendString:[[value substringWithRange:NSMakeRange(1, 2)] uppercaseString]];
             
-            
+            STRONGSELF
+            strongSelf->_macAdd = macString;
+            /*
             
             //如果有默认mac地址
             if ([strongSelf->_defaultMacAddrStr isAbsoluteValid])
@@ -471,6 +494,8 @@ DEF_SINGLETON(YSBLEManager);
                 strongSelf->_macAdd = macString;
                 [weakSelf setCurrTemperatureNotifiy];
             }
+             
+             */
         }
     }];
     
@@ -572,18 +597,18 @@ DEF_SINGLETON(YSBLEManager);
         }
     }
     
-//    //获取蓝牙mac地址
-//    for (CBCharacteristic *c in _macSerivce.characteristics)
-//    {
-//        //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
-//        NSString *cUUIDString = [c.UUID.UUIDString lowercaseString];
-//        NSString *sysIdString = [@"2A23" lowercaseString];
-//        
-//        if ([cUUIDString isEqualToString:sysIdString])
-//        {
-//            _babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(_macPeripheral,c);
-//        }
-//    }
+    //获取蓝牙mac地址
+    for (CBCharacteristic *c in _macSerivce.characteristics)
+    {
+        //DLog(@"180A uuid = %@  uuid string  = %@ de = %@",c.UUID,c.UUID.UUIDString,c.description);
+        NSString *cUUIDString = [c.UUID.UUIDString lowercaseString];
+        NSString *sysIdString = [@"2A23" lowercaseString];
+        
+        if ([cUUIDString isEqualToString:sysIdString])
+        {
+            _babyBluethooth.channel(channelOnCharacteristicView).characteristicDetails(_macPeripheral,c);
+        }
+    }
 }
 
 //温度组 通知

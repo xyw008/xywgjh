@@ -94,8 +94,9 @@
             STRONGSELF
             strongSelf->_macLB.text = [strongSelf macString:@"还未连接设备"];
             [YSBLEManager sharedInstance].macAdd = nil;
-            
+            [YSBLEManager sharedInstance].deviceIdentifier = nil;
             [UserInfoModel setUserDefaultDeviceMacAddr:@""];
+            [UserInfoModel setUserDefaultDeviceIdentifier:@""];
         }];
     }
 }
@@ -104,6 +105,7 @@
 - (void)logout:(NSNotification *)notification
 {
     [YSBLEManager sharedInstance].macAdd = nil;
+    
     _macLB.text = [self macString:@"还未连接设备"];
 }
 
