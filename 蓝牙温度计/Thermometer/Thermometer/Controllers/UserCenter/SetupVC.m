@@ -61,7 +61,7 @@
 
 - (NSString *)macString:(NSString*)string
 {
-    return [NSString stringWithFormat:@"清空设备"];
+    return [NSString stringWithFormat:@"%@",string];
     //return [NSString stringWithFormat:@"   MAC地址           %@",string];
 }
 
@@ -89,7 +89,7 @@
 
 - (void)clearMacAdd
 {
-    if ([[YSBLEManager sharedInstance].macAdd isAbsoluteValid])
+    if ([[YSBLEManager sharedInstance].deviceIdentifier isAbsoluteValid])
     {
         WEAKSELF
         [PRPAlertView showWithTitle:nil message:@"是否清楚默认设备" cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
