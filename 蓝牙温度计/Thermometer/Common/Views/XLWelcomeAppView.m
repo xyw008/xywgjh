@@ -95,9 +95,12 @@
                     CGFloat margin = 60;
                     CGFloat heigth = 40;
                     NSArray *titleArray = @[@"注册",@"登录",@"客人模式"];
+                    
+                    CGFloat startY = iPhone4 ? DynamicWidthValue640(580) : DynamicWidthValue640(720);
+                    
                     for (NSInteger j=0; j<titleArray.count; j++)
                     {
-                        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(margin, DynamicWidthValue640(720) + (heigth+ 8) * j, iv.width - margin * 2, heigth)];
+                        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(margin, startY + (heigth+ 8) * j, iv.width - margin * 2, heigth)];
                         btn.tag = kBtnStartTag + j;
                         btn.backgroundColor = [UIColor clearColor];
                         btn.titleLabel.font = SP16Font;

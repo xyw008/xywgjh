@@ -212,7 +212,9 @@
 
 - (void)initChartView
 {
-    _chartView = [[XLChartView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_headerView.frame) + 21, self.view.width - 20, DynamicWidthValue640(600))];
+    CGFloat height = iPhone4 ? DynamicWidthValue640(530) : DynamicWidthValue640(600);
+    
+    _chartView = [[XLChartView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_headerView.frame) + 21, self.view.width - 20, height)];
     _chartView.backgroundColor = [UIColor whiteColor];
     _chartView.linecolor = Common_BlueColor;
     _chartView.indexLBTextColor = [UIColor blackColor];

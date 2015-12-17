@@ -25,20 +25,21 @@
     [self setNavigationItemTitle:@"设置"];
     
     CGFloat margin = 15;
-    NSString *macAdd = [YSBLEManager sharedInstance].macAdd;
+    NSString *macAdd = [YSBLEManager sharedInstance].deviceIdentifier;
     
     _macLB = [[UILabel alloc] initWithFrame:CGRectMake(margin, 20, IPHONE_WIDTH - margin * 2, 40)];
     ViewRadius(_macLB, 5);
     _macLB.font = SP16Font;
     _macLB.backgroundColor = [UIColor whiteColor];
     _macLB.textColor = Common_BlackColor;
-    _macLB.text = [macAdd isAbsoluteValid] ? [self macString:macAdd] : [self macString:@"还未连接设备"];
+    _macLB.textAlignment = NSTextAlignmentCenter;
+    _macLB.text = [macAdd isAbsoluteValid] ? [self macString:@"清空设备"] : [self macString:@"还未连接设备"];
     [self.view addSubview:_macLB];
     
     _macLB.userInteractionEnabled = YES;
     UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clearMacAdd)];
     [_macLB addGestureRecognizer:longGesture];
-    _macLB.hidden = YES;
+    //_macLB.hidden = YES;
     
     
     UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -60,7 +61,8 @@
 
 - (NSString *)macString:(NSString*)string
 {
-    return [NSString stringWithFormat:@"   MAC地址           %@",string];
+    return [NSString stringWithFormat:@"清空设备"];
+    //return [NSString stringWithFormat:@"   MAC地址           %@",string];
 }
 
 - (void)didReceiveMemoryWarning {

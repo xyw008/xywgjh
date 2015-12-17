@@ -10,8 +10,8 @@
 #import "BLEManager.h"
 #import "AccountStautsManager.h"
 
-#define kTempFont       [UIFont fontWithName:@"UniDreamLED" size:90]
-#define kSmallTempFont  [UIFont fontWithName:@"UniDreamLED" size:79]
+#define kTempFont       IPHONE_WIDTH == 320 ? [UIFont fontWithName:@"UniDreamLED" size:72] : [UIFont fontWithName:@"UniDreamLED" size:90]
+#define kSmallTempFont  IPHONE_WIDTH == 320 ? [UIFont fontWithName:@"UniDreamLED" size:62] : [UIFont fontWithName:@"UniDreamLED" size:79]
 
 @interface TemperaturesShowView ()
 {
@@ -121,6 +121,7 @@
     _highestTemperature = 0;
     [self initTemperaturesImageView];
     [self initTemperaturesTitleView];
+    
 }
 
 //温度计图片
@@ -129,7 +130,9 @@
     //温度计图片
     NSString *temperatureImgStr = _isFTypeTemperature ? @"home_temperature_bg_f" : @"home_temperature_bg_t";
     
-    _temperaturesIV = [[UIImageView alloc] initWithFrame:CGRectMake(32, 55, DynamicWidthValue640(200), DynamicWidthValue640(587))];
+    CGFloat startY = iPhone4 ? 15 : 55;
+    
+    _temperaturesIV = [[UIImageView alloc] initWithFrame:CGRectMake(32, startY, DynamicWidthValue640(200), DynamicWidthValue640(587))];
     _temperaturesIV.image = [UIImage imageNamed:temperatureImgStr];
     
     //温度计颜色视图
@@ -299,7 +302,14 @@
 
 - (void)setTemperatureColorViewInitHeight
 {
-    CGFloat height = DynamicWidthValue640(275/1.5) - 22;
+    CGFloat height = DynamicWidthValue640(275/1.5);
+    if (iPhone4)
+        height -= 16;
+    else if (iPhone5)
+        height -= 18;
+    else
+        height -= 22;
+    
     _temperaturesColorView.frame = CGRectMake(_temperaturesColorView.frameOriginX, CGRectGetMaxY(_temperaturesIV.frame) - height, _temperaturesColorView.width, height);
     _temperaturesColorView.backgroundColor = [TemperaturesShowView getTemperaturesColor:0];
 }
@@ -320,12 +330,12 @@
         temperatureImgStr = @"home_temperature_bg_f";
         unitStr = @"°F";
         nowTp = [BLEManager getFTemperatureWithC:nowTp];
-        hightestTp = [BLEManager getFTemperatureWithC:hightestTp];
+        //hightestTp = [BLEManager getFTemperatureWithC:hightestTp];
     }
     else
     {
         nowTp = [BLEManager getCTemperatureWithF:nowTp];
-        hightestTp = [BLEManager getCTemperatureWithF:hightestTp];
+        //hightestTp = [BLEManager getCTemperatureWithF:hightestTp];
     }
     _highestTemperature = hightestTp;
     _temperaturesIV.image = [UIImage imageNamed:temperatureImgStr];
@@ -461,9 +471,14 @@
         }
     }
     
-    if (temperature <= 32)
+    if (temperature < 32)
     {
-        height -= 22;
+        if (iPhone4)
+            height -= 16;
+        else if (iPhone5)
+            height -= 18;
+        else
+            height -= 22;
     }
     else if (temperature >= 44)
     {
@@ -488,7 +503,7 @@
     if (temperature > _highestTemperature) {
         _highestTemperature = temperature;
     }
-    
+
     CGFloat showHighestTemp = _isFTypeTemperature ? [BLEManager getFTemperatureWithC:_highestTemperature] : _highestTemperature;
     
     NSString *unitStr = _isFTypeTemperature ? @"°F" : @"°C";

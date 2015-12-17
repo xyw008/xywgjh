@@ -337,7 +337,10 @@
 
 - (void)initBgScrollView
 {
-    _bgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH,DynamicWidthValue640(587) + 55)];
+    
+    CGFloat height = iPhone4 ? DynamicWidthValue640(587) + 15 : DynamicWidthValue640(587) + 55;
+    
+    _bgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH,height)];
     _bgScrollView.pagingEnabled = YES;
     _bgScrollView.showsHorizontalScrollIndicator = NO;
     
@@ -348,7 +351,7 @@
 
 - (void)initTemperaturesShowView
 {
-    _temperaturesShowView = [[TemperaturesShowView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH,DynamicWidthValue640(587) + 55)];
+    _temperaturesShowView = [[TemperaturesShowView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH,_bgScrollView.height)];
     //[_temperaturesShowView setTemperature:0];
     //[self.view addSubview:_temperaturesShowView];
     [_bgScrollView addSubview:_temperaturesShowView];
@@ -428,7 +431,9 @@
 {
     CGFloat startX = DpToPx(24)/2;
     
-    UIView *bottomBgView = [[UIView alloc] initWithFrame:CGRectMake(startX, CGRectGetMaxY(_bgScrollView.frame) + 38, IPHONE_WIDTH - startX * 2, DynamicWidthValue640(150))];
+    CGFloat startY = iPhone4 ? CGRectGetMaxY(_bgScrollView.frame) + 15 : CGRectGetMaxY(_bgScrollView.frame) + 38;
+    
+    UIView *bottomBgView = [[UIView alloc] initWithFrame:CGRectMake(startX, startY, IPHONE_WIDTH - startX * 2, DynamicWidthValue640(150))];
     bottomBgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bottomBgView];
     
