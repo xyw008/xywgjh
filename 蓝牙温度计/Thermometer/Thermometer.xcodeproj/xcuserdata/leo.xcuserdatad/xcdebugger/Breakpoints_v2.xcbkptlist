@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Common/Utilities/BLETools/BC/YSBLEManager.m"
-            timestampString = "471951061.169009"
+            timestampString = "472019878.441511"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "435"
-            endingLineNumber = "435"
+            startingLineNumber = "437"
+            endingLineNumber = "437"
             landmarkName = "-bluethoothDelegate"
             landmarkType = "5">
          </BreakpointContent>

@@ -26,6 +26,8 @@
 @interface YSBLEManager ()<NetRequestDelegate>
 {
     
+    NSString                    *_identifier;
+    
     BabyBluetooth               *_babyBluethooth;
     NSDate                      *_startScanBluethoothDate;//开始扫描蓝牙时间
     

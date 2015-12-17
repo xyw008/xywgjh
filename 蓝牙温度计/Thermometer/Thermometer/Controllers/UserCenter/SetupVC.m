@@ -33,11 +33,11 @@
     _macLB.backgroundColor = [UIColor whiteColor];
     _macLB.textColor = Common_BlackColor;
     _macLB.textAlignment = NSTextAlignmentCenter;
-    _macLB.text = [macAdd isAbsoluteValid] ? [self macString:@"清空设备"] : [self macString:@"还未连接设备"];
+    _macLB.text = [macAdd isAbsoluteValid] ? [self macString:@"清空默认设备"] : [self macString:@"还未连接设备"];
     [self.view addSubview:_macLB];
     
     _macLB.userInteractionEnabled = YES;
-    UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clearMacAdd)];
+    UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clearMacAdd:)];
     [_macLB addGestureRecognizer:longGesture];
     //_macLB.hidden = YES;
     
@@ -87,20 +87,24 @@
     [self backViewController];
 }
 
-- (void)clearMacAdd
+- (void)clearMacAdd:(UILongPressGestureRecognizer*)sender
 {
-    if ([[YSBLEManager sharedInstance].deviceIdentifier isAbsoluteValid])
-    {
-        WEAKSELF
-        [PRPAlertView showWithTitle:nil message:@"是否清楚默认设备" cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
-            STRONGSELF
-            strongSelf->_macLB.text = [strongSelf macString:@"还未连接设备"];
-            [YSBLEManager sharedInstance].macAdd = nil;
-            [YSBLEManager sharedInstance].deviceIdentifier = nil;
-            [UserInfoModel setUserDefaultDeviceMacAddr:@""];
-            [UserInfoModel setUserDefaultDeviceIdentifier:@""];
-        }];
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        
+        if ([[YSBLEManager sharedInstance].deviceIdentifier isAbsoluteValid])
+        {
+            WEAKSELF
+            [PRPAlertView showWithTitle:nil message:@"是否清除默认设备" cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
+                STRONGSELF
+                strongSelf->_macLB.text = [strongSelf macString:@"还未连接设备"];
+                [YSBLEManager sharedInstance].macAdd = nil;
+                [YSBLEManager sharedInstance].deviceIdentifier = nil;
+                [UserInfoModel setUserDefaultDeviceMacAddr:@""];
+                [UserInfoModel setUserDefaultDeviceIdentifier:@""];
+            }];
+        }
     }
+    
 }
 
 
