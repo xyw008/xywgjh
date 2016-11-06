@@ -15,10 +15,16 @@
 {
     XLWelcomeAppView            *_welcomeAppView;//第一次启动app
 }
+@property (weak, nonatomic) IBOutlet UILabel *companyLabel;
+
 @property (weak, nonatomic) IBOutlet UIButton *updateVersionBtn;
 @property (weak, nonatomic) IBOutlet UIButton *guideBtn;
 @property (weak, nonatomic) IBOutlet UIButton *followBtn;
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *versionDescLabel;
+@property (weak, nonatomic) IBOutlet UILabel *guideDescLabel;
+@property (weak, nonatomic) IBOutlet UILabel *followDescLabel;
 
 @end
 
@@ -44,7 +50,7 @@
 
 - (void)setPageLocalizableText
 {
-    [self setNavigationItemTitle:@"关于"];
+    [self setNavigationItemTitle:LocalizedStr(about)];
 }
 
 - (void)configureViewsProperties
@@ -73,6 +79,11 @@
     [self configureViewsProperties];
     
     _versionLabel.text = [NSString stringWithFormat:@"V%@", APP_VERSION];
+    
+    _companyLabel.text = LocalizedStr(company);
+    _versionDescLabel.text = LocalizedStr(soft_version);
+    _guideDescLabel.text = LocalizedStr(soft_help);
+    _followDescLabel.text = LocalizedStr(concern_us);
 }
 
 - (IBAction)clickOperationBtn:(UIButton *)sender {

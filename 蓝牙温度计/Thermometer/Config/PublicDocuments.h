@@ -71,10 +71,10 @@
 
 
 #define AlertTitle                      @"温馨提示"
-#define Cancel                          @"取消"
-#define Confirm                         @"确定"
+#define Cancel                          LocalizedStr(soft_cancel)
+#define Confirm                         LocalizedStr(soft_ok)
 
-#define NoConnectionNetwork             @"没有网络连接,请设置后重试"
+#define NoConnectionNetwork             LocalizedStr(open_network)
 #define Loading                         @"加载中..."
 #define LoadFailed                      @"加载失败"
 #define SaveFailed                      @"保存失败"

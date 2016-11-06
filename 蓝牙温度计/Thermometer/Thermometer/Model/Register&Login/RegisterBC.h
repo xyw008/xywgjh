@@ -14,6 +14,7 @@ typedef void (^failedHandle)  (NSError *error);
 
 @interface RegisterBC : NSObject <NetRequestDelegate>
 
+/*
 /// 获取验证码
 - (void)getVerificationCodeWithMobilePhoneNumber:(NSString *)phoneNumber
                                    successHandle:(successHandle)success
@@ -40,5 +41,6 @@ typedef void (^failedHandle)  (NSError *error);
                    passwordConfirm:(NSString *)passwordConfirm
                      successHandle:(successHandle)success
                       failedHandle:(failedHandle)failed;
+*/
 
 @end

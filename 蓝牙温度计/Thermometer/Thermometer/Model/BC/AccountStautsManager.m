@@ -145,13 +145,13 @@ DEF_SINGLETON(AccountStautsManager);
         if (temp >= _highTemp)
         {
             _isDisconnectAlarm = NO;
-            [self startAlarm:@"高温警报"];
+            [self startAlarm:LocalizedStr(temp_high_tips)];
         }
         
         if (temp <= _lowTemp)
         {
             _isDisconnectAlarm = NO;
-            [self startAlarm:@"低温警报"];
+            [self startAlarm:LocalizedStr(temp_low_tips)];
         }
     }
 }
@@ -161,7 +161,7 @@ DEF_SINGLETON(AccountStautsManager);
     if (_disconnectAlarm)
     {
         _isDisconnectAlarm = YES;
-        [self startAlarm:@"设备已断开"];
+        [self startAlarm:LocalizedStr(disconnect_tips)];
         
         //[[NSNotificationCenter defaultCenter] postNotificationName:BluetoothDisconnectNotificationKey object:nil userInfo:nil];
     }
@@ -276,7 +276,7 @@ DEF_SINGLETON(AccountStautsManager);
 - (void)showAlarmAlert:(NSString*)title
 {
     if (_isDisconnectAlarm) {
-        _alarmAlert = [[UIAlertView alloc] initWithTitle:@"报警提示" message:title delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        _alarmAlert = [[UIAlertView alloc] initWithTitle:LocalizedStr(temp_alarm) message:title delegate:self cancelButtonTitle:LocalizedStr(soft_ok) otherButtonTitles: nil];
         [_alarmAlert show];
         
         [[YSBLEManager sharedInstance] initBluetoothInfo];
@@ -285,7 +285,7 @@ DEF_SINGLETON(AccountStautsManager);
     else
     {
         
-        _alarmAlert = [[UIAlertView alloc] initWithTitle:@"报警提示" message:title delegate:self cancelButtonTitle:nil otherButtonTitles:@"十分钟后再次提醒",@"二十分钟后再次提醒",@"三十分钟后再次提醒", nil];
+        _alarmAlert = [[UIAlertView alloc] initWithTitle:LocalizedStr(temp_alarm) message:title delegate:self cancelButtonTitle:nil otherButtonTitles:LocalizedStr(remind_me_after), LocalizedStr(remind_me_after_20),LocalizedStr(remind_me_after_30), nil];
         [_alarmAlert show];
     }
 }

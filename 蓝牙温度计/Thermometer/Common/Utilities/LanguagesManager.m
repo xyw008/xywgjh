@@ -24,8 +24,13 @@ static NSString *currentLanguageType = nil;
     NSString *current = [languages objectAtIndex:0];
     */
     
+    NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+    NSArray *languages = [defs objectForKey:@"AppleLanguages"];
+    NSString *preferredLang = [languages objectAtIndex:0];
+    
+    NSString *curLang = [UserInfoModel objectForKey:CurrentLanguageTypeKey];
     // 取出预设值
-    if ([UserInfoModel objectForKey:CurrentLanguageTypeKey])
+    if ([curLang isAbsoluteValid] && [curLang isEqualToString:preferredLang])
     {
         currentLanguageType = [UserInfoModel objectForKey:CurrentLanguageTypeKey];
     }
@@ -49,7 +54,11 @@ static NSString *currentLanguageType = nil;
     
     dispatch_once(&onceToken, ^{
         
-        staticAppLanguagesArray = @[SimpleChinese, TradictionalChinese];
+        NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+        NSArray *languages = [defs objectForKey:@"AppleLanguages"];
+        NSString *preferredLang = [languages objectAtIndex:0];
+        
+        staticAppLanguagesArray = @[preferredLang, TradictionalChinese];
     });
     return staticAppLanguagesArray;
 }
@@ -87,13 +96,7 @@ static NSString *currentLanguageType = nil;
     
     if (!bundle)
     {
-        NSString *defaultPath = [[NSBundle mainBundle] pathForResource:SimpleChinese ofType:@"lproj"];
-        bundle = [NSBundle bundleWithPath:defaultPath];
-        
-        if (!bundle)
-        {
-            bundle = [NSBundle mainBundle];
-        }
+        bundle = [NSBundle mainBundle];
     }
 }
 

@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavigationItemTitle:@"报警设置"];
+    [self setNavigationItemTitle:LocalizedStr(alarm_setting)];
     [self loadLocalData];
     [self initialization];
     
@@ -57,10 +57,10 @@
 
 - (void)loadLocalData
 {
-    _tabSectionTitleArray = @[@"报警选项", @"报警方式", @"报警温度设置"];
-    _tabRowTitleArray = @[@[@"高低温报警", @"断线报警"],
-                          @[@"报警铃声", @"报警震动", @"报警铃声设置"],
-                          @[@"高温", @"低温(防踢被)"]];
+    _tabSectionTitleArray = @[LocalizedStr(alarm_options), LocalizedStr(alarm_mode), LocalizedStr(temp_setting)];
+    _tabRowTitleArray = @[@[LocalizedStr(temp_alarm), LocalizedStr(unconnect_alarm)],
+                          @[LocalizedStr(alarm_ring), LocalizedStr(alarm_vibrating), LocalizedStr(ring_setting)],
+                          @[LocalizedStr(temp_high), LocalizedStr(temp_low__)]];
 }
 
 - (UIView *)cellAccessoryViewWithIndexPath:(NSIndexPath *)indexPath

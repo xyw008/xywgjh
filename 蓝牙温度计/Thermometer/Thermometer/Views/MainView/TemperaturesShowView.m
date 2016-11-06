@@ -10,8 +10,8 @@
 #import "BLEManager.h"
 #import "AccountStautsManager.h"
 
-#define kTempFont       IPHONE_WIDTH == 320 ? [UIFont fontWithName:@"UniDreamLED" size:72] : [UIFont fontWithName:@"UniDreamLED" size:90]
-#define kSmallTempFont  IPHONE_WIDTH == 320 ? [UIFont fontWithName:@"UniDreamLED" size:62] : [UIFont fontWithName:@"UniDreamLED" size:79]
+#define kTempFont       IPHONE_WIDTH == 320 ? [UIFont fontWithName:@"UniDreamLED" size:62] : [UIFont fontWithName:@"UniDreamLED" size:90]
+#define kSmallTempFont  IPHONE_WIDTH == 320 ? [UIFont fontWithName:@"UniDreamLED" size:52] : [UIFont fontWithName:@"UniDreamLED" size:79]
 
 @interface TemperaturesShowView ()
 {
@@ -78,15 +78,15 @@
 + (NSString*)getTemperaturesStatus:(CGFloat)temperature
 {
     if (temperature <= 35.9)
-        return @"低温";
+        return LocalizedStr(temp_low);
     else if(temperature <= 37.4)
-        return @"正常";
+        return LocalizedStr(temp_normal);
     else if(temperature <= 37.9)
-        return @"低烧";
+        return LocalizedStr(low_fever);
     else if(temperature <= 45)
-        return @"高烧";
+        return LocalizedStr(high_fever);
     else
-        return @"异常";
+        return LocalizedStr(temp_exception);
 }
 
 + (NSString*)getBetteyImage:(CGFloat)bettey
@@ -160,13 +160,14 @@
 {
     _searchLB = [[UILabel alloc] init];
     _searchLB.textColor = Common_GreenColor;
-    _searchLB.font = [UIFont systemFontOfSize:45];
-    _searchLB.text = @"搜索中";
+    _searchLB.font = [UIFont systemFontOfSize:kGetScaleValueBaseIP6(45)];
+    _searchLB.text = LocalizedStr(searching);
+    _searchLB.textAlignment = NSTextAlignmentRight;
     [self addSubview:_searchLB];
     
     [_searchLB mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_temperaturesIV.mas_top).offset(70);
-        make.right.equalTo(self.mas_right).offset(-40);
+        make.right.equalTo(self.mas_right).offset(-kGetScaleValueBaseIP6(30));
         make.height.equalTo(50);
         make.width.equalTo([_searchLB.text sizeWithFont:_searchLB.font constrainedToWidth:400]);
     }];
@@ -190,7 +191,7 @@
     _unitLB.hidden = YES;
     
     CGFloat statusLBHeight = DynamicWidthValue640(32);
-    _statusLB = [[UILabel alloc] initWithText:@"正常" font:SP12Font];
+    _statusLB = [[UILabel alloc] initWithText:LocalizedStr(temp_normal) font:SP12Font];
     _statusLB.backgroundColor = _unitLB.backgroundColor;
     _statusLB.textColor = [UIColor whiteColor];
     _statusLB.textAlignment = NSTextAlignmentCenter;
@@ -198,11 +199,11 @@
     [self addSubview:_statusLB];
     _statusLB.hidden = YES;
  
-    _highestLB = [self creatLBText:@"最高温度:"];
-    _highestValueLB = [self creatLBText:@"0.0度"];
+    _highestLB = [self creatLBText:LocalizedStr(highest_temp__)];
+    _highestValueLB = [self creatLBText:@"0.0°"];
     //_testTimeLB = [self creatLBText:@"已测:"];
     //_testTimeValueLB = [self creatLBText:@"58分钟"];
-    _deviceLB = [self creatLBText:@"设备:"];
+    _deviceLB = [self creatLBText:LocalizedStr(device)];
     
     _deviceSignalIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_device_wifi_00"]];
     [self addSubview:_deviceSignalIV];
@@ -242,7 +243,7 @@
     }];
     
     //最高温度值LB宽度
-    CGFloat highestValueLBWidth = [@"36.8度" sizeWithFont:_highestValueLB.font constrainedToWidth:1000].width + 8;
+    CGFloat highestValueLBWidth = [@"36.8°C" sizeWithFont:_highestValueLB.font constrainedToWidth:1000].width + 8;
     [_highestValueLB mas_updateConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_statusLB.mas_right);
         make.top.equalTo(_highestLB.mas_top);
@@ -264,10 +265,12 @@
 //        make.width.equalTo(_highestValueLB.mas_width);
 //    }];
     
+    CGFloat deviceLBWidth = [_deviceLB.text sizeWithFont:_highestLB.font constrainedToWidth:300].width + 8;
+
     [_deviceLB mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_highestLB.mas_bottom).offset(14);
         make.right.equalTo(_highestLB.mas_right);
-        make.width.equalTo(_highestLB.mas_width);
+        make.width.equalTo(deviceLBWidth);
         make.height.equalTo(_highestLB.mas_height);
     }];
     
@@ -350,7 +353,7 @@
 - (void)setIsRemoteType:(BOOL)isRemoteType
 {
     _isRemoteType = isRemoteType;
-    _searchLB.text = _isRemoteType ? @"同步中" : @"搜索中";
+    _searchLB.text = _isRemoteType ? LocalizedStr(synchronizing) : LocalizedStr(searching);
     if (_isRemoteType)
     {
         _deviceLB.hidden = YES;
@@ -433,7 +436,7 @@
         
         _searchLB.text = @"温度低";
         _searchLB.textColor = tempColor;
-        _searchLB.font = [UIFont systemFontOfSize:45];
+        _searchLB.font = [UIFont systemFontOfSize:kGetScaleValueBaseIP6(45)];
     }
     else if (temperature >= 45)
     {
@@ -457,7 +460,7 @@
         
         _searchLB.text = @"温度高";
         _searchLB.textColor = tempColor;
-        _searchLB.font = [UIFont systemFontOfSize:45];
+        _searchLB.font = [UIFont systemFontOfSize:kGetScaleValueBaseIP6(45)];
     }
     else
     {

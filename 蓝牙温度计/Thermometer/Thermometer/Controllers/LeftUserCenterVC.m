@@ -401,14 +401,14 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     {
         if (0 == indexPath.row)
         {
-            UITableViewCell *cell = [self getTitleCellForRowAtIndexPath:indexPath title:@"成员管理"];
+            UITableViewCell *cell = [self getTitleCellForRowAtIndexPath:indexPath title:LocalizedStr(member_managed)];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             return cell;
         }
         else if (_userItemArray.count + 1 == indexPath.row)
         {
-            return [self getUserCellForRowAtIndexPath:indexPath nickname:@"新增成员" image:@"leftmenu_icon_adduser"];
+            return [self getUserCellForRowAtIndexPath:indexPath nickname:LocalizedStr(add_member) image:@"leftmenu_icon_adduser"];
         }
         else
         {
@@ -428,7 +428,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
     }
     else if (1 == indexPath.section)
     {
-        return [self getTitleCellForRowAtIndexPath:indexPath title:0 == indexPath.row ? @"设置" : @"关于"];
+        return [self getTitleCellForRowAtIndexPath:indexPath title:0 == indexPath.row ? LocalizedStr(setting) : LocalizedStr(about)];
     }
     return nil;
 }
@@ -459,7 +459,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                 }
                 
                 WEAKSELF
-                [PRPAlertView showWithTitle:nil message:@"是否切换成员" cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
+                [PRPAlertView showWithTitle:nil message:LocalizedStr(change_user) cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
                     STRONGSELF
                     
                     [AccountStautsManager sharedInstance].nowUserItem = item;

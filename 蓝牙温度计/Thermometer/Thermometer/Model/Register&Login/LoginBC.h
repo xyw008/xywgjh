@@ -24,6 +24,7 @@ typedef void (^failedHandle)  (NSError *error);
             successHandle:(successHandle)success
              failedHandle:(failedHandle)failed;
 
+/*
 // 动态验证码登录
 - (void)dynamicLoginWithUserName:(NSString *)userName
                 verificationCode:(NSString *)code
@@ -31,5 +32,6 @@ typedef void (^failedHandle)  (NSError *error);
                          showHUD:(BOOL)show
                    successHandle:(successHandle)success
                     failedHandle:(failedHandle)failed;
+*/
 
 @end

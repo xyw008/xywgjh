@@ -1,0 +1,32 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1AF7752217A9D9410BE5F13786533F31F062C653",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++3947" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1AF7752217A9D9410BE5F13786533F31F062C653" : 0,
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++3947" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "28497C44-2467-42C0-9AA4-AE6A220E4377",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1AF7752217A9D9410BE5F13786533F31F062C653" : "FindLawyer\/",
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++3947" : "FindLawyer\/%E8%93%9D%E7%89%99%E6%B8%A9%E5%BA%A6%E8%AE%A1\/Thermometer\/Class\/Nimbus\/src\/webcontroller\/resources\/NimbusWebController.bundle\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Thermometer",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "蓝牙温度计\/Thermometer\/Thermometer.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/xyw008\/xywgjh.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1AF7752217A9D9410BE5F13786533F31F062C653"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/192.168.0.100\/o2o_ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "43ad27df-ac1c-4d72-822e-fa1f3520b629++3947"
+    }
+  ]
+}

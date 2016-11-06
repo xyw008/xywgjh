@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet NITextField *passwordLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
+@property (weak, nonatomic) IBOutlet UIButton *forgetPasswordBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *closeBtn;
 
@@ -74,7 +75,7 @@
 
 - (void)setPageLocalizableText
 {
-    [self setNavigationItemTitle:@"登录"];
+    [self setNavigationItemTitle:LocalizedStr(login)];
     [self setup];
 }
 
@@ -92,24 +93,30 @@
     _userNameLabel.backgroundColor = [UIColor clearColor];
     _userNameLabel.textColor = whiteColor;
     _userNameLabel.placeholderTextColor = whiteColor;
+    _userNameLabel.placeholder = LocalizedStr(mobile_phone_no);
     // _userNameLabel.text = [UserInfoModel getUserDefaultLoginName];
     
     _passwordLabel.backgroundColor = [UIColor clearColor];
     _passwordLabel.textColor = whiteColor;
     _passwordLabel.placeholderTextColor = whiteColor;
+    _passwordLabel.placeholder = LocalizedStr(password);
     // _passwordLabel.text = [UserInfoModel getUserDefaultPassword];
     
     _loginBtn.backgroundColor = Common_GreenColor;
     [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_loginBtn setTitle:LocalizedStr(login) forState:UIControlStateNormal];
     
     _registerBtn.backgroundColor = [UIColor clearColor];
     [_registerBtn setTitleColor:whiteColor forState:UIControlStateNormal];
+    [_registerBtn setTitle:LocalizedStr(create_an_account) forState:UIControlStateNormal];
     [_registerBtn addLineWithPosition:ViewDrawLinePostionType_Top
                             lineColor:whiteColor
                             lineWidth:LineWidth];
     
 //    _userNameLabel.text = @"18688897808";
 //    _passwordLabel.text = @"123456";
+    
+    [_forgetPasswordBtn setTitle:LocalizedStr(forgot_password) forState:UIControlStateNormal];
     
     _closeBtn.hidden = !_isShowCloseBtn;
 }

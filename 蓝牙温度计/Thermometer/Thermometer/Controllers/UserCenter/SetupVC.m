@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = HEXCOLOR(0XF7F7F7);
-    [self setNavigationItemTitle:@"设置"];
+    [self setNavigationItemTitle:LocalizedStr(setting)];
     
     CGFloat margin = 15;
     NSString *macAdd = [YSBLEManager sharedInstance].deviceIdentifier;
@@ -33,7 +33,7 @@
     _macLB.backgroundColor = [UIColor whiteColor];
     _macLB.textColor = Common_BlackColor;
     _macLB.textAlignment = NSTextAlignmentCenter;
-    _macLB.text = [macAdd isAbsoluteValid] ? [self macString:@"清空默认设备"] : [self macString:@"还未连接设备"];
+    _macLB.text = [macAdd isAbsoluteValid] ? [self macString:@"清空默认设备"] : [self macString:LocalizedStr(unconnec_device)];
     [self.view addSubview:_macLB];
     
     _macLB.userInteractionEnabled = YES;
@@ -46,7 +46,7 @@
     logoutBtn.frame = CGRectMake(margin, CGRectGetMaxY(_macLB.frame) + 35, _macLB.width, 40);
     logoutBtn.backgroundColor = Common_GreenColor;
     [logoutBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [logoutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
+    [logoutBtn setTitle:LocalizedStr(log_out) forState:UIControlStateNormal];
     [logoutBtn addTarget:self action:@selector(logoutBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
     logoutBtn.titleLabel.font = SP16Font;
     ViewRadius(logoutBtn, 5);
@@ -96,7 +96,7 @@
             WEAKSELF
             [PRPAlertView showWithTitle:nil message:@"是否清除默认设备" cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
                 STRONGSELF
-                strongSelf->_macLB.text = [strongSelf macString:@"还未连接设备"];
+                strongSelf->_macLB.text = [strongSelf macString:LocalizedStr(unconnec_device)];
                 [YSBLEManager sharedInstance].macAdd = nil;
                 [YSBLEManager sharedInstance].deviceIdentifier = nil;
                 [UserInfoModel setUserDefaultDeviceMacAddr:@""];
@@ -112,7 +112,7 @@
 {
     [YSBLEManager sharedInstance].macAdd = nil;
     
-    _macLB.text = [self macString:@"还未连接设备"];
+    _macLB.text = [self macString:LocalizedStr(unconnec_device)];
 }
 
 

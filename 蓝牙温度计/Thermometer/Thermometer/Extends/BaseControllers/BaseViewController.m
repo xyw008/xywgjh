@@ -408,7 +408,7 @@
     _pickPhotoCancelHandle = [cancelHandle copy];
     _isCropped = isCropped;
     
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:LocalizedStr(All_Cancel) destructiveButtonTitle:nil otherButtonTitles:LocalizedStr(All_PickFromCamera), LocalizedStr(All_PickFromAlbum), nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:LocalizedStr(soft_cancel) destructiveButtonTitle:nil otherButtonTitles:LocalizedStr(take_photo), LocalizedStr(from_gallery), nil];
     
     [sheet showInView:self.view];
 }

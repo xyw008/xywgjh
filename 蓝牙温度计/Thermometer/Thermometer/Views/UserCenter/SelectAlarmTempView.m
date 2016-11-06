@@ -44,7 +44,7 @@
         [self addSubview:_pickerView];
         
         UILabel *unitLB = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_pickerView.frame) + 3, CGRectGetMaxY(_pickerView.frame) - _pickerView.height / 2 - 15, 34, 34)];
-        unitLB.text = @"度";
+        unitLB.text = @"°";
         unitLB.font = [UIFont systemFontOfSize:22.0];
         unitLB.textColor = Common_BlackColor;
         [self addSubview:unitLB];
@@ -58,11 +58,11 @@
         
         
         CGFloat btnHeight = 44;
-        UIButton *submitBtn = InsertButton(self, CGRectMake(-1, self.height - btnHeight + ThinLineWidth, self.width/2 + 1, btnHeight), 1000, @"确定", self, @selector(btnTouch:));
+        UIButton *submitBtn = InsertButton(self, CGRectMake(-1, self.height - btnHeight + ThinLineWidth, self.width/2 + 1, btnHeight), 1000, LocalizedStr(soft_ok), self, @selector(btnTouch:));
         [submitBtn setTitleColor:Common_BlackColor forState:UIControlStateNormal];
         submitBtn.titleLabel.font = SP15Font;
         
-        UIButton *cancelBtn = InsertButton(self, CGRectMake(CGRectGetMaxX(submitBtn.frame) - ThinLineWidth, submitBtn.frameOriginY, submitBtn.width, btnHeight), 1001, @"取消", self, @selector(btnTouch:));
+        UIButton *cancelBtn = InsertButton(self, CGRectMake(CGRectGetMaxX(submitBtn.frame) - ThinLineWidth, submitBtn.frameOriginY, submitBtn.width, btnHeight), 1001, LocalizedStr(soft_cancel), self, @selector(btnTouch:));
         [cancelBtn setTitleColor:Common_BlackColor forState:UIControlStateNormal];
         cancelBtn.titleLabel.font = SP15Font;
         

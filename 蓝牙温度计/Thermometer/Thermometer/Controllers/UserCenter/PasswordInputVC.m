@@ -29,7 +29,7 @@
     [super viewDidLoad];
     
     [self setup];
-    [self setNavigationItemTitle:_isModifyPassword ? @"修改密码" : @"设置密码"];
+    [self setNavigationItemTitle:_isModifyPassword ? LocalizedStr(reset_password) : @"设置密码"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -98,7 +98,7 @@
             make.top.equalTo(_onceMorePasswordTF.mas_bottom).offset(40);
         }];
         
-        [_commitBtn setTitle:@"确定" forState:UIControlStateNormal];
+        [_commitBtn setTitle:LocalizedStr(soft_ok) forState:UIControlStateNormal];
     }
     else
     {
@@ -166,7 +166,7 @@
         }
         
         if (![_passwordTF.text isEqualToString:_onceMorePasswordTF.text]) {
-            [self showHUDInfoByString:@"两次输入密码不一致"];
+            [self showHUDInfoByString:LocalizedStr(password_not_match)];
             return;
         }
     }

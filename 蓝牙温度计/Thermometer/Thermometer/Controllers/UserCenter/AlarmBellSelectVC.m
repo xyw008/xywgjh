@@ -28,11 +28,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:@"确定" action:@selector(selectSound)];
+    [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right barButtonTitle:LocalizedStr(soft_ok) action:@selector(selectSound)];
     
     _soundArray = @[@"beacon",@"circuit",@"hillside",@"night",@"ring",@"senca"];
     
-    [self setNavigationItemTitle:@"铃声选择"];
+    [self setNavigationItemTitle:LocalizedStr(ring_setting)];
     [self setupTableViewWithFrame:CGRectInset(self.view.frame, 0, 0)
                             style:UITableViewStylePlain
                   registerNibName:nil

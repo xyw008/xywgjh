@@ -5,3 +5,144 @@
   Created by swift on 15/1/26.
   Copyright (c) 2015年 com.gjh. All rights reserved.
 */
+
+"company" = "ZHU HAI YUSHI MEDICAL TECHNOLOGY CO.,LTD.";
+"soft_version" = "soft version";
+"soft_help" = "help";
+"concern_us" = "concern us";
+
+"enter_nickname" = "enter nickname";
+"gender" = "gender";
+"age" = "age";
+"male" = "M";
+"female" = "F";
+"family_role" = "family role";
+"baby" = "baby";
+"register" = "register";
+"login" = "login";
+"guest_mode" = "guest mode";
+"mobile_phone_no." = "mobile phone no.";
+"your_mobile_phone_no." = "mobile phone no.:";
+"password" = "password";
+"password__" = "password:";
+"forgot_password" = "forgot password";
+"create_an_account" = "create an account >>";
+"fill_password" = "fill password";
+"fill_password_again" = "fill password again";
+"log_out" = "log out";
+"verify_via_SMS" = "erify via SMS";
+"please_add_user" = "add user";
+"member_managed" = "member managed";
+"add_member" = "add member";
+
+"alarm_options" = "alarm options";
+"temp_alarm" = "temp alarm";
+"unconnect_alarm" = "unconnect alarm";
+"alarm_mode" = "alarm mode";
+"alarm_ring" = "alarm ring";
+"alarm_vibrating" = "alarm vibrating";
+"ring_setting" = "ring setting";
+"temp_setting" = "temp setting";
+
+"done" = "done";
+"mac" = "MAC";
+"unconnec_device" = "unconnec device";
+
+"temperature_anomaly" = "temp anomaly";
+"attention_please" = "attention please!";
+"alarm_setting" = "alarm";
+"history" = "history";
+"data_sync" = "sync";
+"toggle_units" = "units";
+
+"highest_temp" = "MAX";
+"lowest_temp" = "MIN";
+"highest_temp__" = "max: ";
+"device" = "device:";
+"bluetooth" = "bluetooth:";
+"not_open" = "close";
+"connect_BLE" = "local";
+"remote_monitor" = "remote";
+"select_mode" = "select mode";
+
+"setting" = "setting";
+"about" = "about";
+"app_name" = "Perfectemp";
+"searching" = "searching";
+"unconnect" = "unconnect";
+"unsupport" = "not support bluetooth";
+
+"temp_high" = "high temp";
+"temp_low__" = "low temp";
+"temp_low" = "low temp";
+"temp_normal" = "normal";
+"low_fever" = "low fever";
+"high_fever" = "high fever";
+"temp_exception" = "abnormal";
+"temp_low_tips" = "Temperature is too low,please check whether the thermometer to be put on correctly or not!";
+"temp_high_tips" = "Temperature is too high,please check whether the thermometer to be put on correctly or not!";
+"disconnect_tips" = "Disconnect with the mobile phone，please do not exceed the maximum distance!";
+"soft_update_no" = "The software is the latest version";
+"soft_update_title" = "Software Update";
+"soft_update_info" = "New version is detected，update now?";
+"soft_ok" = "OK";
+"soft_cancel" = "cancel";
+"soft_updating" = "updating";
+
+"open_network" = "please open network";
+"synchronizing" = "loading";
+"connecting" = "connecting";
+"remind_me_after" = "remind 10 minutes laster";
+"remind_me_after_20" ="remind 20 minutes laster";
+"remind_me_after_30" ="remind 30 minutes laster";
+"disconnect_until" = "disconnect thermometer until open bluetooth";
+"concern_us_tip" = "wait for update!";
+"loading" = "loading";
+"account_info" = "user information";
+"take_photo" = "take a photo";
+"insert_sdcard" = "insert sd card";
+"from_gallery" = "select form gallery";
+"no_memery_card" = "no memery!";
+"age_error" = "age error";
+"network_abnormal" = "network abnormal";
+"add_success" = "add success!";
+"user_exist" = "user exist,please change the nickname";
+"add_failed" = "add failed!";
+"modify_failed" = "modify failed!";
+"modify_success" = "modify success!";
+"temp_max_too_high" = "upper limit too high,continue setting?";
+"user_exist_act" = "user exist";
+"http_error" = "network error";
+"fill_error" = "fill error";
+"login_success" = "login success";
+"user_not_exist" = "user not exist";
+"user_not_exist_act" = "user not exist";
+"phone_pw_error" = "phone or password error";
+"press_again_no_alarm" = "press again then quit app!";
+"reset_password" = "reset password";
+"new_password" = "new password:";
+"password_not_match" = "assword not match";
+"register_success" = "register success!";
+"phone_exist" = "this phone has been registered";
+"register_error" = "register failed";
+"phone_no_exist" = "this phone has not been registered!";
+"please_login" = "please login";
+"change_user" = "change user?";
+"change" = "change";
+"delete_unrecoverable" = "after deleting data unrecoverable,continue?";
+"change_user_before_delete" = "change user before deleting";
+"delete_success" = "delete success!";
+"member_no_exist" = "member not exist!";
+"delete_failed" = "delete failed!";
+"application_error" = "application is abnormal and going to quit!";
+"find_thermometer" = "find a thermometer,connect it?";
+"search_again" = "search again";
+"not_find_default" = "find an unknow thermometer, set it for default device?";
+"set_default_device" = "set success!";
+
+"device_cache_tip" = "Thermometer saved temperature during booted to connected, if the thermometer saved the needless temperature, please clear the cache.";
+"clear" = "clear";
+"save" = "save";
+
+"update_running" = "waiting";
+"lastest_version" = "This is the lastest version.";

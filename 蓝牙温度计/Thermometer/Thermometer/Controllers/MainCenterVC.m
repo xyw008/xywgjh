@@ -437,7 +437,7 @@
     bottomBgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:bottomBgView];
     
-    NSArray *titleArray = @[@"报警设置",@"测量记录",@"数据同步",@"单位切换"];
+    NSArray *titleArray = @[LocalizedStr(alarm_setting),LocalizedStr(history),LocalizedStr(data_sync),LocalizedStr(toggle_units)];
     NSArray *imageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_cloud_f",@"home_icon_unit_f"];
     NSArray *selectImageArray = @[@"home_icon_alarm",@"home_icon_histroy",@"home_icon_cloud_n",@"home_icon_unit_c"];
     
@@ -524,17 +524,17 @@
     ViewRadius(contentView, 5);
     [_popBgView addSubview:contentView];
     
-    UILabel *titleLB = [[UILabel alloc] initWithText:@"选择使用模式" font:SP15Font];
+    UILabel *titleLB = [[UILabel alloc] initWithText:LocalizedStr(select_mode) font:SP15Font];
     titleLB.textAlignment = NSTextAlignmentCenter;
     titleLB.textColor = Common_BlackColor;
     [contentView addSubview:titleLB];
     
-    UIButton *bluetoothBtn = InsertButton(contentView, CGRectZero, 89877, @"蓝牙连接", self, @selector(connectBluetoothBtnTouch:));
+    UIButton *bluetoothBtn = InsertButton(contentView, CGRectZero, 89877, LocalizedStr(connect_BLE), self, @selector(connectBluetoothBtnTouch:));
     bluetoothBtn.titleLabel.font = SP14Font;
     bluetoothBtn.backgroundColor = Common_GreenColor;
     [bluetoothBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    UIButton *monitorBtn = InsertButton(contentView, CGRectZero, 89878, @"远程监控", self, @selector(monitorBtnTouch:));
+    UIButton *monitorBtn = InsertButton(contentView, CGRectZero, 89878, LocalizedStr(remote_monitor), self, @selector(monitorBtnTouch:));
     monitorBtn.titleLabel.font = bluetoothBtn.titleLabel.font;
     monitorBtn.backgroundColor = Common_GreenColor;
     [monitorBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -597,7 +597,7 @@
     NSInteger index = btn.tag - kBottomBtnStartTag;
     if (index != 3 && (_isVisitorType || ![AccountStautsManager sharedInstance].isLogin))
     {
-        [self showHUDInfoByString:@"请先登录"];
+        [self showHUDInfoByString:LocalizedStr(please_login)];
         return;
     }
     
@@ -656,7 +656,7 @@
 - (void)connectBluetoothBtnTouch:(UIButton*)btn
 {
     _temperaturesShowView.isRemoteType = NO;
-    _searchLB.text = @"搜索中";
+    _searchLB.text = LocalizedStr(searching);
     [AccountStautsManager sharedInstance].isBluetoothType = YES;
     
     [_popBgView removeFromSuperview];
@@ -699,7 +699,7 @@
     _popBgView = nil;
     
     _temperaturesShowView.isRemoteType = YES;
-    _searchLB.text = @"同步中";
+    _searchLB.text = LocalizedStr(synchronizing);
     [AccountStautsManager sharedInstance].isBluetoothType = NO;
     
     if (!_ysBluethooth) {
@@ -1018,7 +1018,7 @@
     
     if (![AccountStautsManager sharedInstance].isBluetoothType)
     {
-        [_temperaturesShowView setSearchLBText:@"同步中"];
+        [_temperaturesShowView setSearchLBText:LocalizedStr(synchronizing)];
         //[_gourTime invalidate];
         //_gourTime = nil;
 //        [self getNetworkData];
@@ -1056,13 +1056,13 @@
     // 跳转到登录页
     [self goLoginViewShowCloseBtn:NO];
     
-    [_temperaturesShowView setSearchLBText:@"搜索中"];
+    [_temperaturesShowView setSearchLBText:LocalizedStr(searching)];
     [_chartView loadDataArray:nil startDate:nil endDate:nil];
 }
 
 - (void)bluetoothDisconnect:(NSNotification *)notification
 {
-    [_temperaturesShowView setSearchLBText:@"搜索中"];
+    [_temperaturesShowView setSearchLBText:LocalizedStr(searching)];
     [_chartView loadDataArray:nil startDate:nil endDate:nil];
 //    [_ysBluethooth initBluetoothInfo];
 //    [_ysBluethooth startScanPeripherals];

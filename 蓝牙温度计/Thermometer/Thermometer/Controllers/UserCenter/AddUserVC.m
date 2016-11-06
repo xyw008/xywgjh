@@ -46,7 +46,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavigationItemTitle:_userItem ? @"修改成员" : @"新增成员"];
+    [self setNavigationItemTitle:_userItem ? LocalizedStr(member_managed) : LocalizedStr(add_member)];
     
     [self configureBarbuttonItemByPosition:BarbuttonItemPosition_Right
                                  normalImg:[UIImage imageNamed:@"navigationbar_icon_chose"]
@@ -60,7 +60,7 @@
     if (_userItem)
     {
         _nameTF.text = _userItem.userName;
-        _sexLB.text = _userItem.gender == 0 ? @"男" : @"女";
+        _sexLB.text = _userItem.gender == 0 ? LocalizedStr(male) : LocalizedStr(female);
         _ageLB.text = [NSString stringWithInt:_userItem.age];
         _sexString = _sexLB.text;
         _ageString = _ageLB.text;
@@ -103,7 +103,7 @@
     
     _nameTF = [[UITextField alloc] init];
     _nameTF.font = kFont;
-    _nameTF.placeholder = @"请输入姓名";
+    _nameTF.placeholder = LocalizedStr(enter_nickname);
     [self.view addSubview:_nameTF];
     
     [_headIV mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -146,7 +146,7 @@
     _sexLB.backgroundColor = [UIColor clearColor];
     _sexLB.textColor = Common_BlackColor;
     _sexLB.font = _nameTF.font;
-    _sexLB.text = @"性别";
+    _sexLB.text = LocalizedStr(gender);
     [_sexLB addTarget:self action:@selector(selectSex:)];
     [self.view addSubview:_sexLB];
     
@@ -160,7 +160,7 @@
     _ageLB.backgroundColor = [UIColor clearColor];
     _ageLB.textColor = Common_BlackColor;
     _ageLB.font = _nameTF.font;
-    _ageLB.text = @"年龄";
+    _ageLB.text = LocalizedStr(age);
     [_ageLB addTarget:self action:@selector(selectAge:)];
     [self.view addSubview:_ageLB];
     
@@ -230,7 +230,7 @@
     UILabel *roleTitleLB = [[UILabel alloc] init];
     roleTitleLB.font = _nameTF.font;
     roleTitleLB.textColor = Common_BlackColor;
-    roleTitleLB.text = @"家庭成员";
+    roleTitleLB.text = LocalizedStr(family_role);
     [self.view addSubview:roleTitleLB];
     
     
@@ -346,7 +346,7 @@
                 case NetUserRequestType_ChangeUserInfo:
                 {
                     strongSelf->_userItem.userName = strongSelf->_nameTF.text;
-                    strongSelf->_userItem.gender = [strongSelf->_sexString isEqualToString:@"男"] ? 0 : 1;
+                    strongSelf->_userItem.gender = [strongSelf->_sexString isEqualToString:LocalizedStr(male)] ? 0 : 1;
                     strongSelf->_userItem.age = [strongSelf->_ageString integerValue];
                     strongSelf->_userItem.role = strongSelf->_lastSelectRoleBtn.tag - kRoleBtnStartTag + 1;
                     if (strongSelf->_headImage) {
@@ -371,7 +371,7 @@
 
 - (void)getNetworkData
 {
-    NSInteger gender = [_sexString isEqualToString:@"男"] ? 0 : 1;
+    NSInteger gender = [_sexString isEqualToString:LocalizedStr(male)] ? 0 : 1;
     NSString *imageString = @"";
     if (_headImage)
     {
@@ -435,7 +435,7 @@
 {
     if (![_nameTF.text isAbsoluteValid])
     {
-        [self showHUDInfoByString:@"请输入名字"];
+        [self showHUDInfoByString:LocalizedStr(enter_nickname)];
         return;
     }
     
@@ -516,7 +516,7 @@
 - (void)selectSex:(UITapGestureRecognizer*)tap
 {
     WEAKSELF
-    [[SlideActionSheet sharedInstance] showActionSheetTitleString:@"请选择性别" stringArray:@[@"男",@"女"] selectHnadle:^(NSInteger selectIndex, NSString *selectStr) {
+    [[SlideActionSheet sharedInstance] showActionSheetTitleString:LocalizedStr(gender) stringArray:@[LocalizedStr(male),LocalizedStr(female)] selectHnadle:^(NSInteger selectIndex, NSString *selectStr) {
         STRONGSELF
         strongSelf->_sexString = selectStr;
         strongSelf->_sexLB.text = selectStr;
@@ -528,7 +528,7 @@
 {
     NSString *nowTimeStr = [NSDate stringFromDate:[NSDate date] withFormatter:DataFormatter_Date];
     WEAKSELF
-    [[InterfaceHUDManager sharedInstance] showPickerWithTitle:@"请选择年龄"
+    [[InterfaceHUDManager sharedInstance] showPickerWithTitle:LocalizedStr(age)
                                                PickerShowType:PickerShowType_Date
                                            defaultSelectedStr:_birthdayStr
                                             pickerCancelBlock:^(NSString *pickedContent, NSArray *idsArray) {
@@ -536,7 +536,7 @@
     } pickerConfirmBlock:^(NSString *pickedContent, NSArray *idsArray) {
         STRONGSELF
         //2015-11-22
-        NSString *noticeStr = @"请选择正确的年龄";
+        NSString *noticeStr = LocalizedStr(age_error);
         
         if ([pickedContent isAbsoluteValid] && ![pickedContent isEqualToString:nowTimeStr])
         {

@@ -23,6 +23,7 @@
 
 @implementation RegisterBC
 
+/*
 - (void)getVerificationCodeWithMobilePhoneNumber:(NSString *)phoneNumber successHandle:(successHandle)success failedHandle:(failedHandle)failed
 {
     if ([StringJudgeManager isValidateStr:phoneNumber regexStr:MobilePhoneNumRegex])
@@ -220,5 +221,6 @@
         _success(infoObj);
     }
 }
+*/
 
 @end

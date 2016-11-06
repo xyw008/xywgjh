@@ -38,7 +38,7 @@
             
             if (show)
             {
-                [HUDManager showHUDWithToShowStr:@"登录中..."
+                [HUDManager showHUDWithToShowStr:nil
                                          HUDMode:MBProgressHUDModeIndeterminate
                                         autoHide:NO
                           userInteractionEnabled:NO];
@@ -75,16 +75,17 @@
         else
         {
             // [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:@"请输入密码"];
-            [HUDManager showAutoHideHUDWithToShowStr:@"请输入密码" HUDMode:MBProgressHUDModeText];
+            [HUDManager showAutoHideHUDWithToShowStr:LocalizedStr(fill_error) HUDMode:MBProgressHUDModeText];
         }
     }
     else
     {
         // [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:@"请输入用户名"];
-        [HUDManager showAutoHideHUDWithToShowStr:@"请输入用户名" HUDMode:MBProgressHUDModeText];
+        [HUDManager showAutoHideHUDWithToShowStr:LocalizedStr(fill_error) HUDMode:MBProgressHUDModeText];
     }
 }
 
+/*
 - (void)dynamicLoginWithUserName:(NSString *)userName verificationCode:(NSString *)code autoLogin:(BOOL)autoLogin showHUD:(BOOL)show successHandle:(successHandle)success failedHandle:(failedHandle)failed
 {
     if ([userName isAbsoluteValid])
@@ -96,7 +97,7 @@
             
             if (show)
             {
-                [HUDManager showHUDWithToShowStr:@"登录中..."
+                [HUDManager showHUDWithToShowStr:nil
                                          HUDMode:MBProgressHUDModeIndeterminate
                                         autoHide:NO
                           userInteractionEnabled:NO];
@@ -126,6 +127,7 @@
         [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:@"请输入用户名"];
     }
 }
+ */
 
 - (void)dealloc
 {
@@ -137,7 +139,15 @@
 - (void)netRequest:(NetRequest *)request failedWithError:(NSError *)error
 {
     [HUDManager hideHUD];
-    [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:error.localizedDescription];
+    
+    NSString *errMessage = nil;
+    if (3 == error.code) {
+        errMessage = LocalizedStr(phone_pw_error);
+    } else if (2 == error.code) {
+        errMessage = LocalizedStr(phone_no_exist);
+    }
+    
+    [[InterfaceHUDManager sharedInstance] showAutoHideAlertWithMessage:errMessage];
     
     if (_failed)
     {

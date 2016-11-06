@@ -1,0 +1,32 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1AF7752217A9D9410BE5F13786533F31F062C653",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++9572" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1AF7752217A9D9410BE5F13786533F31F062C653" : 0,
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++9572" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "913E7D61-84EC-4503-830D-5B78ABEF2171",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1AF7752217A9D9410BE5F13786533F31F062C653" : "FindLawyer\/",
+    "43ad27df-ac1c-4d72-822e-fa1f3520b629++9572" : "FindLawyer\/Findlawyer\/Class\/IQKeyBoardManager\/IQKeyboardManager.bundle\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Find lawyer",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Findlawyer\/Find lawyer.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/xyw008\/xywgjh.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1AF7752217A9D9410BE5F13786533F31F062C653"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/192.168.0.100\/o2o_ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "43ad27df-ac1c-4d72-822e-fa1f3520b629++9572"
+    }
+  ]
+}
