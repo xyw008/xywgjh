@@ -342,7 +342,7 @@
                 }
                 else
                 {
-                    [weakSelf showHUDInfoByString:@"报警温度设置时，高温要比低温高"];
+                    [weakSelf showHUDInfoByString:LocalizedStr(tem_set_err_notice)];
                 }
             }
             

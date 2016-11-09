@@ -6,6 +6,27 @@
   Copyright (c) 2015年 com.gjh. All rights reserved.
 */
 
+////////////////////////////////////////////////////////
+
+"yushi" = "Yushi Medical";
+"has_copy_yushi" = "Wechat”Yushi Medical”have been copied to the clipboard";
+"tem_set_err_notice" = "Alarm temperature is setting incorrect.";
+"clear_default_device" = "Delete the default device";
+"clear_default_device_notice" = "Do you confirm to delete the default device?";
+"input_password_notice" = "Please enter the password";
+"input_password_again_notice" = "Please repeat the password";
+"set_password" = "Set the password";
+"input_new_password" = "Please enter a new password";
+"input_new_password_again" = "Please repeat the new password";
+"quit_password_set_notice" = "Do you confirm to quit the password setting?";
+"please_add_member" = "No member for the present.Please add members";
+"please_choose_ring" = "please choose a ringe";
+"please_choose_gender" = "please select a gender";
+"please_enter_age" = "please enter the age";
+"please_choose_member_type" = "please select a member role";
+
+////////////////////////////////////////////////////////
+
 "company" = "ZHU HAI YUSHI MEDICAL TECHNOLOGY CO.,LTD.";
 "soft_version" = "soft version";
 "soft_help" = "help";
@@ -146,3 +167,79 @@
 
 "update_running" = "waiting";
 "lastest_version" = "This is the lastest version.";
+
+// mob
+"welcome"="Click the icon to continue";
+"RegisterBySMS"="To register by SMS verification code";
+"addressbookfriends"="Friends from address book";
+"getUserinfo" = "Access the user's data";
+"submitUserInfo" = "Submitting";
+"register"="Register";
+"RegisterByVoiceCall" = "To register by voice recognition";
+"back"="Return";
+"labelnotice"="Please confirm your country and region and enter your phone number";
+"telfield"="Please fill in your phone number";
+"nextbtn"="Next";
+"countrylable"="Country and region";
+"countrychoose"="Select the country or region";
+
+"notice"="Notice";
+"errorphonenumber"="The number is error, please fill it in again.";
+"sure"="Yes";
+
+"willsendthecodeto"="The SMS verification code will be sent to this number";
+"surephonenumber"="Confirm the phone number";
+"cancel"="Cancel";
+
+"codesenderrormsg"="Failure sending SMS, please try again later";
+"codesenderrtitle"="Failure sending SMS";
+
+"maxcodemsg"="Exceeded the number of verification code requests, please try again later";
+"maxcode"="Exceeded the maximum number";
+
+"codetoooftenmsg"="Request for SMS verification is too frequent";
+
+"verifycode"="Please enter the verification code";
+"verifylabel"="The verification code is already sent";
+"timelabel"="Please wait for SMS about 60s";
+"repeatsms"="Can not receive the SMS?";
+"submit"="Submit";
+"sendingin"="Sending";
+"timelablemsg"="Receiving the verification code";
+"second"="Second";
+
+"verifycoderightmsg"="Correct";
+"verifycoderighttitle"="Verification is successful";
+"verifycodeerrormsg"="Verification code is invalid, please request the code again";
+"verifycodeerrortitle"="Validation failur";
+
+"cannotgetsmsmsg"="The verification code will be sent again";
+
+"codedelaymsg"="SMS could be sending delay, click the icon to return and start again";
+"wait"="Waitting";
+
+"verifycodeformaterror"="The format is error, please enter again.";
+"doesnotsupportarea"="The service in this area is not supported for the present.";
+
+"addfriends"="Add friends";
+"invitefriends"="Invite friends";
+"hasjoined"="Added user";
+"toinvitefriends"="Friends to be invited";
+"phonecontacts"="Contacts";
+
+"loading"="Loading";
+"authorizedcontact"="Unauthorized access to the contacts, please give an authorization in [Setting--Privacy-Address book].";
+
+"addfriendstitle"="Add friends";
+"addfriendsmsg"="The message is already sent, please wait patiently for reply.";
+
+"sendinvite"="Send invitations";
+"notjoined"="Not joined";
+"phonecode"="Phone number";
+"smsmessage"="Welcome to join the \"SMS_SDK\". Web: http://mob.com";
+"choosephonenumber"="Select the number you want to invite.";
+
+"voiceCallMsgLabel" = "The voice recognition can be chosen:";
+"try voice call" = "Listen to the voice verification code";
+
+"verificationByVoiceCallConfirm" = "Confirm to receive the voice verification code, Please verify through SMS if you do not want to receive phone call";

@@ -33,7 +33,7 @@
     _macLB.backgroundColor = [UIColor whiteColor];
     _macLB.textColor = Common_BlackColor;
     _macLB.textAlignment = NSTextAlignmentCenter;
-    _macLB.text = [macAdd isAbsoluteValid] ? [self macString:@"清空默认设备"] : [self macString:LocalizedStr(unconnec_device)];
+    _macLB.text = [macAdd isAbsoluteValid] ? [self macString:LocalizedStr(clear_default_device)] : [self macString:LocalizedStr(unconnec_device)];
     [self.view addSubview:_macLB];
     
     _macLB.userInteractionEnabled = YES;
@@ -94,7 +94,7 @@
         if ([[YSBLEManager sharedInstance].deviceIdentifier isAbsoluteValid])
         {
             WEAKSELF
-            [PRPAlertView showWithTitle:nil message:@"是否清除默认设备" cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
+            [PRPAlertView showWithTitle:nil message:LocalizedStr(clear_default_device_notice) cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
                 STRONGSELF
                 strongSelf->_macLB.text = [strongSelf macString:LocalizedStr(unconnec_device)];
                 [YSBLEManager sharedInstance].macAdd = nil;

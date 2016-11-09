@@ -29,7 +29,7 @@
     [super viewDidLoad];
     
     [self setup];
-    [self setNavigationItemTitle:_isModifyPassword ? LocalizedStr(reset_password) : @"设置密码"];
+    [self setNavigationItemTitle:_isModifyPassword ? LocalizedStr(reset_password) : LocalizedStr(set_password)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,7 +47,7 @@
 - (void)backViewController
 {
     [PRPAlertView showWithTitle:nil
-                        message:@"您确定要退出密码设置吗?"
+                        message:LocalizedStr(quit_password_set_notice)
                     cancelTitle:Cancel
                     cancelBlock:nil
                      otherTitle:Confirm
@@ -63,7 +63,7 @@
                                    borderWidth:LineWidth];
     [_passwordTF setRadius:_passwordTF.frameHeight / 2];
     [_passwordTF setTextColor:Common_BlackColor];
-    [_passwordTF setPlaceholder:_isModifyPassword ? @"请输入新密码" : @"设置密码"];
+    [_passwordTF setPlaceholder:_isModifyPassword ? LocalizedStr(input_new_password) : LocalizedStr(set_password)];
     _passwordTF.textInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     _passwordTF.textAlignment = NSTextAlignmentCenter;
     _passwordTF.secureTextEntry = YES;
@@ -76,7 +76,7 @@
                                        borderWidth:LineWidth];
         [_onceMorePasswordTF setRadius:40 / 2];
         [_onceMorePasswordTF setTextColor:_passwordTF.textColor];
-        [_onceMorePasswordTF setPlaceholder:@"请再次输入新密码"];
+        [_onceMorePasswordTF setPlaceholder:LocalizedStr(input_new_password_again)];
         _onceMorePasswordTF.textInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         _onceMorePasswordTF.textAlignment = NSTextAlignmentCenter;
         _onceMorePasswordTF.secureTextEntry = YES;
@@ -154,14 +154,14 @@
 - (void)getNetworkData
 {
     if (![_passwordTF.text isAbsoluteValid]) {
-        [self showHUDInfoByString:@"请输入密码"];
+        [self showHUDInfoByString:LocalizedStr(input_password_notice)];
         return;
     }
     
     if (_isModifyPassword)
     {
         if (![_onceMorePasswordTF.text isAbsoluteValid]) {
-            [self showHUDInfoByString:@"请再次输入密码"];
+            [self showHUDInfoByString:LocalizedStr(input_password_again_notice)];
             return;
         }
         

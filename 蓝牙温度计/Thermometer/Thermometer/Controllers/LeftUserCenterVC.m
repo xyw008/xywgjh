@@ -512,12 +512,12 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
                     if ([item.userName isEqualToString:[AccountStautsManager sharedInstance].nowUserItem.userName])
                     {
                         WEAKSELF
-                        [PRPAlertView showWithTitle:nil message:@"不能删除当前选择账号" cancelTitle:Confirm cancelBlock:nil otherTitle:nil otherBlock:nil];
+                        [PRPAlertView showWithTitle:nil message:LocalizedStr(change_user_before_delete) cancelTitle:Confirm cancelBlock:nil otherTitle:nil otherBlock:nil];
                     }
                     else
                     {
                         WEAKSELF
-                        [PRPAlertView showWithTitle:nil message:@"是否删除次用户" cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
+                        [PRPAlertView showWithTitle:nil message:LocalizedStr(delete_unrecoverable) cancelTitle:Cancel cancelBlock:nil otherTitle:Confirm otherBlock:^{
                             STRONGSELF
                             
                             strongSelf->_willDeleteUserItem = item;

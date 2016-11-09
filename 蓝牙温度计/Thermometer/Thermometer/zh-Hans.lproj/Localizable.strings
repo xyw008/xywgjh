@@ -56,6 +56,24 @@
 
 // 各控制器导航栏标题
 
+////////////////////////////////////////////////////////
+
+"yushi" = "于氏医疗";
+"has_copy_yushi" = "已复制于氏医疗微信号【于氏医疗】至剪切板";
+"tem_set_err_notice" = "报警温度设置时，高温要比低温高";
+"clear_default_device" = "清空默认设备";
+"clear_default_device_notice" = "是否清除默认设备";
+"input_password_notice" = "请输入密码";
+"input_password_again_notice" = "请再次输入密码";
+"set_password" = "设置密码";
+"input_new_password" = "请输入新密码";
+"input_new_password_again" = "请再次输入新密码";
+"quit_password_set_notice" = "你确定要退出密码设置吗？";
+"please_add_member" = "当前没有成员，请先添加成员";
+"please_choose_ring" = "请选择一个铃声";
+"please_choose_gender" = "请选择性别";
+"please_enter_age" = "请输入年龄";
+"please_choose_member_type" = "请选择成员角色";
 
 ////////////////////////////////////////////////////////
 

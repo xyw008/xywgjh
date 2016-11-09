@@ -440,21 +440,21 @@
     }
     
     if (![_sexString isAbsoluteValid]) {
-        [self showHUDInfoByString:@"请选择性别"];
+        [self showHUDInfoByString:LocalizedStr(please_choose_gender)];
         return;
     }
     
     if (![_ageString isAbsoluteValid]) {
-        [self showHUDInfoByString:@"请输入年龄"];
+        [self showHUDInfoByString:LocalizedStr(please_enter_age)];
         return;
     }
     
     if (!_lastSelectRoleBtn) {
-        [self showHUDInfoByString:@"请选择家庭角色"];
+        [self showHUDInfoByString:LocalizedStr(please_choose_member_type)];
         return;
     }
     
-    [self showHUDInfoByString:@"提交成功"];
+    [self showHUDInfoByString:_userItem ? LocalizedStr(modify_success) : LocalizedStr(add_success)];
     [self getNetworkData];
 }
 

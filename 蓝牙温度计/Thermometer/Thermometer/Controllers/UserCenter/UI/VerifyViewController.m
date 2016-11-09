@@ -116,7 +116,7 @@ static NSMutableArray* _userData2;
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"notice", nil)
                                                       message:NSLocalizedString(@"verifycodeformaterror", nil)
                                                      delegate:self
-                                            cancelButtonTitle:@"确定"
+                                            cancelButtonTitle:LocalizedStr(soft_ok)
                                             otherButtonTitles:nil, nil];
         [alert show];
     }
@@ -445,7 +445,7 @@ static NSMutableArray* _userData2;
         
         if (hasRegister)
         {
-            [HUDManager showAutoHideHUDWithToShowStr:@"此手机号码已经被注册" HUDMode:MBProgressHUDModeText];
+            [HUDManager showAutoHideHUDWithToShowStr:LocalizedStr(phone_exist) HUDMode:MBProgressHUDModeText];
             
             [self.navigationController popViewControllerAnimated:YES];
             

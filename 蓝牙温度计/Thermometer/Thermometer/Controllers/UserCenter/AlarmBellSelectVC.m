@@ -55,7 +55,7 @@
     }
     else
     {
-        [self showHUDInfoByString:@"请选择一个铃声"];
+        [self showHUDInfoByString:LocalizedStr(please_choose_ring)];
     }
 }
 

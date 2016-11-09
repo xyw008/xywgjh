@@ -117,10 +117,10 @@
     else if (sender == _followBtn)
     {
         UIPasteboard *paste = [UIPasteboard generalPasteboard];
-        [paste setString:@"于氏医疗"];
+        [paste setString:LocalizedStr(yushi)];
         
         [PRPAlertView showWithTitle:nil
-                            message:@"已复制于氏医疗微信号【于氏医疗】至剪切板"
+                            message:LocalizedStr(has_copy_yushi)
                         buttonTitle:Confirm];
     }
 }

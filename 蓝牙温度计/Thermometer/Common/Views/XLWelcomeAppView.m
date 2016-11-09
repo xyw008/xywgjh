@@ -94,7 +94,7 @@
                     _lastIV = iv;
                     CGFloat margin = 60;
                     CGFloat heigth = 40;
-                    NSArray *titleArray = @[@"注册",@"登录",@"客人模式"];
+                    NSArray *titleArray = @[LocalizedStr(register_),LocalizedStr(login),LocalizedStr(guest_mode)];
                     
                     CGFloat startY = iPhone4 ? DynamicWidthValue640(580) : DynamicWidthValue640(720);
                     
@@ -131,7 +131,7 @@
         else
         {
             if ([btn isKindOfClass:[UIButton class]]) {
-                [btn setTitle:@"确定" forState:UIControlStateNormal];
+                [btn setTitle:LocalizedStr(soft_ok) forState:UIControlStateNormal];
             }
         }
     }

@@ -57,6 +57,25 @@ static NSString * const All_Notification           = @"All_Notification";
 
 ////////////////////////////////////////////////////////////////////////////
 
+static NSString * const yushi = @"yushi";
+static NSString * const has_copy_yushi = @"has_copy_yushi";
+static NSString * const tem_set_err_notice = @"tem_set_err_notice";
+static NSString * const clear_default_device = @"clear_default_device";
+static NSString * const clear_default_device_notice = @"clear_default_device_notice";
+static NSString * const input_password_notice = @"input_password_notice";
+static NSString * const input_password_again_notice = @"input_password_again_notice";
+static NSString * const set_password = @"set_password";
+static NSString * const input_new_password = @"input_new_password";
+static NSString * const input_new_password_again = @"input_new_password_again";
+static NSString * const quit_password_set_notice = @"quit_password_set_notice";
+static NSString * const please_add_member = @"please_add_member";
+static NSString * const please_choose_ring = @"please_choose_ring";
+static NSString * const please_choose_gender = @"please_choose_gender";
+static NSString * const please_enter_age = @"please_enter_age";
+static NSString * const please_choose_member_type = @"please_choose_member_type";
+
+////////////////////////////////////////////////////////////////////////////
+
 static NSString * const company = @"company";
 static NSString * const soft_version = @"soft_version";
 static NSString * const soft_help = @"soft_help";

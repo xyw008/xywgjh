@@ -20,7 +20,7 @@ static Reachability *hostReachbility;            // 检测网络实例需要强�
 + (BOOL)startNetworkStatusNotifier
 {
     // 默认为有网
-    staticCurrentNetworkStatus = kReachableViaWWAN;
+    staticCurrentNetworkStatus = ReachableViaWWAN;
     
     // 检测设备网络状态
     hostReachbility = [Reachability reachabilityForInternetConnection]; // 可以以多种形式初始化
@@ -58,17 +58,17 @@ static Reachability *hostReachbility;            // 检测网络实例需要强�
 
 + (BOOL)isConnectNetwork
 {
-    return staticCurrentNetworkStatus != kNotReachable;
+    return staticCurrentNetworkStatus != NotReachable;
 }
 
 + (BOOL)isEnableWWAN
 {
-    return staticCurrentNetworkStatus == kReachableViaWWAN;
+    return staticCurrentNetworkStatus == ReachableViaWWAN;
 }
 
 + (BOOL)isEnableWIFI
 {
-    return staticCurrentNetworkStatus == kReachableViaWiFi;
+    return staticCurrentNetworkStatus == ReachableViaWiFi;
 }
 
 @end
