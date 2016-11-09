@@ -625,13 +625,13 @@
 {
     NSString *butTitleStr = [actionSheet buttonTitleAtIndex:buttonIndex];
     
-    if ([butTitleStr isEqualToString:LocalizedStr(All_PickFromCamera)])
+    if ([butTitleStr isEqualToString:LocalizedStr(take_photo)])
     {
         [self pickPhotoFromCameraByIsCropped:_isCropped
                                 cancelHandle:_pickPhotoCancelHandle
                          finishPickingHandle:_pickPhotoFinishHandle];
     }
-    else if ([butTitleStr isEqualToString:LocalizedStr(All_PickFromAlbum)])
+    else if ([butTitleStr isEqualToString:LocalizedStr(from_gallery)])
     {
         [self pickPhotoFromAlbumWithMaxNumberOfSelection:1
                                                isCropped:_isCropped
