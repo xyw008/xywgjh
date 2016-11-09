@@ -24,6 +24,8 @@
     NSInteger   _betweenTime;//警报间隔时间
     BOOL        _isDisconnectAlarm;//是断开连接警报
     UIAlertView *_alarmAlert;
+    
+    NSString    *_alarmNoticeStr; // 警告内容字符串
 }
 
 @end
@@ -79,6 +81,10 @@ DEF_SINGLETON(AccountStautsManager);
     return self;
 }
 
+- (BOOL)alarming
+{
+    return _alarming;
+}
 
 - (void)setNowUserItem:(UserItem *)nowUserItem
 {
@@ -173,6 +179,10 @@ DEF_SINGLETON(AccountStautsManager);
         return;
     }
     
+    if (!_highAndLowAlarm) {
+        return;
+    }
+    
     //警报中
     if (_alarming)
         return;
@@ -209,6 +219,7 @@ DEF_SINGLETON(AccountStautsManager);
     if (_bellAlarm || _shakeAlarm)
     {
         _alarming = YES;
+        _alarmNoticeStr = title;
         
         //不是断开警报
         if (!_isDisconnectAlarm)
@@ -229,7 +240,7 @@ DEF_SINGLETON(AccountStautsManager);
             //设置通知属性
             notification.alertBody = title; //通知主体
             // notification.applicationIconBadgeNumber=1;//应用程序图标右上角显示的消息数
-            notification.alertAction=@"打开应用"; //待机界面的滑动动作提示
+            notification.alertAction=LocalizedStr(open_application); //待机界面的滑动动作提示
             notification.alertLaunchImage=@"Default";//通过点击通知打开应用时的启动图片,这里使用程序启动图片
             //notification.soundName=UILocalNotificationDefaultSoundName;//收到通知时播放的声音，默认消息声音
             notification.soundName = nil;
@@ -288,6 +299,8 @@ DEF_SINGLETON(AccountStautsManager);
         _alarmAlert = [[UIAlertView alloc] initWithTitle:LocalizedStr(temp_alarm) message:title delegate:self cancelButtonTitle:nil otherButtonTitles:LocalizedStr(remind_me_after), LocalizedStr(remind_me_after_20),LocalizedStr(remind_me_after_30), nil];
         [_alarmAlert show];
     }
+    
+    _alarmNoticeStr = nil;
 }
 
 - (void)cancelAlarmAlert
@@ -302,6 +315,7 @@ DEF_SINGLETON(AccountStautsManager);
         [[ATAudioPlayManager shardManager] stopAllAudio];
         AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
         _alarming = NO;
+        _alarmNoticeStr = nil;
     }
     
     
@@ -362,6 +376,7 @@ void systemAudioCallback()
     [[ATAudioPlayManager shardManager] stopAllAudio];
     AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
     _alarming = NO;
+    _alarmNoticeStr = nil;
 }
 
 - (void)handleThermometerAlertActionWithAlertButtonIndex:(NSInteger)buttonIndex
@@ -382,6 +397,7 @@ void systemAudioCallback()
             _betweenTime = 30;
     }
     _alarming = NO;
+    _alarmNoticeStr = nil;
     [[ATAudioPlayManager shardManager] stopAllAudio];
     AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate);
     

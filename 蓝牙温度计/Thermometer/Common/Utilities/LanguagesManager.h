@@ -73,6 +73,7 @@ static NSString * const please_choose_ring = @"please_choose_ring";
 static NSString * const please_choose_gender = @"please_choose_gender";
 static NSString * const please_enter_age = @"please_enter_age";
 static NSString * const please_choose_member_type = @"please_choose_member_type";
+static NSString * const open_application = @"open_application";
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -128,6 +129,7 @@ static NSString * const toggle_units = @"toggle_units";
 static NSString * const highest_temp = @"highest_temp";
 static NSString * const lowest_temp = @"lowest_temp";
 static NSString * const highest_temp__ = @"highest_temp__";
+static NSString * const the_highest_temp = @"the_highest_temp";
 static NSString * const device = @"device";
 static NSString * const bluetooth = @"bluetooth";
 static NSString * const not_open = @"not_open";

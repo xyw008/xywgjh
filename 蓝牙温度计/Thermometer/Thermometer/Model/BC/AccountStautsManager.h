@@ -32,6 +32,9 @@ static NSString * const kChangeNowUserNotificationKey = @"kChangeNowUserNotifica
 @property (nonatomic,assign)BOOL        isBluetoothType;//是否是蓝牙模式
 
 #pragma mark 报警相关
+@property (nonatomic, assign, readonly) BOOL alarming;
+@property (nonatomic, copy, readonly) NSString *alarmNoticeStr;
+
 @property (nonatomic,assign)BOOL        highAndLowAlarm;//高低温报警开关
 @property (nonatomic,assign)BOOL        disconnectAlarm;//断开报警开关
 @property (nonatomic,assign)BOOL        bellAlarm;//报警铃声开关

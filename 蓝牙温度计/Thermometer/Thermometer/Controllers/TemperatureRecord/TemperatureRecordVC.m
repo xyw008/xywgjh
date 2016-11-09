@@ -191,7 +191,7 @@
             averageTemp = [BLEManager getFTemperatureWithC:averageTemp];
         }
         
-        NSString *averageStr = [NSString stringWithFormat:@"最高温度%.1lf度",averageTemp];
+        NSString *averageStr = [NSString stringWithFormat:@"%@%.1lf°", LocalizedStr(the_highest_temp),averageTemp];
         UILabel *temperatureLabel = InsertLabel(headerBtn,
                                                 CGRectZero,
                                                 NSTextAlignmentLeft,
@@ -677,7 +677,7 @@
     if ([YSBLEManager sharedInstance].isFUnit) {
         averageTemp = [BLEManager getFTemperatureWithC:averageTemp];
     }
-    NSString *tempStr = [NSString stringWithFormat:@"%.1lf度",averageTemp];
+    NSString *tempStr = [NSString stringWithFormat:@"%.1lf°",averageTemp];
     
     [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     

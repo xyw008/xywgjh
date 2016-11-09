@@ -74,6 +74,7 @@
 "please_choose_gender" = "请选择性别";
 "please_enter_age" = "请输入年龄";
 "please_choose_member_type" = "请选择成员角色";
+"open_application" = "打开应用";
 
 ////////////////////////////////////////////////////////
 
@@ -129,6 +130,7 @@
 "highest_temp" ="最高";
 "lowest_temp" ="最低";
 "highest_temp__" ="最高温度：";
+"the_highest_temp" ="最高温度";
 "device" ="设备：";
 "bluetooth" ="蓝牙：";
 "not_open" ="未开启";

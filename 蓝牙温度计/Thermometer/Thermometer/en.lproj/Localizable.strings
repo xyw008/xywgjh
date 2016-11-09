@@ -24,6 +24,7 @@
 "please_choose_gender" = "please select a gender";
 "please_enter_age" = "please enter the age";
 "please_choose_member_type" = "please select a member role";
+"open_application" = "open the application";
 
 ////////////////////////////////////////////////////////
 
@@ -79,6 +80,7 @@
 "highest_temp" = "MAX";
 "lowest_temp" = "MIN";
 "highest_temp__" = "max: ";
+"the_highest_temp" = "max";
 "device" = "device:";
 "bluetooth" = "bluetooth:";
 "not_open" = "close";

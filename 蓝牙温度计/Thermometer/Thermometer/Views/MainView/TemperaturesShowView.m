@@ -434,7 +434,7 @@
         _deviceSignalIV.hidden = NO;
         _searchLB.hidden = NO;
         
-        _searchLB.text = @"温度低";
+        _searchLB.text = LocalizedStr(temp_low);
         _searchLB.textColor = tempColor;
         _searchLB.font = [UIFont systemFontOfSize:kGetScaleValueBaseIP6(45)];
     }
@@ -458,7 +458,7 @@
         _deviceSignalIV.hidden = NO;
         _searchLB.hidden = NO;
         
-        _searchLB.text = @"温度高";
+        _searchLB.text = LocalizedStr(temp_high);
         _searchLB.textColor = tempColor;
         _searchLB.font = [UIFont systemFontOfSize:kGetScaleValueBaseIP6(45)];
     }

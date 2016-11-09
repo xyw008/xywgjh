@@ -287,7 +287,7 @@ DEF_SINGLETON(YSBLEManager);
                 else
                 {
                     strongSelf->_isShowAlerting = YES;
-                    [PRPAlertView showWithTitle:nil message:@"搜索到温度计是否链接" cancelTitle:Cancel cancelBlock:^{
+                    [PRPAlertView showWithTitle:nil message:LocalizedStr(find_thermometer) cancelTitle:Cancel cancelBlock:^{
                         
                         strongSelf->_isShowAlerting = NO;
                         
