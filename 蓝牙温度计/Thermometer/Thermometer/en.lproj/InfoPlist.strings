@@ -7,3 +7,9 @@
 */
 
 "CFBundleDisplayName" = "Perfectemp";
+
+"NSPhotoLibraryUsageDescription"        = "Applications need to access your photo album, whether to allow?";
+"NSMicrophoneUsageDescription"          = "Applications need to use the microphone, whether to allow?";
+"NSCameraUsageDescription"              = "Applications need to use the camera, whether to allow?";
+"NSBluetoothPeripheralUsageDescription" = "Applications need to use bluetooth, whether to allow?";
+"NSContactsUsageDescription"            = "Applications need access to your contacts, whether to allow?";

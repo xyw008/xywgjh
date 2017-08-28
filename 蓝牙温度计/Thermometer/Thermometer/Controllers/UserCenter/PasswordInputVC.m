@@ -102,8 +102,9 @@
     }
     else
     {
+        [_commitBtn setTitle:LocalizedStr(soft_ok) forState:UIControlStateNormal];
+        
         [_commitBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-            
             make.top.equalTo(_passwordTF.mas_bottom).offset(40);
         }];
     }

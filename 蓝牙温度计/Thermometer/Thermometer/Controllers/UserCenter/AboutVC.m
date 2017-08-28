@@ -95,6 +95,18 @@
     {
         [self hiddenNav:YES];
         NSArray *imageArray = @[@"lead_01.png",@"lead_02.png",@"lead_03.png"];
+        
+        // 判断系统语言
+        NSString *curLang = [[NSLocale preferredLanguages] objectAtIndex:0];
+        curLang = [curLang lowercaseString];
+        if ([curLang hasPrefix:@"en"]) {
+            if (iPhone4) {
+                imageArray = @[@"i4_1",@"i4_2",@"i4_3"];
+            } else {
+                imageArray = @[@"i6p_1",@"i6p_2",@"i6p_3"];
+            }
+        }
+        
         WEAKSELF
         _welcomeAppView = [XLWelcomeAppView showSuperView:self.view welcomeImage:imageArray callBack:^(NSInteger touchBtnIndex){
             if (0 == touchBtnIndex)//注册

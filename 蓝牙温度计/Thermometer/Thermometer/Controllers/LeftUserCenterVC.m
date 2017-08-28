@@ -309,7 +309,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
 }
 
 
-- (UITableViewCell*)getUserCellForRowAtIndexPath:(NSIndexPath *)indexPath nickname:(NSString*)nickname image:(NSString*)imageStr
+- (UITableViewCell*)getUserCellForRowAtIndexPath:(NSIndexPath *)indexPath nickname:(NSString*)nickname image:(NSString*)imageStr addLongPressHandle:(BOOL)addLongPressHandle
 {
     UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:cellIdentifier_User];
     if (!cell)
@@ -355,9 +355,12 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
             make.right.equalTo(cell.contentView.mas_right);
         }];
         
-        UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(deleteUser:)];
-        longGesture.minimumPressDuration = .7;
-        [cell.contentView addGestureRecognizer:longGesture];
+        if (addLongPressHandle) {
+            
+            UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(deleteUser:)];
+            longGesture.minimumPressDuration = .7;
+            [cell.contentView addGestureRecognizer:longGesture];
+        }
     }
     UIImageView *headIV = [cell.contentView viewWithTag:3000];
     headIV.image = [UIImage imageNamed:imageStr];
@@ -408,7 +411,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
         }
         else if (_userItemArray.count + 1 == indexPath.row)
         {
-            return [self getUserCellForRowAtIndexPath:indexPath nickname:LocalizedStr(add_member) image:@"leftmenu_icon_adduser"];
+            return [self getUserCellForRowAtIndexPath:indexPath nickname:LocalizedStr(add_member) image:@"leftmenu_icon_adduser" addLongPressHandle:YES];
         }
         else
         {
@@ -423,7 +426,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
             else if (5 == item.role)
                 imageSting = @"leftmenu_icon_grandf";
             
-            return [self getUserCellForRowAtIndexPath:indexPath nickname:item.userName image:imageSting];
+            return [self getUserCellForRowAtIndexPath:indexPath nickname:item.userName image:imageSting addLongPressHandle:YES];
         }
     }
     else if (1 == indexPath.section)
@@ -506,7 +509,7 @@ static NSString *cellIdentifier_User = @"cellIdentifier_User";
             if (indexPath.section == 0)
             {
                 
-                if (0 != indexPath.row || _userItemArray.count + 1 != indexPath.row)
+                if (0 != indexPath.row && _userItemArray.count + 1 != indexPath.row)
                 {
                     UserItem *item = (UserItem*)[_userItemArray objectAtIndex:indexPath.row - 1];
                     if ([item.userName isEqualToString:[AccountStautsManager sharedInstance].nowUserItem.userName])

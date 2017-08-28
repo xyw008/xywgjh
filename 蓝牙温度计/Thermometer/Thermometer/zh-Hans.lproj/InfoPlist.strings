@@ -7,3 +7,9 @@
 */
 
 "CFBundleDisplayName" = "健康吧";
+
+"NSPhotoLibraryUsageDescription"        = "应用需要访问您的相册，是否允许?";
+"NSMicrophoneUsageDescription"          = "应用需要使用麦克风，是否允许？";
+"NSCameraUsageDescription"              = "应用需要使用相机，是否允许？";
+"NSBluetoothPeripheralUsageDescription" = "应用需要使用蓝牙，是否允许?";
+"NSContactsUsageDescription"            = "应用需要访问您的联系人，是否允许?";

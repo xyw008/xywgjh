@@ -20,14 +20,14 @@
 #import "TemperatureRecordVC.h"
 #import "LoginVC.h"
 #import <SMS_SDK/SMSSDK.h>
-#import <SMS_SDK/SMSSDK+AddressBookMethods.h>
+#import <SMS_SDK/Extend/SMSSDK+AddressBookMethods.h>
 #import "PasswordInputVC.h"
 #import "BabyBluetooth.h"
 #import "AccountStautsManager.h"
 #import "UIFactory.h"
 
-#define appKey      @"a8ea83ab1e88"
-#define appSecret   @"984b8c403f774dc553356467397313c7"
+#define appKey      @"1942fa7c21588"
+#define appSecret   @"3082cebc97dd25784def4167daee6d6e"
 
 @interface AppDelegate () <NetRequestDelegate,RESideMenuDelegate>
 {

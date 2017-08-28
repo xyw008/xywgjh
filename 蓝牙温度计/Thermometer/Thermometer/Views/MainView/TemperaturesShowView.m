@@ -10,8 +10,10 @@
 #import "BLEManager.h"
 #import "AccountStautsManager.h"
 
-#define kTempFont       IPHONE_WIDTH == 320 ? [UIFont fontWithName:@"UniDreamLED" size:62] : [UIFont fontWithName:@"UniDreamLED" size:90]
-#define kSmallTempFont  IPHONE_WIDTH == 320 ? [UIFont fontWithName:@"UniDreamLED" size:52] : [UIFont fontWithName:@"UniDreamLED" size:79]
+#define kTempFont       IPHONE_WIDTH == 320 ? [UIFont fontWithName:@"UniDreamLED" size:65] : [UIFont fontWithName:@"UniDreamLED" size:88]
+#define kSmallTempFont  IPHONE_WIDTH == 320 ? [UIFont fontWithName:@"UniDreamLED" size:55] : [UIFont fontWithName:@"UniDreamLED" size:78]
+
+#define kSearchLabelFontSize 40
 
 @interface TemperaturesShowView ()
 {
@@ -160,7 +162,7 @@
 {
     _searchLB = [[UILabel alloc] init];
     _searchLB.textColor = Common_GreenColor;
-    _searchLB.font = [UIFont systemFontOfSize:kGetScaleValueBaseIP6(45)];
+    _searchLB.font = [UIFont systemFontOfSize:kGetScaleValueBaseIP6(kSearchLabelFontSize)];
     _searchLB.text = LocalizedStr(searching);
     _searchLB.textAlignment = NSTextAlignmentRight;
     [self addSubview:_searchLB];
@@ -169,7 +171,7 @@
         make.top.equalTo(_temperaturesIV.mas_top).offset(70);
         make.right.equalTo(self.mas_right).offset(-kGetScaleValueBaseIP6(30));
         make.height.equalTo(50);
-        make.width.equalTo([_searchLB.text sizeWithFont:_searchLB.font constrainedToWidth:400]);
+        // make.width.equalTo([_searchLB.text sizeWithFont:_searchLB.font constrainedToWidth:1000]);
     }];
     
     
@@ -236,7 +238,7 @@
     
     CGFloat highestLBWidth = [_highestLB.text sizeWithFont:_highestLB.font constrainedToWidth:300].width + 8;
     [_highestLB mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(_highestValueLB.mas_left).offset(-12);
+        make.right.equalTo(_highestValueLB.mas_left).offset(-2);
         make.top.equalTo(_temperaturesLB.mas_bottom).offset(24);
         make.height.equalTo(22);
         make.width.equalTo(highestLBWidth);
@@ -436,7 +438,7 @@
         
         _searchLB.text = LocalizedStr(temp_low);
         _searchLB.textColor = tempColor;
-        _searchLB.font = [UIFont systemFontOfSize:kGetScaleValueBaseIP6(45)];
+        _searchLB.font = [UIFont systemFontOfSize:kGetScaleValueBaseIP6(kSearchLabelFontSize)];
     }
     else if (temperature >= 45)
     {
@@ -460,7 +462,7 @@
         
         _searchLB.text = LocalizedStr(temp_high);
         _searchLB.textColor = tempColor;
-        _searchLB.font = [UIFont systemFontOfSize:kGetScaleValueBaseIP6(45)];
+        _searchLB.font = [UIFont systemFontOfSize:kGetScaleValueBaseIP6(kSearchLabelFontSize)];
     }
     else
     {
